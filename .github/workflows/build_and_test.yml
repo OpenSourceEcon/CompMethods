@@ -1,0 +1,47 @@
+name: Build and test [Python 3.10, 3.11]
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        python-version: ["3.10", "3.11"]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Setup Miniconda using Python ${{ matrix.python-version }}
+        uses: conda-incubator/setup-miniconda@v2
+        with:
+          miniforge-variant: Mambaforge
+          auto-update-conda: true
+          activate-environment: compmethods-dev
+          environment-file: environment.yml
+          python-version: ${{ matrix.python-version }}
+          auto-activate-base: false
+
+      - name: Build
+        shell: bash -l {0}
+        run: |
+          pip install -e .
+          pip install pytest-cov
+          pip install pytest-pycodestyle
+      - name: Test
+        shell: bash -l {0}
+        working-directory: ./
+        run: |
+          pytest -m 'not local' --cov=./ --cov-report=xml
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          files: ./coverage.xml
+          flags: unittests
+          name: codecov-umbrella
+          fail_ci_if_error: true
+          verbose: true
