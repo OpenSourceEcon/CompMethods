@@ -466,13 +466,7 @@ document.write(`
 <section id="project-version-tracking">
 <h2>Project version tracking<a class="headerlink" href="#project-version-tracking" title="Permalink to this heading">#</a></h2>
 <p>This project follows the <a class="reference external" href="http://semver.org/">semantic versioning protocol</a>. Any change impacts the version number, and the version number conveys API compatibility information <strong>only</strong>.</p>
-<p>Every pull request submitted to the main branch of the repository should update the <code class="docutils literal notranslate"><span class="pre">CHANGELOG.md</span></code> and <code class="docutils literal notranslate"><span class="pre">changelog.yaml</span></code> files as well as update the version number of the project in <code class="docutils literal notranslate"><span class="pre">setup.py</span></code>. These version updates to the version number and to the changelog file descriptions have the following structure and format:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">bump</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nv">major</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">minor</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">patch</span><span class="p p-Indicator">}</span>
-<span class="w">  </span><span class="nt">changes</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">{</span><span class="nv">added</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">removed</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">changed</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">fixed</span><span class="p p-Indicator">}:</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;variable or program&gt;</span>
-</pre></div>
-</div>
+<p>Every pull request submitted to the main branch of the repository should update the <code class="docutils literal notranslate"><span class="pre">CHANGELOG.md</span></code> file as well as update the version number of the project in <code class="docutils literal notranslate"><span class="pre">setup.py</span></code>.</p>
 <section id="patch-bump-3rd-digit-update">
 <h3>Patch bump (3rd digit update)<a class="headerlink" href="#patch-bump-3rd-digit-update" title="Permalink to this heading">#</a></h3>
 <ul class="simple">

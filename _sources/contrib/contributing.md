@@ -30,13 +30,7 @@ All pull requests must be reviewed by someone else than their original author, w
 
 This project follows the [semantic versioning protocol](http://semver.org/). Any change impacts the version number, and the version number conveys API compatibility information **only**.
 
-Every pull request submitted to the main branch of the repository should update the `CHANGELOG.md` and `changelog.yaml` files as well as update the version number of the project in `setup.py`. These version updates to the version number and to the changelog file descriptions have the following structure and format:
-```yaml
-- bump: {major, minor, patch}
-  changes:
-    {added, removed, changed, fixed}:
-      - <variable or program>
-```
+Every pull request submitted to the main branch of the repository should update the `CHANGELOG.md` file as well as update the version number of the project in `setup.py`.
 
 ### Patch bump (3rd digit update)
 
