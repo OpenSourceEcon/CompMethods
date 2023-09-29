@@ -1,6 +1,7 @@
-# How to contribute to the CompMethods book and repository.
+(Chap_Contrib)=
+# Contributor Guide
 
-The CompMethods project follows the [GitHub workflow](https://guides.github.com/introduction/flow/) and [semantic versioning protocol](http://semver.org/).
+This chapter details how to contribute to the *Computational Methods for Economists using Python* book and associated repository. The CompMethods project follows the [GitHub workflow](https://guides.github.com/introduction/flow/) and [semantic versioning protocol](http://semver.org/).
 
 
 ## Create an Issue
