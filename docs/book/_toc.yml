@@ -1,0 +1,41 @@
+format: jb-book
+root: index
+parts:
+  - caption: Contributor Guide
+    chapters:
+    - file: contrib/contributing
+  - caption: Coding in Python
+    chapters:
+    - file: python/intro
+    - file: python/StandardLibrary
+    - file: python/OOP
+    - file: python/NumPy
+    - file: python/Pandas
+    - file: python/Matplotlib
+    - file: python/SciPy
+    - file: python/DocStrings
+    - file: python/UnitTesting
+  - caption: Git and GitHub
+    chapters:
+    - file: git/intro
+  - caption: Basic Causal Inference
+    chapters:
+    - file: caus_inf/intro
+  - caption: Basic Machine Learning
+    chapters:
+    - file: basic_ml/intro
+  - caption: Neural Nets and Deep Learning
+    chapters:
+    - file: deep_learn/intro
+  - caption: Structural Estimation
+    chapters:
+    - file: struct_est/intro
+    - file: struct_est/GMM
+    - file: struct_est/SMM
+  - caption: Appendix
+    chapters:
+    - file: appendix/glossary
+    - file: appendix/intro
+  - caption: References
+    chapters:
+    - file: CompMethods_references

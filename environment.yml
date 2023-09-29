@@ -1,0 +1,27 @@
+name: compmethods-dev
+channels:
+- conda-forge
+dependencies:
+- python>=3.10
+- numpy
+- scipy
+- pandas
+- ipython
+- matplotlib
+- bokeh
+- sphinx
+- sphinx-argparse
+- sphinxcontrib-bibtex>=2.0.0
+- sphinx-math-dollar
+- pydata-sphinx-theme
+- jupyter-book>=0.11.3
+- jupyter
+- black
+- setuptools
+- pytest
+- coverage
+- pip
+- pip:
+  - linecheck
+  - yaml-changelog
+  - sphinx-exercise

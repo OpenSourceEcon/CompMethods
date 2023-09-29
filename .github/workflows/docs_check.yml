@@ -1,0 +1,28 @@
+name: Check that docs build
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Setup Miniconda
+        uses: conda-incubator/setup-miniconda@v2
+        with:
+          miniforge-variant: Mambaforge
+          activate-environment: compmethods-dev
+          environment-file: environment.yml
+          python-version: "3.10"
+          auto-activate-base: false
+
+      - name: Build # Build Jupyter Book
+        shell: bash -l {0}
+        run: |
+          pip install -e .
+          python -m ipykernel install --user --name=compmethods-dev
+          cd docs
+          jb build ./book
