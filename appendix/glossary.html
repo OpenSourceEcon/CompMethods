@@ -1,0 +1,601 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Glossary &#8212; Computational Methods for Economists using Python</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/exercise.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'appendix/glossary';</script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Appendix" href="intro.html" />
+    <link rel="prev" title="Simulated Method of Moments" href="../struct_est/SMM.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/CompMethodsLogo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/CompMethodsLogo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    Computational Methods for Economists using Python
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contributor Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../contrib/contributing.html">Contributor Guide</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Coding in Python</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../python/intro.html">Introduction to Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python/StandardLibrary.html">Python Standard Library</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../python/OOP.html">Object Oriented Programming</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../python/NumPy.html">NumPy</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../python/Pandas.html">Pandas</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../python/Matplotlib.html">Matplotlib</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../python/SciPy.html">SciPy</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../python/DocStrings.html">Docstrings and Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python/UnitTesting.html">Unit Testing</a></li>
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Git and GitHub</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../git/intro.html">Git and GitHub</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Basic Causal Inference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../caus_inf/intro.html">Basic Causal Inference</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Basic Machine Learning</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../basic_ml/intro.html">Basic Machine Learning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Neural Nets and Deep Learning</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../deep_learn/intro.html">Neural Nets and Deep Learning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Structural Estimation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../struct_est/intro.html">Structural Estimation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../struct_est/GMM.html">Generalized Method of Moments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../struct_est/SMM.html">Simulated Method of Moments</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Appendix</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Appendix</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">References</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../CompMethods_references.html">References</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/OpenSourceEcon/CompMethods" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/OpenSourceEcon/CompMethods/issues/new?title=Issue%20on%20page%20%2Fappendix/glossary.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/appendix/glossary.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Glossary</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="glossary">
+<span id="chap-glossary"></span><h1>Glossary<a class="headerlink" href="#glossary" title="Permalink to this heading">#</a></h1>
+<dl class="glossary simple">
+<dt id="term-application-programming-interface-API">application programming interface (API)<a class="headerlink" href="#term-application-programming-interface-API" title="Permalink to this term">#</a></dt><dd><p>An application programming interface or API is the medium, method, and rules through which a user interacts with software. The API includes a medium which can be a <a class="reference internal" href="#term-command-line-interface"><span class="xref std std-term">command line interface</span></a> on a specific <a class="reference internal" href="#term-local"><span class="xref std std-term">local</span></a> terminal or a <a class="reference internal" href="#term-graphical-user-interface"><span class="xref std std-term">graphical user interface</span></a>. The API also defines the commands through which a user interacts with the software.</p>
+</dd>
+<dt id="term-benevolent-dictator">benevolent dictator<a class="headerlink" href="#term-benevolent-dictator" title="Permalink to this term">#</a></dt><dd><p>TODO: Make <em>benevolent dictator</em> entry…</p>
+</dd>
+<dt id="term-Bitbucket">Bitbucket<a class="headerlink" href="#term-Bitbucket" title="Permalink to this term">#</a></dt><dd><p><em>Bitbucket</em> or <a class="reference external" href="https://bitbucket.org/"><em>Bitbucket.org</em></a> is a <a class="reference internal" href="#term-cloud"><span class="xref std std-term">cloud</span></a> <a class="reference internal" href="#term-source-code-management-service"><span class="xref std std-term">source code management service</span></a> platform designed to enable scalable, efficient, and secure version controlled collaboration by linking <a class="reference internal" href="#term-local"><span class="xref std std-term">local</span></a> <a class="reference internal" href="#term-Git"><span class="xref std std-term">Git</span></a> version controlled software development by developers.</p>
+</dd>
+<dt id="term-Bitkeeper">Bitkeeper<a class="headerlink" href="#term-Bitkeeper" title="Permalink to this term">#</a></dt><dd><p>TODO: Put Bitkeeper definition here…</p>
+</dd>
+<dt id="term-Box-Inc.">Box, Inc.<a class="headerlink" href="#term-Box-Inc." title="Permalink to this term">#</a></dt><dd><p>TODO: Box Inc. definition… University file sharing company…</p>
+</dd>
+<dt id="term-branch">branch<a class="headerlink" href="#term-branch" title="Permalink to this term">#</a></dt><dd><p>TODO: define branch</p>
+</dd>
+<dt id="term-centralized-version-control-system">centralized version control system<a class="headerlink" href="#term-centralized-version-control-system" title="Permalink to this term">#</a></dt><dd><p>A centralized version control system or CVCS is an approach to version control in which all the files in a <a class="reference internal" href="#term-repository"><span class="xref std std-term">repository</span></a> as well as the change history (content and timing) are located on a central <a class="reference internal" href="#term-remote"><span class="xref std std-term">remote</span></a> server. User’s check out versions of files from the repository and check them back in, creating new change history on the central server.</p>
+</dd>
+<dt id="term-clone">clone<a class="headerlink" href="#term-clone" title="Permalink to this term">#</a></dt><dd><p>Clone can be a verb or a noun in the context of <a class="reference internal" href="#term-Git"><span class="xref std std-term">Git</span></a> software. A clone is a <a class="reference internal" href="#term-local"><span class="xref std std-term">local</span></a> copy of a <a class="reference internal" href="#term-remote"><span class="xref std std-term">remote</span></a> <a class="reference internal" href="#term-repository"><span class="xref std std-term">repository</span></a> with its entire Git <a class="reference internal" href="#term-distributed-version-control-system"><span class="xref std std-term">distributed version control system</span></a> history. To <em>clone</em> a repository is to use the <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span> <span class="pre">[repo</span> <span class="pre">path]</span></code> command to copy a remote repository to your local machine with the accompanying Git version control history.</p>
+</dd>
+<dt id="term-cloud">cloud<a class="headerlink" href="#term-cloud" title="Permalink to this term">#</a></dt><dd><p>Cloud can be a descriptor or a noun. As a descriptor, cloud refers to computational resources, such as servers, that are accessed remotely via the internet. As a noun, remote computational resources and storage can be referred to generically as “the cloud”.</p>
+</dd>
+<dt id="term-command-line-interface">command line interface<a class="headerlink" href="#term-command-line-interface" title="Permalink to this term">#</a></dt><dd><p>TODO: A <em>command line interface</em> or CLI…</p>
+</dd>
+<dt id="term-commit">commit<a class="headerlink" href="#term-commit" title="Permalink to this term">#</a></dt><dd><p>TODO: <em>Commit</em> can be a verb or a noun. Define commit…</p>
+</dd>
+<dt id="term-continuous-integration">continuous integration<a class="headerlink" href="#term-continuous-integration" title="Permalink to this term">#</a></dt><dd><p>Continuous integration or continuous integration unit testing is…</p>
+</dd>
+<dt id="term-distributed-version-control-system">distributed version control system<a class="headerlink" href="#term-distributed-version-control-system" title="Permalink to this term">#</a></dt><dd><p>A <em>distributed version control system</em> or DVCS is <a class="reference internal" href="#term-version-control-system"><span class="xref std std-term">version control system</span></a> software on any computer, <a class="reference internal" href="#term-local"><span class="xref std std-term">local</span></a> or <a class="reference internal" href="#term-remote"><span class="xref std std-term">remote</span></a>, that tracks the entire history of changes to a <a class="reference internal" href="#term-repository"><span class="xref std std-term">repository</span></a> and coordinates and organizes collaboration among multiple users. It is distributed in the sense that multiple <a class="reference internal" href="#term-clone"><span class="xref std std-term">clone</span></a>s of a single <a class="reference internal" href="#term-remote"><span class="xref std std-term">remote</span></a> repository have the same full history of that repository.</p>
+</dd>
+<dt id="term-Dropbox">Dropbox<a class="headerlink" href="#term-Dropbox" title="Permalink to this term">#</a></dt><dd><p>TODO: define Dropbox</p>
+</dd>
+<dt id="term-fork">fork<a class="headerlink" href="#term-fork" title="Permalink to this term">#</a></dt><dd><p>TODO: define fork</p>
+</dd>
+<dt id="term-Git">Git<a class="headerlink" href="#term-Git" title="Permalink to this term">#</a></dt><dd><p><em>Git</em> is <a class="reference internal" href="#term-open-source"><span class="xref std std-term">open source</span></a> <a class="reference internal" href="#term-version-control-system"><span class="xref std std-term">version control system</span></a> software with capability designed to also operate as <a class="reference internal" href="#term-distributed-version-control-system"><span class="xref std std-term">distributed version control system</span></a> (DVCS) software that resides on your local computer and tracks changes and the history of changes to all the files in a directory or <a class="reference internal" href="#term-repository"><span class="xref std std-term">repository</span></a>. See the Git website <a class="reference external" href="https://git-scm.com/">https://git-scm.com/</a> and the <a class="reference external" href="https://en.wikipedia.org/wiki/Git">Git Wikipedia entry</a> <span id="id1">[<a class="reference internal" href="../CompMethods_references.html#id21" title="Wikipedia Contributors. &quot;Git&quot;. Wikipedia, The Free Encyclopedia, 2020. [Online; accessed 19-August-2020]. URL: https://en.wikipedia.org/wiki/Git.">Wikipedia Contributors, 2020</a>]</span> for more information.</p>
+</dd>
+<dt id="term-GitHub">GitHub<a class="headerlink" href="#term-GitHub" title="Permalink to this term">#</a></dt><dd><p><em>GitHub</em> or <a class="reference external" href="https://github.com/"><em>GitHub.com</em></a> is a <a class="reference internal" href="#term-cloud"><span class="xref std std-term">cloud</span></a> <a class="reference internal" href="#term-source-code-management-service"><span class="xref std std-term">source code management service</span></a> platform designed to enable scalable, efficient, and secure version controlled collaboration by linking <a class="reference internal" href="#term-local"><span class="xref std std-term">local</span></a> <a class="reference internal" href="#term-Git"><span class="xref std std-term">Git</span></a> version controlled software development by users. <em>GitHub</em>’s main business footprint is hosting a collection of millions of version controlled code repositories. In addition to being a platform for <a class="reference internal" href="#term-distributed-version-control-system"><span class="xref std std-term">distributed version control system</span></a> (DVCS), <em>GitHub</em>’s primary features include code review, project management, <a class="reference internal" href="#term-continuous-integration"><span class="xref std std-term">continuous integration</span></a> <a class="reference internal" href="#term-unit-testing"><span class="xref std std-term">unit testing</span></a>, <a class="reference internal" href="#term-GitHub-actions"><span class="xref std std-term">GitHub actions</span></a>, and associated web page (GitHub pages) and documentation hosting and deployment.</p>
+</dd>
+<dt id="term-GitHub-actions">GitHub actions<a class="headerlink" href="#term-GitHub-actions" title="Permalink to this term">#</a></dt><dd><p>GitHub actions</p>
+</dd>
+<dt id="term-GitLab">GitLab<a class="headerlink" href="#term-GitLab" title="Permalink to this term">#</a></dt><dd><p>TODO: define <em>GitLab</em>…</p>
+</dd>
+<dt id="term-Google-Docs">Google Docs<a class="headerlink" href="#term-Google-Docs" title="Permalink to this term">#</a></dt><dd><p>TODO: define Google Docs</p>
+</dd>
+<dt id="term-Google-Drive">Google Drive<a class="headerlink" href="#term-Google-Drive" title="Permalink to this term">#</a></dt><dd><p>TODO: define Google Drive</p>
+</dd>
+<dt id="term-graphical-user-interface">graphical user interface<a class="headerlink" href="#term-graphical-user-interface" title="Permalink to this term">#</a></dt><dd><p>A graphical user interface or GUI…</p>
+</dd>
+<dt id="term-integrated-development-environment">integrated development environment<a class="headerlink" href="#term-integrated-development-environment" title="Permalink to this term">#</a></dt><dd><p>Integrated development environment or IDE is a software application that comsolidates many of the functions of software development under one program. IDE’s often include a code editor, object memory and identification, debugger, and build automation tools. (See <a class="reference external" href="https://en.wikipedia.org/wiki/Integrated_development_environment">IDE Wikipedia entry</a> <span id="id2">[<a class="reference internal" href="../CompMethods_references.html#id22" title="Wikipedia Contributors. &quot;Integrated development environment&quot;. Wikipedia, The Free Encyclopedia, 2020. [Online; accessed 3-August-2020]. URL: https://en.wikipedia.org/wiki/Integrated_development_environment.">Wikipedia Contributors, 2020</a>]</span>.)</p>
+</dd>
+<dt id="term-Linux">Linux<a class="headerlink" href="#term-Linux" title="Permalink to this term">#</a></dt><dd><p>TODO: write Linux description…</p>
+</dd>
+<dt id="term-local">local<a class="headerlink" href="#term-local" title="Permalink to this term">#</a></dt><dd><p><em>Local</em> is a descriptor that refers to files that reside or operations that are performed on a user’s machine to which he or she has direct access without using the internet.</p>
+</dd>
+<dt id="term-local-version-control-system">local version control system<a class="headerlink" href="#term-local-version-control-system" title="Permalink to this term">#</a></dt><dd><p>A <em>local version control system</em> or LVCS is the simplest and most common approach to VCS. LVCS stores all the changes to the files in a <a class="reference internal" href="#term-repository"><span class="xref std std-term">repository</span></a> locally on the user’s machine as a series of changes or deltas in the files. This is the approach taken by Apple’s Time Machine backup software as most software that includes an “undo” function.</p>
+</dd>
+<dt id="term-merge">merge<a class="headerlink" href="#term-merge" title="Permalink to this term">#</a></dt><dd><p>TODO: create <em>merge</em> entry…</p>
+</dd>
+<dt id="term-OG-Core">OG-Core<a class="headerlink" href="#term-OG-Core" title="Permalink to this term">#</a></dt><dd><p><em><code class="docutils literal notranslate"><span class="pre">OG-Core</span></code></em> is an open source large scale overlapping generations macroeconomic model of fiscal policy. This model is general and is a dependency of country calibrations that use <code class="docutils literal notranslate"><span class="pre">OG-Core</span></code>, such as <code class="docutils literal notranslate"><span class="pre">OG-USA</span></code>.</p>
+</dd>
+<dt id="term-open-source">open source<a class="headerlink" href="#term-open-source" title="Permalink to this term">#</a></dt><dd><p><em>Open source</em> is a descriptor that is usually applied to software or computer code projects, but can also be applied to any project based upon or represented by digital files. An open source project is one in which the source code is freely available to be downloaded and used and in which collaboration, improvements, and changes to the code are encouraged. The free download and use (outward direction) aspect of <em>open source</em> is often emphasized. But the collaboration and improvement contribution (inward direction) aspect is at least as important. <a class="reference internal" href="#term-Git"><span class="xref std std-term">Git</span></a> and <a class="reference internal" href="#term-GitHub"><span class="xref std std-term">GitHub</span></a> have enabled efficient and scalable collaboration to a degree not seen in other collaborative workflows.</p>
+</dd>
+<dt id="term-pull-request">pull request<a class="headerlink" href="#term-pull-request" title="Permalink to this term">#</a></dt><dd><p>TODO: define <em>pull request</em>…</p>
+</dd>
+<dt id="term-remote">remote<a class="headerlink" href="#term-remote" title="Permalink to this term">#</a></dt><dd><p><em>Remote</em> is a descriptor that refers to files that reside or operations that are carried out on a server to which a user has access using the internet.</p>
+</dd>
+<dt id="term-repository">repository<a class="headerlink" href="#term-repository" title="Permalink to this term">#</a></dt><dd><p>A <em>repository</em> or “repo” is a directory containing files that are tracked by a version control system. A local repository resides on a local machine. A remote repository resides in the cloud.</p>
+</dd>
+<dt id="term-source-code-management-service">source code management service<a class="headerlink" href="#term-source-code-management-service" title="Permalink to this term">#</a></dt><dd><p>A <em>source code management service</em> is a <a class="reference internal" href="#term-cloud"><span class="xref std std-term">cloud</span></a> platform that hosts computer code files and provides either <a class="reference internal" href="#term-centralized-version-control-system"><span class="xref std std-term">centralized version control system</span></a> (CVCS) or <a class="reference internal" href="#term-distributed-version-control-system"><span class="xref std std-term">distributed version control system</span></a>. As the central hub of either CVCS or DVCS, the source code management service provides the platform and rules for distributed code collaboration. Leading examples are <a class="reference internal" href="#term-GitHub"><span class="xref std std-term">GitHub</span></a> and <a class="reference internal" href="#term-Bitbucket"><span class="xref std std-term">Bitbucket</span></a>.</p>
+</dd>
+<dt id="term-unit-testing">unit testing<a class="headerlink" href="#term-unit-testing" title="Permalink to this term">#</a></dt><dd><p>Unit testing is…</p>
+</dd>
+<dt id="term-version-control-system">version control system<a class="headerlink" href="#term-version-control-system" title="Permalink to this term">#</a></dt><dd><p><em>Version control system</em> or version control software or VCS is software that records changes to a set of files, including the order in which the changes were made and the content of those changes, in such a way that previous versions can be recalled or restored.</p>
+</dd>
+<dt id="term-Visual-Studio-Code-VS-Code">Visual Studio Code (VS Code)<a class="headerlink" href="#term-Visual-Studio-Code-VS-Code" title="Permalink to this term">#</a></dt><dd><p><em>Visual Studio Code</em> or <em>VS Code</em> is an open source text editor maintained by Microsoft.</p>
+</dd>
+</dl>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./appendix"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../struct_est/SMM.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Simulated Method of Moments</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="intro.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Appendix</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Richard W. Evans
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
