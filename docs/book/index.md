@@ -5,6 +5,12 @@ This site contains open access tutorial materials and exercises for learning and
 * (2012-2016) Co-founder and co-director of the BYU Macroeconomics and Computational Laboratory.
 * (2013-2016) Co-PI, National Science Foundation Grant for original development of Applied and Computational Math Emphasis (ACME) curriculum at Brigham Young University.
 * (2013-present) National advisory board member for the Applied and Computational Math Emphasis (ACME), Brigham Young University.
+* (2014-2018) Economist, Open Source Policy Center, American Enterprise Institute.
+* (2016-present) Founder and Director, Open Source Economics Laboratory.
+* (2016-2019) Fellow, Becker Friedman Institute, University of Chicago.
+* (2016-2020) Senior Lecturer and Associate Director, Masters in Computational Social Science, University of Chicago. Taught graduate students data science, computational methods, structural estimation, overlapping generations models.
+* (2016-present) President, Open Research Group, Inc.
+* (2022-present) Senior Research Fellow and Director of Open Policy, Center for Growth and Opportunity at Utah State University.
 
 The core maintainer of this project is the following:
 * [**Richard W. Evans**](https://sites.google.com/site/rickecon), Senior Research Fellow and Director of Open Policy, Center for Growth and Opportunity at Utah State University; President and Co-founder, Open Research Group, Inc. (GitHub handle: [@rickecon](https://github.com/rickecon))
