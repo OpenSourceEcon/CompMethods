@@ -24,3 +24,13 @@ This site was created using the [Executable Books](https://executablebooks.org/)
 
 ## Associated repository components
 Put here a description of the code and tests available in the repository.
+
+
+## Citing this book
+Please use the following citation form for this book.
+
+General citation to the book:
+* Evans, Richard W., *Computational Methods for Economists using Python*, Open access Jupyter Book, v#.#.#, 2023, [url to book].
+
+Citation to a chapter in the book:
+* Evans, Richard W., "[insert chapter name]", in *Computational Methods for Economists using Python*, Open access Jupyter Book, v#.#.#, 2023, [url to chapter].
