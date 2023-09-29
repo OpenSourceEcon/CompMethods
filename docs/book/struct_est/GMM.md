@@ -1,5 +1,5 @@
 (Chap_GMM)=
-# Generalized Method of Moments
+# Generalized Method of Moments Estimation
 
 Put GMM chapter here.
 
