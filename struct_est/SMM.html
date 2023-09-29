@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Simulated Method of Moments &#8212; Computational Methods for Economists using Python</title>
+    <title>Simulated Method of Moments Estimation &#8212; Computational Methods for Economists using Python</title>
   
   
   
@@ -64,12 +64,14 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'struct_est/SMM';</script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Glossary" href="../appendix/glossary.html" />
-    <link rel="prev" title="Generalized Method of Moments" href="GMM.html" />
+    <link rel="prev" title="Generalized Method of Moments Estimation" href="GMM.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -211,8 +213,9 @@ const thebe_selector_output = ".output, .cell_output"
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Structural Estimation</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Structural Estimation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="GMM.html">Generalized Method of Moments</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Simulated Method of Moments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MaxLikelihood.html">Maximum Likelihood Estimation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GMM.html">Generalized Method of Moments Estimation</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Simulated Method of Moments Estimation</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Appendix</span></p>
 <ul class="nav bd-sidenav">
@@ -405,7 +408,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Simulated Method of Moments</h1>
+    <h1>Simulated Method of Moments Estimation</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -415,6 +418,16 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-smm-estimator">The SMM estimator</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-weighting-matrix-w">The Weighting Matrix (W)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-identity-matrix-w-i">The identity matrix (W=I)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#two-step-variance-covariance-estimator-of-w">Two-step variance-covariance estimator of W</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#iterated-variance-covariance-estimator-of-w">Iterated variance-covariance estimator of W</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#newey-west-consistent-estimator-of-omega-and-w">Newey-West consistent estimator of <span class="math notranslate nohighlight">\(\Omega\)</span> and W</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-smm-variance-covariance-estimator-of-the-estimated-parameters">The SMM Variance-Covariance Estimator of the Estimated Parameters</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#examples">Examples</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">Footnotes</a></li>
 </ul>
             </nav>
@@ -427,9 +440,72 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="simulated-method-of-moments">
-<span id="chap-smm"></span><h1>Simulated Method of Moments<a class="headerlink" href="#simulated-method-of-moments" title="Permalink to this heading">#</a></h1>
-<p>Put SMM chapter here.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="simulated-method-of-moments-estimation">
+<span id="chap-smm"></span><h1>Simulated Method of Moments Estimation<a class="headerlink" href="#simulated-method-of-moments-estimation" title="Permalink to this heading">#</a></h1>
+<p>This chapter describes the simulated method of moments (SMM) estimation method. All data and images from this chapter can be found in the data directory ([]./data/smm/](<a class="github reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/data/smm/">OpenSourceEcon/CompMethods</a>)) and images directory ([]./images/smm/](<a class="github reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/images/smm/">OpenSourceEcon/CompMethods</a>)) for the GitHub repository for this book.</p>
+<section id="the-smm-estimator">
+<span id="secsmmestimator"></span><h2>The SMM estimator<a class="headerlink" href="#the-smm-estimator" title="Permalink to this heading">#</a></h2>
+<p>Simulated method of moments (SMM) is analogous to the generalized method of moments (GMM) estimator. SMM could really be thought of as a particular type of GMM estimator. The SMM estimator chooses model parameters <span class="math notranslate nohighlight">\(\theta\)</span> to make simulated model moments match data moments. Seminal papers developing SMM are <span id="id1">[<a class="reference internal" href="../CompMethods_references.html#id15" title="Daniel McFadden. A method of simulated moments for estimation of discrete response models without numerical integration. Econometrica, 57(5):995-1026, September 1989.">McFadden, 1989</a>]</span>, <span id="id2">[<a class="reference internal" href="../CompMethods_references.html#id14" title="Bong-Soo Lee and Beth Fisher Ingram. Simulation estimation of time series models. Journal of Econometrics, 47(2-3):197-205, February 1991.">Lee and Ingram, 1991</a>]</span>, and <span id="id3">[<a class="reference internal" href="../CompMethods_references.html#id6" title="Darrell Duffie and Kenneth J. Singleton. Simulated moment estimation of markov models of asset prices. Econometrica, 61(4):929-952, July 1993.">Duffie and Singleton, 1993</a>]</span>. Good textbook treatments of SMM are found in <span id="id4">[<a class="reference internal" href="../CompMethods_references.html#id2" title="Jérôme Adda and Russell Cooper. Dynamic Economics: Quantitative Methods and Applications. MIT Press, 2003.">Adda and Cooper, 2003</a>]</span>, (pp. 87-100) and <span id="id5">[<a class="reference internal" href="../CompMethods_references.html#id5" title="Russell Davidson and James G. MacKinnon. Econometric Theory and Methods. Oxford University Press, 2004.">Davidson and MacKinnon, 2004</a>]</span>, (pp. 383-394).</p>
+<p>In the <a class="reference internal" href="MaxLikelihood.html#chap-maxlikeli"><span class="std std-ref">Maximum Likelihood Estimation</span></a> chapter, we used data <span class="math notranslate nohighlight">\(x\)</span> and model parameters <span class="math notranslate nohighlight">\(\theta\)</span> to maximize the likelihood of drawing that data <span class="math notranslate nohighlight">\(x\)</span> from the model given parameters <span class="math notranslate nohighlight">\(\theta\)</span>.</p>
+<div class="math notranslate nohighlight" id="equation-eqsmm-mlestimator">
+<span class="eqno">(2)<a class="headerlink" href="#equation-eqsmm-mlestimator" title="Permalink to this equation">#</a></span>\[    \hat{\theta}_{ML} = \theta:\quad \max_{\theta}\ln\mathcal{L} = \sum_{i=1}^N\ln\Bigl(f(x_i|\theta)\Bigr)\]</div>
+<p>In the <a class="reference internal" href="GMM.html#chap-gmm"><span class="std std-ref">Generalized Method of Moments Estimation</span></a> chapter, we used data <span class="math notranslate nohighlight">\(x\)</span> and model parameters <span class="math notranslate nohighlight">\(\theta\)</span> to minimize the distance between model moments <span class="math notranslate nohighlight">\(m(x|\theta)\)</span> and data moments <span class="math notranslate nohighlight">\(m(x)\)</span>.</p>
+<div class="math notranslate nohighlight" id="equation-eqsmm-gmmestimator">
+<span class="eqno">(3)<a class="headerlink" href="#equation-eqsmm-gmmestimator" title="Permalink to this equation">#</a></span>\[    \hat{\theta}_{GMM} = \theta:\quad \min_{\theta}||m(x|\theta) - m(x)||\]</div>
+<p>The following difficulties can arise with GMM making it not possible or very difficult.</p>
+<ul class="simple">
+<li><p>The model moment function <span class="math notranslate nohighlight">\(m(x|\theta)\)</span> is not known analytically.</p></li>
+<li><p>The data moments you are trying to match come from another model (indirect inference, see <span id="id6">[<a class="reference internal" href="../CompMethods_references.html#id17" title="Anthony A. Jr. Smith. Indirect inference. In Matias Vernengo, Esteban Perez Caldentey, and Barkley J. Rosser Jr., editors, New Palgrave Dictionary of Economics. Palgrave MacMillan, 2020. URL: http://www.econ.yale.edu/smith/palgrave7.pdf.">Smith, 2020</a>]</span>).</p></li>
+<li><p>The model moments <span class="math notranslate nohighlight">\(m(x|\theta)\)</span> are derived from <em>latent variables</em> that are not observed by the modeler. You only have moments, not the underlying data. See <span id="id7">[<a class="reference internal" href="../CompMethods_references.html#id13" title="G. Laroque and B. Salanié. Simulation based estimation models with lagged latent variables. Journal of Applied Econometrics, 8(Supplement):119-133, December 1993.">Laroque and Salanié, 1993</a>]</span>.</p></li>
+<li><p>The model moments <span class="math notranslate nohighlight">\(m(x|\theta)\)</span> are derived from <em>censored variables</em> that are only partially observed by the modeler.</p></li>
+<li><p>The model moments <span class="math notranslate nohighlight">\(m(x|\theta)\)</span> are just difficult to derive analytically. Examples include moments that include multiple integrals over nonlinear functions as in <span id="id8">[<a class="reference internal" href="../CompMethods_references.html#id15" title="Daniel McFadden. A method of simulated moments for estimation of discrete response models without numerical integration. Econometrica, 57(5):995-1026, September 1989.">McFadden, 1989</a>]</span>.</p></li>
+</ul>
+<p>SMM estimation is simply to simulate the model data <span class="math notranslate nohighlight">\(S\)</span> times, and use the average values of the moments from the simulated data as the estimator for the model moments. Let <span class="math notranslate nohighlight">\(\tilde{x}=\{\tilde{x}_1,\tilde{x}_2,...\tilde{x}_s,...\tilde{x}_S\}\)</span> be the <span class="math notranslate nohighlight">\(S\)</span> simulations of the model data.</p>
+<div class="math notranslate nohighlight" id="equation-eqsmm-avgsimmoms">
+<span class="eqno">(4)<a class="headerlink" href="#equation-eqsmm-avgsimmoms" title="Permalink to this equation">#</a></span>\[    \hat{m}\left(\tilde{x}|\theta\right) = \frac{1}{S}\sum_{s=1}^S m\left(\tilde{x}_s|\theta\right)\]</div>
+<p>Once we have an estimate of the model moments <span class="math notranslate nohighlight">\(\hat{m}\left(\tilde{x}|\theta\right)\)</span> from our <span class="math notranslate nohighlight">\(S\)</span> simulations, SMM estimation is very similar to our presentation of GMM in <a class="reference internal" href="GMM.html#chap-gmm"><span class="std std-ref">Generalized Method of Moments Estimation</span></a>. The SMM approach of estimating the parameter vector <span class="math notranslate nohighlight">\(\hat{\theta}_{SMM}\)</span> is to choose <span class="math notranslate nohighlight">\(\theta\)</span> to minimize some distance measure of the data moments <span class="math notranslate nohighlight">\(m(x)\)</span> from the simulated model moments <span class="math notranslate nohighlight">\(\hat{m}(\tilde{x}|\theta)\)</span>.</p>
+<div class="math notranslate nohighlight" id="equation-eqsmm-smmestimator">
+<span class="eqno">(5)<a class="headerlink" href="#equation-eqsmm-smmestimator" title="Permalink to this equation">#</a></span>\[    \hat{\theta}_{SMM}=\theta:\quad \min_{\theta}\: ||\hat{m}(\tilde{x}|\theta)-m(x)||\]</div>
+<p>The distance measure <span class="math notranslate nohighlight">\(||\hat{m}(\tilde{x}|\theta)-m(x)||\)</span> can be any kind of norm. But it is important to recognize that your estimates <span class="math notranslate nohighlight">\(\hat{\theta}_{SMM}\)</span> will be dependent on what distance measure (norm) you choose. The most widely studied and used distance metric in GMM and SMM estimation is the <span class="math notranslate nohighlight">\(L^2\)</span> norm or the sum of squared errors in moments. Define the moment error function <span class="math notranslate nohighlight">\(e(\tilde{x},x|\theta)\)</span> as the percent difference in the vector of simulated model moments from the data moments.</p>
+<div class="math notranslate nohighlight" id="equation-eqsmm-momserrors">
+<span class="eqno">(6)<a class="headerlink" href="#equation-eqsmm-momserrors" title="Permalink to this equation">#</a></span>\[    e(\tilde{x},x|\theta) \equiv \frac{\hat{m}(\tilde{x}|\theta)-m(x)}{m(x)} \quad\text{or}\quad \hat{m}(\tilde{x}|\theta)-m(x)\]</div>
+<p>It is important that the error function <span class="math notranslate nohighlight">\(e(\tilde{x},x|\theta)\)</span> be a percent deviation of the moments (given that none of the data moments are 0). This puts all the moments in the same units, which helps make sure that no moments receive unintended weighting simply due to its units. This ensures that the problem is scaled properly and will suffer from as little as possible ill conditioning.</p>
+<p>In this case, the SMM estimator is the following,</p>
+<div class="math notranslate nohighlight" id="equation-eqsmm-smmestimatorw">
+<span class="eqno">(7)<a class="headerlink" href="#equation-eqsmm-smmestimatorw" title="Permalink to this equation">#</a></span>\[    \hat{\theta}_{SMM}=\theta:\quad \min_{\theta}\:e(\tilde{x},x|\theta)^T \, W \, e(\tilde{x},x|\theta)\]</div>
+<p>where <span class="math notranslate nohighlight">\(W\)</span> is a <span class="math notranslate nohighlight">\(R\times R\)</span> weighting matrix in the criterion function. For now, think of this weighting matrix as the identity matrix. But we will show in Section 2 a more optimal weighting matrix. We call the quadratic form expression <span class="math notranslate nohighlight">\(e(\tilde{x},x|\theta)^T \, W \, e(\tilde{x},x|\theta)\)</span> the <em>criterion function</em> because it is a strictly positive scalar that is the object of the minimization in the SMM problem statement. The <span class="math notranslate nohighlight">\(R\times R\)</span> weighting matrix <span class="math notranslate nohighlight">\(W\)</span> in the criterion function allows the econometrician to control how each moment is weighted in the minimization problem. For example, an <span class="math notranslate nohighlight">\(R\times R\)</span> identity matrix for <span class="math notranslate nohighlight">\(W\)</span> would give each moment equal weighting, and the criterion function would be a simply sum of squared percent deviations (errors). Other weighting strategies can be dictated by the nature of the problem or model.</p>
+<p>One last item to emphasize with SMM, which we will highlight in the examples in this notebook, is that the errors that are drawn for the <span class="math notranslate nohighlight">\(S\)</span> simulations of the model must be drawn only once so that the minimization problem for <span class="math notranslate nohighlight">\(\hat{\theta}_{SMM}\)</span> does not have the underlying sampling changing for each guess of a value of <span class="math notranslate nohighlight">\(\theta\)</span>. Put more simply, you want the random draws for all the simulations to be held constant so that the only thing changing in the minimization problem is the value of the vector of parameters <span class="math notranslate nohighlight">\(\theta\)</span>.</p>
+</section>
+<section id="the-weighting-matrix-w">
+<span id="secsmm-weightmatw"></span><h2>The Weighting Matrix (W)<a class="headerlink" href="#the-weighting-matrix-w" title="Permalink to this heading">#</a></h2>
+<p>In the SMM criterion function in the problem statement above, some weighting matrices <span class="math notranslate nohighlight">\(W\)</span> produce precise estimates while others produce poor estimates with large variances. We want to choose the optimal weighting matrix <span class="math notranslate nohighlight">\(W\)</span> with the smallest possible asymptotic variance. This is an efficient or optimal SMM estimator. The optimal weighting matrix is the inverse variance covariance matrix of the moments at the optimal moments,</p>
+<div class="math notranslate nohighlight" id="equation-eqsmm-wopt">
+<span class="eqno">(8)<a class="headerlink" href="#equation-eqsmm-wopt" title="Permalink to this equation">#</a></span>\[    W^{opt} \equiv \Omega^{-1}(\tilde{x},x|\hat{\theta}_{SMM})\]</div>
+<p>where <span class="math notranslate nohighlight">\(\Omega(\tilde{x},x|\theta)\)</span> is the variance covariance matrix of the moment condition errors <span class="math notranslate nohighlight">\(e(\tilde{x},x|\theta)\)</span>. The intuition for using the inverse variance covariance matrix <span class="math notranslate nohighlight">\(\Omega^{-1}\)</span> as the optimal weighting matrix is the following. You want to downweight moments that have a high variance, and you want to weight more heavily the moments that are generated more precisely.</p>
+<p>Notice that this definition of the optimal weighting matrix is circular. <span class="math notranslate nohighlight">\(W^{opt}\)</span> is a function of the SMM estimates <span class="math notranslate nohighlight">\(\hat{\theta}_{SMM}\)</span>, but the optimal weighting matrix is used in the estimation of <span class="math notranslate nohighlight">\(\hat{\theta}_{SMM}\)</span>. This means that one has to use some kind of iterative fixed point method to find the true optimal weighting matrix <span class="math notranslate nohighlight">\(W^{opt}\)</span>. Below are some examples of weighting matrices to use.</p>
+<section id="the-identity-matrix-w-i">
+<span id="secsmm-w-i"></span><h3>The identity matrix (W=I)<a class="headerlink" href="#the-identity-matrix-w-i" title="Permalink to this heading">#</a></h3>
+<p>Many times, you can get away with just using the identity matrix as your weighting matrix <span class="math notranslate nohighlight">\(W = I\)</span>. This changes the criterion function to a simple sum of squared error functions such that each moment has the same weight.</p>
+<div class="math notranslate nohighlight" id="equation-eqsmm-smmestimatorwi">
+<span class="eqno">(9)<a class="headerlink" href="#equation-eqsmm-smmestimatorwi" title="Permalink to this equation">#</a></span>\[    \hat{\theta}_{SMM}=\theta:\quad \min_{\theta}\:e(\tilde{x},x|\theta)^T \, e(\tilde{x},x|\theta)\]</div>
+<p>If the problem is well conditioned and well identified, then your SMM estimates <span class="math notranslate nohighlight">\(\hat{\theta}_{SMM}\)</span> will not be greatly affected by this simplest of weighting matrices.</p>
+</section>
+<section id="two-step-variance-covariance-estimator-of-w">
+<span id="secsmm-w-2step"></span><h3>Two-step variance-covariance estimator of W<a class="headerlink" href="#two-step-variance-covariance-estimator-of-w" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="iterated-variance-covariance-estimator-of-w">
+<span id="secsmm-w-iter"></span><h3>Iterated variance-covariance estimator of W<a class="headerlink" href="#iterated-variance-covariance-estimator-of-w" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="newey-west-consistent-estimator-of-omega-and-w">
+<span id="secsmm-w-nw"></span><h3>Newey-West consistent estimator of <span class="math notranslate nohighlight">\(\Omega\)</span> and W<a class="headerlink" href="#newey-west-consistent-estimator-of-omega-and-w" title="Permalink to this heading">#</a></h3>
+</section>
+</section>
+<section id="the-smm-variance-covariance-estimator-of-the-estimated-parameters">
+<span id="secsmm-varcov"></span><h2>The SMM Variance-Covariance Estimator of the Estimated Parameters<a class="headerlink" href="#the-smm-variance-covariance-estimator-of-the-estimated-parameters" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="examples">
+<span id="secsmm-exmp"></span><h2>Examples<a class="headerlink" href="#examples" title="Permalink to this heading">#</a></h2>
+</section>
 <section id="footnotes">
 <span id="secsmmfootnotes"></span><h2>Footnotes<a class="headerlink" href="#footnotes" title="Permalink to this heading">#</a></h2>
 <!-- [^citation_note]: See {cite}`AuerbachEtAl:1981,AuerbachEtAl:1983`, {cite}`AuerbachKotlikoff:1983a,AuerbachKotlikoff:1983b,AuerbachKotlikoff:1983c`, and {cite}`AuerbachKotlikoff:1985`. -->
@@ -472,7 +548,7 @@ document.write(`
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Generalized Method of Moments</p>
+        <p class="prev-next-title">Generalized Method of Moments Estimation</p>
       </div>
     </a>
     <a class="right-next"
@@ -499,6 +575,16 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-smm-estimator">The SMM estimator</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-weighting-matrix-w">The Weighting Matrix (W)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-identity-matrix-w-i">The identity matrix (W=I)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#two-step-variance-covariance-estimator-of-w">Two-step variance-covariance estimator of W</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#iterated-variance-covariance-estimator-of-w">Iterated variance-covariance estimator of W</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#newey-west-consistent-estimator-of-omega-and-w">Newey-West consistent estimator of <span class="math notranslate nohighlight">\(\Omega\)</span> and W</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-smm-variance-covariance-estimator-of-the-estimated-parameters">The SMM Variance-Covariance Estimator of the Estimated Parameters</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#examples">Examples</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">Footnotes</a></li>
 </ul>
   </nav></div>
