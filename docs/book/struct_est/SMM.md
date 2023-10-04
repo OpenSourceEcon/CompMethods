@@ -317,7 +317,15 @@ In this section, we will use SMM to estimate parameters of the models from the {
 (SecSMM_CodeExmp_MacrTest)=
 ### Fitting a truncated normal to intermediate macroeconomics test scores
 
-Let's revisit the problem from the MLE and GMM notebooks of fitting a truncated normal distribution to intermediate macroeconomics test scores. The data are in the text file `Econ381totpts.txt`. Recall that these test scores are between 0 and 450. The figure below shows a histogram of the data, as well as three truncated normal PDF's. The black line is the ML estimate of $\mu$ and $\sigma$ of the truncated normal pdf. The red and the green lines are just the PDF's of two "arbitrarily" chosen combinations of the truncated normal parameters $\mu$ and $\sigma$.
+Let's revisit the problem from the MLE and GMM notebooks of fitting a truncated normal distribution to intermediate macroeconomics test scores. The data are in the text file [`Econ381totpts.txt`](https://github.com/OpenSourceEcon/CompMethods/blob/main/data/smm/Econ381totpts.txt). Recall that these test scores are between 0 and 450. The figure below shows a histogram of the data, as well as three truncated normal PDF's with different values for $\mu$ and $\sigma$. The black line is the maximum likelihood estimate of $\mu$ and $\sigma$ of the truncated normal pdf from the {ref}`Chap_MaxLikeli` chapter. The red and the green lines are just the PDF's of two "arbitrarily" chosen combinations of the truncated normal parameters $\mu$ and $\sigma$.
+
+```{figure} ../../../images/smm/MLEplots.png
+---
+height: 500px
+name: FigMLEplots
+---
+Macroeconomic midterm scores and three truncated normal distributions
+```
 
 
 (SecSMM_CodeExmp_BM72)=
