@@ -1,7 +1,7 @@
 (Chap_GMM)=
 # Generalized Method of Moments Estimation
 
-Put GMM chapter here.
+The most recent version of the [`GMMest.ipynb`](https://github.com/rickecon/StructEst_W20/blob/master/Notebooks/GMM/GMMest.ipynb) notebook is currently in the [StructEst_W20](https://github.com/rickecon/StructEst_W20) repository in the [`/Notebooks/GMM`](https://github.com/rickecon/StructEst_W20/tree/master/Notebooks/GMM) directory. All the accompanying data and images are also in that directory. I will be updating this chapter to include all the content from the [`GMMest.ipynb`](https://github.com/rickecon/StructEst_W20/blob/master/Notebooks/GMM/GMMest.ipynb) notebook along with exercises and lecture content from the GMM section of that course.
 
 
 (SecGMMFootnotes)=
