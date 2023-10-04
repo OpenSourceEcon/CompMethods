@@ -76,21 +76,8 @@ repository:
   path_to_book: "docs/book"
 
 #######################################################################################
-# Advanced and power-user settings
-sphinx:
-  extra_extensions          : ['sphinx.ext.autodoc', 'sphinx.ext.mathjax',
-                               'sphinx.ext.viewcode', 'sphinx.ext.napoleon',
-                               'alabaster']   # A list of extra extensions to load by Sphinx.
-  config                    :   # key-value pairs to directly over-ride the Sphinx configuration
-    bibtex_reference_style: author_year
-    mathjax_path          : https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
-
-#######################################################################################
 # Advanced Sphinx settings
 sphinx:
-  extra_extensions: ['sphinx.ext.autodoc', 'sphinx.ext.mathjax',
-                     'sphinx.ext.viewcode', 'sphinx.ext.napoleon',
-                     'alabaster', 'sphinx_exercise']  # A list of extra extensions to load by Sphinx.
   config:  # key-value pairs to directly over-ride the Sphinx configuration
     bibtex_reference_style: author_year
     mathjax_path: https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
@@ -104,4 +91,6 @@ sphinx:
     - "sphinx.ext.viewcode"
     - "sphinx.ext.napoleon"
     - "sphinx.ext.mathjax"
+    - "alabaster"
     - "sphinx_exercise"
+    - "sphinx_proof"

@@ -20,6 +20,9 @@ Box, Inc.
 branch
   TODO: define branch
 
+calibration
+  TODO
+
 centralized version control system
   A centralized version control system or CVCS is an approach to version control in which all the files in a {term}`repository` as well as the change history (content and timing) are located on a central {term}`remote` server. User's check out versions of files from the repository and check them back in, creating new change history on the central server.
 
@@ -38,11 +41,20 @@ commit
 continuous integration
   Continuous integration or continuous integration unit testing is...
 
+data generating process (DGP)
+  The broadest definition of a data generating process (DGP) is a complete description of the mechanism that causes some observed phenomenon with all its dependencies. Unfortunately, in most realistic systems, this definition is too complex. A more practical definition of a data generating process is a simplified version of the process that causes some observed phenomenon with its key dependencies. The concept of a DGP is very similar to the concept of a {term}`model` . A key characteristic of a DGP is that it must be specified in such as way that it could be used to simulate data.
+
 distributed version control system
   A *distributed version control system* or DVCS is {term}`version control system` software on any computer, {term}`local` or {term}`remote`, that tracks the entire history of changes to a {term}`repository` and coordinates and organizes collaboration among multiple users. It is distributed in the sense that multiple {term}`clone`s of a single {term}`remote` repository have the same full history of that repository.
 
 Dropbox
   TODO: define Dropbox
+
+endogenous variables
+  Endogenous variables are outputs of the model or dependent on exogenous variables. These can include portions of the data $x$, sometimes designated as $y$ as in $y = g(x,\theta)$.
+
+exogenous variables
+  Exogenous variables are inputs to the model, taken as given, or from outside the model. These can include both data $x$ and parameters $\theta$.
 
 fork
   TODO: define fork
@@ -83,6 +95,9 @@ local version control system
 merge
   TODO: create *merge* entry...
 
+model
+  A model is a set of cause and effect mathematical relationships, often specified with parameters $\theta$, among data $x$ or $(x,y)$ used to understand, explain, and predict phenomena. A model might be specified as $g(x,\theta) = 0$ or $y = g(x,\theta)$, where $g$ is a function or vector of functions that represents the mathematical relationships between variables and parameters.
+
 OG-Core
   *`OG-Core`* is an open source large scale overlapping generations macroeconomic model of fiscal policy. This model is general and is a dependency of country calibrations that use `OG-Core`, such as `OG-USA`.
 
@@ -92,6 +107,12 @@ open source
 pull request
   TODO: define *pull request*...
 
+reduced form estimation
+  TODO
+
+reduced form model
+  A reduced form model in economics is a model in which the equations are either not derived from behavioral equations or are only implicitly a linear approximation of some more complicated model. However, because they are atheoretical and often nonparametric, machine learning models can be categorized as reduced form. Reduced form models are most often static, although time series econometric models are categorized as reduced form.
+
 remote
   *Remote* is a descriptor that refers to files that reside or operations that are carried out on a server to which a user has access using the internet.
 
@@ -100,6 +121,12 @@ repository
 
 source code management service
   A *source code management service* is a {term}`cloud` platform that hosts computer code files and provides either {term}`centralized version control system` (CVCS) or {term}`distributed version control system`. As the central hub of either CVCS or DVCS, the source code management service provides the platform and rules for distributed code collaboration. Leading examples are {term}`GitHub` and {term}`Bitbucket`.
+
+structural estimation
+  TODO
+
+structural model
+  A structural model in economics is a model in which the mathematical relationships among variables and parameters are derived from individuals', firms', or other organizations' optimization. These are often referred to as behavioral equations. Structural models can include linear models and linear approximations. But most often, structural models are nonlinear and dynamic.
 
 unit testing
   Unit testing is...

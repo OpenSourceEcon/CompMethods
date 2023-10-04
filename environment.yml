@@ -25,3 +25,4 @@ dependencies:
   - linecheck
   - yaml-changelog
   - sphinx-exercise
+  - sphinx-proof
