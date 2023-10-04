@@ -35,6 +35,7 @@ setup(
         "sphinx",
         "sphinx-argparse",
         "sphinx-exercise",
+        "sphinx-proof",
         "sphinxcontrib-bibtex>=2.0.0",
         "sphinx-math-dollar",
         "pydata-sphinx-theme",

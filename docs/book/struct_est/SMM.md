@@ -76,14 +76,21 @@ Once we have an estimate of the vector of $R$ average model moments $\hat{m}\lef
 
 The distance measure $||\hat{m}(\tilde{x}|\theta)-m(x)||$ can be any kind of norm. But it is important to recognize that your estimates $\hat{\theta}_{SMM}$ will be dependent on what distance measure (norm) you choose. The most widely studied and used distance metric in GMM and SMM estimation is the $L^2$ norm or the sum of squared errors in moments.
 
-Define the moment error vector $e(\tilde{x},x|\theta)$ as the $R\times 1$ vector of average moment error functions $e_r(\tilde{x},x|\theta)$ of the $r$th average moment error. We can define the $r$th average moment error as the percent difference in the average simulated $r$th moment value $\hat{m}_r(\tilde{x}|\theta)$ from the $r$th data moment $m_r(x)$.
+Define the moment error vector $e(\tilde{x},x|\theta)$ as the $R\times 1$ vector of average moment error functions $e_r(\tilde{x},x|\theta)$ of the $r$th average moment error.
 
 ```{math}
-    :label: EqSMM_rMomError
+    :label: EqSMM_MomError_vec
+    e_(\tilde{x},x|\theta) \equiv \left[e_1(\tilde{x},x|\theta),e_2(\tilde{x},x|\theta),...e_R(\tilde{x},x|\theta)\right]^T
+```
+
+We can define the $r$th average moment error as the percent difference in the average simulated $r$th moment value $\hat{m}_r(\tilde{x}|\theta)$ from the $r$th data moment $m_r(x)$.
+
+```{math}
+    :label: EqSMM_MomError_r
     e_r(\tilde{x},x|\theta) \equiv \frac{\hat{m}_r(\tilde{x}|\theta)-m_r(x)}{m_r(x)} \quad\text{or}\quad \hat{m}_r(\tilde{x}|\theta)-m_r(x)
 ```
 
-It is important that the error function $e(\tilde{x},x|\theta)$ be a percent deviation of the moments (given that none of the data moments are 0). This puts all the moments in the same units, which helps make sure that no moments receive unintended weighting simply due to its units. This ensures that the problem is scaled properly and will suffer from as little as possible ill conditioning.
+It is important that the error function $e_r(\tilde{x},x|\theta)$ be a percent deviation of the moments, although this will not work if the data moments are 0 or can be either positive or negative. This percent change transformation puts all the moments in the same units, which helps make sure that no moments receive unintended weighting simply due to its units. This ensures that the problem is scaled properly and will suffer from as little as possible ill conditioning.
 
 In this case, the SMM estimator is the following,
 
@@ -133,50 +140,259 @@ The most common method of estimating the optimal weighting matrix for SMM estima
 The first step is to estimate the SMM parameter vector $\hat{\theta}_{1,SMM}$ using the simple identity matrix as the weighting matrix $W = I$.
 
 ```{math}
-    :label: EqSMM_estW_2step_1
+    :label: EqSMM_theta_2step_1
     \hat{\theta}_{1,SMM}=\theta:\quad \min_{\theta}\:e(\tilde{x},x|\theta)^T \, I \, e(\tilde{x},x|\theta)
 ```
 
-Because we are simulating data, we can generate an estimator for the variance covariance matrix of the moment error vector $\hat{\Omega}$ using just the simulated data moments and the data moments. This $E(\tilde{x},x|\theta)$ matrix represents the contribution of the $s$th simulated moment to the $r$th moment error. Define $E(\tilde{x},x|\theta)$ as the $R\times S$ matrix of moment error functions from each simulation.
+Because we are simulating data, we can generate an estimator for the variance covariance matrix of the moment error vector $\hat{\Omega}$ using just the simulated data moments and the data moments. This $E(\tilde{x},x|\theta)$ matrix represents the contribution of the $s$th simulated moment to the $r$th moment error. Define $E(\tilde{x},x|\theta)$ as the $R\times S$ matrix of moment error functions from each simulation,
 
 ```{math}
     :label: EqSMM_estW_errmat_lev_1
-    ?
+    E(\tilde{x},x|\theta) =
+      \begin{bmatrix}
+        m_1(\tilde{x}_1|\theta) - m_1(x) & m_1(\tilde{x}_2|\theta) - m_1(x) & ... & m_1(\tilde{x}_S|\theta) - m_1(x) \\
+        m_2(\tilde{x}_1|\theta) - m_2(x) & m_2(\tilde{x}_2|\theta) - m_2(x) & ... & m_2(\tilde{x}_S|\theta) - m_2(x) \\
+        \vdots & \vdots & \ddots & \vdots \\
+        m_R(\tilde{x}_1|\theta) - m_R(x) & m_R(\tilde{x}_2|\theta) - m_R(x) & ... & m_R(\tilde{x}_S|\theta) - m_R(x) \\
+      \end{bmatrix}
 ```
 
-text
+where $m_r(x)$ is the $r$th data moment which is constant across each row, and $m_r(\tilde{x}_s|\theta)$ is the $r$th model moment from the $s$th simulation which are changing across each row. When the errors are percent deviations, the $E(\tilde{x},x|\theta)$ matrix is the following,
 
 ```{math}
     :label: EqSMM_estW_errmat_pct_1
-    ?
+    E(\tilde{x},x|\theta) =
+      \begin{bmatrix}
+        \frac{m_1(\tilde{x}_1|\theta) - m_1(x)}{m_1(x)} & \frac{m_1(\tilde{x}_2|\theta) - m_1(x)}{m_1(x)} & ... & \frac{m_1(\tilde{x}_S|\theta) - m_1(x)}{m_1(x)} \\
+        \frac{m_2(\tilde{x}_1|\theta) - m_2(x)}{m_2(x)} & \frac{m_2(\tilde{x}_2|\theta) - m_2(x)}{m_2(x)} & ... & \frac{m_2(\tilde{x}_S|\theta) - m_2(x)}{m_2(x)} \\
+        \vdots & \vdots & \ddots & \vdots \\
+        \frac{m_R(\tilde{x}_1|\theta) - m_R(x)}{m_R(x)} & \frac{m_R(\tilde{x}_2|\theta) - m_R(x)}{m_R(x)} & ... & \frac{m_R(\tilde{x}_S|\theta) - m_R(x)}{m_R(x)} \\
+      \end{bmatrix}
+```
+where the denominator of the percentage deviation or baseline is the model moment that does not change. We use the $E(\tilde{x},x|\theta)$ data matrix and the Step 1 SMM estimate $e(x|\hat{\theta}_{1,SMM})$ to get a new estimate of the variance covariance matrix.
+
+```{math}
+    :label: EqSMM_2stepVarCov
+    \hat{\Omega}_2 = \frac{1}{S}E(\tilde{x},x|\hat{\theta}_{1,SMM})\,E(\tilde{x},x|\hat{\theta}_{1,SMM})^T
+``````
+
+This is simply saying that the $(r,s)$-element of the estimator of the variance-covariance matrix of the moment vector is the following.
+
+```{math}
+    :label: EqSMM_2stepVarCov_rs
+    \hat{\Omega}_{r,s} = \frac{1}{S}\sum_{i=1}^S\Bigl[m_r(\tilde{x}_i|\theta) - m_{r}(x)\Bigr]\Bigl[ m_s(\tilde{x}_i|\theta) - m_s(x)\Bigr]
+``````
+
+The optimal weighting matrix is the inverse of the two-step variance covariance matrix.
+
+```{math}
+    :label: EqSMM_estW_2step
+    \hat{W}^{two-step} \equiv \hat{\Omega}_2^{-1}
 ```
 
-text
+Lastly, re-estimate the SMM estimator using the optimal two-step weighting matrix $\hat{W}^{2step}$.
+
+```{math}
+    :label: EqSMM_theta_2step_2
+    \hat{\theta}_{2,SMM}=\theta:\quad \min_{\theta}\:e(\tilde{x},x|\theta)^T \, \hat{W}^{two-step} \, e(\tilde{x},x|\theta)
+```
+
+$\hat{\theta}_{2, SMM}$ is called the two-step SMM estimator.
 
 
 (SecSMM_W_iter)=
 ### Iterated variance-covariance estimator of W
 
+The truly optimal weighting matrix $W^{opt}$ is the iterated variance-covariance estimator of $W$. This procedure is to just repeat the process described in the two-step SMM estimator until the estimated weighting matrix no longer changes between iterations. Let $i$ index the $i$th iterated SMM estimator,
+
+```{math}
+    :label: EqSMM_theta_2step_i
+    \hat{\theta}_{i, SMM}=\theta:\quad \min_{\theta}\:e(\tilde{x},x|\theta)^T \, \hat{W}_{i} \, e(\tilde{x},x|\theta)
+```
+
+and the $(i+1)$th estimate of the optimal weighting matrix is defined as the following.
+
+```{math}
+    :label: EqSMM_estW_istep
+    \hat{W}_{i+1} \equiv \hat{\Omega}_{i+1}^{-1}\quad\text{where}\quad \hat{\Omega}_{i+1} = \frac{1}{S}E(\tilde{x},x|\hat{\theta}_{i,SMM})\,E(\tilde{x},x|\hat{\theta}_{i,SMM})^T
+```
+
+The iterated SMM estimator is the $\hat{\theta}_{i,SMM}$ such that $\hat{W}_{i+1}$ is very close to $\hat{W}_{i}$ for some distance metric (norm).
+
+```{math}
+    :label: EqSMM_theta_it
+    \hat{\theta}_{it,SMM} = \hat{\theta}_{i,SMM}: \quad || \hat{W}_{i+1} - \hat{W}_{i} || < \varepsilon
+```
+
 
 (SecSMM_W_NW)=
 ### Newey-West consistent estimator of $\Omega$ and W
 
+The Newey-West estimator of the optimal weighting matrix and variance covariance matrix is consistent in the presence of heteroskedasticity and autocorrelation in the data (See {cite}`NeweyWest:1987`). {cite}`AddaCooper:2003` (p. 82) have a nice exposition of how to compute the Newey-West weighting matrix $\hat{W}_{nw}$. The asymptotic representation of the optimal weighting matrix $\hat{W}^{opt}$ is the following:
 
-(SecSMM_VarCov)=
-## The SMM Variance-Covariance Estimator of the Estimated Parameters
+```{math}
+    :label: EqSMM_estW_WhatOpt
+    \hat{W}^{opt} = \lim_{S\rightarrow\infty}\frac{1}{S}\sum_{i=1}^S \sum_{l=-\infty}^\infty E(\tilde{x}_i,x|\theta)E(\tilde{x}_{i-l},x|\theta)^T
+```
+
+The Newey-West consistend estimator of $\hat{W}^{opt}$ is:
+
+```{math}
+    :label: EqSMM_estW_NW
+    \hat{W}_{nw} = \Gamma_{0,S} + \sum_{v=1}^q \left(1 - \left[\frac{v}{q+1}\right]\right)\left(\Gamma_{v,S} + \Gamma^T_{v,S}\right)
+```
+
+where
+
+```{math}
+    :label: EqSMM_estW_NWGamma
+    \Gamma_{v,S} = \frac{1}{S}\sum_{i=v+1}^S E(\tilde{x}_i,x|\theta)E(\tilde{x}_{i-v},x|\theta)^T
+```
+
+Of course, for autocorrelation, the subscript $i$ can be changed to $t$.
 
 
-(SecSMM_Exmp)=
-## Examples
+(SecSMM_VarCovTheta)=
+## Variance-Covariance Estimator of $\hat{\theta}$
+
+Let the parameter vector $\theta$ have length $K$ such that $K$ parameters are being estimated. The estimated $K\times K$ variance-covariance matrix $\hat{\Sigma}$ of the estimated parameter vector $\hat{\theta}_{SMM}$ is different from the $R\times R$ variance-covariance matrix $\hat{\Omega}$ of the $R\times 1$ moment vector $e(\tilde{x},x|\theta)$ from the previous section.
+
+Recall that each element of $e(\tilde{x},x|\theta)$ is an average moment error across all simulations. $\hat{\Omega}$ from the previous section is the $R\times R$ variance-covariance matrix of the $R$ moment errors used to identify the $K$ parameters $\theta$ to be estimated. The estimated variance-covariance matrix $\hat{\Sigma}$ of the estimated parameter vector is a $K\times K$ matrix. We say the model is *exactly identified* if $K = R$ (number of parameters $K$ equals number of moments $R$). We say the model is *overidentified* if $K<R$. We say the model is *not identified* or *underidentified* if $K>R$.
+
+Similar to the inverse Hessian estimator of the variance-covariance matrix of the maximum likelihood estimator from the {ref}`Chap_MaxLikeli` chapter, the SMM variance-covariance matrix is related to the derivative of the criterion function with respect to each parameter. The intuition is that if the second derivative of the criterion function with respect to the parameters is large, there is a lot of curvature around the criterion minimizing estimate. In other words, the parameters of the model are precisely estimated. The inverse of the Hessian matrix will be small.
+
+Define $R\times K$ matrix $d(\tilde{x},x|\theta)$ as the Jacobian matrix of derivatives of the $R\times 1$ error vector $e(\tilde{x},x|\theta)$ from {eq}`EqSMM_MomError_vec`.
+
+```{math}
+    :label: EqSMM_errvec_deriv
+    \begin{equation}
+      d(\tilde{x},x|\theta) \equiv
+        \begin{bmatrix}
+          \frac{\partial e_1(\tilde{x},x|\theta)}{\partial \theta_1} & \frac{\partial e_1(\tilde{x},x|\theta)}{\partial \theta_2} & ... & \frac{\partial e_1(\tilde{x},x|\theta)}{\partial \theta_K} \\
+          \frac{\partial e_2(\tilde{x},x|\theta)}{\partial \theta_1} & \frac{\partial e_2(\tilde{x},x|\theta)}{\partial \theta_2} & ... & \frac{\partial e_2(\tilde{x},x|\theta)}{\partial \theta_K} \\
+          \vdots & \vdots & \ddots & \vdots \\
+          \frac{\partial e_R(\tilde{x},x|\theta)}{\partial \theta_1} & \frac{\partial e_R(\tilde{x},x|\theta)}{\partial \theta_2} & ... & \frac{\partial e_R(x|\theta)}{\partial \theta_K}
+        \end{bmatrix}
+    \end{equation}
+```
+
+The SMM estimates of the parameter vector $\hat{\theta}_{SMM}$ are assymptotically normal. If $\theta_0$ is the true value of the parameters, then the following holds,
+
+```{math}
+    :label: EqSMM_theta_plim
+    \begin{equation}
+      \text{plim}_{S\rightarrow\infty}\sqrt{S}\left(\hat{\theta}_{SMM} - \theta_0\right) \sim \text{N}\left(0, \left[d(\tilde{x},x|\theta)^T W d(\tilde{x},x|\theta)\right]^{-1}\right)
+    \end{equation}
+```
+
+where $W$ is the optimal weighting matrix from the SMM criterion function. The SMM estimator for the variance-covariance matrix $\hat{\Sigma}_{SMM}$ of the parameter vector $\hat{\theta}_{SMM}$ is the following.
+
+```{math}
+    :label: EqSMM_SigmaHat
+    \begin{equation}
+      \hat{\Sigma}_{SMM} = \frac{1}{S}\left[d(\tilde{x},x|\theta)^T W d(\tilde{x},x|\theta)\right]^{-1}
+    \end{equation}
+```
+
+In the examples below, we will use a finite difference method to compute numerical versions of the Jacobian matrix $d(\tilde{x},x|\theta)$. The following is a first-order forward finite difference numerical approximation of the first derivative of a function.
+
+```{math}
+    :label: EqSMM_finitediff_1
+    f'(x_0) = \lim_{h\rightarrow 0} \frac{f(x_0 + h) - f(x_0)}{h}
+```
+
+The following is a centered second-order finite difference numerical approximation of the derivative of a function. (See [BYU ACME numerical differentiation lab](https://github.com/UC-MACSS/persp-model-econ_W19/blob/master/Notes/ACME_NumDiff.pdf) for more details.)
+
+```{math}
+    :label: EqSMM_finitediff_2
+    f'(x_0) \approx \frac{f(x_0 + h) - f(x_0 - h)}{2h}
+```
+
+
+(SecSMM_CodeExmp)=
+## Code Examples
+
+In this section, we will use SMM to estimate parameters of the models from the {ref}`Chap_MaxLikeli` chapter and from the {ref}`Chap_GMM` chapter.
+
+(SecSMM_CodeExmp_MacrTest)=
+### Fitting a truncated normal to intermediate macroeconomics test scores
+
+Let's revisit the problem from the MLE and GMM notebooks of fitting a truncated normal distribution to intermediate macroeconomics test scores. The data are in the text file [`Econ381totpts.txt`](https://github.com/OpenSourceEcon/CompMethods/blob/main/data/smm/Econ381totpts.txt). Recall that these test scores are between 0 and 450. The figure below shows a histogram of the data, as well as three truncated normal PDF's with different values for $\mu$ and $\sigma$. The black line is the maximum likelihood estimate of $\mu$ and $\sigma$ of the truncated normal pdf from the {ref}`Chap_MaxLikeli` chapter. The red and the green lines are just the PDF's of two "arbitrarily" chosen combinations of the truncated normal parameters $\mu$ and $\sigma$.
+
+```{figure} ../../../images/smm/MLEplots.png
+---
+height: 500px
+name: FigMLEplots
+---
+Macroeconomic midterm scores and three truncated normal distributions
+```
+
+
+(SecSMM_CodeExmp_BM72)=
+### Brock and Mirman (1972) estimation by SMM
+In {numref}`ExercStructEst_SMM_BM72`, you will estimate four parameters in the {cite}`BrockMirman:1972` macroeconomic model by simulating the model to get six moments.
+
+
+(SecSMM_Ident)=
+## Identification
+
+An issue that we saw in the examples from the previous section is that there is some science as well as some art in choosing moments to identify the parameters in an SMM estimation as well as in GMM. Suppose the parameter vector $\theta$ has $K$ elements, or rather, $K$ parameters to be estimated. In order to estimate $\theta$ by GMM, you must have at least as many moments as parameters to estimate $R\geq K$. If you have exactly as many moments as parameters to be estimated $R=K$, the model is said to be *exactly identified*. If you have more moments than parameters to be estimated $R>K$, the model is said to be *overidentified*. If you have fewer moments than parameters to be estimated $R<K$, the model is said to be *underidentified*. There are good reasons to overidentify $R>K$ the model in SMM estimation as we saw in the previous example. The main reason is that not all moments are orthogonal. That is, some moments convey roughly the same information about the data and, therefore, do not separately identify any extra parameters. So a good SMM model often is overidentified $R>K$.
+
+One last point about MM regards moment selection and verification of results. The real world has an infinite supply of potential moments that describe some part of the data. Choosing moments to estimate parameters by SMM requires understanding of the model, intuition about its connections to the real world, and artistry. A good SMM estimation will include moments that have some relation to or story about their connection to particular parameters of the model to be estimated. In addition, a good verification of a SMM estimation is to take some moment from the data that was not used in the estimation and see how well the corresponding moment from the estimated model matches that *outside moment*.
+
+
+(SecSMM_IndirInf)=
+## Indirect inference
+
+Indirect inference is a particular application of SMM with some specific characteristics. As moments to match it uses parameters of an auxiliary model that can be estimated both on the real-world data and on the simulated data. {cite}`Smith:2020` gives a great summary of the topic with some examples. See also {cite}`GourierouxMonfort:1996` (ch. 4) for a textbook treatment of the topic.
+
+
+(SecSMM_IndirInf_SMMprob)=
+### Restatement of the general SMM estimation problem
+
+Define a model or data generating process (DGP) as a system of equations,
+
+$$ G(x_t,z_t|\theta)=0 $$
+
+which are functions of a vector of endogenous variables $x_t$, exogenous variables $z_t$, and parameters $\theta$. In the general simulated method of moments (SMM) estimation approach, one would choose data moments $m(x_t,z_t)$ that are just statistics of the data and model moments $\hat{m}(\tilde{x}_t,\tilde{z}_t|\theta)$ that are averages of the same data moments calculated on simulated samples of the data. The SMM estimator is to choose the parameter vector $\hat{\theta}_{SMM}$ to minimize some distance of the model moments from the data moments.
+
+
+$$ \hat{\theta}_{SMM}=\theta:\quad \min_{\theta} ||\hat{m}(\tilde{x}_t,\tilde{z}_t|\theta) - m(x_t,z_t)|| $$
+
+
+(SecSMM_IndirInf_IndInfprob)=
+### Indirect inference estimation problem
+
+Indirect inference is to change the model moments from being stastics that are calculated directly from the simulated data to being statistics that are calculated indirectly from the simulated data. These indirect inference model moments are parameters from an auxiliary model.
+
+Let an auxiliary model be defined as $H(x_t,z_t|\phi)=0$. The parameters of the auxiliary model $\phi$ will be the moments we use to identify the model parameters $\theta$. Suppose that the model parameter vector $\theta$ has $K$ elements. Then the auxiliary model parameter vector $\phi$ must have $R$ elements such that $R\geq K$. This is the typical identification restriction that the number of model moments must be at least as many as the number of model parameters being estimated.
+
+When the auxiliary model is run on real-world data $H(x_t,z_t|\phi)=0$, the resulting values of the auxiliary model parameters are the data moments $\hat{\phi}(x_t,z_t)$. Note that these data moments $\hat{\phi}$ have a hat on them to represent that these moments are usually estimated in some way. When the auxiliary model is run on the $s$th simulation of the data given model parameters $H(\tilde{x}_{s,t},\tilde{z}_{s,t}|\phi)=0$, the auxiliary model parameters are the $s$th estimate of the model moments $\hat{\phi}_s(\tilde{x}_{s,t},\tilde{z}_{s,t}|\theta)$. The model moments are then the average of these auxiliary model parameter estimates across the simulations.
+
+$$ \hat{\phi}(\tilde{x}_{t},\tilde{z}_{t}|\theta) = \frac{1}{S}\sum_{s=1}^S \hat{\phi}_s(\tilde{x}_{s,t},\tilde{z}_{s,t}|\theta) $$
+
+The indirect inference estimation method is simply to choose a model parameter vector $\theta$ that minimizes some distance metric between the model moments $\hat{\phi}(\tilde{x}_{t},\tilde{z}_{t}|\theta)$ and the data moments $\hat{\phi}(x_t,z_t)$.
+
+$$ \hat{\theta}_{SMM}=\theta:\quad \min_{\theta} ||\hat{\phi}(\tilde{x}_{t},\tilde{z}_{t}|\theta) - \hat{\phi}(x_t,z_t)|| $$
+
+In most examples of indirect, the data moments and model moments are some regression of endogenous variables on exogenous variables. In the univariate case, it is usually linear regression. In the multivariate case, it is usually a vector autoregression (VAR). But most examples are reduced form parameter estimation exercises. Other examples are probit, logit, and two-stage IV regressions. The key is that these statistics be computationally tractable and have convenient or accurate data availability.
+
+
+(SecSMM_IndirInf_HypothTest)=
+### Hypothesis testing with indirect inference
+
+* Wald test
+* likelihood ratio test
 
 
 (SecSMM_Exerc)=
 ## Exercises
 
-```{exercise-start}
+```{exercise-start} Estimating the Brock and Mirman (1972) model by SMM
 :label: ExercStructEst_SMM_BM72
+:class: green
 ```
-**Estimating the Brock and Mirman (1972) model by SMM.** You can observe time series data in an economy for the following variables: $(c_t, k_t, w_t, r_t, y_t)$. The data can be loaded from the file [`NewMacroSeries.txt`](https://github.com/OpenSourceEcon/CompMethods/blob/main/data/smm/NewMacroSeries.txt) in the online book repository data folder `data/smm/`. This file is a comma separated text file with no labels. The variables are ordered as $(c_t, k_t, w_t, r_t, y_t)$. These data have 100 periods, which are quarterly (25 years). Suppose you think that the data are generated by a process similar to the {cite}`BrockMirman:1972` paper. A simplified set of characterizing equations of the Brock and Mirman model are the following six equations.
+You can observe time series data in an economy for the following variables: $(c_t, k_t, w_t, r_t, y_t)$. The data can be loaded from the file [`NewMacroSeries.txt`](https://github.com/OpenSourceEcon/CompMethods/blob/main/data/smm/NewMacroSeries.txt) in the online book repository data folder `data/smm/`. This file is a comma separated text file with no labels. The variables are ordered as $(c_t, k_t, w_t, r_t, y_t)$. These data have 100 periods, which are quarterly (25 years). Suppose you think that the data are generated by a process similar to the {cite}`BrockMirman:1972` paper. A simplified set of characterizing equations of the Brock and Mirman model are the following six equations.
 ```{math}
     :label: EqSMM_BM72_eul
     (c_t)^{-1} - \beta E\left[r_{t+1}(c_{t+1})^{-1}\right] = 0
