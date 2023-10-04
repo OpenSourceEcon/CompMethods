@@ -36,6 +36,8 @@
     <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
     <link rel="stylesheet" type="text/css" href="_static/exercise.css" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -209,7 +211,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Structural Estimation</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="struct_est/intro.html">Structural Estimation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="struct_est/intro.html">Introduction to Structural Estimation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="struct_est/MaxLikelihood.html">Maximum Likelihood Estimation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="struct_est/GMM.html">Generalized Method of Moments Estimation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="struct_est/SMM.html">Simulated Method of Moments Estimation</a></li>
@@ -420,7 +422,7 @@ document.write(`
   <section class="tex2jax_ignore mathjax_ignore" id="references">
 <h1>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h1>
 <div class="docutils container" id="id1">
-<div class="citation" id="id4" role="doc-biblioentry">
+<div class="citation" id="id7" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>ACM21<span class="fn-bracket">]</span></span>
 <p>BYU ACME. Introduction to python. Open access lab, Brigham Young University Applied and Computational Mathematics Emphasis, 2021. URL: <a class="reference external" href="https://acme.byu.edu/00000181-448a-d778-a18f-dfcae22f0001/intro-to-python">https://acme.byu.edu/00000181-448a-d778-a18f-dfcae22f0001/intro-to-python</a>.</p>
 </div>
@@ -429,46 +431,74 @@ document.write(`
 <p>Jérôme Adda and Russell Cooper. <em>Dynamic Economics: Quantitative Methods and Applications</em>. MIT Press, 2003.</p>
 </div>
 <div class="citation" id="id3" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>ACF+20<span class="fn-bracket">]</span></span>
+<p>Orazio Attanasio, Sarah Cattan, Emla Fitzsimons, Costas Meghir, and Marta Rubio-Codina. Estimating the production function for human capital: results from a randomized control trial in colombia. <em>American Economic Review</em>, 110(1):48–85, January 2020. URL: <a class="reference external" href="https://pubs.aeaweb.org/doi/pdfplus/10.1257/aer.20150183">https://pubs.aeaweb.org/doi/pdfplus/10.1257/aer.20150183</a>.</p>
+</div>
+<div class="citation" id="id4" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>BMM19<span class="fn-bracket">]</span></span>
+<p>Martha J. Bailey, Olga Malkova, and Zoë M. McLaren. Does access to family planning increase children's opportunities? evidence from the war on poverty and the early years of title x. <em>Journal of Human Resources</em>, 54(4):825–856, Fall 2019. URL: <a class="reference external" href="https://jhr.uwpress.org/content/54/4/825">https://jhr.uwpress.org/content/54/4/825</a>.</p>
+</div>
+<div class="citation" id="id5" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>BS12<span class="fn-bracket">]</span></span>
+<p>Barsky and Sims. Information, animal spirits, and the meaning of innovations in consumer confidence. <em>American Economic Review</em>, 102(4):1343–1377, June 2012. URL: <a class="reference external" href="https://pubs.aeaweb.org/doi/pdfplus/10.1257/aer.102.4.1343">https://pubs.aeaweb.org/doi/pdfplus/10.1257/aer.102.4.1343</a>.</p>
+</div>
+<div class="citation" id="id6" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>BM72<span class="fn-bracket">]</span></span>
 <p>William A. Brock and Leonard J. Mirman. Optimal economic growth and uncertainty: the discounted case. <em>Journal of Economic Theory</em>, 4(3):479–513, June 1972.</p>
 </div>
-<div class="citation" id="id5" role="doc-biblioentry">
+<div class="citation" id="id8" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>DM04<span class="fn-bracket">]</span></span>
 <p>Russell Davidson and James G. MacKinnon. <em>Econometric Theory and Methods</em>. Oxford University Press, 2004.</p>
 </div>
-<div class="citation" id="id6" role="doc-biblioentry">
+<div class="citation" id="id9" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>DS93<span class="fn-bracket">]</span></span>
 <p>Darrell Duffie and Kenneth J. Singleton. Simulated moment estimation of markov models of asset prices. <em>Econometrica</em>, 61(4):929–952, July 1993.</p>
 </div>
-<div class="citation" id="id13" role="doc-biblioentry">
+<div class="citation" id="id15" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>GM96<span class="fn-bracket">]</span></span>
+<p>Christian Gourieroux and Alain Monfort. <em>Simulation-based Econometric Methods</em>. Oxford University Press, 1996.</p>
+</div>
+<div class="citation" id="id16" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>Kea10<span class="fn-bracket">]</span></span>
 <p>Michael P. Keane. Structural vs. atheoretic approaches to econometrics. <em>Journal of Econometrics</em>, 156(1):3–20, May 2010.</p>
 </div>
-<div class="citation" id="id14" role="doc-biblioentry">
+<div class="citation" id="id17" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>LSalanie93<span class="fn-bracket">]</span></span>
 <p>G. Laroque and B. Salanié. Simulation based estimation models with lagged latent variables. <em>Journal of Applied Econometrics</em>, 8(Supplement):119–133, December 1993.</p>
 </div>
-<div class="citation" id="id15" role="doc-biblioentry">
+<div class="citation" id="id18" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>LI91<span class="fn-bracket">]</span></span>
 <p>Bong-Soo Lee and Beth Fisher Ingram. Simulation estimation of time series models. <em>Journal of Econometrics</em>, 47(2-3):197–205, February 1991.</p>
 </div>
-<div class="citation" id="id16" role="doc-biblioentry">
+<div class="citation" id="id19" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>McF89<span class="fn-bracket">]</span></span>
 <p>Daniel McFadden. A method of simulated moments for estimation of discrete response models without numerical integration. <em>Econometrica</em>, 57(5):995–1026, September 1989.</p>
 </div>
-<div class="citation" id="id18" role="doc-biblioentry">
+<div class="citation" id="id20" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>NW87<span class="fn-bracket">]</span></span>
+<p>Whitney K. Newey and Kenneth D. West. A simple, positive, semi-definite, heteroskedasticy and autocorrelation consistent covariance matrix. <em>Econometrica</em>, 55(3):703–708, May 1987.</p>
+</div>
+<div class="citation" id="id21" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>Rus87<span class="fn-bracket">]</span></span>
+<p>John Rust. Optimal replacement of gmc bus engines: an empirical model of harold zurcher. <em>Econometrica</em>, 55(5):999–1033, September 1987. URL: <a class="reference external" href="https://www.jstor.org/stable/1911259">https://www.jstor.org/stable/1911259</a>.</p>
+</div>
+<div class="citation" id="id22" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>Rus10<span class="fn-bracket">]</span></span>
 <p>John Rust. Comments on: `structural vs. atheoretic approaches to econometrics'. <em>Journal of Econometrics</em>, 156(1):21–24, May 2010.</p>
 </div>
-<div class="citation" id="id19" role="doc-biblioentry">
+<div class="citation" id="id23" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>Smi20<span class="fn-bracket">]</span></span>
 <p>Anthony A. Jr. Smith. Indirect inference. In Matias Vernengo, Esteban Perez Caldentey, and Barkley J. Rosser Jr., editors, <em>New Palgrave Dictionary of Economics</em>. Palgrave MacMillan, 2020. URL: <a class="reference external" href="http://www.econ.yale.edu/smith/palgrave7.pdf">http://www.econ.yale.edu/smith/palgrave7.pdf</a>.</p>
 </div>
-<div class="citation" id="id10" role="doc-biblioentry">
+<div class="citation" id="id24" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>SW20<span class="fn-bracket">]</span></span>
+<p>Ludwig Straub and Iván Werning. Positive long-run capital taxation: chamley-judd revisited. <em>American Economic Review</em>, 110(1):86–119, January 2020. URL: <a class="reference external" href="https://pubs.aeaweb.org/doi/pdfplus/10.1257/aer.20150210">https://pubs.aeaweb.org/doi/pdfplus/10.1257/aer.20150210</a>.</p>
+</div>
+<div class="citation" id="id13" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>WikipediaContributors20a<span class="fn-bracket">]</span></span>
 <p>Wikipedia Contributors. &quot;Git&quot;. <em>Wikipedia, The Free Encyclopedia</em>, 2020. [Online; accessed 19-August-2020]. URL: <a class="reference external" href="https://en.wikipedia.org/wiki/Git">https://en.wikipedia.org/wiki/Git</a>.</p>
 </div>
-<div class="citation" id="id11" role="doc-biblioentry">
+<div class="citation" id="id14" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>WikipediaContributors20b<span class="fn-bracket">]</span></span>
 <p>Wikipedia Contributors. &quot;Integrated development environment&quot;. <em>Wikipedia, The Free Encyclopedia</em>, 2020. [Online; accessed 3-August-2020]. URL: <a class="reference external" href="https://en.wikipedia.org/wiki/Integrated_development_environment">https://en.wikipedia.org/wiki/Integrated_development_environment</a>.</p>
 </div>

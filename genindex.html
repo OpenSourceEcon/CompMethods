@@ -35,6 +35,8 @@
     <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
     <link rel="stylesheet" type="text/css" href="_static/exercise.css" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -207,7 +209,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Structural Estimation</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="struct_est/intro.html">Structural Estimation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="struct_est/intro.html">Introduction to Structural Estimation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="struct_est/MaxLikelihood.html">Maximum Likelihood Estimation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="struct_est/GMM.html">Generalized Method of Moments Estimation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="struct_est/SMM.html">Simulated Method of Moments Estimation</a></li>
@@ -375,6 +377,7 @@ document.write(`
  | <a href="#B"><strong>B</strong></a>
  | <a href="#C"><strong>C</strong></a>
  | <a href="#D"><strong>D</strong></a>
+ | <a href="#E"><strong>E</strong></a>
  | <a href="#F"><strong>F</strong></a>
  | <a href="#G"><strong>G</strong></a>
  | <a href="#I"><strong>I</strong></a>
@@ -417,14 +420,16 @@ document.write(`
 <h2 id="C">C</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="appendix/glossary.html#term-calibration"><strong>calibration</strong></a>
+</li>
       <li><a href="appendix/glossary.html#term-centralized-version-control-system"><strong>centralized version control system</strong></a>
 </li>
       <li><a href="appendix/glossary.html#term-clone"><strong>clone</strong></a>
 </li>
-      <li><a href="appendix/glossary.html#term-cloud"><strong>cloud</strong></a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="appendix/glossary.html#term-cloud"><strong>cloud</strong></a>
+</li>
       <li><a href="appendix/glossary.html#term-command-line-interface"><strong>command line interface</strong></a>
 </li>
       <li><a href="appendix/glossary.html#term-commit"><strong>commit</strong></a>
@@ -437,11 +442,25 @@ document.write(`
 <h2 id="D">D</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="appendix/glossary.html#term-distributed-version-control-system"><strong>distributed version control system</strong></a>
+      <li><a href="appendix/glossary.html#term-data-generating-process-DGP"><strong>data generating process (DGP)</strong></a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="appendix/glossary.html#term-distributed-version-control-system"><strong>distributed version control system</strong></a>
+</li>
       <li><a href="appendix/glossary.html#term-Dropbox"><strong>Dropbox</strong></a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="E">E</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="appendix/glossary.html#term-endogenous-variables"><strong>endogenous variables</strong></a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="appendix/glossary.html#term-exogenous-variables"><strong>exogenous variables</strong></a>
 </li>
   </ul></td>
 </tr></table>
@@ -504,6 +523,10 @@ document.write(`
       <li><a href="appendix/glossary.html#term-merge"><strong>merge</strong></a>
 </li>
   </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="appendix/glossary.html#term-model"><strong>model</strong></a>
+</li>
+  </ul></td>
 </tr></table>
 
 <h2 id="O">O</h2>
@@ -529,10 +552,14 @@ document.write(`
 <h2 id="R">R</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="appendix/glossary.html#term-remote"><strong>remote</strong></a>
+      <li><a href="appendix/glossary.html#term-reduced-form-estimation"><strong>reduced form estimation</strong></a>
+</li>
+      <li><a href="appendix/glossary.html#term-reduced-form-model"><strong>reduced form model</strong></a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="appendix/glossary.html#term-remote"><strong>remote</strong></a>
+</li>
       <li><a href="appendix/glossary.html#term-repository"><strong>repository</strong></a>
 </li>
   </ul></td>
@@ -542,6 +569,12 @@ document.write(`
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="appendix/glossary.html#term-source-code-management-service"><strong>source code management service</strong></a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="appendix/glossary.html#term-structural-estimation"><strong>structural estimation</strong></a>
+</li>
+      <li><a href="appendix/glossary.html#term-structural-model"><strong>structural model</strong></a>
 </li>
   </ul></td>
 </tr></table>

@@ -1,0 +1,15 @@
+/* docs/book/_static/custom.css */
+
+:root {
+    --background-color: rgba(55, 253, 20, 0.158);
+    --border-color: #9cfd14bb;
+}
+
+div.green {
+    background-color: var(--background-color);
+    border-color: var(--border-color);
+}
+
+div.green p.admonition-title {
+    background-color: var(--background-color);
+}

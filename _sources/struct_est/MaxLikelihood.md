@@ -1,7 +1,7 @@
 (Chap_MaxLikeli)=
 # Maximum Likelihood Estimation
 
-Put maximum likelihood estimation chapter here.
+The most recent version of the [`MLest.ipynb`](https://github.com/rickecon/StructEst_W20/blob/master/Notebooks/MLE/MLest.ipynb) notebook is currently in the [StructEst_W20](https://github.com/rickecon/StructEst_W20) repository in the [`/Notebooks/MLE`](https://github.com/rickecon/StructEst_W20/tree/master/Notebooks/MLE) directory. All the accompanying data and images are also in that directory. I will be updating this chapter to include all the content from the [`MLest.ipynb`](https://github.com/rickecon/StructEst_W20/blob/master/Notebooks/MLE/MLest.ipynb) notebook along with exercises and lecture content from the maximum likelihood estimation section of that course.
 
 
 (SecMaxLikeliFootnotes)=

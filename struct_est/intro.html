@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Structural Estimation &#8212; Computational Methods for Economists using Python</title>
+    <title>Introduction to Structural Estimation &#8212; Computational Methods for Economists using Python</title>
   
   
   
@@ -36,6 +36,8 @@
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
     <link rel="stylesheet" type="text/css" href="../_static/exercise.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -64,6 +66,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'struct_est/intro';</script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -210,7 +214,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Structural Estimation</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Structural Estimation</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Introduction to Structural Estimation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="MaxLikelihood.html">Maximum Likelihood Estimation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="GMM.html">Generalized Method of Moments Estimation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="SMM.html">Simulated Method of Moments Estimation</a></li>
@@ -406,7 +410,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Structural Estimation</h1>
+    <h1>Introduction to Structural Estimation</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -416,6 +420,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#different-types-of-models">Different types of models</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">Exercises</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">Footnotes</a></li>
 </ul>
@@ -429,19 +434,89 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="structural-estimation">
-<span id="chap-structestintro"></span><h1>Structural Estimation<a class="headerlink" href="#structural-estimation" title="Permalink to this heading">#</a></h1>
-<p>[Put structural estimation intro here.]</p>
-<p>A good introduction to structural estimation is to compare it to reduced form estimation. See <a class="reference internal" href="#ExercStructEst_CompPaper"><span class="std std-numref">Exercise 2</span></a>.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="introduction-to-structural-estimation">
+<span id="chap-structestintro"></span><h1>Introduction to Structural Estimation<a class="headerlink" href="#introduction-to-structural-estimation" title="Permalink to this heading">#</a></h1>
+<p>The material for the chapters in this Structural Estimation section was initially developed in the Structural Estimation course I taught in the Masters in Computational Social Science program at the University of Chicago from 2017 to 2020.<a class="footnote-reference brackets" href="#macsscourses" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a></p>
+<p>A good place to start in describing structural estimation is the definition of a <a class="reference internal" href="../appendix/glossary.html#term-model"><span class="xref std std-term">model</span></a>.</p>
+<div class="proof definition admonition" id="DefStructEst_Model">
+<p class="admonition-title"><span class="caption-number">Definition 1 </span> (Model)</p>
+<section class="definition-content" id="proof-content">
+<p>A <strong>model</strong> is a set of cause and effect mathematical relationships, often specified with parameters <span class="math notranslate nohighlight">\(\theta\)</span>, among data <span class="math notranslate nohighlight">\(x\)</span> or <span class="math notranslate nohighlight">\((x,y)\)</span> used to understand, explain, and predict phenomena. A model might be specified as,</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+  g(x,\theta) = 0 \quad\text{or}\quad y = g(x,\theta)
+\end{equation*}\]</div>
+<p>where <span class="math notranslate nohighlight">\(g\)</span> is a function or vector of functions that represents the mathematical relationships between variables and parameters.</p>
+</section>
+</div><div class="proof definition admonition" id="DefStructEst_ExogVar">
+<p class="admonition-title"><span class="caption-number">Definition 2 </span> (Exogenous variables)</p>
+<section class="definition-content" id="proof-content">
+<p><strong>Exogenous variables</strong> are inputs to the model, taken as given, or from outside the model. These can include both data <span class="math notranslate nohighlight">\(x\)</span> and parameters <span class="math notranslate nohighlight">\(\theta\)</span>.</p>
+</section>
+</div><div class="proof definition admonition" id="DefStructEst_EndogVar">
+<p class="admonition-title"><span class="caption-number">Definition 3 </span> (Endogenous variables)</p>
+<section class="definition-content" id="proof-content">
+<ul class="simple">
+<li><p><strong>Endogenous variables</strong> are outputs of the model or dependent on exogenous variables. These can include portions of the data <span class="math notranslate nohighlight">\(x\)</span>, sometimes designated as <span class="math notranslate nohighlight">\(y\)</span> as in <span class="math notranslate nohighlight">\(y = g(x,\theta)\)</span>.</p></li>
+</ul>
+</section>
+</div><div class="proof definition admonition" id="DefStructEst_DGP">
+<p class="admonition-title"><span class="caption-number">Definition 4 </span> (Data generating process (DGP))</p>
+<section class="definition-content" id="proof-content">
+<p>The broadest definition of a <strong>data generating process</strong> (DGP) is a complete description of the mechanism that causes some observed phenomenon with all its dependencies. Unfortunately, in most realistic systems, this definition is too complex. A more practical definition of a <strong>data generating process</strong> is a simplified version of the process that causes some observed phenomenon with its key dependencies. The concept of a DGP is very similar to the concept of a <a class="reference internal" href="../appendix/glossary.html#term-model"><span class="xref std std-term">model</span></a> from <a class="reference internal" href="#DefStructEst_Model">Definition 1</a>. A key characteristic of a DGP is that it must be specified in such as way that it could be used to simulate data.</p>
+</section>
+</div><div class="proof definition admonition" id="DefStructEst_StructMod">
+<p class="admonition-title"><span class="caption-number">Definition 5 </span> (Structural model)</p>
+<section class="definition-content" id="proof-content">
+<p>A <strong>structural model</strong> in economics is a model in which the mathematical relationships among variables and parameters are derived from individuals’, firms’, or other organizations’ optimization. These are often referred to as behavioral equations. <strong>Structural models</strong> can include linear models and linear approximations. But most often, <strong>structural models</strong> are nonlinear and dynamic.</p>
+</section>
+</div><div class="proof definition admonition" id="DefStructEst_ReducedMod">
+<p class="admonition-title"><span class="caption-number">Definition 6 </span> (Reduced form model)</p>
+<section class="definition-content" id="proof-content">
+<p>A <strong>reduced form model</strong> in economics is a model in which the equations are either not derived from behavioral equations or are only implicitly a linear approximation of some more complicated model. However, because they are atheoretical and often nonparametric, machine learning models can be categorized as reduced form. <strong>Reduced form models</strong> are most often static, although time series econometric models are categorized as reduced form.</p>
+</section>
+</div><div class="proof definition admonition" id="DefStructEst_StructEst">
+<p class="admonition-title"><span class="caption-number">Definition 7 </span> (Structural estimation)</p>
+<section class="definition-content" id="proof-content">
+<p>Put definition of <strong>structural estimation</strong> here.</p>
+</section>
+</div><div class="proof definition admonition" id="DefStructEst_Calib">
+<p class="admonition-title"><span class="caption-number">Definition 8 </span> (Calibration)</p>
+<section class="definition-content" id="proof-content">
+<p>Put definition of <strong>calibration</strong> here.</p>
+</section>
+</div><div class="proof definition admonition" id="DefStructEst_ReducedEst">
+<p class="admonition-title"><span class="caption-number">Definition 9 </span> (Reduced form estimation)</p>
+<section class="definition-content" id="proof-content">
+<p>Put definition of <strong>reduced form estimation</strong> here.</p>
+</section>
+</div><section id="different-types-of-models">
+<span id="secstructestintrotypes"></span><h2>Different types of models<a class="headerlink" href="#different-types-of-models" title="Permalink to this heading">#</a></h2>
+<p>A good introduction to structural estimation is to compare it to other types of research designs. <a class="reference internal" href="#ExercStructEst_CompPaper"><span class="std std-numref">Exercise 2</span></a> asks you to compare the structural approach to the reduced form approach. The following are some prominent research designs in economics, only some of which are structural estimations.</p>
+<p><strong>Structural estimation papers</strong></p>
+<ul class="simple">
+<li><p>(Classic structural estimation) <span id="id2">[<a class="reference internal" href="../CompMethods_references.html#id21" title="John Rust. Optimal replacement of gmc bus engines: an empirical model of harold zurcher. Econometrica, 55(5):999-1033, September 1987. URL: https://www.jstor.org/stable/1911259.">Rust, 1987</a>]</span></p></li>
+<li><p><span id="id3">[<a class="reference internal" href="../CompMethods_references.html#id5" title="Barsky and Sims. Information, animal spirits, and the meaning of innovations in consumer confidence. American Economic Review, 102(4):1343-1377, June 2012. URL: https://pubs.aeaweb.org/doi/pdfplus/10.1257/aer.102.4.1343.">Barsky and Sims, 2012</a>]</span></p></li>
+</ul>
+<p><strong>Reduced form estimation papers</strong></p>
+<ul class="simple">
+<li><p><span id="id4">[<a class="reference internal" href="../CompMethods_references.html#id4" title="Martha J. Bailey, Olga Malkova, and Zoë M. McLaren. Does access to family planning increase children's opportunities? evidence from the war on poverty and the early years of title x. Journal of Human Resources, 54(4):825-856, Fall 2019. URL: https://jhr.uwpress.org/content/54/4/825.">Bailey <em>et al.</em>, 2019</a>]</span></p></li>
+<li><p>(Theory and reduced form and randomized controlled trial (RCT)) <span id="id5">[<a class="reference internal" href="../CompMethods_references.html#id3" title="Orazio Attanasio, Sarah Cattan, Emla Fitzsimons, Costas Meghir, and Marta Rubio-Codina. Estimating the production function for human capital: results from a randomized control trial in colombia. American Economic Review, 110(1):48-85, January 2020. URL: https://pubs.aeaweb.org/doi/pdfplus/10.1257/aer.20150183.">Attanasio <em>et al.</em>, 2020</a>]</span></p></li>
+</ul>
+<p><strong>Theory</strong></p>
+<ul class="simple">
+<li><p><span id="id6">[<a class="reference internal" href="../CompMethods_references.html#id24" title="Ludwig Straub and Iván Werning. Positive long-run capital taxation: chamley-judd revisited. American Economic Review, 110(1):86-119, January 2020. URL: https://pubs.aeaweb.org/doi/pdfplus/10.1257/aer.20150210.">Straub and Werning, 2020</a>]</span></p></li>
+</ul>
+</section>
 <section id="exercises">
 <span id="secstructestintroexerc"></span><h2>Exercises<a class="headerlink" href="#exercises" title="Permalink to this heading">#</a></h2>
-<div class="exercise admonition" id="ExercStructEst_CompPaper">
+<div class="exercise green admonition" id="ExercStructEst_CompPaper">
 
-<p class="admonition-title"><span class="caption-number">Exercise 2 </span></p>
+<p class="admonition-title"><span class="caption-number">Exercise 2 </span> (Persuasive short paper on structural estimation)</p>
 <section id="exercise-content">
 <p><strong>Persuasive short paper supporting either structural estimation or reduced form estimation or both.</strong></p>
 <ul class="simple">
-<li><p>Read <span id="id1">[<a class="reference internal" href="../CompMethods_references.html#id13" title="Michael P. Keane. Structural vs. atheoretic approaches to econometrics. Journal of Econometrics, 156(1):3-20, May 2010.">Keane, 2010</a>]</span> and <span id="id2">[<a class="reference internal" href="../CompMethods_references.html#id18" title="John Rust. Comments on: `structural vs. atheoretic approaches to econometrics'. Journal of Econometrics, 156(1):21-24, May 2010.">Rust, 2010</a>]</span>.</p></li>
+<li><p>Read <span id="id7">[<a class="reference internal" href="../CompMethods_references.html#id16" title="Michael P. Keane. Structural vs. atheoretic approaches to econometrics. Journal of Econometrics, 156(1):3-20, May 2010.">Keane, 2010</a>]</span> and <span id="id8">[<a class="reference internal" href="../CompMethods_references.html#id22" title="John Rust. Comments on: `structural vs. atheoretic approaches to econometrics'. Journal of Econometrics, 156(1):21-24, May 2010.">Rust, 2010</a>]</span>.</p></li>
 <li><p>Write a short persuasive paper of about one page (maximum of 1.5 pages) in which you make your case for either structural estimation or reduced form estimation or both. Note that both Keane and Rust are biased toward structural estimation.</p></li>
 <li><p>Make sure that you cite arguments that they use as evidence for or against your thesis.</p></li>
 <li><p>Refute (or temper) at least one of their arguments.</p></li>
@@ -451,7 +526,11 @@ document.write(`
 </section>
 <section id="footnotes">
 <span id="secstructestintrofootnotes"></span><h2>Footnotes<a class="headerlink" href="#footnotes" title="Permalink to this heading">#</a></h2>
-<!-- [^citation_note]: See {cite}`AuerbachEtAl:1981,AuerbachEtAl:1983`, {cite}`AuerbachKotlikoff:1983a,AuerbachKotlikoff:1983b,AuerbachKotlikoff:1983c`, and {cite}`AuerbachKotlikoff:1985`. -->
+<hr class="footnotes docutils" />
+<aside class="footnote brackets" id="macsscourses" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p>I taught a course, entitled Structural Estimation, to graduate students, with a few advanced undergradutates, in the Masters in Computational Social Science program at the University of Chicago four times from 2017 to 2020. The content of each course is in the following GitHub repositories, with syllabi, lecture slides, Jupyter notebooks, tests, and problem sets: <a class="reference external" href="https://github.com/rickecon/StructEst_W17">Winter 2017</a>, <a class="reference external" href="https://github.com/rickecon/StructEst_W18">Winter 2018</a>, <a class="reference external" href="https://github.com/rickecon/StructEst_W19">Winter 2019</a>, and <a class="reference external" href="https://github.com/rickecon/StructEst_W20">Winter 2020</a>.</p>
+</aside>
 </section>
 </section>
 
@@ -518,6 +597,7 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#different-types-of-models">Different types of models</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">Exercises</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">Footnotes</a></li>
 </ul>
