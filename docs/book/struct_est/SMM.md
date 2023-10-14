@@ -1,3 +1,15 @@
+---
+jupytext:
+  formats: md:myst
+  text_representation:
+    extension: .md
+    format_name: myst
+kernelspec:
+  display_name: Python 3
+  language: python
+  name: python3
+---
+
 (Chap_SMM)=
 # Simulated Method of Moments Estimation
 
@@ -317,15 +329,309 @@ In this section, we will use SMM to estimate parameters of the models from the {
 (SecSMM_CodeExmp_MacrTest)=
 ### Fitting a truncated normal to intermediate macroeconomics test scores
 
-Let's revisit the problem from the MLE and GMM notebooks of fitting a truncated normal distribution to intermediate macroeconomics test scores. The data are in the text file [`Econ381totpts.txt`](https://github.com/OpenSourceEcon/CompMethods/blob/main/data/smm/Econ381totpts.txt). Recall that these test scores are between 0 and 450. The figure below shows a histogram of the data, as well as three truncated normal PDF's with different values for $\mu$ and $\sigma$. The black line is the maximum likelihood estimate of $\mu$ and $\sigma$ of the truncated normal pdf from the {ref}`Chap_MaxLikeli` chapter. The red and the green lines are just the PDF's of two "arbitrarily" chosen combinations of the truncated normal parameters $\mu$ and $\sigma$.
+Let's revisit the problem from the MLE and GMM notebooks of fitting a truncated normal distribution to intermediate macroeconomics test scores. The data are in the text file [`Econ381totpts.txt`](https://github.com/OpenSourceEcon/CompMethods/blob/main/data/smm/Econ381totpts.txt). Recall that these test scores are between 0 and 450. {numref}`Figure %s <FigSMM_EconScoreTruncNorm>` below shows a histogram of the data, as well as three truncated normal PDF's with different values for $\mu$ and $\sigma$. The black line is the maximum likelihood estimate of $\mu$ and $\sigma$ of the truncated normal pdf from the {ref}`Chap_MaxLikeli` chapter. The red, green, and black lines are just the PDF's of two "arbitrarily" chosen combinations of the truncated normal parameters $\mu$ and $\sigma$.[^TruncNorm]
 
-```{figure} ../../../images/smm/MLEplots.png
+```{code-cell} ipython3
+:tags: ["hide-input", "remove-output"]
+
+# Import the necessary libraries
+import numpy as np
+import scipy.stats as sts
+import requests
+import matplotlib.pyplot as plt
+
+
+# Define function that generates values of a normal pdf
+def trunc_norm_pdf(xvals, mu, sigma, cut_lb, cut_ub):
+    '''
+    --------------------------------------------------------------------
+    Generate pdf values from the normal pdf with mean mu and standard
+    deviation sigma. If the cutoff is given, then the PDF values are
+    inflated upward to reflect the zero probability on values above the
+    cutoff. If there is no cutoff given, this function does the same
+    thing as sp.stats.norm.pdf(x, loc=mu, scale=sigma).
+    --------------------------------------------------------------------
+    INPUTS:
+    xvals  = (N,) vector, values of the normally distributed random
+             variable
+    mu     = scalar, mean of the normally distributed random variable
+    sigma  = scalar > 0, standard deviation of the normally distributed
+             random variable
+    cut_lb = scalar or string, ='None' if no cutoff is given, otherwise
+             is scalar lower bound value of distribution. Values below
+             this value have zero probability
+    cut_ub = scalar or string, ='None' if no cutoff is given, otherwise
+             is scalar upper bound value of distribution. Values above
+             this value have zero probability
+
+    OTHER FUNCTIONS AND FILES CALLED BY THIS FUNCTION: None
+
+    OBJECTS CREATED WITHIN FUNCTION:
+    prob_notcut = scalar
+    pdf_vals = (N,) vector, normal PDF values for mu and sigma
+               corresponding to xvals data
+
+    FILES CREATED BY THIS FUNCTION: None
+
+    RETURNS: pdf_vals
+    --------------------------------------------------------------------
+    '''
+    if cut_ub == 'None' and cut_lb == 'None':
+        prob_notcut = 1.0
+    elif cut_ub == 'None' and cut_lb != 'None':
+        prob_notcut = 1.0 - sts.norm.cdf(cut_lb, loc=mu, scale=sigma)
+    elif cut_ub != 'None' and cut_lb == 'None':
+        prob_notcut = sts.norm.cdf(cut_ub, loc=mu, scale=sigma)
+    elif cut_ub != 'None' and cut_lb != 'None':
+        prob_notcut = (sts.norm.cdf(cut_ub, loc=mu, scale=sigma) -
+                       sts.norm.cdf(cut_lb, loc=mu, scale=sigma))
+
+    pdf_vals    = ((1/(sigma * np.sqrt(2 * np.pi)) *
+                    np.exp( - (xvals - mu)**2 / (2 * sigma**2))) /
+                    prob_notcut)
+
+    return pdf_vals
+
+
+# Download and save the data file Econ381totpts.txt
+url = ('https://raw.githubusercontent.com/OpenSourceEcon/CompMethods/' +
+       'main/data/smm/Econ381totpts.txt')
+data_file = requests.get(url, allow_redirects=True)
+open('../../../data/smm/Econ381totpts.txt', 'wb').write(data_file.content)
+
+# Load the data as a NumPy array
+data = np.loadtxt('../../../data/smm/Econ381totpts.txt')
+
+num_bins = 30
+count, bins, ignored = plt.hist(
+    data, num_bins, density=True, edgecolor='k', label='data'
+)
+plt.title('Econ 381 scores: 2011-2012', fontsize=20)
+plt.xlabel(r'Total points')
+plt.ylabel(r'Percent of scores')
+plt.xlim([0, 550])  # This gives the xmin and xmax to be plotted"
+
+# Plot smooth line with distribution 1
+dist_pts = np.linspace(0, 450, 500)
+mu_1 = 300
+sig_1 = 30
+plt.plot(dist_pts, trunc_norm_pdf(dist_pts, mu_1, sig_1, 0, 450),
+         linewidth=2, color='red', label=f"$\mu$={mu_1},$\sigma$={sig_1}")
+
+# Plot smooth line with distribution 2
+mu_2 = 400
+sig_2 = 70
+plt.plot(dist_pts, trunc_norm_pdf(dist_pts, mu_2, sig_2, 0, 450),
+         linewidth=2, color='green', label=f"$\mu$={mu_2},$\sigma$={sig_2}")
+
+# Plot smooth line with distribution 3
+mu_3 = 558
+sig_3 = 176
+plt.plot(dist_pts, trunc_norm_pdf(dist_pts, mu_3, sig_3, 0, 450),
+         linewidth=2, color='black', label=f"$\mu$={mu_3},$\sigma$={sig_3}")
+plt.legend(loc='upper left')
+
+plt.show()
+```
+
+```{figure} ../../../images/smm/Econ381scores_truncnorm.png
 ---
 height: 500px
-name: FigMLEplots
+name: FigSMM_EconScoreTruncNorm
 ---
 Macroeconomic midterm scores and three truncated normal distributions
 ```
+
+#### Two moments, identity weighting matrix
+Let's try estimating the parameters $\mu$ and $\sigma$ from the truncated normal distribution by SMM, assuming that we know the cutoff values for the distribution of scores $c_{lb}=0$ and $c_{ub}=450$. What moments should we use? Let's try the mean and variance of the data. These two statistics of the data are defined by:
+
+$$ mean(scores_i) = \frac{1}{N}\sum_{i=1}^N scores_i $$
+
+$$ var(scores_i) = \frac{1}{N-1}\sum_{i=1}^{N} \left(scores_i - mean(scores_i)\right)^2 $$
+
+So the data moment vector $m(x)$ for SMM has two elements $R=2$ and is the following.
+
+$$ m(scores_i) \equiv \begin{bmatrix} mean(scores_i) \\ var(scores_i) \end{bmatrix} $$
+
+And the model moment vector $m(x|\theta)$ for SMM is the following.
+
+$$ m(scores_i|\mu,\sigma) \equiv \begin{bmatrix} mean(scores_i|\mu,\sigma) \\ var(scores_i|\mu,\sigma) \end{bmatrix} $$
+
+But let's assume that we need to simulate the data from the model (test scores) $S$ times in order to get the model moments. In this case, we don't need to simulate. But we will do so to show how SMM works.
+
+```{code-cell} ipython3
+:tags: ["remove-output"]
+
+# Import packages and load the data
+import numpy as np
+import numpy.random as rnd
+import numpy.linalg as lin
+import scipy.stats as sts
+import scipy.integrate as intgr
+import scipy.optimize as opt
+import matplotlib
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+from matplotlib import cm
+cmap1 = matplotlib.cm.get_cmap('summer')
+
+# Download and save the data file Econ381totpts.txt
+url = ('https://raw.githubusercontent.com/OpenSourceEcon/CompMethods/' +
+       'main/data/smm/Econ381totpts.txt')
+data_file = requests.get(url, allow_redirects=True)
+open('../../../data/smm/Econ381totpts.txt', 'wb').write(data_file.content)
+
+# Load the data as a NumPy array
+data = np.loadtxt('../../../data/smm/Econ381totpts.txt')
+```
+
+Let random variable $y\sim N(\mu,\sigma)$ be distributed normally with mean $\mu$ and standard deviation $\sigma$ with PDF given by $\phi(y|\mu,\sigma)$ and CDF given by $\Phi(y|\mu,\sigma)$. The truncated normal distribution of random variable $x\in(a,b)$ based on $y$ but with cutoff values of $a\geq -\infty$ as a lower bound and $a < b\leq\infty$ as an upper bound has the following probability density function.
+
+$$ f(x|\mu,\sigma,a,b) = \begin{cases} 0 \quad\text{if}\quad x\leq a \\ \frac{\phi(x|\mu,\sigma)}{\Phi(b|\mu,\sigma) - \Phi(a|\mu,\sigma)}\quad\text{if}\quad a < x < b \\ 0 \quad\text{if}\quad x\geq b \end{cases} $$
+
+The CDF of the truncated normal can be shown to be the following:
+
+$$ F(x|\mu,\sigma,a,b) = \begin{cases} 0 \quad\text{if}\quad x\leq a \\ \frac{\Phi(x|\mu,\sigma) - \Phi(a|\mu,\sigma)}{\Phi(b|\mu,\sigma) - \Phi(a|\mu,\sigma)}\quad\text{if}\quad a < x < b \\ 0 \quad\text{if}\quad x\geq b \end{cases} $$
+
+The inverse CDF of the truncated normal takes a value $p$ between 0 and 1 and solves for the value of $x$ for which $p=F(x|\mu,\sigma,a,b)$. The expression for the inverse CDF of the truncated normal is the following:
+
+$$ x = \Phi^{-1}(z|\mu,\sigma) \quad\text{where}\quad z = p\Bigl[\Phi(b|\mu,\sigma) - \Phi(a|\mu,\sigma)\Bigr] + \Phi(a|\mu,\sigma) $$
+
+Note that $z$ is just a transformation of $p$ such that $z\sim U\Bigl(\Phi^{-1}(a|\mu,\sigma), \Phi^{-1}(b|\mu,\sigma)\Bigr)$.
+
+The following code for `trunc_norm_pdf()` is a function that returns the probability distribution function value of random variable value $x$ given parameters $\mu$, $\sigma$, $c_{lb}$, $c_{ub}$.
+
+```{code-cell} ipython3
+:tags: ["remove-output"]
+
+def trunc_norm_pdf(xvals, mu, sigma, cut_lb, cut_ub):
+    '''
+    --------------------------------------------------------------------
+    Generate pdf values from the normal pdf with mean mu and standard
+    deviation sigma. If the cutoff is given, then the PDF values are
+    inflated upward to reflect the zero probability on values above the
+    cutoff. If there is no cutoff given, this function does the same
+    thing as sp.stats.norm.pdf(x, loc=mu, scale=sigma).
+    --------------------------------------------------------------------
+    INPUTS:
+    xvals  = (N,) vector, values of the normally distributed random
+             variable
+    mu     = scalar, mean of the normally distributed random variable
+    sigma  = scalar > 0, standard deviation of the normally distributed
+             random variable
+    cut_lb = scalar or string, ='None' if no cutoff is given, otherwise
+             is scalar lower bound value of distribution. Values below
+             this value have zero probability
+    cut_ub = scalar or string, ='None' if no cutoff is given, otherwise
+             is scalar upper bound value of distribution. Values above
+             this value have zero probability
+
+    OTHER FUNCTIONS AND FILES CALLED BY THIS FUNCTION: None
+
+    OBJECTS CREATED WITHIN FUNCTION:
+    prob_notcut = scalar
+    pdf_vals = (N,) vector, normal PDF values for mu and sigma
+               corresponding to xvals data
+
+    FILES CREATED BY THIS FUNCTION: None
+
+    RETURNS: pdf_vals
+    --------------------------------------------------------------------
+    '''
+    if cut_ub == 'None' and cut_lb == 'None':
+        prob_notcut = 1.0
+    elif cut_ub == 'None' and cut_lb != 'None':
+        prob_notcut = 1.0 - sts.norm.cdf(cut_lb, loc=mu, scale=sigma)
+    elif cut_ub != 'None' and cut_lb == 'None':
+        prob_notcut = sts.norm.cdf(cut_ub, loc=mu, scale=sigma)
+    elif cut_ub != 'None' and cut_lb != 'None':
+        prob_notcut = (sts.norm.cdf(cut_ub, loc=mu, scale=sigma) -
+                       sts.norm.cdf(cut_lb, loc=mu, scale=sigma))
+
+    pdf_vals = (
+        (1/(sigma * np.sqrt(2 * np.pi)) *
+         np.exp( - (xvals - mu)**2 / (2 * sigma**2))) /
+        prob_notcut
+    )
+
+    return pdf_vals
+```
+
+The following code `trunc_norm_draws` is a function that draws $S$ simulations of $N$ observations of the random variable $x_{n,s}$ that is distributed truncated normal. This function takes as an input an $N\times S$ matrix of uniform distributed values $u_{n,s}\sim U(0,1)$.
+
+```{code-cell} ipython3
+:tags: ["remove-output"]
+
+def trunc_norm_draws(unif_vals, mu, sigma, cut_lb, cut_ub):
+    '''
+    --------------------------------------------------------------------
+    Draw (N x S) matrix of random draws from a truncated normal
+    distribution based on a normal distribution with mean mu and
+    standard deviation sigma and cutoffs (cut_lb, cut_ub). These draws
+    correspond to an (N x S) matrix of randomly generated draws from a
+    uniform distribution U(0,1).
+    --------------------------------------------------------------------
+    INPUTS:
+    unif_vals = (N, S) matrix, (N,) vector, or scalar in (0,1), random
+                draws from uniform U(0,1) distribution
+    mu        = scalar, mean of the nontruncated normal distribution
+                from which the truncated normal is derived
+    sigma     = scalar > 0, standard deviation of the nontruncated
+                normal distribution from which the truncated normal is
+                derived
+    cut_lb    = scalar or string, ='None' if no lower bound cutoff is
+                given, otherwise is scalar lower bound value of
+                distribution. Values below this cutoff have zero
+                probability
+    cut_ub    = scalar or string, ='None' if no upper bound cutoff is
+                given, otherwise is scalar lower bound value of
+                distribution. Values below this cutoff have zero
+                probability
+
+    OTHER FUNCTIONS AND FILES CALLED BY THIS FUNCTION:
+        scipy.stats.norm()
+
+    OBJECTS CREATED WITHIN FUNCTION:
+    cut_ub_cdf  = scalar in [0, 1], cdf of N(mu, sigma) at upper bound
+                  cutoff of truncated normal distribution
+    cut_lb_cdf  = scalar in [0, 1], cdf of N(mu, sigma) at lower bound
+                  cutoff of truncated normal distribution
+    unif2_vals  = (N, S) matrix, (N,) vector, or scalar in (0,1),
+                  rescaled uniform derived from original.
+    tnorm_draws = (N, S) matrix, (N,) vector, or scalar in (0,1),
+                  values drawn from truncated normal PDF with base
+                  normal distribution N(mu, sigma) and cutoffs
+                  (cut_lb, cut_ub)
+
+    FILES CREATED BY THIS FUNCTION: None
+
+    RETURNS: tnorm_draws
+    --------------------------------------------------------------------
+    '''
+    # No cutoffs: truncated normal = normal
+    if (cut_lb == None) & (cut_ub == None):
+        cut_ub_cdf = 1.0
+        cut_lb_cdf = 0.0
+    # Lower bound truncation, no upper bound truncation
+    elif (cut_lb != None) & (cut_ub == None):
+        cut_ub_cdf = 1.0
+        cut_lb_cdf = sts.norm.cdf(cut_lb, loc=mu, scale=sigma)
+    # Upper bound truncation, no lower bound truncation
+    elif (cut_lb == None) & (cut_ub != None):
+        cut_ub_cdf = sts.norm.cdf(cut_ub, loc=mu, scale=sigma)
+        cut_lb_cdf = 0.0
+    # Lower bound and upper bound truncation
+    elif (cut_lb != None) & (cut_ub != None):
+        cut_ub_cdf = sts.norm.cdf(cut_ub, loc=mu, scale=sigma)
+        cut_lb_cdf = sts.norm.cdf(cut_lb, loc=mu, scale=sigma)
+
+    unif2_vals = unif_vals * (cut_ub_cdf - cut_lb_cdf) + cut_lb_cdf
+    tnorm_draws = sts.norm.ppf(unif2_vals, loc=mu, scale=sigma)
+
+    return tnorm_draws
+```
+
+What would one simulation of 161 test scores look like from a truncated normal with mean $\mu=300$, $\sigma=30$?
 
 
 (SecSMM_CodeExmp_BM72)=
@@ -455,4 +761,6 @@ Also, use the identity matrix as your weighting matrix $\textbf{W}=\textbf{I}$ a
 (SecSMMFootnotes)=
 ## Footnotes
 
-<!-- [^citation_note]: See {cite}`AuerbachEtAl:1981,AuerbachEtAl:1983`, {cite}`AuerbachKotlikoff:1983a,AuerbachKotlikoff:1983b,AuerbachKotlikoff:1983c`, and {cite}`AuerbachKotlikoff:1985`. -->
+The footnotes from this chapter.
+
+[^TruncNorm]: See Section {ref}`SecAppendixTruncNormal` of the Appendix for a description of the truncated normal distribution.

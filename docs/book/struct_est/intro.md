@@ -98,4 +98,6 @@ A good introduction to structural estimation is to compare it to other types of 
 (SecStructEstIntroFootnotes)=
 ## Footnotes
 
+The footnotes from this chapter.
+
 [^MACSScourses]: I taught a course, entitled Structural Estimation, to graduate students, with a few advanced undergradutates, in the Masters in Computational Social Science program at the University of Chicago four times from 2017 to 2020. The content of each course is in the following GitHub repositories, with syllabi, lecture slides, Jupyter notebooks, tests, and problem sets: [Winter 2017](https://github.com/rickecon/StructEst_W17), [Winter 2018](https://github.com/rickecon/StructEst_W18), [Winter 2019](https://github.com/rickecon/StructEst_W19), and [Winter 2020](https://github.com/rickecon/StructEst_W20).

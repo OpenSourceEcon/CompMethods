@@ -36,7 +36,7 @@ parts:
   - caption: Appendix
     chapters:
     - file: appendix/glossary
-    - file: appendix/intro
+    - file: appendix/appendix
   - caption: References
     chapters:
     - file: CompMethods_references
