@@ -633,6 +633,101 @@ def trunc_norm_draws(unif_vals, mu, sigma, cut_lb, cut_ub):
 
 What would one simulation of 161 test scores look like from a truncated normal with mean $\mu=300$, $\sigma=30$?
 
+```{code-cell} ipython3
+:tags: []
+
+mu_1 = 300.0
+sig_1 = 30.0
+cut_lb_1 = 0.0
+cut_ub_1 = 450.0
+np.random.seed(seed=1975)  # Set seed so the simulation values are always the same
+unif_vals_1 = sts.uniform.rvs(0, 1, size=161)
+draws_1 = trunc_norm_draws(unif_vals_1, mu_1, sig_1, cut_lb_1, cut_ub_1)
+print('Mean of simulated score =', draws_1.mean())
+print('Variance of simulated scores =', draws_1.var())
+print('Standard deviation of simulated scores =', draws_1.std())
+```
+
+```{code-cell} ipython3
+:tags: ["remove-output"]
+
+# Plot data histogram vs. simulated data histogram
+count_d, bins_d, ignored_d = \
+    plt.hist(data, 30, density=True, color='b', edgecolor='black',
+             linewidth=0.8, label='Data')
+count_m, bins_m, ignored_m = \
+    plt.hist(draws_1, 30, density=True, color='r', edgecolor='black',
+             linewidth=0.8, alpha=0.5, label='Simulated data')
+xvals = np.linspace(0, 450, 500)
+plt.plot(xvals, trunc_norm_pdf(xvals, mu_1, sig_1, cut_lb_1, cut_ub_1),
+         linewidth=2, color='k', label='PDF, simulated data')
+plt.title('Econ 381 scores: 2011-2012', fontsize=20)
+plt.xlabel('Total points')
+plt.ylabel('Percent of scores')
+plt.xlim([0, 550])  # This gives the xmin and xmax to be plotted"
+plt.legend(loc='upper left')
+
+plt.show()
+```
+
+```{figure} ../../../images/smm/Econ381scores_sim1.png
+---
+height: 500px
+name: FigSMM_EconScoreSim1
+---
+Histograms of one simulation of 161 Econ 381 test scores (2011-2012) from arbitrary truncated normal distribution compared to data
+```
+
+From that simulation, we can calculate moments from the simulated data just like we did from the actual data. The following function `data_moments2()` computes the mean and the variance of the simulated data $x$, where $x$ is an $N\times S$ matrix of $S$ simulations of $N$ observations each.
+
+```{code-cell} ipython3
+:tags: []
+
+def data_moments2(xvals):
+    '''
+    --------------------------------------------------------------------
+    This function computes the two data moments for SMM
+    (mean(data), variance(data)) from both the actual data and from the
+    simulated data.
+    --------------------------------------------------------------------
+    INPUTS:
+    xvals = (N, S) matrix or (N,) vector, or scalar in (cut_lb, cut_ub),
+            test scores data, either real world or simulated. Real world
+            data will come in the form (N,). Simulated data comes in the
+            form (N,) or (N, S).
+
+    OTHER FUNCTIONS AND FILES CALLED BY THIS FUNCTION: None
+
+    OBJECTS CREATED WITHIN FUNCTION:
+    mean_data = scalar or (S,) vector, mean value of test scores data
+    var_data  = scalar > 0 or (S,) vector, variance of test scores data
+
+    FILES CREATED BY THIS FUNCTION: None
+
+    RETURNS: mean_data, var_data
+    --------------------------------------------------------------------
+    '''
+    if xvals.ndim == 1:
+        mean_data = xvals.mean()
+        var_data = xvals.var()
+    elif xvals.ndim == 2:
+        mean_data = xvals.mean(axis=0)
+        var_data = xvals.var(axis=0)
+
+    return mean_data, var_data
+```
+
+```{code-cell} ipython3
+:tags: []
+
+mean_data, var_data = data_moments2(data)
+print('Data mean =', mean_data)
+print('Data variance =', var_data)
+mean_sim, var_sim = data_moments2(draws_1)
+print('Sim. mean =', mean_sim)
+print('Sim. variance =', var_sim)
+```
+
 
 (SecSMM_CodeExmp_BM72)=
 ### Brock and Mirman (1972) estimation by SMM
