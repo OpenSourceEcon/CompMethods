@@ -728,6 +728,280 @@ print('Sim. mean =', mean_sim)
 print('Sim. variance =', var_sim)
 ```
 
+We can also simulate many $(S)$ data sets of test scores, each with $N=161$ test scores. The estimate of the model moments will be the average of the simulated data moments across the simulations.
+
+```{code-cell} ipython3
+:tags: []
+
+N = 161
+S = 100
+mu_2 = 300.0
+sig_2 = 30.0
+cut_lb = 0.0
+cut_ub = 450.0
+np.random.seed(25)  # Set the random number seed to get same answers every time
+unif_vals_2 = sts.uniform.rvs(0, 1, size=(N, S))
+draws_2 = trunc_norm_draws(unif_vals_2, mu_2, sig_2,
+                           cut_lb, cut_ub)
+
+mean_sim, var_sim = data_moments2(draws_2)
+print("Mean test score in each simulation:")
+print(mean_sim)
+print("")
+print("Variance of test scores in each simulation:")
+print(var_sim)
+mean_mod = mean_sim.mean()
+var_mod = var_sim.mean()
+print("")
+print('Estimated model mean (avg. of means) =', mean_mod)
+print('Estimated model variance (avg. of variances) =', var_mod)
+```
+
+Our SMM model moments $\hat{m}(\tilde{scores}_i|\mu,\sigma)$ are an estimate of the true models moments that we got in the GMM case by integrating using the PDF of the truncated normal distribution. Our SMM moments we got by simulating the data $S$ times and taking the average of the simulated data moments across the simulations as our estimator of the model moments.
+
+Define the error vector as the vector of percent deviations of the model moments from the data moments.
+
+$$ e(\tilde{scores}_i,scores_i|\mu,\sigma) \equiv \frac{\hat{m}(\tilde{scores}_i|\mu,\sigma) - m(scores_i)}{m(scores_i)} $$
+
+The SMM estimator for this moment vector is the following.
+
+$$ (\hat{\mu}_{SMM},\hat{\sigma}_{SMM}) = (\mu,\sigma):\quad \min_{\mu,\sigma} e(\tilde{scores}_i,scores_i|\mu,\sigma)^T \, W \, e(\tilde{scores}_i,scores_i|\mu,\sigma) $$
+
+Now let's define a criterion function that takes as inputs the parameters and the estimator for the weighting matrix $\hat{W}$.
+
+```{code-cell} ipython3
+:tags: []
+
+def err_vec2(data_vals, unif_vals, mu, sigma, cut_lb, cut_ub, simple):
+    '''
+    --------------------------------------------------------------------
+    This function computes the vector of moment errors (in percent
+    deviation from the data moment vector) for SMM.
+    --------------------------------------------------------------------
+    INPUTS:
+    data_vals = (N,) vector, test scores data
+    unif_vals = (N, S) matrix, S simulations of N observations from
+                uniform distribution U(0,1)
+    mu        = scalar, mean of the nontruncated normal distribution
+                from which the truncated normal is derived
+    sigma     = scalar > 0, standard deviation of the nontruncated
+                normal distribution from which the truncated normal is
+                derived
+    cut_lb    = scalar or string, ='None' if no lower bound cutoff is
+                given, otherwise is scalar lower bound value of
+                distribution. Values below this cutoff have zero
+                probability
+    cut_ub    = scalar or string, ='None' if no upper bound cutoff is
+                given, otherwise is scalar lower bound value of
+                distribution. Values below this cutoff have zero
+                probability
+    simple    = boolean, =True if errors are simple difference, =False
+                if errors are percent deviation from data moments
+
+    OTHER FUNCTIONS AND FILES CALLED BY THIS FUNCTION:
+        trunc_norm_draws()
+        data_moments()
+
+    OBJECTS CREATED WITHIN FUNCTION:
+    mean_data  = scalar, mean value of data
+    var_data   = scalar > 0, variance of data
+    moms_data  = (2, 1) matrix, column vector of two data moments
+    mean_model = scalar, estimated mean value from model
+    var_model  = scalar > 0, estimated variance from model
+    moms_model = (2, 1) matrix, column vector of two model moments
+    err_vec    = (2, 1) matrix, column vector of two moment error
+                 functions
+
+    FILES CREATED BY THIS FUNCTION: None
+
+    RETURNS: err_vec
+    --------------------------------------------------------------------
+    '''
+    sim_vals = trunc_norm_draws(unif_vals, mu, sigma, cut_lb, cut_ub)
+    mean_data, var_data = data_moments2(data_vals)
+    moms_data = np.array([[mean_data], [var_data]])
+    mean_sim, var_sim = data_moments2(sim_vals)
+    mean_model = mean_sim.mean()
+    var_model = var_sim.mean()
+    moms_model = np.array([[mean_model], [var_model]])
+    if simple:
+        err_vec = moms_model - moms_data
+    else:
+        err_vec = (moms_model - moms_data) / moms_data
+
+    return err_vec
+
+
+def criterion(params, *args):
+    '''
+    --------------------------------------------------------------------
+    This function computes the SMM weighted sum of squared moment errors
+    criterion function value given parameter values and an estimate of
+    the weighting matrix.
+    --------------------------------------------------------------------
+    INPUTS:
+    params    = (2,) vector, ([mu, sigma])
+    mu        = scalar, mean of the normally distributed random variable
+    sigma     = scalar > 0, standard deviation of the normally
+                distributed random variable
+    args      = length 5 tuple,
+                (xvals, unif_vals, cut_lb, cut_ub, W_hat)
+    xvals     = (N,) vector, values of the truncated normally
+                distributed random variable
+    unif_vals = (N, S) matrix, matrix of draws from U(0,1) distribution.
+                This fixes the seed of the draws for the simulations
+    cut_lb    = scalar or string, ='None' if no lower bound cutoff is
+                given, otherwise is scalar lower bound value of
+                distribution. Values below this cutoff have zero
+                probability
+    cut_ub    = scalar or string, ='None' if no upper bound cutoff is
+                given, otherwise is scalar lower bound value of
+                distribution. Values below this cutoff have zero
+                probability
+    W_hat     = (R, R) matrix, estimate of optimal weighting matrix
+
+    OTHER FUNCTIONS AND FILES CALLED BY THIS FUNCTION:
+        err_vec2()
+
+    OBJECTS CREATED WITHIN FUNCTION:
+    err        = (2, 1) matrix, column vector of two moment error
+                 functions
+    crit_val   = scalar > 0, GMM criterion function value
+
+    FILES CREATED BY THIS FUNCTION: None
+
+    RETURNS: crit_val
+    --------------------------------------------------------------------
+    '''
+    mu, sigma = params
+    xvals, unif_vals, cut_lb, cut_ub, W_hat = args
+    err = err_vec2(xvals, unif_vals, mu, sigma, cut_lb, cut_ub,
+                  simple=False)
+    crit_val = err.T @ W_hat @ err
+
+    return crit_val
+```
+
+```{code-cell} ipython3
+:tags: []
+
+mu_test = 400
+sig_test = 70
+cut_lb = 0.0
+cut_ub = 450.0
+sim_vals = trunc_norm_draws(unif_vals_2, mu_test, sig_test, cut_lb, cut_ub)
+mean_sim, var_sim = data_moments2(sim_vals)
+mean_mod = mean_sim.mean()
+var_mod = var_sim.mean()
+err_vec2(data, unif_vals_2, mu_test, sig_test, cut_lb, cut_ub, simple=False)
+crit_test = criterion(np.array([mu_test, sig_test]), data, unif_vals_2,
+                      0.0, 450.0, np.eye(2))
+print("Average of mean test scores across simulations is:", mean_mod)
+print("")
+print("Average variance of test scores across simulations is:", var_mod)
+print("")
+print("Criterion function value is:", crit_test[0][0])
+```
+
+Now we can perform the SMM estimation using SciPy's minimize function to choose the values of $\mu$ and $\sigma$ of the truncated normal distribution that best fit the data by minimizing the crietrion function. Let's start with the identity matrix as our estimate for the optimal weighting matrix $W = I$.
+
+```{code-cell} ipython3
+:tags: []
+
+mu_init_1 = 300
+sig_init_1 = 30
+params_init_1 = np.array([mu_init_1, sig_init_1])
+W_hat1_1 = np.eye(2)
+smm_args1_1 = (data, unif_vals_2, cut_lb, cut_ub, W_hat1_1)
+results1_1 = opt.minimize(criterion, params_init_1, args=(smm_args1_1),
+                          method='L-BFGS-B',
+                          bounds=((1e-10, None), (1e-10, None)))
+mu_SMM1_1, sig_SMM1_1 = results1_1.x
+print('mu_SMM1_1=', mu_SMM1_1, ' sig_SMM1_1=', sig_SMM1_1)
+```
+
+```{code-cell} ipython3
+:tags: []
+
+mean_data, var_data = data_moments2(data)
+print('Data mean of scores =', mean_data, ', Data variance of scores =', var_data)
+sim_vals_1 = trunc_norm_draws(unif_vals_2, mu_SMM1_1, sig_SMM1_1, cut_lb, cut_ub)
+mean_sim_1, var_sim_1 = data_moments2(sim_vals_1)
+mean_model_1 = mean_sim_1.mean()
+var_model_1 = var_sim_1.mean()
+err_1 = err_vec2(data, unif_vals_2, mu_SMM1_1, sig_SMM1_1, cut_lb, cut_ub,
+                 False).reshape(2,)
+print("")
+print('Model mean 1 =', mean_model_1, ', Model variance 1 =', var_model_1)
+print("")
+print('Error vector 1 =', err_1)
+print("")
+print("Results from scipy.opmtimize.minimize:")
+print(results1_1)
+```
+
+Let's plot the PDF implied by these SMM estimates $(\hat{\mu}_{SMM},\hat{\sigma}_{SMM})=(612.337, 197.264)$ against the histogram of the data in {numref}`Figure %s <FigSMM_EconScoreSMM1>` below.
+
+```{code-cell} ipython3
+:tags: ["remove-output"]
+
+# Plot the histogram of the data
+count, bins, ignored = plt.hist(data, 30, density=True,
+                                edgecolor='black', linewidth=1.2, label='data')
+plt.title('Econ 381 scores: 2011-2012', fontsize=20)
+plt.xlabel('Total points')
+plt.ylabel('Percent of scores')
+plt.xlim([0, 550])  # This gives the xmin and xmax to be plotted"
+
+# Plot the estimated SMM PDF
+dist_pts = np.linspace(0, 450, 500)
+plt.plot(dist_pts, trunc_norm_pdf(dist_pts, mu_SMM1_1, sig_SMM1_1, 0.0, 450.0),
+         linewidth=2, color='k', label='PDF: ($\hat{\mu}_{SMM1}$,$\hat{\sigma}_{SMM1}$)=(612.34, 197.26)')
+plt.legend(loc='upper left')
+
+plt.show()
+```
+
+```{figure} ../../../images/smm/Econ381scores_smm1.png
+---
+height: 500px
+name: FigSMM_EconScoreSMM1
+---
+SMM-estimated PDF function and data histogram, 2 moments, identity weighting matrix, Econ 381 scores (2011-2012)
+```
+
+That looks just like the maximum likelihood estimate from the {ref}`Chap_MaxLikeli` chapter. Let's see what the criterion function looks like for different values of $\mu$ and $\sigma$.
+
+```{code-cell} ipython3
+:tags: []
+
+mu_vals = np.linspace(60, 700, 50)
+sig_vals = np.linspace(20, 250, 50)
+crit_vals = np.zeros((50, 50))
+crit_args = (data, unif_vals_2, cut_lb, cut_ub, W_hat1_1)
+for mu_ind in range(50):
+    for sig_ind in range(50):
+        crit_params = np.array([mu_vals[mu_ind], sig_vals[sig_ind]])
+        crit_vals[mu_ind, sig_ind] = criterion(crit_params, *crit_args)[0][0]
+
+mu_mesh, sig_mesh = np.meshgrid(mu_vals, sig_vals)
+
+crit_SMM1_1 = criterion(np.array([mu_SMM1_1, sig_SMM1_1]), *crit_args)[0][0]
+
+fig, ax = plt.subplots(subplot_kw={"projection": "3d"})
+ax.plot_surface(sig_mesh, mu_mesh, crit_vals, rstride=8,
+                cstride=1, cmap=cmap1)
+ax.scatter(sig_SMM1_1, mu_SMM1_1, crit_SMM1_1, color='red', marker='o',
+           s=10, label='SMM1 estimate')
+ax.view_init(elev=12, azim=30, roll=0)
+ax.set_title('Criterion function for values of mu and sigma')
+ax.set_xlabel(r'$\sigma$')
+ax.set_ylabel(r'$\mu$')
+ax.set_zlabel(r'Crit. func.')
+
+plt.show()
+```
+
 
 (SecSMM_CodeExmp_BM72)=
 ### Brock and Mirman (1972) estimation by SMM
