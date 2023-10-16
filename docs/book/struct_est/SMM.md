@@ -339,6 +339,7 @@ import numpy as np
 import scipy.stats as sts
 import requests
 import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
 
 
 # Define function that generates values of a normal pdf
@@ -442,6 +443,8 @@ name: FigSMM_EconScoreTruncNorm
 Macroeconomic midterm scores and three truncated normal distributions
 ```
 
+
+(SecSMM_CodeExmp_MacrTest_2mI)=
 #### Two moments, identity weighting matrix
 Let's try estimating the parameters $\mu$ and $\sigma$ from the truncated normal distribution by SMM, assuming that we know the cutoff values for the distribution of scores $c_{lb}=0$ and $c_{ub}=450$. What moments should we use? Let's try the mean and variance of the data. These two statistics of the data are defined by:
 
@@ -844,8 +847,8 @@ def criterion(params, *args):
     mu        = scalar, mean of the normally distributed random variable
     sigma     = scalar > 0, standard deviation of the normally
                 distributed random variable
-    args      = length 5 tuple,
-                (xvals, unif_vals, cut_lb, cut_ub, W_hat)
+    args      = length 6 tuple,
+                (xvals, unif_vals, cut_lb, cut_ub, W_hat, simple)
     xvals     = (N,) vector, values of the truncated normally
                 distributed random variable
     unif_vals = (N, S) matrix, matrix of draws from U(0,1) distribution.
@@ -859,6 +862,8 @@ def criterion(params, *args):
                 distribution. Values below this cutoff have zero
                 probability
     W_hat     = (R, R) matrix, estimate of optimal weighting matrix
+    simple    = Boolean, =True if error vec is simple difference,
+                =False if error vec is percent difference
 
     OTHER FUNCTIONS AND FILES CALLED BY THIS FUNCTION:
         err_vec2()
@@ -874,9 +879,9 @@ def criterion(params, *args):
     --------------------------------------------------------------------
     '''
     mu, sigma = params
-    xvals, unif_vals, cut_lb, cut_ub, W_hat = args
+    xvals, unif_vals, cut_lb, cut_ub, W_hat, simple = args
     err = err_vec2(xvals, unif_vals, mu, sigma, cut_lb, cut_ub,
-                  simple=False)
+                   simple)
     crit_val = err.T @ W_hat @ err
 
     return crit_val
@@ -895,7 +900,7 @@ mean_mod = mean_sim.mean()
 var_mod = var_sim.mean()
 err_vec2(data, unif_vals_2, mu_test, sig_test, cut_lb, cut_ub, simple=False)
 crit_test = criterion(np.array([mu_test, sig_test]), data, unif_vals_2,
-                      0.0, 450.0, np.eye(2))
+                      0.0, 450.0, np.eye(2), False)
 print("Average of mean test scores across simulations is:", mean_mod)
 print("")
 print("Average variance of test scores across simulations is:", var_mod)
@@ -912,7 +917,7 @@ mu_init_1 = 300
 sig_init_1 = 30
 params_init_1 = np.array([mu_init_1, sig_init_1])
 W_hat1_1 = np.eye(2)
-smm_args1_1 = (data, unif_vals_2, cut_lb, cut_ub, W_hat1_1)
+smm_args1_1 = (data, unif_vals_2, cut_lb, cut_ub, W_hat1_1, False)
 results1_1 = opt.minimize(criterion, params_init_1, args=(smm_args1_1),
                           method='L-BFGS-B',
                           bounds=((1e-10, None), (1e-10, None)))
@@ -940,7 +945,7 @@ print("Results from scipy.opmtimize.minimize:")
 print(results1_1)
 ```
 
-Let's plot the PDF implied by these SMM estimates $(\hat{\mu}_{SMM},\hat{\sigma}_{SMM})=(612.337, 197.264)$ against the histogram of the data in {numref}`Figure %s <FigSMM_EconScoreSMM1>` below.
+Let's plot the PDF implied by these SMM estimates $(\hat{\mu}_{SMM},\hat{\sigma}_{SMM})=(612.337, 197.264)$ against the histogram of the data in {numref}`Figure %s <FigSMM_Econ381_SMM1>` below.
 
 ```{code-cell} ipython3
 :tags: ["remove-output"]
@@ -965,22 +970,22 @@ plt.show()
 ```{figure} ../../../images/smm/Econ381scores_smm1.png
 ---
 height: 500px
-name: FigSMM_EconScoreSMM1
+name: FigSMM_Econ381_SMM1
 ---
 SMM-estimated PDF function and data histogram, 2 moments, identity weighting matrix, Econ 381 scores (2011-2012)
 ```
 
-That looks just like the maximum likelihood estimate from the {ref}`Chap_MaxLikeli` chapter. Let's see what the criterion function looks like for different values of $\mu$ and $\sigma$.
+That looks just like the maximum likelihood estimate from the {ref}`Chap_MaxLikeli` chapter. {numref}`Figure %s <FigSMM_Econ381_crit1>` below shows what the minimizer is doing. The figure shows the criterion function surface for different of $\mu$ and $\sigma$ in the truncated normal distribution. The minimizer is searching for the parameter values that give the lowest criterion function value.
 
 ```{code-cell} ipython3
-:tags: []
+:tags: ["remove-output"]
 
-mu_vals = np.linspace(60, 700, 50)
-sig_vals = np.linspace(20, 250, 50)
-crit_vals = np.zeros((50, 50))
-crit_args = (data, unif_vals_2, cut_lb, cut_ub, W_hat1_1)
-for mu_ind in range(50):
-    for sig_ind in range(50):
+mu_vals = np.linspace(60, 700, 90)
+sig_vals = np.linspace(20, 250, 100)
+crit_vals = np.zeros((90, 100))
+crit_args = (data, unif_vals_2, cut_lb, cut_ub, W_hat1_1, False)
+for mu_ind in range(90):
+    for sig_ind in range(100):
         crit_params = np.array([mu_vals[mu_ind], sig_vals[sig_ind]])
         crit_vals[mu_ind, sig_ind] = criterion(crit_params, *crit_args)[0][0]
 
@@ -989,18 +994,209 @@ mu_mesh, sig_mesh = np.meshgrid(mu_vals, sig_vals)
 crit_SMM1_1 = criterion(np.array([mu_SMM1_1, sig_SMM1_1]), *crit_args)[0][0]
 
 fig, ax = plt.subplots(subplot_kw={"projection": "3d"})
-ax.plot_surface(sig_mesh, mu_mesh, crit_vals, rstride=8,
-                cstride=1, cmap=cmap1)
-ax.scatter(sig_SMM1_1, mu_SMM1_1, crit_SMM1_1, color='red', marker='o',
-           s=10, label='SMM1 estimate')
+ax.plot_surface(mu_mesh.T, sig_mesh.T, crit_vals, rstride=8,
+                cstride=1, cmap=cmap1, alpha=0.9)
+ax.scatter(mu_SMM1_1, sig_SMM1_1, crit_SMM1_1, color='red', marker='o',
+           s=18, label='SMM1 estimate')
 ax.view_init(elev=12, azim=30, roll=0)
 ax.set_title('Criterion function for values of mu and sigma')
-ax.set_xlabel(r'$\sigma$')
-ax.set_ylabel(r'$\mu$')
+ax.set_xlabel(r'$\mu$')
+ax.set_ylabel(r'$\sigma$')
 ax.set_zlabel(r'Crit. func.')
+plt.tight_layout()
 
 plt.show()
 ```
+
+```{figure} ../../../images/smm/Econ381_crit1.png
+---
+height: 500px
+name: FigSMM_Econ381_crit1
+---
+Criterion function surface for values of $\mu$ and $\sigma$ for SMM estimation of truncated normal with two moments and identity weighting matrix (SMM estimate shown as red dot)
+```
+
+Let's compute the SMM estimator for the variance-covariance matrix $\hat{\Sigma}_{SMM}$ of our SMM estimates $\hat{\theta}_{SMM}$ using the equation in Section {ref}`SecSMM_VarCovTheta` based on the Jacobian $d(\tilde{x},x|\hat{\theta}_{SMM})$ of the moment error vector $e(\tilde{x},x|\hat{\theta}_{SMM})$ from the criterion function at the estimated (optimal) parameter values $\hat{\theta}_{SMM}$. We first write a function that computes the Jacobian matrix $d(x|\hat{\theta}_{SMM})$, which has shape $2\times 2$ in this case with two moments $R=2$.
+
+```{code-cell} ipython3
+:tags: []
+
+def Jac_err2(data_vals, unif_vals, mu, sigma, cut_lb, cut_ub, simple=False):
+    '''
+    This function computes the Jacobian matrix of partial derivatives of the
+    R x 1 moment error vector e(x|theta) with respect to the K parameters
+    theta_i in the K x 1 parameter vector theta. The resulting matrix is R x K
+    Jacobian.
+    '''
+    Jac_err = np.zeros((2, 2))
+    h_mu = 1e-4 * mu
+    h_sig = 1e-4 * sigma
+    Jac_err[:, 0] = (
+        (err_vec2(xvals, unif_vals, mu + h_mu, sigma, cut_lb, cut_ub, simple) -
+         err_vec2(xvals, unif_vals, mu - h_mu, sigma, cut_lb, cut_ub, simple)) /
+        (2 * h_mu)
+    ).flatten()
+    Jac_err[:, 1] = (
+        (err_vec2(xvals, unif_vals, mu, sigma + h_sig, cut_lb, cut_ub, simple) -
+         err_vec2(xvals, unif_vals, mu, sigma - h_sig, cut_lb, cut_ub, simple)) /
+        (2 * h_sig)
+    ).flatten()
+
+    return Jac_err
+```
+
+```{code-cell} ipython3
+:tags: []
+
+S = unif_vals_2.shape[1]
+d_err2 = Jac_err2(data, unif_vals_2, mu_SMM1_1, sig_SMM1_1, 0.0, 450.0, False)
+print("Jacobian matrix of derivatives of moment error functions is:")
+print(d_err2)
+print("")
+print("Weighting matrix W is:")
+print(W_hat1_1)
+SigHat2 = (1 / S) * lin.inv(d_err2.T @ W_hat1_1 @ d_err2)
+print("")
+print("Variance-covariance matrix of estimated parameter vector is:")
+print(SigHat2)
+print("")
+print('Std. err. mu_hat=', np.sqrt(SigHat2[0, 0]))
+print('Std. err. sig_hat=', np.sqrt(SigHat2[1, 1]))
+```
+
+This SMM estimation methodology of estimating $\mu$ and $\sigma$ from the truncated normal distribution to fit the distribution of Econ 381 test scores using two moments from the data and using the identity matrix as the optimal weighting matrix is not very precise. The standard errors for the estimates of $\hat{mu}$ and $\hat{sigma}$ are bigger than their values.
+
+In the next section, we see if we can get more accurate estimates (lower criterion function values) of $\hat{mu}$ and $\hat{sigma}$ with more precise standard errors by using the two-step optimal weighting matrix described in Section {ref}`SecSMM_W_2step`.
+
+
+(SecSMM_CodeExmp_MacrTest_2m2st)=
+#### Two moments, two-step optimal weighting matrix
+Similar to the maximum likelihood estimation problem in Chapter {ref}`Chap_MaxLikeli`, it looks like the minimum value of the criterion function shown in {numref}`Figure %s <FigSMM_Econ381_crit1>` is roughly equal for a specific portion increase of $\mu$ and $\sigma$ together. That is, the estimation problem with these two moments probably has a correspondence of values of $\mu$ and $\sigma$ that give roughly the same minimum criterion function value. This issue has two possible solutions.
+
+1. Maybe we need the two-step variance covariance estimator to calculate a "more" optimal weighting matrix $W$.
+2. Maybe our two moments aren't very good moments for fitting the data.
+
+Let's first try the two-step weighting matrix.
+
+```{code-cell} ipython3
+:tags: []
+
+def get_Err_mat2(pts, unif_vals, mu, sigma, cut_lb, cut_ub, simple=False):
+    '''
+    --------------------------------------------------------------------
+    This function computes the R x S matrix of errors from each
+    simulated moment for each moment error. In this function, we have
+    hard coded R = 2.
+    --------------------------------------------------------------------
+    INPUTS:
+    xvals     = (N,) vector, test scores data
+    unif_vals = (N, S) matrix, uniform random variables that generate
+                the N observations of simulated data for S simulations
+    mu        = scalar, mean of the normally distributed random variable
+    sigma     = scalar > 0, standard deviation of the normally
+                distributed random variable
+    cut_lb    = scalar or string, ='None' if no cutoff is given,
+                otherwise is scalar lower bound value of distribution.
+                Values below this value have zero probability
+    cut_ub    = scalar or string, ='None' if no cutoff is given,
+                otherwise is scalar upper bound value of distribution.
+                Values above this value have zero probability
+    simple    = boolean, =True if errors are simple difference, =False
+                if errors are percent deviation from data moments
+
+    OTHER FUNCTIONS AND FILES CALLED BY THIS FUNCTION:
+        model_moments()
+
+    OBJECTS CREATED WITHIN FUNCTION:
+    R          = integer = 2, hard coded number of moments
+    S          = integer >= R, number of simulated datasets
+    Err_mat    = (R, S) matrix, error by moment and simulated data
+    mean_model = scalar, mean value from model
+    var_model  = scalar > 0, variance from model
+
+    FILES CREATED BY THIS FUNCTION: None
+
+    RETURNS: Err_mat
+    --------------------------------------------------------------------
+    '''
+    R = 2
+    S = unif_vals.shape[1]
+    Err_mat = np.zeros((R, S))
+    mean_data, var_data = data_moments2(pts)
+    sim_vals = trunc_norm_draws(unif_vals, mu, sigma, cut_lb, cut_ub)
+    mean_model, var_model = data_moments2(sim_vals)
+    if simple:
+        Err_mat[0, :] = mean_model - mean_data
+        Err_mat[1, :] = var_model - var_data
+    else:
+        Err_mat[0, :] = (mean_model - mean_data) / mean_data
+        Err_mat[1, :] = (var_model - var_data) / var_data
+
+    return Err_mat
+```
+
+```{code-cell} ipython3
+:tags: []
+
+Err_mat2 = get_Err_mat2(data, unif_vals_2, mu_SMM1_1, sig_SMM1_1, 0.0, 450.0, False)
+VCV2 = (1 / unif_vals_2.shape[1]) * (Err_mat2 @ Err_mat2.T)
+print("2nd stage est. of var-cov matrix of moment error vec across sims:")
+print(VCV2)
+W_hat2_1 = lin.inv(VCV2)
+print("")
+print("2nd state est. of optimal weighting matrix:")
+print(W_hat2_1)
+```
+
+```{code-cell} ipython3
+:tags: []
+
+params_init2_1 = np.array([mu_SMM1_1, sig_SMM1_1])
+smm_args2_1 = (data, unif_vals_2, cut_lb, cut_ub, W_hat2_1, False)
+results2_1 = opt.minimize(criterion, params_init2_1, args=(smm_args2_1),
+                         method='L-BFGS-B',
+                         bounds=((1e-10, None), (1e-10, None)))
+mu_SMM2_1, sig_SMM2_1 = results2_1.x
+print('mu_SMM2_1=', mu_SMM2_1, ' sig_SMM2_1=', sig_SMM2_1)
+```
+
+Look at how much smaller (more efficient) the estimated standard errors are in this case with the two-step optimal weighting matrix $\hat{W}_{2step}$.
+
+```{code-cell} ipython3
+:tags: []
+
+d_err2_2 = Jac_err2(data, unif_vals_2, mu_SMM2_1, sig_SMM2_1, 0.0, 450.0, False)
+print("Jacobian matrix of derivatives of moment error functions is:")
+print(d_err2_2)
+print("")
+print("Weighting matrix W is:")
+print(W_hat2_1)
+SigHat2_2 = (1 / S) * lin.inv(d_err2_2.T @ W_hat2_1 @ d_err2_2)
+print("")
+print("Variance-covariance matrix of estimated parameter vector is:")
+print(SigHat2_2)
+print("")
+print('Std. err. mu_hat=', np.sqrt(SigHat2_2[0, 0]))
+print('Std. err. sig_hat=', np.sqrt(SigHat2_2[1, 1]))
+```
+
+
+(SecSMM_CodeExmp_MacrTest_4mI)=
+#### Four moments, identity matrix weighting matrix
+
+Using a better weighting matrix didn't improve our estimates or fit very much---the estimates of $\hat{mu}$ and $\hat{\sigma}$ and the corresponding minimum criterion function value. But it did improve our standard errors. But even with the optimal weighting matrix, our standard errors still look pretty big. This might mean that we did not choose good moments for fitting the data. Let's try some different moments. How about four moments to match.
+
+1. The percent of observations greater than 430 (between 430 and 450)
+2. The percent of observations between 320 and 430
+3. The percent of observations between 220 and 320
+4. The percent of observations less than 220 (between 0 and 220)
+
+This means we are using four moments $R=4$ to identify two paramters $\mu$ and $\sigma$ ($K=2$). This problem is now overidentified ($R>K$). This is often a desired approach for SMM estimation.
+
+
+(SecSMM_CodeExmp_MacrTest_4m2st)=
+#### Four moments, two-step optimal weighting matrix
+
 
 
 (SecSMM_CodeExmp_BM72)=
