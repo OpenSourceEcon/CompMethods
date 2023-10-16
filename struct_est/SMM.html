@@ -222,7 +222,7 @@ const thebe_selector_output = ".output, .cell_output"
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Appendix</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../appendix/glossary.html">Glossary</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../appendix/intro.html">Appendix</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../appendix/appendix.html">Appendix</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">References</span></p>
 <ul class="nav bd-sidenav">
@@ -430,7 +430,13 @@ document.write(`
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variance-covariance-estimator-of-hat-theta">Variance-Covariance Estimator of <span class="math notranslate nohighlight">\(\hat{\theta}\)</span></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#code-examples">Code Examples</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fitting-a-truncated-normal-to-intermediate-macroeconomics-test-scores">Fitting a truncated normal to intermediate macroeconomics test scores</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fitting-a-truncated-normal-to-intermediate-macroeconomics-test-scores">Fitting a truncated normal to intermediate macroeconomics test scores</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#two-moments-identity-weighting-matrix">Two moments, identity weighting matrix</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#two-moments-two-step-optimal-weighting-matrix">Two moments, two-step optimal weighting matrix</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#four-moments-identity-matrix-weighting-matrix">Four moments, identity matrix weighting matrix</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#four-moments-two-step-optimal-weighting-matrix">Four moments, two-step optimal weighting matrix</a></li>
+</ul>
+</li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#brock-and-mirman-1972-estimation-by-smm">Brock and Mirman (1972) estimation by SMM</a></li>
 </ul>
 </li>
@@ -623,17 +629,1020 @@ document.write(`
 <p>In this section, we will use SMM to estimate parameters of the models from the <a class="reference internal" href="MaxLikelihood.html#chap-maxlikeli"><span class="std std-ref">Maximum Likelihood Estimation</span></a> chapter and from the <a class="reference internal" href="GMM.html#chap-gmm"><span class="std std-ref">Generalized Method of Moments Estimation</span></a> chapter.</p>
 <section id="fitting-a-truncated-normal-to-intermediate-macroeconomics-test-scores">
 <span id="secsmm-codeexmp-macrtest"></span><h3>Fitting a truncated normal to intermediate macroeconomics test scores<a class="headerlink" href="#fitting-a-truncated-normal-to-intermediate-macroeconomics-test-scores" title="Permalink to this heading">#</a></h3>
-<p>Let’s revisit the problem from the MLE and GMM notebooks of fitting a truncated normal distribution to intermediate macroeconomics test scores. The data are in the text file <a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/blob/main/data/smm/Econ381totpts.txt"><code class="docutils literal notranslate"><span class="pre">Econ381totpts.txt</span></code></a>. Recall that these test scores are between 0 and 450. The figure below shows a histogram of the data, as well as three truncated normal PDF’s with different values for <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span>. The black line is the maximum likelihood estimate of <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span> of the truncated normal pdf from the <a class="reference internal" href="MaxLikelihood.html#chap-maxlikeli"><span class="std std-ref">Maximum Likelihood Estimation</span></a> chapter. The red and the green lines are just the PDF’s of two “arbitrarily” chosen combinations of the truncated normal parameters <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span>.</p>
-<figure class="align-default" id="figmleplots">
-<a class="reference internal image-reference" href="../_images/MLEplots.png"><img alt="../_images/MLEplots.png" src="../_images/MLEplots.png" style="height: 500px;" /></a>
+<p>Let’s revisit the problem from the MLE and GMM notebooks of fitting a truncated normal distribution to intermediate macroeconomics test scores. The data are in the text file <a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/blob/main/data/smm/Econ381totpts.txt"><code class="docutils literal notranslate"><span class="pre">Econ381totpts.txt</span></code></a>. Recall that these test scores are between 0 and 450. <a class="reference internal" href="#figsmm-econscoretruncnorm"><span class="std std-numref">Figure 1</span></a> below shows a histogram of the data, as well as three truncated normal PDF’s with different values for <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span>. The black line is the maximum likelihood estimate of <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span> of the truncated normal pdf from the <a class="reference internal" href="MaxLikelihood.html#chap-maxlikeli"><span class="std std-ref">Maximum Likelihood Estimation</span></a> chapter. The red, green, and black lines are just the PDF’s of two “arbitrarily” chosen combinations of the truncated normal parameters <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span>.<a class="footnote-reference brackets" href="#truncnorm" id="id11" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a></p>
+<div class="cell tag_hide-input tag_remove-output docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import the necessary libraries</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">sts</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">mpl_toolkits.mplot3d</span> <span class="kn">import</span> <span class="n">Axes3D</span>
+
+
+<span class="c1"># Define function that generates values of a normal pdf</span>
+<span class="k">def</span> <span class="nf">trunc_norm_pdf</span><span class="p">(</span><span class="n">xvals</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">cut_lb</span><span class="p">,</span> <span class="n">cut_ub</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    --------------------------------------------------------------------</span>
+<span class="sd">    Generate pdf values from the normal pdf with mean mu and standard</span>
+<span class="sd">    deviation sigma. If the cutoff is given, then the PDF values are</span>
+<span class="sd">    inflated upward to reflect the zero probability on values above the</span>
+<span class="sd">    cutoff. If there is no cutoff given, this function does the same</span>
+<span class="sd">    thing as sp.stats.norm.pdf(x, loc=mu, scale=sigma).</span>
+<span class="sd">    --------------------------------------------------------------------</span>
+<span class="sd">    INPUTS:</span>
+<span class="sd">    xvals  = (N,) vector, values of the normally distributed random</span>
+<span class="sd">             variable</span>
+<span class="sd">    mu     = scalar, mean of the normally distributed random variable</span>
+<span class="sd">    sigma  = scalar &gt; 0, standard deviation of the normally distributed</span>
+<span class="sd">             random variable</span>
+<span class="sd">    cut_lb = scalar or string, =&#39;None&#39; if no cutoff is given, otherwise</span>
+<span class="sd">             is scalar lower bound value of distribution. Values below</span>
+<span class="sd">             this value have zero probability</span>
+<span class="sd">    cut_ub = scalar or string, =&#39;None&#39; if no cutoff is given, otherwise</span>
+<span class="sd">             is scalar upper bound value of distribution. Values above</span>
+<span class="sd">             this value have zero probability</span>
+
+<span class="sd">    OTHER FUNCTIONS AND FILES CALLED BY THIS FUNCTION: None</span>
+
+<span class="sd">    OBJECTS CREATED WITHIN FUNCTION:</span>
+<span class="sd">    prob_notcut = scalar</span>
+<span class="sd">    pdf_vals = (N,) vector, normal PDF values for mu and sigma</span>
+<span class="sd">               corresponding to xvals data</span>
+
+<span class="sd">    FILES CREATED BY THIS FUNCTION: None</span>
+
+<span class="sd">    RETURNS: pdf_vals</span>
+<span class="sd">    --------------------------------------------------------------------</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="n">cut_ub</span> <span class="o">==</span> <span class="s1">&#39;None&#39;</span> <span class="ow">and</span> <span class="n">cut_lb</span> <span class="o">==</span> <span class="s1">&#39;None&#39;</span><span class="p">:</span>
+        <span class="n">prob_notcut</span> <span class="o">=</span> <span class="mf">1.0</span>
+    <span class="k">elif</span> <span class="n">cut_ub</span> <span class="o">==</span> <span class="s1">&#39;None&#39;</span> <span class="ow">and</span> <span class="n">cut_lb</span> <span class="o">!=</span> <span class="s1">&#39;None&#39;</span><span class="p">:</span>
+        <span class="n">prob_notcut</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="n">sts</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">cut_lb</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">mu</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">sigma</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">cut_ub</span> <span class="o">!=</span> <span class="s1">&#39;None&#39;</span> <span class="ow">and</span> <span class="n">cut_lb</span> <span class="o">==</span> <span class="s1">&#39;None&#39;</span><span class="p">:</span>
+        <span class="n">prob_notcut</span> <span class="o">=</span> <span class="n">sts</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">cut_ub</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">mu</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">sigma</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">cut_ub</span> <span class="o">!=</span> <span class="s1">&#39;None&#39;</span> <span class="ow">and</span> <span class="n">cut_lb</span> <span class="o">!=</span> <span class="s1">&#39;None&#39;</span><span class="p">:</span>
+        <span class="n">prob_notcut</span> <span class="o">=</span> <span class="p">(</span><span class="n">sts</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">cut_ub</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">mu</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">sigma</span><span class="p">)</span> <span class="o">-</span>
+                       <span class="n">sts</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">cut_lb</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">mu</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">sigma</span><span class="p">))</span>
+
+    <span class="n">pdf_vals</span>    <span class="o">=</span> <span class="p">((</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">sigma</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">))</span> <span class="o">*</span>
+                    <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span> <span class="o">-</span> <span class="p">(</span><span class="n">xvals</span> <span class="o">-</span> <span class="n">mu</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">sigma</span><span class="o">**</span><span class="mi">2</span><span class="p">)))</span> <span class="o">/</span>
+                    <span class="n">prob_notcut</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">pdf_vals</span>
+
+
+<span class="c1"># Download and save the data file Econ381totpts.txt</span>
+<span class="n">url</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/OpenSourceEcon/CompMethods/&#39;</span> <span class="o">+</span>
+       <span class="s1">&#39;main/data/smm/Econ381totpts.txt&#39;</span><span class="p">)</span>
+<span class="n">data_file</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">allow_redirects</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">open</span><span class="p">(</span><span class="s1">&#39;../../../data/smm/Econ381totpts.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">data_file</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+
+<span class="c1"># Load the data as a NumPy array</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s1">&#39;../../../data/smm/Econ381totpts.txt&#39;</span><span class="p">)</span>
+
+<span class="n">num_bins</span> <span class="o">=</span> <span class="mi">30</span>
+<span class="n">count</span><span class="p">,</span> <span class="n">bins</span><span class="p">,</span> <span class="n">ignored</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span>
+    <span class="n">data</span><span class="p">,</span> <span class="n">num_bins</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;data&#39;</span>
+<span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Econ 381 scores: 2011-2012&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Total points&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Percent of scores&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">550</span><span class="p">])</span>  <span class="c1"># This gives the xmin and xmax to be plotted&quot;</span>
+
+<span class="c1"># Plot smooth line with distribution 1</span>
+<span class="n">dist_pts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">450</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
+<span class="n">mu_1</span> <span class="o">=</span> <span class="mi">300</span>
+<span class="n">sig_1</span> <span class="o">=</span> <span class="mi">30</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">dist_pts</span><span class="p">,</span> <span class="n">trunc_norm_pdf</span><span class="p">(</span><span class="n">dist_pts</span><span class="p">,</span> <span class="n">mu_1</span><span class="p">,</span> <span class="n">sig_1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">450</span><span class="p">),</span>
+         <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;$\mu$=</span><span class="si">{</span><span class="n">mu_1</span><span class="si">}</span><span class="s2">,$\sigma$=</span><span class="si">{</span><span class="n">sig_1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Plot smooth line with distribution 2</span>
+<span class="n">mu_2</span> <span class="o">=</span> <span class="mi">400</span>
+<span class="n">sig_2</span> <span class="o">=</span> <span class="mi">70</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">dist_pts</span><span class="p">,</span> <span class="n">trunc_norm_pdf</span><span class="p">(</span><span class="n">dist_pts</span><span class="p">,</span> <span class="n">mu_2</span><span class="p">,</span> <span class="n">sig_2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">450</span><span class="p">),</span>
+         <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;$\mu$=</span><span class="si">{</span><span class="n">mu_2</span><span class="si">}</span><span class="s2">,$\sigma$=</span><span class="si">{</span><span class="n">sig_2</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Plot smooth line with distribution 3</span>
+<span class="n">mu_3</span> <span class="o">=</span> <span class="mi">558</span>
+<span class="n">sig_3</span> <span class="o">=</span> <span class="mi">176</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">dist_pts</span><span class="p">,</span> <span class="n">trunc_norm_pdf</span><span class="p">(</span><span class="n">dist_pts</span><span class="p">,</span> <span class="n">mu_3</span><span class="p">,</span> <span class="n">sig_3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">450</span><span class="p">),</span>
+         <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;$\mu$=</span><span class="si">{</span><span class="n">mu_3</span><span class="si">}</span><span class="s2">,$\sigma$=</span><span class="si">{</span><span class="n">sig_3</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper left&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<figure class="align-default" id="figsmm-econscoretruncnorm">
+<a class="reference internal image-reference" href="../_images/Econ381scores_truncnorm.png"><img alt="../_images/Econ381scores_truncnorm.png" src="../_images/Econ381scores_truncnorm.png" style="height: 500px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 1 </span><span class="caption-text">Macroeconomic midterm scores and three truncated normal distributions</span><a class="headerlink" href="#figmleplots" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 1 </span><span class="caption-text">Macroeconomic midterm scores and three truncated normal distributions</span><a class="headerlink" href="#figsmm-econscoretruncnorm" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
+<section id="two-moments-identity-weighting-matrix">
+<span id="secsmm-codeexmp-macrtest-2mi"></span><h4>Two moments, identity weighting matrix<a class="headerlink" href="#two-moments-identity-weighting-matrix" title="Permalink to this heading">#</a></h4>
+<p>Let’s try estimating the parameters <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span> from the truncated normal distribution by SMM, assuming that we know the cutoff values for the distribution of scores <span class="math notranslate nohighlight">\(c_{lb}=0\)</span> and <span class="math notranslate nohighlight">\(c_{ub}=450\)</span>. What moments should we use? Let’s try the mean and variance of the data. These two statistics of the data are defined by:</p>
+<div class="math notranslate nohighlight">
+\[ mean(scores_i) = \frac{1}{N}\sum_{i=1}^N scores_i \]</div>
+<div class="math notranslate nohighlight">
+\[ var(scores_i) = \frac{1}{N-1}\sum_{i=1}^{N} \left(scores_i - mean(scores_i)\right)^2 \]</div>
+<p>So the data moment vector <span class="math notranslate nohighlight">\(m(x)\)</span> for SMM has two elements <span class="math notranslate nohighlight">\(R=2\)</span> and is the following.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} m(scores_i) \equiv \begin{bmatrix} mean(scores_i) \\ var(scores_i) \end{bmatrix} \end{split}\]</div>
+<p>And the model moment vector <span class="math notranslate nohighlight">\(m(x|\theta)\)</span> for SMM is the following.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} m(scores_i|\mu,\sigma) \equiv \begin{bmatrix} mean(scores_i|\mu,\sigma) \\ var(scores_i|\mu,\sigma) \end{bmatrix} \end{split}\]</div>
+<p>But let’s assume that we need to simulate the data from the model (test scores) <span class="math notranslate nohighlight">\(S\)</span> times in order to get the model moments. In this case, we don’t need to simulate. But we will do so to show how SMM works.</p>
+<div class="cell tag_remove-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import packages and load the data</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">numpy.random</span> <span class="k">as</span> <span class="nn">rnd</span>
+<span class="kn">import</span> <span class="nn">numpy.linalg</span> <span class="k">as</span> <span class="nn">lin</span>
+<span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">sts</span>
+<span class="kn">import</span> <span class="nn">scipy.integrate</span> <span class="k">as</span> <span class="nn">intgr</span>
+<span class="kn">import</span> <span class="nn">scipy.optimize</span> <span class="k">as</span> <span class="nn">opt</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">mpl_toolkits.mplot3d</span> <span class="kn">import</span> <span class="n">Axes3D</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">cm</span>
+<span class="n">cmap1</span> <span class="o">=</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s1">&#39;summer&#39;</span><span class="p">)</span>
+
+<span class="c1"># Download and save the data file Econ381totpts.txt</span>
+<span class="n">url</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/OpenSourceEcon/CompMethods/&#39;</span> <span class="o">+</span>
+       <span class="s1">&#39;main/data/smm/Econ381totpts.txt&#39;</span><span class="p">)</span>
+<span class="n">data_file</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">allow_redirects</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">open</span><span class="p">(</span><span class="s1">&#39;../../../data/smm/Econ381totpts.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">data_file</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+
+<span class="c1"># Load the data as a NumPy array</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s1">&#39;../../../data/smm/Econ381totpts.txt&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let random variable <span class="math notranslate nohighlight">\(y\sim N(\mu,\sigma)\)</span> be distributed normally with mean <span class="math notranslate nohighlight">\(\mu\)</span> and standard deviation <span class="math notranslate nohighlight">\(\sigma\)</span> with PDF given by <span class="math notranslate nohighlight">\(\phi(y|\mu,\sigma)\)</span> and CDF given by <span class="math notranslate nohighlight">\(\Phi(y|\mu,\sigma)\)</span>. The truncated normal distribution of random variable <span class="math notranslate nohighlight">\(x\in(a,b)\)</span> based on <span class="math notranslate nohighlight">\(y\)</span> but with cutoff values of <span class="math notranslate nohighlight">\(a\geq -\infty\)</span> as a lower bound and <span class="math notranslate nohighlight">\(a &lt; b\leq\infty\)</span> as an upper bound has the following probability density function.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} f(x|\mu,\sigma,a,b) = \begin{cases} 0 \quad\text{if}\quad x\leq a \\ \frac{\phi(x|\mu,\sigma)}{\Phi(b|\mu,\sigma) - \Phi(a|\mu,\sigma)}\quad\text{if}\quad a &lt; x &lt; b \\ 0 \quad\text{if}\quad x\geq b \end{cases} \end{split}\]</div>
+<p>The CDF of the truncated normal can be shown to be the following:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} F(x|\mu,\sigma,a,b) = \begin{cases} 0 \quad\text{if}\quad x\leq a \\ \frac{\Phi(x|\mu,\sigma) - \Phi(a|\mu,\sigma)}{\Phi(b|\mu,\sigma) - \Phi(a|\mu,\sigma)}\quad\text{if}\quad a &lt; x &lt; b \\ 0 \quad\text{if}\quad x\geq b \end{cases} \end{split}\]</div>
+<p>The inverse CDF of the truncated normal takes a value <span class="math notranslate nohighlight">\(p\)</span> between 0 and 1 and solves for the value of <span class="math notranslate nohighlight">\(x\)</span> for which <span class="math notranslate nohighlight">\(p=F(x|\mu,\sigma,a,b)\)</span>. The expression for the inverse CDF of the truncated normal is the following:</p>
+<div class="math notranslate nohighlight">
+\[ x = \Phi^{-1}(z|\mu,\sigma) \quad\text{where}\quad z = p\Bigl[\Phi(b|\mu,\sigma) - \Phi(a|\mu,\sigma)\Bigr] + \Phi(a|\mu,\sigma) \]</div>
+<p>Note that <span class="math notranslate nohighlight">\(z\)</span> is just a transformation of <span class="math notranslate nohighlight">\(p\)</span> such that <span class="math notranslate nohighlight">\(z\sim U\Bigl(\Phi^{-1}(a|\mu,\sigma), \Phi^{-1}(b|\mu,\sigma)\Bigr)\)</span>.</p>
+<p>The following code for <code class="docutils literal notranslate"><span class="pre">trunc_norm_pdf()</span></code> is a function that returns the probability distribution function value of random variable value <span class="math notranslate nohighlight">\(x\)</span> given parameters <span class="math notranslate nohighlight">\(\mu\)</span>, <span class="math notranslate nohighlight">\(\sigma\)</span>, <span class="math notranslate nohighlight">\(c_{lb}\)</span>, <span class="math notranslate nohighlight">\(c_{ub}\)</span>.</p>
+<div class="cell tag_remove-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">trunc_norm_pdf</span><span class="p">(</span><span class="n">xvals</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">cut_lb</span><span class="p">,</span> <span class="n">cut_ub</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    --------------------------------------------------------------------</span>
+<span class="sd">    Generate pdf values from the normal pdf with mean mu and standard</span>
+<span class="sd">    deviation sigma. If the cutoff is given, then the PDF values are</span>
+<span class="sd">    inflated upward to reflect the zero probability on values above the</span>
+<span class="sd">    cutoff. If there is no cutoff given, this function does the same</span>
+<span class="sd">    thing as sp.stats.norm.pdf(x, loc=mu, scale=sigma).</span>
+<span class="sd">    --------------------------------------------------------------------</span>
+<span class="sd">    INPUTS:</span>
+<span class="sd">    xvals  = (N,) vector, values of the normally distributed random</span>
+<span class="sd">             variable</span>
+<span class="sd">    mu     = scalar, mean of the normally distributed random variable</span>
+<span class="sd">    sigma  = scalar &gt; 0, standard deviation of the normally distributed</span>
+<span class="sd">             random variable</span>
+<span class="sd">    cut_lb = scalar or string, =&#39;None&#39; if no cutoff is given, otherwise</span>
+<span class="sd">             is scalar lower bound value of distribution. Values below</span>
+<span class="sd">             this value have zero probability</span>
+<span class="sd">    cut_ub = scalar or string, =&#39;None&#39; if no cutoff is given, otherwise</span>
+<span class="sd">             is scalar upper bound value of distribution. Values above</span>
+<span class="sd">             this value have zero probability</span>
+
+<span class="sd">    OTHER FUNCTIONS AND FILES CALLED BY THIS FUNCTION: None</span>
+
+<span class="sd">    OBJECTS CREATED WITHIN FUNCTION:</span>
+<span class="sd">    prob_notcut = scalar</span>
+<span class="sd">    pdf_vals = (N,) vector, normal PDF values for mu and sigma</span>
+<span class="sd">               corresponding to xvals data</span>
+
+<span class="sd">    FILES CREATED BY THIS FUNCTION: None</span>
+
+<span class="sd">    RETURNS: pdf_vals</span>
+<span class="sd">    --------------------------------------------------------------------</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="n">cut_ub</span> <span class="o">==</span> <span class="s1">&#39;None&#39;</span> <span class="ow">and</span> <span class="n">cut_lb</span> <span class="o">==</span> <span class="s1">&#39;None&#39;</span><span class="p">:</span>
+        <span class="n">prob_notcut</span> <span class="o">=</span> <span class="mf">1.0</span>
+    <span class="k">elif</span> <span class="n">cut_ub</span> <span class="o">==</span> <span class="s1">&#39;None&#39;</span> <span class="ow">and</span> <span class="n">cut_lb</span> <span class="o">!=</span> <span class="s1">&#39;None&#39;</span><span class="p">:</span>
+        <span class="n">prob_notcut</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="n">sts</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">cut_lb</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">mu</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">sigma</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">cut_ub</span> <span class="o">!=</span> <span class="s1">&#39;None&#39;</span> <span class="ow">and</span> <span class="n">cut_lb</span> <span class="o">==</span> <span class="s1">&#39;None&#39;</span><span class="p">:</span>
+        <span class="n">prob_notcut</span> <span class="o">=</span> <span class="n">sts</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">cut_ub</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">mu</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">sigma</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">cut_ub</span> <span class="o">!=</span> <span class="s1">&#39;None&#39;</span> <span class="ow">and</span> <span class="n">cut_lb</span> <span class="o">!=</span> <span class="s1">&#39;None&#39;</span><span class="p">:</span>
+        <span class="n">prob_notcut</span> <span class="o">=</span> <span class="p">(</span><span class="n">sts</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">cut_ub</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">mu</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">sigma</span><span class="p">)</span> <span class="o">-</span>
+                       <span class="n">sts</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">cut_lb</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">mu</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">sigma</span><span class="p">))</span>
+
+    <span class="n">pdf_vals</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">sigma</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">))</span> <span class="o">*</span>
+         <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span> <span class="o">-</span> <span class="p">(</span><span class="n">xvals</span> <span class="o">-</span> <span class="n">mu</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">sigma</span><span class="o">**</span><span class="mi">2</span><span class="p">)))</span> <span class="o">/</span>
+        <span class="n">prob_notcut</span>
+    <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">pdf_vals</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The following code <code class="docutils literal notranslate"><span class="pre">trunc_norm_draws</span></code> is a function that draws <span class="math notranslate nohighlight">\(S\)</span> simulations of <span class="math notranslate nohighlight">\(N\)</span> observations of the random variable <span class="math notranslate nohighlight">\(x_{n,s}\)</span> that is distributed truncated normal. This function takes as an input an <span class="math notranslate nohighlight">\(N\times S\)</span> matrix of uniform distributed values <span class="math notranslate nohighlight">\(u_{n,s}\sim U(0,1)\)</span>.</p>
+<div class="cell tag_remove-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">trunc_norm_draws</span><span class="p">(</span><span class="n">unif_vals</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">cut_lb</span><span class="p">,</span> <span class="n">cut_ub</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    --------------------------------------------------------------------</span>
+<span class="sd">    Draw (N x S) matrix of random draws from a truncated normal</span>
+<span class="sd">    distribution based on a normal distribution with mean mu and</span>
+<span class="sd">    standard deviation sigma and cutoffs (cut_lb, cut_ub). These draws</span>
+<span class="sd">    correspond to an (N x S) matrix of randomly generated draws from a</span>
+<span class="sd">    uniform distribution U(0,1).</span>
+<span class="sd">    --------------------------------------------------------------------</span>
+<span class="sd">    INPUTS:</span>
+<span class="sd">    unif_vals = (N, S) matrix, (N,) vector, or scalar in (0,1), random</span>
+<span class="sd">                draws from uniform U(0,1) distribution</span>
+<span class="sd">    mu        = scalar, mean of the nontruncated normal distribution</span>
+<span class="sd">                from which the truncated normal is derived</span>
+<span class="sd">    sigma     = scalar &gt; 0, standard deviation of the nontruncated</span>
+<span class="sd">                normal distribution from which the truncated normal is</span>
+<span class="sd">                derived</span>
+<span class="sd">    cut_lb    = scalar or string, =&#39;None&#39; if no lower bound cutoff is</span>
+<span class="sd">                given, otherwise is scalar lower bound value of</span>
+<span class="sd">                distribution. Values below this cutoff have zero</span>
+<span class="sd">                probability</span>
+<span class="sd">    cut_ub    = scalar or string, =&#39;None&#39; if no upper bound cutoff is</span>
+<span class="sd">                given, otherwise is scalar lower bound value of</span>
+<span class="sd">                distribution. Values below this cutoff have zero</span>
+<span class="sd">                probability</span>
+
+<span class="sd">    OTHER FUNCTIONS AND FILES CALLED BY THIS FUNCTION:</span>
+<span class="sd">        scipy.stats.norm()</span>
+
+<span class="sd">    OBJECTS CREATED WITHIN FUNCTION:</span>
+<span class="sd">    cut_ub_cdf  = scalar in [0, 1], cdf of N(mu, sigma) at upper bound</span>
+<span class="sd">                  cutoff of truncated normal distribution</span>
+<span class="sd">    cut_lb_cdf  = scalar in [0, 1], cdf of N(mu, sigma) at lower bound</span>
+<span class="sd">                  cutoff of truncated normal distribution</span>
+<span class="sd">    unif2_vals  = (N, S) matrix, (N,) vector, or scalar in (0,1),</span>
+<span class="sd">                  rescaled uniform derived from original.</span>
+<span class="sd">    tnorm_draws = (N, S) matrix, (N,) vector, or scalar in (0,1),</span>
+<span class="sd">                  values drawn from truncated normal PDF with base</span>
+<span class="sd">                  normal distribution N(mu, sigma) and cutoffs</span>
+<span class="sd">                  (cut_lb, cut_ub)</span>
+
+<span class="sd">    FILES CREATED BY THIS FUNCTION: None</span>
+
+<span class="sd">    RETURNS: tnorm_draws</span>
+<span class="sd">    --------------------------------------------------------------------</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="c1"># No cutoffs: truncated normal = normal</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">cut_lb</span> <span class="o">==</span> <span class="kc">None</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">cut_ub</span> <span class="o">==</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="n">cut_ub_cdf</span> <span class="o">=</span> <span class="mf">1.0</span>
+        <span class="n">cut_lb_cdf</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="c1"># Lower bound truncation, no upper bound truncation</span>
+    <span class="k">elif</span> <span class="p">(</span><span class="n">cut_lb</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">cut_ub</span> <span class="o">==</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="n">cut_ub_cdf</span> <span class="o">=</span> <span class="mf">1.0</span>
+        <span class="n">cut_lb_cdf</span> <span class="o">=</span> <span class="n">sts</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">cut_lb</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">mu</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">sigma</span><span class="p">)</span>
+    <span class="c1"># Upper bound truncation, no lower bound truncation</span>
+    <span class="k">elif</span> <span class="p">(</span><span class="n">cut_lb</span> <span class="o">==</span> <span class="kc">None</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">cut_ub</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="n">cut_ub_cdf</span> <span class="o">=</span> <span class="n">sts</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">cut_ub</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">mu</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">sigma</span><span class="p">)</span>
+        <span class="n">cut_lb_cdf</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="c1"># Lower bound and upper bound truncation</span>
+    <span class="k">elif</span> <span class="p">(</span><span class="n">cut_lb</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">cut_ub</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="n">cut_ub_cdf</span> <span class="o">=</span> <span class="n">sts</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">cut_ub</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">mu</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">sigma</span><span class="p">)</span>
+        <span class="n">cut_lb_cdf</span> <span class="o">=</span> <span class="n">sts</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">cut_lb</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">mu</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">sigma</span><span class="p">)</span>
+
+    <span class="n">unif2_vals</span> <span class="o">=</span> <span class="n">unif_vals</span> <span class="o">*</span> <span class="p">(</span><span class="n">cut_ub_cdf</span> <span class="o">-</span> <span class="n">cut_lb_cdf</span><span class="p">)</span> <span class="o">+</span> <span class="n">cut_lb_cdf</span>
+    <span class="n">tnorm_draws</span> <span class="o">=</span> <span class="n">sts</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="n">unif2_vals</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">mu</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">sigma</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">tnorm_draws</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>What would one simulation of 161 test scores look like from a truncated normal with mean <span class="math notranslate nohighlight">\(\mu=300\)</span>, <span class="math notranslate nohighlight">\(\sigma=30\)</span>?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mu_1</span> <span class="o">=</span> <span class="mf">300.0</span>
+<span class="n">sig_1</span> <span class="o">=</span> <span class="mf">30.0</span>
+<span class="n">cut_lb_1</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="n">cut_ub_1</span> <span class="o">=</span> <span class="mf">450.0</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="mi">1975</span><span class="p">)</span>  <span class="c1"># Set seed so the simulation values are always the same</span>
+<span class="n">unif_vals_1</span> <span class="o">=</span> <span class="n">sts</span><span class="o">.</span><span class="n">uniform</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">161</span><span class="p">)</span>
+<span class="n">draws_1</span> <span class="o">=</span> <span class="n">trunc_norm_draws</span><span class="p">(</span><span class="n">unif_vals_1</span><span class="p">,</span> <span class="n">mu_1</span><span class="p">,</span> <span class="n">sig_1</span><span class="p">,</span> <span class="n">cut_lb_1</span><span class="p">,</span> <span class="n">cut_ub_1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Mean of simulated score =&#39;</span><span class="p">,</span> <span class="n">draws_1</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Variance of simulated scores =&#39;</span><span class="p">,</span> <span class="n">draws_1</span><span class="o">.</span><span class="n">var</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Standard deviation of simulated scores =&#39;</span><span class="p">,</span> <span class="n">draws_1</span><span class="o">.</span><span class="n">std</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mean of simulated score = 300.17445658136046
+Variance of simulated scores = 1000.626705029347
+Standard deviation of simulated scores = 31.632684126222152
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_remove-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot data histogram vs. simulated data histogram</span>
+<span class="n">count_d</span><span class="p">,</span> <span class="n">bins_d</span><span class="p">,</span> <span class="n">ignored_d</span> <span class="o">=</span> \
+    <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span>
+             <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Data&#39;</span><span class="p">)</span>
+<span class="n">count_m</span><span class="p">,</span> <span class="n">bins_m</span><span class="p">,</span> <span class="n">ignored_m</span> <span class="o">=</span> \
+    <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">draws_1</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span>
+             <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Simulated data&#39;</span><span class="p">)</span>
+<span class="n">xvals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">450</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xvals</span><span class="p">,</span> <span class="n">trunc_norm_pdf</span><span class="p">(</span><span class="n">xvals</span><span class="p">,</span> <span class="n">mu_1</span><span class="p">,</span> <span class="n">sig_1</span><span class="p">,</span> <span class="n">cut_lb_1</span><span class="p">,</span> <span class="n">cut_ub_1</span><span class="p">),</span>
+         <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;PDF, simulated data&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Econ 381 scores: 2011-2012&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Total points&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Percent of scores&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">550</span><span class="p">])</span>  <span class="c1"># This gives the xmin and xmax to be plotted&quot;</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper left&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<figure class="align-default" id="figsmm-econscoresim1">
+<a class="reference internal image-reference" href="../_images/Econ381scores_sim1.png"><img alt="../_images/Econ381scores_sim1.png" src="../_images/Econ381scores_sim1.png" style="height: 500px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 2 </span><span class="caption-text">Histograms of one simulation of 161 Econ 381 test scores (2011-2012) from arbitrary truncated normal distribution compared to data</span><a class="headerlink" href="#figsmm-econscoresim1" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>From that simulation, we can calculate moments from the simulated data just like we did from the actual data. The following function <code class="docutils literal notranslate"><span class="pre">data_moments2()</span></code> computes the mean and the variance of the simulated data <span class="math notranslate nohighlight">\(x\)</span>, where <span class="math notranslate nohighlight">\(x\)</span> is an <span class="math notranslate nohighlight">\(N\times S\)</span> matrix of <span class="math notranslate nohighlight">\(S\)</span> simulations of <span class="math notranslate nohighlight">\(N\)</span> observations each.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">data_moments2</span><span class="p">(</span><span class="n">xvals</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    --------------------------------------------------------------------</span>
+<span class="sd">    This function computes the two data moments for SMM</span>
+<span class="sd">    (mean(data), variance(data)) from both the actual data and from the</span>
+<span class="sd">    simulated data.</span>
+<span class="sd">    --------------------------------------------------------------------</span>
+<span class="sd">    INPUTS:</span>
+<span class="sd">    xvals = (N, S) matrix or (N,) vector, or scalar in (cut_lb, cut_ub),</span>
+<span class="sd">            test scores data, either real world or simulated. Real world</span>
+<span class="sd">            data will come in the form (N,). Simulated data comes in the</span>
+<span class="sd">            form (N,) or (N, S).</span>
+
+<span class="sd">    OTHER FUNCTIONS AND FILES CALLED BY THIS FUNCTION: None</span>
+
+<span class="sd">    OBJECTS CREATED WITHIN FUNCTION:</span>
+<span class="sd">    mean_data = scalar or (S,) vector, mean value of test scores data</span>
+<span class="sd">    var_data  = scalar &gt; 0 or (S,) vector, variance of test scores data</span>
+
+<span class="sd">    FILES CREATED BY THIS FUNCTION: None</span>
+
+<span class="sd">    RETURNS: mean_data, var_data</span>
+<span class="sd">    --------------------------------------------------------------------</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="n">xvals</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">mean_data</span> <span class="o">=</span> <span class="n">xvals</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+        <span class="n">var_data</span> <span class="o">=</span> <span class="n">xvals</span><span class="o">.</span><span class="n">var</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="n">xvals</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">mean_data</span> <span class="o">=</span> <span class="n">xvals</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">var_data</span> <span class="o">=</span> <span class="n">xvals</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">mean_data</span><span class="p">,</span> <span class="n">var_data</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mean_data</span><span class="p">,</span> <span class="n">var_data</span> <span class="o">=</span> <span class="n">data_moments2</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Data mean =&#39;</span><span class="p">,</span> <span class="n">mean_data</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Data variance =&#39;</span><span class="p">,</span> <span class="n">var_data</span><span class="p">)</span>
+<span class="n">mean_sim</span><span class="p">,</span> <span class="n">var_sim</span> <span class="o">=</span> <span class="n">data_moments2</span><span class="p">(</span><span class="n">draws_1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Sim. mean =&#39;</span><span class="p">,</span> <span class="n">mean_sim</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Sim. variance =&#39;</span><span class="p">,</span> <span class="n">var_sim</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data mean = 341.90869565217395
+Data variance = 7827.997292398056
+Sim. mean = 300.17445658136046
+Sim. variance = 1000.626705029347
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can also simulate many <span class="math notranslate nohighlight">\((S)\)</span> data sets of test scores, each with <span class="math notranslate nohighlight">\(N=161\)</span> test scores. The estimate of the model moments will be the average of the simulated data moments across the simulations.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">N</span> <span class="o">=</span> <span class="mi">161</span>
+<span class="n">S</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">mu_2</span> <span class="o">=</span> <span class="mf">300.0</span>
+<span class="n">sig_2</span> <span class="o">=</span> <span class="mf">30.0</span>
+<span class="n">cut_lb</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="n">cut_ub</span> <span class="o">=</span> <span class="mf">450.0</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">25</span><span class="p">)</span>  <span class="c1"># Set the random number seed to get same answers every time</span>
+<span class="n">unif_vals_2</span> <span class="o">=</span> <span class="n">sts</span><span class="o">.</span><span class="n">uniform</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">S</span><span class="p">))</span>
+<span class="n">draws_2</span> <span class="o">=</span> <span class="n">trunc_norm_draws</span><span class="p">(</span><span class="n">unif_vals_2</span><span class="p">,</span> <span class="n">mu_2</span><span class="p">,</span> <span class="n">sig_2</span><span class="p">,</span>
+                           <span class="n">cut_lb</span><span class="p">,</span> <span class="n">cut_ub</span><span class="p">)</span>
+
+<span class="n">mean_sim</span><span class="p">,</span> <span class="n">var_sim</span> <span class="o">=</span> <span class="n">data_moments2</span><span class="p">(</span><span class="n">draws_2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mean test score in each simulation:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">mean_sim</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Variance of test scores in each simulation:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">var_sim</span><span class="p">)</span>
+<span class="n">mean_mod</span> <span class="o">=</span> <span class="n">mean_sim</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">var_mod</span> <span class="o">=</span> <span class="n">var_sim</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Estimated model mean (avg. of means) =&#39;</span><span class="p">,</span> <span class="n">mean_mod</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Estimated model variance (avg. of variances) =&#39;</span><span class="p">,</span> <span class="n">var_mod</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mean test score in each simulation:
+[299.17667999 298.61052796 304.45608507 301.37072845 299.66868577
+ 303.44257561 298.68174796 297.94014672 297.47566228 299.63490045
+ 298.57207266 299.13235013 296.63826526 300.44460537 302.98678012
+ 301.09166082 302.89663118 301.50056988 299.56091107 301.94919604
+ 296.58486163 300.109284   303.35295389 300.4763979  298.52345697
+ 299.37526236 298.54462388 301.20756546 301.23182905 297.92082255
+ 302.0881712  300.37792528 302.69523093 298.92838232 296.03376169
+ 299.9335839  302.69026345 302.0934371  299.70288418 300.88610536
+ 304.86283252 299.10407269 303.11654222 302.07027394 299.29923542
+ 298.74552083 297.79965311 301.59852312 300.15616963 301.59864217
+ 295.52781074 303.98090953 300.31248226 301.44867717 297.78114307
+ 302.64825256 303.68061798 300.12495043 299.80104697 305.78334207
+ 300.95811329 297.94097772 303.02458302 300.24287686 305.55084554
+ 296.62551538 301.73820461 303.91841652 305.97485316 300.25235036
+ 298.6490962  299.80907094 301.66541992 298.66699545 298.68524191
+ 301.45696273 301.27407424 298.22269311 301.22887168 299.54314562
+ 299.85171183 299.26405411 298.87330671 301.59708796 298.46696222
+ 299.01431864 299.27736899 299.20186117 297.60298908 299.34134778
+ 296.56023236 300.36842728 299.81705203 300.234357   296.93063956
+ 301.60442391 299.68503428 298.32917874 300.93011523 298.78807296]
+
+Variance of test scores in each simulation:
+[ 854.27400514  793.0403989   841.76252205  819.86183015 1055.80239074
+  834.52746835  955.01586149 1033.93476802  804.86989439  715.96784403
+  927.66459495  594.40100934  974.32315671  903.2658217   877.78145497
+  900.13017505  871.56069402  835.1365732   849.46651395  835.02582303
+  939.66718613  654.80578245  998.41113837  815.81618606 1002.68353273
+  907.56790563  724.85910396  813.70435378 1015.31786118  975.59759144
+  888.63526849  881.81187368  842.94152651  976.74617301  978.23045295
+  790.85144559  933.04687473  987.37433204  980.14458376 1003.34539581
+  859.63957381 1050.9870203   901.66724764  967.15290016 1133.2532708
+ 1033.60468078  810.90856957  930.53152973  921.0020767   802.31271115
+  928.68723732 1046.31773806  932.0434472  1025.05965686  951.23678849
+  839.58583279  941.39252702  751.71431141  841.4610679  1021.10990195
+  863.80405021  849.16404517  819.12655726 1095.10022731  848.76703098
+  797.43467707  823.16623979 1056.73087072  821.12496192  917.86308975
+  841.00526807  862.52415389  937.44315325  884.41413606  933.28154226
+  864.67286651  992.96039373  856.4044805   868.37693837  954.32843377
+  814.35548352  758.33184649  861.16008799  917.8168036   980.31470517
+  821.32422902 1057.5979759   843.6883495   941.15291878  925.33449079
+  778.30674576  856.47550771  920.80553617  902.19187292  918.9232
+  880.47284712  841.07711245  925.82668059 1037.04590733  925.75216207]
+
+Estimated model mean (avg. of means) = 300.28595134427394
+Estimated model variance (avg. of variances) = 898.7468703753616
+</pre></div>
+</div>
+</div>
+</div>
+<p>Our SMM model moments <span class="math notranslate nohighlight">\(\hat{m}(\tilde{scores}_i|\mu,\sigma)\)</span> are an estimate of the true models moments that we got in the GMM case by integrating using the PDF of the truncated normal distribution. Our SMM moments we got by simulating the data <span class="math notranslate nohighlight">\(S\)</span> times and taking the average of the simulated data moments across the simulations as our estimator of the model moments.</p>
+<p>Define the error vector as the vector of percent deviations of the model moments from the data moments.</p>
+<div class="math notranslate nohighlight">
+\[ e(\tilde{scores}_i,scores_i|\mu,\sigma) \equiv \frac{\hat{m}(\tilde{scores}_i|\mu,\sigma) - m(scores_i)}{m(scores_i)} \]</div>
+<p>The SMM estimator for this moment vector is the following.</p>
+<div class="math notranslate nohighlight">
+\[ (\hat{\mu}_{SMM},\hat{\sigma}_{SMM}) = (\mu,\sigma):\quad \min_{\mu,\sigma} e(\tilde{scores}_i,scores_i|\mu,\sigma)^T \, W \, e(\tilde{scores}_i,scores_i|\mu,\sigma) \]</div>
+<p>Now let’s define a criterion function that takes as inputs the parameters and the estimator for the weighting matrix <span class="math notranslate nohighlight">\(\hat{W}\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">err_vec2</span><span class="p">(</span><span class="n">data_vals</span><span class="p">,</span> <span class="n">unif_vals</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">cut_lb</span><span class="p">,</span> <span class="n">cut_ub</span><span class="p">,</span> <span class="n">simple</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    --------------------------------------------------------------------</span>
+<span class="sd">    This function computes the vector of moment errors (in percent</span>
+<span class="sd">    deviation from the data moment vector) for SMM.</span>
+<span class="sd">    --------------------------------------------------------------------</span>
+<span class="sd">    INPUTS:</span>
+<span class="sd">    data_vals = (N,) vector, test scores data</span>
+<span class="sd">    unif_vals = (N, S) matrix, S simulations of N observations from</span>
+<span class="sd">                uniform distribution U(0,1)</span>
+<span class="sd">    mu        = scalar, mean of the nontruncated normal distribution</span>
+<span class="sd">                from which the truncated normal is derived</span>
+<span class="sd">    sigma     = scalar &gt; 0, standard deviation of the nontruncated</span>
+<span class="sd">                normal distribution from which the truncated normal is</span>
+<span class="sd">                derived</span>
+<span class="sd">    cut_lb    = scalar or string, =&#39;None&#39; if no lower bound cutoff is</span>
+<span class="sd">                given, otherwise is scalar lower bound value of</span>
+<span class="sd">                distribution. Values below this cutoff have zero</span>
+<span class="sd">                probability</span>
+<span class="sd">    cut_ub    = scalar or string, =&#39;None&#39; if no upper bound cutoff is</span>
+<span class="sd">                given, otherwise is scalar lower bound value of</span>
+<span class="sd">                distribution. Values below this cutoff have zero</span>
+<span class="sd">                probability</span>
+<span class="sd">    simple    = boolean, =True if errors are simple difference, =False</span>
+<span class="sd">                if errors are percent deviation from data moments</span>
+
+<span class="sd">    OTHER FUNCTIONS AND FILES CALLED BY THIS FUNCTION:</span>
+<span class="sd">        trunc_norm_draws()</span>
+<span class="sd">        data_moments()</span>
+
+<span class="sd">    OBJECTS CREATED WITHIN FUNCTION:</span>
+<span class="sd">    mean_data  = scalar, mean value of data</span>
+<span class="sd">    var_data   = scalar &gt; 0, variance of data</span>
+<span class="sd">    moms_data  = (2, 1) matrix, column vector of two data moments</span>
+<span class="sd">    mean_model = scalar, estimated mean value from model</span>
+<span class="sd">    var_model  = scalar &gt; 0, estimated variance from model</span>
+<span class="sd">    moms_model = (2, 1) matrix, column vector of two model moments</span>
+<span class="sd">    err_vec    = (2, 1) matrix, column vector of two moment error</span>
+<span class="sd">                 functions</span>
+
+<span class="sd">    FILES CREATED BY THIS FUNCTION: None</span>
+
+<span class="sd">    RETURNS: err_vec</span>
+<span class="sd">    --------------------------------------------------------------------</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">sim_vals</span> <span class="o">=</span> <span class="n">trunc_norm_draws</span><span class="p">(</span><span class="n">unif_vals</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">cut_lb</span><span class="p">,</span> <span class="n">cut_ub</span><span class="p">)</span>
+    <span class="n">mean_data</span><span class="p">,</span> <span class="n">var_data</span> <span class="o">=</span> <span class="n">data_moments2</span><span class="p">(</span><span class="n">data_vals</span><span class="p">)</span>
+    <span class="n">moms_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">mean_data</span><span class="p">],</span> <span class="p">[</span><span class="n">var_data</span><span class="p">]])</span>
+    <span class="n">mean_sim</span><span class="p">,</span> <span class="n">var_sim</span> <span class="o">=</span> <span class="n">data_moments2</span><span class="p">(</span><span class="n">sim_vals</span><span class="p">)</span>
+    <span class="n">mean_model</span> <span class="o">=</span> <span class="n">mean_sim</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="n">var_model</span> <span class="o">=</span> <span class="n">var_sim</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="n">moms_model</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">mean_model</span><span class="p">],</span> <span class="p">[</span><span class="n">var_model</span><span class="p">]])</span>
+    <span class="k">if</span> <span class="n">simple</span><span class="p">:</span>
+        <span class="n">err_vec</span> <span class="o">=</span> <span class="n">moms_model</span> <span class="o">-</span> <span class="n">moms_data</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">err_vec</span> <span class="o">=</span> <span class="p">(</span><span class="n">moms_model</span> <span class="o">-</span> <span class="n">moms_data</span><span class="p">)</span> <span class="o">/</span> <span class="n">moms_data</span>
+
+    <span class="k">return</span> <span class="n">err_vec</span>
+
+
+<span class="k">def</span> <span class="nf">criterion</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    --------------------------------------------------------------------</span>
+<span class="sd">    This function computes the SMM weighted sum of squared moment errors</span>
+<span class="sd">    criterion function value given parameter values and an estimate of</span>
+<span class="sd">    the weighting matrix.</span>
+<span class="sd">    --------------------------------------------------------------------</span>
+<span class="sd">    INPUTS:</span>
+<span class="sd">    params    = (2,) vector, ([mu, sigma])</span>
+<span class="sd">    mu        = scalar, mean of the normally distributed random variable</span>
+<span class="sd">    sigma     = scalar &gt; 0, standard deviation of the normally</span>
+<span class="sd">                distributed random variable</span>
+<span class="sd">    args      = length 6 tuple,</span>
+<span class="sd">                (xvals, unif_vals, cut_lb, cut_ub, W_hat, simple)</span>
+<span class="sd">    xvals     = (N,) vector, values of the truncated normally</span>
+<span class="sd">                distributed random variable</span>
+<span class="sd">    unif_vals = (N, S) matrix, matrix of draws from U(0,1) distribution.</span>
+<span class="sd">                This fixes the seed of the draws for the simulations</span>
+<span class="sd">    cut_lb    = scalar or string, =&#39;None&#39; if no lower bound cutoff is</span>
+<span class="sd">                given, otherwise is scalar lower bound value of</span>
+<span class="sd">                distribution. Values below this cutoff have zero</span>
+<span class="sd">                probability</span>
+<span class="sd">    cut_ub    = scalar or string, =&#39;None&#39; if no upper bound cutoff is</span>
+<span class="sd">                given, otherwise is scalar lower bound value of</span>
+<span class="sd">                distribution. Values below this cutoff have zero</span>
+<span class="sd">                probability</span>
+<span class="sd">    W_hat     = (R, R) matrix, estimate of optimal weighting matrix</span>
+<span class="sd">    simple    = Boolean, =True if error vec is simple difference,</span>
+<span class="sd">                =False if error vec is percent difference</span>
+
+<span class="sd">    OTHER FUNCTIONS AND FILES CALLED BY THIS FUNCTION:</span>
+<span class="sd">        err_vec2()</span>
+
+<span class="sd">    OBJECTS CREATED WITHIN FUNCTION:</span>
+<span class="sd">    err        = (2, 1) matrix, column vector of two moment error</span>
+<span class="sd">                 functions</span>
+<span class="sd">    crit_val   = scalar &gt; 0, GMM criterion function value</span>
+
+<span class="sd">    FILES CREATED BY THIS FUNCTION: None</span>
+
+<span class="sd">    RETURNS: crit_val</span>
+<span class="sd">    --------------------------------------------------------------------</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span> <span class="o">=</span> <span class="n">params</span>
+    <span class="n">xvals</span><span class="p">,</span> <span class="n">unif_vals</span><span class="p">,</span> <span class="n">cut_lb</span><span class="p">,</span> <span class="n">cut_ub</span><span class="p">,</span> <span class="n">W_hat</span><span class="p">,</span> <span class="n">simple</span> <span class="o">=</span> <span class="n">args</span>
+    <span class="n">err</span> <span class="o">=</span> <span class="n">err_vec2</span><span class="p">(</span><span class="n">xvals</span><span class="p">,</span> <span class="n">unif_vals</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">cut_lb</span><span class="p">,</span> <span class="n">cut_ub</span><span class="p">,</span>
+                   <span class="n">simple</span><span class="p">)</span>
+    <span class="n">crit_val</span> <span class="o">=</span> <span class="n">err</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">W_hat</span> <span class="o">@</span> <span class="n">err</span>
+
+    <span class="k">return</span> <span class="n">crit_val</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mu_test</span> <span class="o">=</span> <span class="mi">400</span>
+<span class="n">sig_test</span> <span class="o">=</span> <span class="mi">70</span>
+<span class="n">cut_lb</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="n">cut_ub</span> <span class="o">=</span> <span class="mf">450.0</span>
+<span class="n">sim_vals</span> <span class="o">=</span> <span class="n">trunc_norm_draws</span><span class="p">(</span><span class="n">unif_vals_2</span><span class="p">,</span> <span class="n">mu_test</span><span class="p">,</span> <span class="n">sig_test</span><span class="p">,</span> <span class="n">cut_lb</span><span class="p">,</span> <span class="n">cut_ub</span><span class="p">)</span>
+<span class="n">mean_sim</span><span class="p">,</span> <span class="n">var_sim</span> <span class="o">=</span> <span class="n">data_moments2</span><span class="p">(</span><span class="n">sim_vals</span><span class="p">)</span>
+<span class="n">mean_mod</span> <span class="o">=</span> <span class="n">mean_sim</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">var_mod</span> <span class="o">=</span> <span class="n">var_sim</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">err_vec2</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">unif_vals_2</span><span class="p">,</span> <span class="n">mu_test</span><span class="p">,</span> <span class="n">sig_test</span><span class="p">,</span> <span class="n">cut_lb</span><span class="p">,</span> <span class="n">cut_ub</span><span class="p">,</span> <span class="n">simple</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">crit_test</span> <span class="o">=</span> <span class="n">criterion</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">mu_test</span><span class="p">,</span> <span class="n">sig_test</span><span class="p">]),</span> <span class="n">data</span><span class="p">,</span> <span class="n">unif_vals_2</span><span class="p">,</span>
+                      <span class="mf">0.0</span><span class="p">,</span> <span class="mf">450.0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="kc">False</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Average of mean test scores across simulations is:&quot;</span><span class="p">,</span> <span class="n">mean_mod</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Average variance of test scores across simulations is:&quot;</span><span class="p">,</span> <span class="n">var_mod</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Criterion function value is:&quot;</span><span class="p">,</span> <span class="n">crit_test</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Average of mean test scores across simulations is: 372.0777280048037
+
+Average variance of test scores across simulations is: 2663.8708280174988
+
+Criterion function value is: 0.4429893115777857
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we can perform the SMM estimation using SciPy’s minimize function to choose the values of <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span> of the truncated normal distribution that best fit the data by minimizing the crietrion function. Let’s start with the identity matrix as our estimate for the optimal weighting matrix <span class="math notranslate nohighlight">\(W = I\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mu_init_1</span> <span class="o">=</span> <span class="mi">300</span>
+<span class="n">sig_init_1</span> <span class="o">=</span> <span class="mi">30</span>
+<span class="n">params_init_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">mu_init_1</span><span class="p">,</span> <span class="n">sig_init_1</span><span class="p">])</span>
+<span class="n">W_hat1_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">smm_args1_1</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">unif_vals_2</span><span class="p">,</span> <span class="n">cut_lb</span><span class="p">,</span> <span class="n">cut_ub</span><span class="p">,</span> <span class="n">W_hat1_1</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+<span class="n">results1_1</span> <span class="o">=</span> <span class="n">opt</span><span class="o">.</span><span class="n">minimize</span><span class="p">(</span><span class="n">criterion</span><span class="p">,</span> <span class="n">params_init_1</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">smm_args1_1</span><span class="p">),</span>
+                          <span class="n">method</span><span class="o">=</span><span class="s1">&#39;L-BFGS-B&#39;</span><span class="p">,</span>
+                          <span class="n">bounds</span><span class="o">=</span><span class="p">((</span><span class="mf">1e-10</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="p">(</span><span class="mf">1e-10</span><span class="p">,</span> <span class="kc">None</span><span class="p">)))</span>
+<span class="n">mu_SMM1_1</span><span class="p">,</span> <span class="n">sig_SMM1_1</span> <span class="o">=</span> <span class="n">results1_1</span><span class="o">.</span><span class="n">x</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;mu_SMM1_1=&#39;</span><span class="p">,</span> <span class="n">mu_SMM1_1</span><span class="p">,</span> <span class="s1">&#39; sig_SMM1_1=&#39;</span><span class="p">,</span> <span class="n">sig_SMM1_1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>mu_SMM1_1= 612.3371352249138  sig_SMM1_1= 197.26434895262162
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mean_data</span><span class="p">,</span> <span class="n">var_data</span> <span class="o">=</span> <span class="n">data_moments2</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Data mean of scores =&#39;</span><span class="p">,</span> <span class="n">mean_data</span><span class="p">,</span> <span class="s1">&#39;, Data variance of scores =&#39;</span><span class="p">,</span> <span class="n">var_data</span><span class="p">)</span>
+<span class="n">sim_vals_1</span> <span class="o">=</span> <span class="n">trunc_norm_draws</span><span class="p">(</span><span class="n">unif_vals_2</span><span class="p">,</span> <span class="n">mu_SMM1_1</span><span class="p">,</span> <span class="n">sig_SMM1_1</span><span class="p">,</span> <span class="n">cut_lb</span><span class="p">,</span> <span class="n">cut_ub</span><span class="p">)</span>
+<span class="n">mean_sim_1</span><span class="p">,</span> <span class="n">var_sim_1</span> <span class="o">=</span> <span class="n">data_moments2</span><span class="p">(</span><span class="n">sim_vals_1</span><span class="p">)</span>
+<span class="n">mean_model_1</span> <span class="o">=</span> <span class="n">mean_sim_1</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">var_model_1</span> <span class="o">=</span> <span class="n">var_sim_1</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">err_1</span> <span class="o">=</span> <span class="n">err_vec2</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">unif_vals_2</span><span class="p">,</span> <span class="n">mu_SMM1_1</span><span class="p">,</span> <span class="n">sig_SMM1_1</span><span class="p">,</span> <span class="n">cut_lb</span><span class="p">,</span> <span class="n">cut_ub</span><span class="p">,</span>
+                 <span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">2</span><span class="p">,)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Model mean 1 =&#39;</span><span class="p">,</span> <span class="n">mean_model_1</span><span class="p">,</span> <span class="s1">&#39;, Model variance 1 =&#39;</span><span class="p">,</span> <span class="n">var_model_1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Error vector 1 =&#39;</span><span class="p">,</span> <span class="n">err_1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Results from scipy.opmtimize.minimize:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">results1_1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data mean of scores = 341.90869565217395 , Data variance of scores = 7827.997292398056
+
+Model mean 1 = 341.6692110494425 , Model variance 1 = 7827.864496338213
+
+Error vector 1 = [-7.00434373e-04 -1.69642445e-05]
+
+Results from scipy.opmtimize.minimize:
+  message: CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_&lt;=_PGTOL
+  success: True
+   status: 0
+      fun: 4.908960959342433e-07
+        x: [ 6.123e+02  1.973e+02]
+      nit: 17
+      jac: [-7.436e-07  2.350e-06]
+     nfev: 72
+     njev: 24
+ hess_inv: &lt;2x2 LbfgsInvHessProduct with dtype=float64&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s plot the PDF implied by these SMM estimates <span class="math notranslate nohighlight">\((\hat{\mu}_{SMM},\hat{\sigma}_{SMM})=(612.337, 197.264)\)</span> against the histogram of the data in <a class="reference internal" href="#figsmm-econ381-smm1"><span class="std std-numref">Figure 3</span></a> below.</p>
+<div class="cell tag_remove-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot the histogram of the data</span>
+<span class="n">count</span><span class="p">,</span> <span class="n">bins</span><span class="p">,</span> <span class="n">ignored</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;data&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Econ 381 scores: 2011-2012&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Total points&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Percent of scores&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">550</span><span class="p">])</span>  <span class="c1"># This gives the xmin and xmax to be plotted&quot;</span>
+
+<span class="c1"># Plot the estimated SMM PDF</span>
+<span class="n">dist_pts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">450</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">dist_pts</span><span class="p">,</span> <span class="n">trunc_norm_pdf</span><span class="p">(</span><span class="n">dist_pts</span><span class="p">,</span> <span class="n">mu_SMM1_1</span><span class="p">,</span> <span class="n">sig_SMM1_1</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">450.0</span><span class="p">),</span>
+         <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;PDF: ($\hat{\mu}_</span><span class="si">{SMM1}</span><span class="s1">$,$\hat{\sigma}_</span><span class="si">{SMM1}</span><span class="s1">$)=(612.34, 197.26)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper left&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<figure class="align-default" id="figsmm-econ381-smm1">
+<a class="reference internal image-reference" href="../_images/Econ381scores_smm1.png"><img alt="../_images/Econ381scores_smm1.png" src="../_images/Econ381scores_smm1.png" style="height: 500px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 3 </span><span class="caption-text">SMM-estimated PDF function and data histogram, 2 moments, identity weighting matrix, Econ 381 scores (2011-2012)</span><a class="headerlink" href="#figsmm-econ381-smm1" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>That looks just like the maximum likelihood estimate from the <a class="reference internal" href="MaxLikelihood.html#chap-maxlikeli"><span class="std std-ref">Maximum Likelihood Estimation</span></a> chapter. <a class="reference internal" href="#figsmm-econ381-crit1"><span class="std std-numref">Figure 4</span></a> below shows what the minimizer is doing. The figure shows the criterion function surface for different of <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span> in the truncated normal distribution. The minimizer is searching for the parameter values that give the lowest criterion function value.</p>
+<div class="cell tag_remove-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mu_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">60</span><span class="p">,</span> <span class="mi">700</span><span class="p">,</span> <span class="mi">90</span><span class="p">)</span>
+<span class="n">sig_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">250</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">crit_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">90</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
+<span class="n">crit_args</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">unif_vals_2</span><span class="p">,</span> <span class="n">cut_lb</span><span class="p">,</span> <span class="n">cut_ub</span><span class="p">,</span> <span class="n">W_hat1_1</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">mu_ind</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">90</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">sig_ind</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
+        <span class="n">crit_params</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">mu_vals</span><span class="p">[</span><span class="n">mu_ind</span><span class="p">],</span> <span class="n">sig_vals</span><span class="p">[</span><span class="n">sig_ind</span><span class="p">]])</span>
+        <span class="n">crit_vals</span><span class="p">[</span><span class="n">mu_ind</span><span class="p">,</span> <span class="n">sig_ind</span><span class="p">]</span> <span class="o">=</span> <span class="n">criterion</span><span class="p">(</span><span class="n">crit_params</span><span class="p">,</span> <span class="o">*</span><span class="n">crit_args</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="n">mu_mesh</span><span class="p">,</span> <span class="n">sig_mesh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">mu_vals</span><span class="p">,</span> <span class="n">sig_vals</span><span class="p">)</span>
+
+<span class="n">crit_SMM1_1</span> <span class="o">=</span> <span class="n">criterion</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">mu_SMM1_1</span><span class="p">,</span> <span class="n">sig_SMM1_1</span><span class="p">]),</span> <span class="o">*</span><span class="n">crit_args</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">subplot_kw</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;projection&quot;</span><span class="p">:</span> <span class="s2">&quot;3d&quot;</span><span class="p">})</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">mu_mesh</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">sig_mesh</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">crit_vals</span><span class="p">,</span> <span class="n">rstride</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+                <span class="n">cstride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap1</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">mu_SMM1_1</span><span class="p">,</span> <span class="n">sig_SMM1_1</span><span class="p">,</span> <span class="n">crit_SMM1_1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span>
+           <span class="n">s</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;SMM1 estimate&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">view_init</span><span class="p">(</span><span class="n">elev</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">azim</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">roll</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Criterion function for values of mu and sigma&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\mu$&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\sigma$&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Crit. func.&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<figure class="align-default" id="figsmm-econ381-crit1">
+<a class="reference internal image-reference" href="../_images/Econ381_crit1.png"><img alt="../_images/Econ381_crit1.png" src="../_images/Econ381_crit1.png" style="height: 500px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 4 </span><span class="caption-text">Criterion function surface for values of <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span> for SMM estimation of truncated normal with two moments and identity weighting matrix (SMM estimate shown as red dot)</span><a class="headerlink" href="#figsmm-econ381-crit1" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Let’s compute the SMM estimator for the variance-covariance matrix <span class="math notranslate nohighlight">\(\hat{\Sigma}_{SMM}\)</span> of our SMM estimates <span class="math notranslate nohighlight">\(\hat{\theta}_{SMM}\)</span> using the equation in Section <a class="reference internal" href="#secsmm-varcovtheta"><span class="std std-ref">Variance-Covariance Estimator of \hat{\theta}</span></a> based on the Jacobian <span class="math notranslate nohighlight">\(d(\tilde{x},x|\hat{\theta}_{SMM})\)</span> of the moment error vector <span class="math notranslate nohighlight">\(e(\tilde{x},x|\hat{\theta}_{SMM})\)</span> from the criterion function at the estimated (optimal) parameter values <span class="math notranslate nohighlight">\(\hat{\theta}_{SMM}\)</span>. We first write a function that computes the Jacobian matrix <span class="math notranslate nohighlight">\(d(x|\hat{\theta}_{SMM})\)</span>, which has shape <span class="math notranslate nohighlight">\(2\times 2\)</span> in this case with two moments <span class="math notranslate nohighlight">\(R=2\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">Jac_err2</span><span class="p">(</span><span class="n">data_vals</span><span class="p">,</span> <span class="n">unif_vals</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">cut_lb</span><span class="p">,</span> <span class="n">cut_ub</span><span class="p">,</span> <span class="n">simple</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    This function computes the Jacobian matrix of partial derivatives of the</span>
+<span class="sd">    R x 1 moment error vector e(x|theta) with respect to the K parameters</span>
+<span class="sd">    theta_i in the K x 1 parameter vector theta. The resulting matrix is R x K</span>
+<span class="sd">    Jacobian.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">Jac_err</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="n">h_mu</span> <span class="o">=</span> <span class="mf">1e-4</span> <span class="o">*</span> <span class="n">mu</span>
+    <span class="n">h_sig</span> <span class="o">=</span> <span class="mf">1e-4</span> <span class="o">*</span> <span class="n">sigma</span>
+    <span class="n">Jac_err</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="p">(</span><span class="n">err_vec2</span><span class="p">(</span><span class="n">xvals</span><span class="p">,</span> <span class="n">unif_vals</span><span class="p">,</span> <span class="n">mu</span> <span class="o">+</span> <span class="n">h_mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">cut_lb</span><span class="p">,</span> <span class="n">cut_ub</span><span class="p">,</span> <span class="n">simple</span><span class="p">)</span> <span class="o">-</span>
+         <span class="n">err_vec2</span><span class="p">(</span><span class="n">xvals</span><span class="p">,</span> <span class="n">unif_vals</span><span class="p">,</span> <span class="n">mu</span> <span class="o">-</span> <span class="n">h_mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">cut_lb</span><span class="p">,</span> <span class="n">cut_ub</span><span class="p">,</span> <span class="n">simple</span><span class="p">))</span> <span class="o">/</span>
+        <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">h_mu</span><span class="p">)</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+    <span class="n">Jac_err</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="p">(</span><span class="n">err_vec2</span><span class="p">(</span><span class="n">xvals</span><span class="p">,</span> <span class="n">unif_vals</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span> <span class="o">+</span> <span class="n">h_sig</span><span class="p">,</span> <span class="n">cut_lb</span><span class="p">,</span> <span class="n">cut_ub</span><span class="p">,</span> <span class="n">simple</span><span class="p">)</span> <span class="o">-</span>
+         <span class="n">err_vec2</span><span class="p">(</span><span class="n">xvals</span><span class="p">,</span> <span class="n">unif_vals</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span> <span class="o">-</span> <span class="n">h_sig</span><span class="p">,</span> <span class="n">cut_lb</span><span class="p">,</span> <span class="n">cut_ub</span><span class="p">,</span> <span class="n">simple</span><span class="p">))</span> <span class="o">/</span>
+        <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">h_sig</span><span class="p">)</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">Jac_err</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">S</span> <span class="o">=</span> <span class="n">unif_vals_2</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">d_err2</span> <span class="o">=</span> <span class="n">Jac_err2</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">unif_vals_2</span><span class="p">,</span> <span class="n">mu_SMM1_1</span><span class="p">,</span> <span class="n">sig_SMM1_1</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">450.0</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Jacobian matrix of derivatives of moment error functions is:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">d_err2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Weighting matrix W is:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">W_hat1_1</span><span class="p">)</span>
+<span class="n">SigHat2</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">S</span><span class="p">)</span> <span class="o">*</span> <span class="n">lin</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">d_err2</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">W_hat1_1</span> <span class="o">@</span> <span class="n">d_err2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Variance-covariance matrix of estimated parameter vector is:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">SigHat2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Std. err. mu_hat=&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">SigHat2</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Std. err. sig_hat=&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">SigHat2</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Jacobian matrix of derivatives of moment error functions is:
+[[ 0.00089749 -0.00290433]
+ [-0.00114132  0.00445698]]
+
+Weighting matrix W is:
+[[1. 0.]
+ [0. 1.]]
+
+Variance-covariance matrix of estimated parameter vector is:
+[[602535.18442996 163802.17330123]
+ [163802.17330123  44883.79092131]]
+
+Std. err. mu_hat= 776.23139876583
+Std. err. sig_hat= 211.85794986573154
+</pre></div>
+</div>
+</div>
+</div>
+<p>This SMM estimation methodology of estimating <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span> from the truncated normal distribution to fit the distribution of Econ 381 test scores using two moments from the data and using the identity matrix as the optimal weighting matrix is not very precise. The standard errors for the estimates of <span class="math notranslate nohighlight">\(\hat{mu}\)</span> and <span class="math notranslate nohighlight">\(\hat{sigma}\)</span> are bigger than their values.</p>
+<p>In the next section, we see if we can get more accurate estimates (lower criterion function values) of <span class="math notranslate nohighlight">\(\hat{mu}\)</span> and <span class="math notranslate nohighlight">\(\hat{sigma}\)</span> with more precise standard errors by using the two-step optimal weighting matrix described in Section <a class="reference internal" href="#secsmm-w-2step"><span class="std std-ref">Two-step variance-covariance estimator of W</span></a>.</p>
+</section>
+<section id="two-moments-two-step-optimal-weighting-matrix">
+<span id="secsmm-codeexmp-macrtest-2m2st"></span><h4>Two moments, two-step optimal weighting matrix<a class="headerlink" href="#two-moments-two-step-optimal-weighting-matrix" title="Permalink to this heading">#</a></h4>
+<p>Similar to the maximum likelihood estimation problem in Chapter <a class="reference internal" href="MaxLikelihood.html#chap-maxlikeli"><span class="std std-ref">Maximum Likelihood Estimation</span></a>, it looks like the minimum value of the criterion function shown in <a class="reference internal" href="#figsmm-econ381-crit1"><span class="std std-numref">Figure 4</span></a> is roughly equal for a specific portion increase of <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span> together. That is, the estimation problem with these two moments probably has a correspondence of values of <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span> that give roughly the same minimum criterion function value. This issue has two possible solutions.</p>
+<ol class="arabic simple">
+<li><p>Maybe we need the two-step variance covariance estimator to calculate a “more” optimal weighting matrix <span class="math notranslate nohighlight">\(W\)</span>.</p></li>
+<li><p>Maybe our two moments aren’t very good moments for fitting the data.</p></li>
+</ol>
+<p>Let’s first try the two-step weighting matrix.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_Err_mat2</span><span class="p">(</span><span class="n">pts</span><span class="p">,</span> <span class="n">unif_vals</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">cut_lb</span><span class="p">,</span> <span class="n">cut_ub</span><span class="p">,</span> <span class="n">simple</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    --------------------------------------------------------------------</span>
+<span class="sd">    This function computes the R x S matrix of errors from each</span>
+<span class="sd">    simulated moment for each moment error. In this function, we have</span>
+<span class="sd">    hard coded R = 2.</span>
+<span class="sd">    --------------------------------------------------------------------</span>
+<span class="sd">    INPUTS:</span>
+<span class="sd">    xvals     = (N,) vector, test scores data</span>
+<span class="sd">    unif_vals = (N, S) matrix, uniform random variables that generate</span>
+<span class="sd">                the N observations of simulated data for S simulations</span>
+<span class="sd">    mu        = scalar, mean of the normally distributed random variable</span>
+<span class="sd">    sigma     = scalar &gt; 0, standard deviation of the normally</span>
+<span class="sd">                distributed random variable</span>
+<span class="sd">    cut_lb    = scalar or string, =&#39;None&#39; if no cutoff is given,</span>
+<span class="sd">                otherwise is scalar lower bound value of distribution.</span>
+<span class="sd">                Values below this value have zero probability</span>
+<span class="sd">    cut_ub    = scalar or string, =&#39;None&#39; if no cutoff is given,</span>
+<span class="sd">                otherwise is scalar upper bound value of distribution.</span>
+<span class="sd">                Values above this value have zero probability</span>
+<span class="sd">    simple    = boolean, =True if errors are simple difference, =False</span>
+<span class="sd">                if errors are percent deviation from data moments</span>
+
+<span class="sd">    OTHER FUNCTIONS AND FILES CALLED BY THIS FUNCTION:</span>
+<span class="sd">        model_moments()</span>
+
+<span class="sd">    OBJECTS CREATED WITHIN FUNCTION:</span>
+<span class="sd">    R          = integer = 2, hard coded number of moments</span>
+<span class="sd">    S          = integer &gt;= R, number of simulated datasets</span>
+<span class="sd">    Err_mat    = (R, S) matrix, error by moment and simulated data</span>
+<span class="sd">    mean_model = scalar, mean value from model</span>
+<span class="sd">    var_model  = scalar &gt; 0, variance from model</span>
+
+<span class="sd">    FILES CREATED BY THIS FUNCTION: None</span>
+
+<span class="sd">    RETURNS: Err_mat</span>
+<span class="sd">    --------------------------------------------------------------------</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">R</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">S</span> <span class="o">=</span> <span class="n">unif_vals</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">Err_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">R</span><span class="p">,</span> <span class="n">S</span><span class="p">))</span>
+    <span class="n">mean_data</span><span class="p">,</span> <span class="n">var_data</span> <span class="o">=</span> <span class="n">data_moments2</span><span class="p">(</span><span class="n">pts</span><span class="p">)</span>
+    <span class="n">sim_vals</span> <span class="o">=</span> <span class="n">trunc_norm_draws</span><span class="p">(</span><span class="n">unif_vals</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">cut_lb</span><span class="p">,</span> <span class="n">cut_ub</span><span class="p">)</span>
+    <span class="n">mean_model</span><span class="p">,</span> <span class="n">var_model</span> <span class="o">=</span> <span class="n">data_moments2</span><span class="p">(</span><span class="n">sim_vals</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">simple</span><span class="p">:</span>
+        <span class="n">Err_mat</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">mean_model</span> <span class="o">-</span> <span class="n">mean_data</span>
+        <span class="n">Err_mat</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">var_model</span> <span class="o">-</span> <span class="n">var_data</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">Err_mat</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="p">(</span><span class="n">mean_model</span> <span class="o">-</span> <span class="n">mean_data</span><span class="p">)</span> <span class="o">/</span> <span class="n">mean_data</span>
+        <span class="n">Err_mat</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="p">(</span><span class="n">var_model</span> <span class="o">-</span> <span class="n">var_data</span><span class="p">)</span> <span class="o">/</span> <span class="n">var_data</span>
+
+    <span class="k">return</span> <span class="n">Err_mat</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Err_mat2</span> <span class="o">=</span> <span class="n">get_Err_mat2</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">unif_vals_2</span><span class="p">,</span> <span class="n">mu_SMM1_1</span><span class="p">,</span> <span class="n">sig_SMM1_1</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">450.0</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+<span class="n">VCV2</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">unif_vals_2</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">*</span> <span class="p">(</span><span class="n">Err_mat2</span> <span class="o">@</span> <span class="n">Err_mat2</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;2nd stage est. of var-cov matrix of moment error vec across sims:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">VCV2</span><span class="p">)</span>
+<span class="n">W_hat2_1</span> <span class="o">=</span> <span class="n">lin</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">VCV2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;2nd state est. of optimal weighting matrix:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">W_hat2_1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2nd stage est. of var-cov matrix of moment error vec across sims:
+[[ 0.00033411 -0.00142289]
+ [-0.00142289  0.01592879]]
+
+2nd state est. of optimal weighting matrix:
+[[4830.88530228  431.53378728]
+ [ 431.53378728  101.32749623]]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">params_init2_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">mu_SMM1_1</span><span class="p">,</span> <span class="n">sig_SMM1_1</span><span class="p">])</span>
+<span class="n">smm_args2_1</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">unif_vals_2</span><span class="p">,</span> <span class="n">cut_lb</span><span class="p">,</span> <span class="n">cut_ub</span><span class="p">,</span> <span class="n">W_hat2_1</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+<span class="n">results2_1</span> <span class="o">=</span> <span class="n">opt</span><span class="o">.</span><span class="n">minimize</span><span class="p">(</span><span class="n">criterion</span><span class="p">,</span> <span class="n">params_init2_1</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">smm_args2_1</span><span class="p">),</span>
+                         <span class="n">method</span><span class="o">=</span><span class="s1">&#39;L-BFGS-B&#39;</span><span class="p">,</span>
+                         <span class="n">bounds</span><span class="o">=</span><span class="p">((</span><span class="mf">1e-10</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="p">(</span><span class="mf">1e-10</span><span class="p">,</span> <span class="kc">None</span><span class="p">)))</span>
+<span class="n">mu_SMM2_1</span><span class="p">,</span> <span class="n">sig_SMM2_1</span> <span class="o">=</span> <span class="n">results2_1</span><span class="o">.</span><span class="n">x</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;mu_SMM2_1=&#39;</span><span class="p">,</span> <span class="n">mu_SMM2_1</span><span class="p">,</span> <span class="s1">&#39; sig_SMM2_1=&#39;</span><span class="p">,</span> <span class="n">sig_SMM2_1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>mu_SMM2_1= 619.4303074248937  sig_SMM2_1= 199.0747813692372
+</pre></div>
+</div>
+</div>
+</div>
+<p>Look at how much smaller (more efficient) the estimated standard errors are in this case with the two-step optimal weighting matrix <span class="math notranslate nohighlight">\(\hat{W}_{2step}\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">d_err2_2</span> <span class="o">=</span> <span class="n">Jac_err2</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">unif_vals_2</span><span class="p">,</span> <span class="n">mu_SMM2_1</span><span class="p">,</span> <span class="n">sig_SMM2_1</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">450.0</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Jacobian matrix of derivatives of moment error functions is:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">d_err2_2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Weighting matrix W is:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">W_hat2_1</span><span class="p">)</span>
+<span class="n">SigHat2_2</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">S</span><span class="p">)</span> <span class="o">*</span> <span class="n">lin</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">d_err2_2</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">W_hat2_1</span> <span class="o">@</span> <span class="n">d_err2_2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Variance-covariance matrix of estimated parameter vector is:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">SigHat2_2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Std. err. mu_hat=&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">SigHat2_2</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Std. err. sig_hat=&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">SigHat2_2</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Jacobian matrix of derivatives of moment error functions is:
+[[ 0.00088129 -0.00288863]
+ [-0.0011259   0.00443426]]
+
+Weighting matrix W is:
+[[4830.88530228  431.53378728]
+ [ 431.53378728  101.32749623]]
+
+Variance-covariance matrix of estimated parameter vector is:
+[[2397.38054356  745.29670501]
+ [ 745.29670501  232.01757158]]
+
+Std. err. mu_hat= 48.963052841479445
+Std. err. sig_hat= 15.232123016118733
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="four-moments-identity-matrix-weighting-matrix">
+<span id="secsmm-codeexmp-macrtest-4mi"></span><h4>Four moments, identity matrix weighting matrix<a class="headerlink" href="#four-moments-identity-matrix-weighting-matrix" title="Permalink to this heading">#</a></h4>
+<p>Using a better weighting matrix didn’t improve our estimates or fit very much—the estimates of <span class="math notranslate nohighlight">\(\hat{mu}\)</span> and <span class="math notranslate nohighlight">\(\hat{\sigma}\)</span> and the corresponding minimum criterion function value. But it did improve our standard errors. But even with the optimal weighting matrix, our standard errors still look pretty big. This might mean that we did not choose good moments for fitting the data. Let’s try some different moments. How about four moments to match.</p>
+<ol class="arabic simple">
+<li><p>The percent of observations greater than 430 (between 430 and 450)</p></li>
+<li><p>The percent of observations between 320 and 430</p></li>
+<li><p>The percent of observations between 220 and 320</p></li>
+<li><p>The percent of observations less than 220 (between 0 and 220)</p></li>
+</ol>
+<p>This means we are using four moments <span class="math notranslate nohighlight">\(R=4\)</span> to identify two paramters <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span> (<span class="math notranslate nohighlight">\(K=2\)</span>). This problem is now overidentified (<span class="math notranslate nohighlight">\(R&gt;K\)</span>). This is often a desired approach for SMM estimation.</p>
+</section>
+<section id="four-moments-two-step-optimal-weighting-matrix">
+<span id="secsmm-codeexmp-macrtest-4m2st"></span><h4>Four moments, two-step optimal weighting matrix<a class="headerlink" href="#four-moments-two-step-optimal-weighting-matrix" title="Permalink to this heading">#</a></h4>
+</section>
 </section>
 <section id="brock-and-mirman-1972-estimation-by-smm">
 <span id="secsmm-codeexmp-bm72"></span><h3>Brock and Mirman (1972) estimation by SMM<a class="headerlink" href="#brock-and-mirman-1972-estimation-by-smm" title="Permalink to this heading">#</a></h3>
-<p>In <a class="reference internal" href="#ExercStructEst_SMM_BM72"><span class="std std-numref">Exercise 3</span></a>, you will estimate four parameters in the <span id="id11">[<a class="reference internal" href="../CompMethods_references.html#id6" title="William A. Brock and Leonard J. Mirman. Optimal economic growth and uncertainty: the discounted case. Journal of Economic Theory, 4(3):479-513, June 1972.">Brock and Mirman, 1972</a>]</span> macroeconomic model by simulating the model to get six moments.</p>
+<p>In <a class="reference internal" href="#ExercStructEst_SMM_BM72"><span class="std std-numref">Exercise 3</span></a>, you will estimate four parameters in the <span id="id12">[<a class="reference internal" href="../CompMethods_references.html#id6" title="William A. Brock and Leonard J. Mirman. Optimal economic growth and uncertainty: the discounted case. Journal of Economic Theory, 4(3):479-513, June 1972.">Brock and Mirman, 1972</a>]</span> macroeconomic model by simulating the model to get six moments.</p>
 </section>
 </section>
 <section id="secsmm-ident">
@@ -643,7 +1652,7 @@ document.write(`
 </section>
 <section id="indirect-inference">
 <span id="secsmm-indirinf"></span><h2>Indirect inference<a class="headerlink" href="#indirect-inference" title="Permalink to this heading">#</a></h2>
-<p>Indirect inference is a particular application of SMM with some specific characteristics. As moments to match it uses parameters of an auxiliary model that can be estimated both on the real-world data and on the simulated data. <span id="id12">[<a class="reference internal" href="../CompMethods_references.html#id23" title="Anthony A. Jr. Smith. Indirect inference. In Matias Vernengo, Esteban Perez Caldentey, and Barkley J. Rosser Jr., editors, New Palgrave Dictionary of Economics. Palgrave MacMillan, 2020. URL: http://www.econ.yale.edu/smith/palgrave7.pdf.">Smith, 2020</a>]</span> gives a great summary of the topic with some examples. See also <span id="id13">[<a class="reference internal" href="../CompMethods_references.html#id15" title="Christian Gourieroux and Alain Monfort. Simulation-based Econometric Methods. Oxford University Press, 1996.">Gourieroux and Monfort, 1996</a>]</span> (ch. 4) for a textbook treatment of the topic.</p>
+<p>Indirect inference is a particular application of SMM with some specific characteristics. As moments to match it uses parameters of an auxiliary model that can be estimated both on the real-world data and on the simulated data. <span id="id13">[<a class="reference internal" href="../CompMethods_references.html#id23" title="Anthony A. Jr. Smith. Indirect inference. In Matias Vernengo, Esteban Perez Caldentey, and Barkley J. Rosser Jr., editors, New Palgrave Dictionary of Economics. Palgrave MacMillan, 2020. URL: http://www.econ.yale.edu/smith/palgrave7.pdf.">Smith, 2020</a>]</span> gives a great summary of the topic with some examples. See also <span id="id14">[<a class="reference internal" href="../CompMethods_references.html#id15" title="Christian Gourieroux and Alain Monfort. Simulation-based Econometric Methods. Oxford University Press, 1996.">Gourieroux and Monfort, 1996</a>]</span> (ch. 4) for a textbook treatment of the topic.</p>
 <section id="restatement-of-the-general-smm-estimation-problem">
 <span id="secsmm-indirinf-smmprob"></span><h3>Restatement of the general SMM estimation problem<a class="headerlink" href="#restatement-of-the-general-smm-estimation-problem" title="Permalink to this heading">#</a></h3>
 <p>Define a model or data generating process (DGP) as a system of equations,</p>
@@ -679,7 +1688,7 @@ document.write(`
 
 <p class="admonition-title"><span class="caption-number">Exercise 3 </span> (Estimating the Brock and Mirman (1972) model by SMM)</p>
 <section id="exercise-content">
-<p>You can observe time series data in an economy for the following variables: <span class="math notranslate nohighlight">\((c_t, k_t, w_t, r_t, y_t)\)</span>. The data can be loaded from the file <a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/blob/main/data/smm/NewMacroSeries.txt"><code class="docutils literal notranslate"><span class="pre">NewMacroSeries.txt</span></code></a> in the online book repository data folder <code class="docutils literal notranslate"><span class="pre">data/smm/</span></code>. This file is a comma separated text file with no labels. The variables are ordered as <span class="math notranslate nohighlight">\((c_t, k_t, w_t, r_t, y_t)\)</span>. These data have 100 periods, which are quarterly (25 years). Suppose you think that the data are generated by a process similar to the <span id="id14">[<a class="reference internal" href="../CompMethods_references.html#id6" title="William A. Brock and Leonard J. Mirman. Optimal economic growth and uncertainty: the discounted case. Journal of Economic Theory, 4(3):479-513, June 1972.">Brock and Mirman, 1972</a>]</span> paper. A simplified set of characterizing equations of the Brock and Mirman model are the following six equations.</p>
+<p>You can observe time series data in an economy for the following variables: <span class="math notranslate nohighlight">\((c_t, k_t, w_t, r_t, y_t)\)</span>. The data can be loaded from the file <a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/blob/main/data/smm/NewMacroSeries.txt"><code class="docutils literal notranslate"><span class="pre">NewMacroSeries.txt</span></code></a> in the online book repository data folder <code class="docutils literal notranslate"><span class="pre">data/smm/</span></code>. This file is a comma separated text file with no labels. The variables are ordered as <span class="math notranslate nohighlight">\((c_t, k_t, w_t, r_t, y_t)\)</span>. These data have 100 periods, which are quarterly (25 years). Suppose you think that the data are generated by a process similar to the <span id="id15">[<a class="reference internal" href="../CompMethods_references.html#id6" title="William A. Brock and Leonard J. Mirman. Optimal economic growth and uncertainty: the discounted case. Journal of Economic Theory, 4(3):479-513, June 1972.">Brock and Mirman, 1972</a>]</span> paper. A simplified set of characterizing equations of the Brock and Mirman model are the following six equations.</p>
 <div class="math notranslate nohighlight" id="equation-eqsmm-bm72-eul">
 <span class="eqno">(33)<a class="headerlink" href="#equation-eqsmm-bm72-eul" title="Permalink to this equation">#</a></span>\[    (c_t)^{-1} - \beta E\left[r_{t+1}(c_{t+1})^{-1}\right] = 0\]</div>
 <div class="math notranslate nohighlight" id="equation-eqsmm-bm72-bc">
@@ -698,10 +1707,10 @@ document.write(`
 \[\begin{equation*}
   \alpha,\beta \in (0,1),\quad \mu,\sigma &gt; 0, \quad\rho\in(-1,1)
 \end{equation*}\]</div>
-<p>Assume that the first observation in the data file variables is <span class="math notranslate nohighlight">\(t=1\)</span>. Let <span class="math notranslate nohighlight">\(k_1\)</span> be the first observation in the data fil for the variable <span class="math notranslate nohighlight">\(k_t\)</span>. One nice property of the <span id="id15">[<a class="reference internal" href="../CompMethods_references.html#id6" title="William A. Brock and Leonard J. Mirman. Optimal economic growth and uncertainty: the discounted case. Journal of Economic Theory, 4(3):479-513, June 1972.">Brock and Mirman, 1972</a>]</span> model is that the household decision has a known analytical solution in which the optimal savings decision <span class="math notranslate nohighlight">\(k_{t+1}\)</span> is a function of the productivity shock today <span class="math notranslate nohighlight">\(z_t\)</span> and the amount of capital today <span class="math notranslate nohighlight">\(k_t\)</span>.</p>
+<p>Assume that the first observation in the data file variables is <span class="math notranslate nohighlight">\(t=1\)</span>. Let <span class="math notranslate nohighlight">\(k_1\)</span> be the first observation in the data fil for the variable <span class="math notranslate nohighlight">\(k_t\)</span>. One nice property of the <span id="id16">[<a class="reference internal" href="../CompMethods_references.html#id6" title="William A. Brock and Leonard J. Mirman. Optimal economic growth and uncertainty: the discounted case. Journal of Economic Theory, 4(3):479-513, June 1972.">Brock and Mirman, 1972</a>]</span> model is that the household decision has a known analytical solution in which the optimal savings decision <span class="math notranslate nohighlight">\(k_{t+1}\)</span> is a function of the productivity shock today <span class="math notranslate nohighlight">\(z_t\)</span> and the amount of capital today <span class="math notranslate nohighlight">\(k_t\)</span>.</p>
 <div class="math notranslate nohighlight" id="equation-eqsmm-bm72-pf">
 <span class="eqno">(39)<a class="headerlink" href="#equation-eqsmm-bm72-pf" title="Permalink to this equation">#</a></span>\[    k_{t+1} = \alpha\beta e^{z_t}(k_t)^\alpha\]</div>
-<p>With this solution <a class="reference internal" href="#equation-eqsmm-bm72-pf">(39)</a> and equations <a class="reference internal" href="#equation-eqsmm-bm72-bc">(34)</a> through <a class="reference internal" href="#equation-eqsmm-bm72-zt">(37)</a>, it is straightforward to simulate the data of the <span id="id16">[<a class="reference internal" href="../CompMethods_references.html#id6" title="William A. Brock and Leonard J. Mirman. Optimal economic growth and uncertainty: the discounted case. Journal of Economic Theory, 4(3):479-513, June 1972.">Brock and Mirman, 1972</a>]</span> model given parameters <span class="math notranslate nohighlight">\((\alpha, \beta, \rho, \mu, \sigma)\)</span>.</p>
+<p>With this solution <a class="reference internal" href="#equation-eqsmm-bm72-pf">(39)</a> and equations <a class="reference internal" href="#equation-eqsmm-bm72-bc">(34)</a> through <a class="reference internal" href="#equation-eqsmm-bm72-zt">(37)</a>, it is straightforward to simulate the data of the <span id="id17">[<a class="reference internal" href="../CompMethods_references.html#id6" title="William A. Brock and Leonard J. Mirman. Optimal economic growth and uncertainty: the discounted case. Journal of Economic Theory, 4(3):479-513, June 1972.">Brock and Mirman, 1972</a>]</span> model given parameters <span class="math notranslate nohighlight">\((\alpha, \beta, \rho, \mu, \sigma)\)</span>.</p>
 <p>First, assume that <span class="math notranslate nohighlight">\(z_0=\mu\)</span> and that <span class="math notranslate nohighlight">\(k_1=\text{mean}(k_t)\)</span> from the data. These are initial values that will not change across simulations. Also assume that <span class="math notranslate nohighlight">\(\beta=0.99\)</span>.</p>
 <p>Next, draw a matrix of <span class="math notranslate nohighlight">\(S=1,000\)</span> simulations (columns) of <span class="math notranslate nohighlight">\(T=100\)</span> (rows) from a uniform distribution <span class="math notranslate nohighlight">\(u_{s,t}\sim U(0,1)\)</span>. These draws will not change across this SMM estimation procedure.</p>
 <p>For each guess of the parameter vector <span class="math notranslate nohighlight">\((\alpha,\rho,\mu,\sigma)\)</span> given <span class="math notranslate nohighlight">\(\beta=0.99\)</span>, you can use <span class="math notranslate nohighlight">\(u_{s,t}\)</span> to generate normally distributed errors <span class="math notranslate nohighlight">\(\varepsilon_{s,t}\sim N(0,\sigma^2)\)</span> using the inverse cdf of the normal distribution, where <span class="math notranslate nohighlight">\(s\)</span> is the index of the simulation number (columns).</p>
@@ -711,7 +1720,7 @@ document.write(`
 <p>With <span class="math notranslate nohighlight">\(w_{s,t}\)</span>, <span class="math notranslate nohighlight">\(r_{s,t}\)</span>, and <span class="math notranslate nohighlight">\(k_{s,t}\)</span>, you can use <a class="reference internal" href="#equation-eqsmm-bm72-bc">(34)</a> to generate simulated values for <span class="math notranslate nohighlight">\(c_{s,t}\)</span>.</p>
 <p>With <span class="math notranslate nohighlight">\(\alpha\)</span>, <span class="math notranslate nohighlight">\(z_{s,t}\)</span>, and <span class="math notranslate nohighlight">\(k_{s,t}\)</span>, you can use <a class="reference internal" href="#equation-eqsmm-bm72-prod">(38)</a> to generate simulated values for <span class="math notranslate nohighlight">\(y_{s,t}\)</span>.</p>
 <ol class="arabic simple">
-<li><p>Estimate four parameters <span class="math notranslate nohighlight">\((\alpha, \rho,\mu,\sigma)\)</span> given <span class="math notranslate nohighlight">\(\beta=0.99\)</span> of the <span id="id17">[<a class="reference internal" href="../CompMethods_references.html#id6" title="William A. Brock and Leonard J. Mirman. Optimal economic growth and uncertainty: the discounted case. Journal of Economic Theory, 4(3):479-513, June 1972.">Brock and Mirman, 1972</a>]</span> model described by equations <a class="reference internal" href="#equation-eqsmm-bm72-eul">(33)</a> through <a class="reference internal" href="#equation-eqsmm-bm72-prod">(38)</a> and <a class="reference internal" href="#equation-eqsmm-bm72-pf">(39)</a> by SMM. Choose the four parameters to match the following six moments from the 100 periods of empirical data <span class="math notranslate nohighlight">\(\{c_t,k_t, w_t, r_t, y_t\}_{t=1}^{100}\)</span> in <a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/blob/main/data/smm/NewMacroSeries.txt"><code class="docutils literal notranslate"><span class="pre">NewMacroSeries.txt</span></code></a>: <span class="math notranslate nohighlight">\(\text{mean}(c_t)\)</span>, <span class="math notranslate nohighlight">\(\text{mean}(k_t)\)</span>, <span class="math notranslate nohighlight">\(\text{mean}(c_t/y_t)\)</span>, <span class="math notranslate nohighlight">\(\text{var}(y_t)\)</span>, <span class="math notranslate nohighlight">\(\text{corr}(c_t, c_{t-1})\)</span>, <span class="math notranslate nohighlight">\(\text{corr}(c_t, k_t)\)</span>. In your simulations of the model, set <span class="math notranslate nohighlight">\(T=100\)</span> and <span class="math notranslate nohighlight">\(S=1,000\)</span>. Input the bounds to be <span class="math notranslate nohighlight">\(\alpha\in[0.01,0.99]\)</span>, <span class="math notranslate nohighlight">\(\rho\in[-0.99,0.99]\)</span>, <span class="math notranslate nohighlight">\(\mu\in[5, 14]\)</span>, and <span class="math notranslate nohighlight">\(\sigma\in[0.01, 1.1]\)</span>.
+<li><p>Estimate four parameters <span class="math notranslate nohighlight">\((\alpha, \rho,\mu,\sigma)\)</span> given <span class="math notranslate nohighlight">\(\beta=0.99\)</span> of the <span id="id18">[<a class="reference internal" href="../CompMethods_references.html#id6" title="William A. Brock and Leonard J. Mirman. Optimal economic growth and uncertainty: the discounted case. Journal of Economic Theory, 4(3):479-513, June 1972.">Brock and Mirman, 1972</a>]</span> model described by equations <a class="reference internal" href="#equation-eqsmm-bm72-eul">(33)</a> through <a class="reference internal" href="#equation-eqsmm-bm72-prod">(38)</a> and <a class="reference internal" href="#equation-eqsmm-bm72-pf">(39)</a> by SMM. Choose the four parameters to match the following six moments from the 100 periods of empirical data <span class="math notranslate nohighlight">\(\{c_t,k_t, w_t, r_t, y_t\}_{t=1}^{100}\)</span> in <a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/blob/main/data/smm/NewMacroSeries.txt"><code class="docutils literal notranslate"><span class="pre">NewMacroSeries.txt</span></code></a>: <span class="math notranslate nohighlight">\(\text{mean}(c_t)\)</span>, <span class="math notranslate nohighlight">\(\text{mean}(k_t)\)</span>, <span class="math notranslate nohighlight">\(\text{mean}(c_t/y_t)\)</span>, <span class="math notranslate nohighlight">\(\text{var}(y_t)\)</span>, <span class="math notranslate nohighlight">\(\text{corr}(c_t, c_{t-1})\)</span>, <span class="math notranslate nohighlight">\(\text{corr}(c_t, k_t)\)</span>. In your simulations of the model, set <span class="math notranslate nohighlight">\(T=100\)</span> and <span class="math notranslate nohighlight">\(S=1,000\)</span>. Input the bounds to be <span class="math notranslate nohighlight">\(\alpha\in[0.01,0.99]\)</span>, <span class="math notranslate nohighlight">\(\rho\in[-0.99,0.99]\)</span>, <span class="math notranslate nohighlight">\(\mu\in[5, 14]\)</span>, and <span class="math notranslate nohighlight">\(\sigma\in[0.01, 1.1]\)</span>.
 Also, use the identity matrix as your weighting matrix <span class="math notranslate nohighlight">\(\textbf{W}=\textbf{I}\)</span> as shown in section <a class="reference internal" href="#secsmm-w-i"><span class="std std-ref">The identity matrix (W=I)</span></a>. Report your solution <span class="math notranslate nohighlight">\(\hat{\theta} = \left(\hat{\alpha},\hat{\rho},\hat{\mu},\hat{\sigma}\right)\)</span>, the vector of moment differences at the optimum, and the criterion function value. Also report your standard errors for the estimated parameter vector <span class="math notranslate nohighlight">\(\hat{\theta} = \left(\hat{\alpha},\hat{\rho},\hat{\mu},\hat{\sigma}\right)\)</span> based on the identity matrix for the optimal weighting matrix.</p></li>
 <li><p>Perform the estimation using the two-step estimator for the optimal weighting matrix <span class="math notranslate nohighlight">\(\textbf{W}_{2step}\)</span>, as shown in section <a class="reference internal" href="#secsmm-w-2step"><span class="std std-ref">Two-step variance-covariance estimator of W</span></a>. Report your solution <span class="math notranslate nohighlight">\(\hat{\theta} = \left(\hat{\alpha},\hat{\rho},\hat{\mu},\hat{\sigma}\right)\)</span>, the vector of moment differences at the optimum, and the criterion function value. Also report your standard errors for the estimated parameter vector <span class="math notranslate nohighlight">\(\hat{\theta} = \left(\hat{\alpha},\hat{\rho},\hat{\mu},\hat{\sigma}\right)\)</span> based on the two-step optimal weighting matrix <span class="math notranslate nohighlight">\(\textbf{W}_{2step}\)</span>.</p></li>
 </ol>
@@ -720,7 +1729,12 @@ Also, use the identity matrix as your weighting matrix <span class="math notrans
 </section>
 <section id="footnotes">
 <span id="secsmmfootnotes"></span><h2>Footnotes<a class="headerlink" href="#footnotes" title="Permalink to this heading">#</a></h2>
-<!-- [^citation_note]: See {cite}`AuerbachEtAl:1981,AuerbachEtAl:1983`, {cite}`AuerbachKotlikoff:1983a,AuerbachKotlikoff:1983b,AuerbachKotlikoff:1983c`, and {cite}`AuerbachKotlikoff:1985`. -->
+<p>The footnotes from this chapter.</p>
+<hr class="footnotes docutils" />
+<aside class="footnote brackets" id="truncnorm" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id11">1</a><span class="fn-bracket">]</span></span>
+<p>See Section <a class="reference internal" href="../appendix/appendix.html#secappendixtruncnormal"><span class="std std-ref">Truncated normal distribution</span></a> of the Appendix for a description of the truncated normal distribution.</p>
+</aside>
 </section>
 </section>
 
@@ -797,7 +1811,13 @@ Also, use the identity matrix as your weighting matrix <span class="math notrans
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variance-covariance-estimator-of-hat-theta">Variance-Covariance Estimator of <span class="math notranslate nohighlight">\(\hat{\theta}\)</span></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#code-examples">Code Examples</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fitting-a-truncated-normal-to-intermediate-macroeconomics-test-scores">Fitting a truncated normal to intermediate macroeconomics test scores</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fitting-a-truncated-normal-to-intermediate-macroeconomics-test-scores">Fitting a truncated normal to intermediate macroeconomics test scores</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#two-moments-identity-weighting-matrix">Two moments, identity weighting matrix</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#two-moments-two-step-optimal-weighting-matrix">Two moments, two-step optimal weighting matrix</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#four-moments-identity-matrix-weighting-matrix">Four moments, identity matrix weighting matrix</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#four-moments-two-step-optimal-weighting-matrix">Four moments, two-step optimal weighting matrix</a></li>
+</ul>
+</li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#brock-and-mirman-1972-estimation-by-smm">Brock and Mirman (1972) estimation by SMM</a></li>
 </ul>
 </li>
