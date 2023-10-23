@@ -1193,10 +1193,520 @@ Using a better weighting matrix didn't improve our estimates or fit very much---
 
 This means we are using four moments $R=4$ to identify two paramters $\mu$ and $\sigma$ ($K=2$). This problem is now overidentified ($R>K$). This is often a desired approach for SMM estimation.
 
+```{code-cell} ipython3
+:tags: []
+
+def data_moments4(xvals):
+    '''
+    --------------------------------------------------------------------
+    This function computes the four data moments for SMM
+    (binpct_1, binpct_2, binpct_3, binpct_4) from both the actual data
+    and from the simulated data.
+    --------------------------------------------------------------------
+    INPUTS:
+    xvals = (N, S) matrix, (N,) vector, or scalar in (cut_lb, cut_ub),
+            test scores data, either real world or simulated. Real world
+            data will come in the form (N,). Simulated data comes in the
+            form (N,) or (N, S).
+
+    OTHER FUNCTIONS AND FILES CALLED BY THIS FUNCTION: None
+
+    OBJECTS CREATED WITHIN FUNCTION:
+    bpct_1 = scalar in [0, 1] or (S,) vector, percent of observations
+             0 <= x < 220
+    bpct_2 = scalar in [0, 1] or (S,) vector, percent of observations
+             220 <= x < 320
+    bpct_3 = scalar in [0, 1] or (S,) vector, percent of observations
+             320 <= x < 430
+    bpct_4 = scalar in [0, 1] or (S,) vector, percent of observations
+             430 <= x <= 450
+
+    FILES CREATED BY THIS FUNCTION: None
+
+    RETURNS: bpct_1, bpct_2, bpct_3, bpct_4
+    --------------------------------------------------------------------
+    '''
+    if xvals.ndim == 1:
+        bpct_1 = (xvals < 220).sum() / xvals.shape[0]
+        bpct_2 = ((xvals >=220) & (xvals < 320)).sum() / xvals.shape[0]
+        bpct_3 = ((xvals >=320) & (xvals < 430)).sum() / xvals.shape[0]
+        bpct_4 = (xvals >= 430).sum() / xvals.shape[0]
+    if xvals.ndim == 2:
+        bpct_1 = (xvals < 220).sum(axis=0) / xvals.shape[0]
+        bpct_2 = (((xvals >=220) & (xvals < 320)).sum(axis=0) /
+                    xvals.shape[0])
+        bpct_3 = (((xvals >=320) & (xvals < 430)).sum(axis=0) /
+                    xvals.shape[0])
+        bpct_4 = (xvals >= 430).sum(axis=0) / xvals.shape[0]
+
+    return bpct_1, bpct_2, bpct_3, bpct_4
+```
+
+```{code-cell} ipython3
+:tags: []
+
+def err_vec4(data_vals, unif_vals, mu, sigma, cut_lb, cut_ub, simple):
+    '''
+    --------------------------------------------------------------------
+    This function computes the vector of moment errors (in percent
+    deviation from the data moment vector) for SMM.
+    --------------------------------------------------------------------
+    INPUTS:
+    data_vals = (N,) vector, test scores data
+    unif_vals = (N, S) matrix, uniform values that generate S
+                simulations of N observations
+    mu        = scalar, mean of the nontruncated normal distribution
+                from which the truncated normal is derived
+    sigma     = scalar > 0, standard deviation of the nontruncated
+                normal distribution from which the truncated normal is
+                derived
+    cut_lb    = scalar or string, ='None' if no lower bound cutoff is
+                given, otherwise is scalar lower bound value of
+                distribution. Values below this cutoff have zero
+                probability
+    cut_ub    = scalar or string, ='None' if no upper bound cutoff is
+                given, otherwise is scalar lower bound value of
+                distribution. Values below this cutoff have zero
+                probability
+    simple    = boolean, =True if errors are simple difference, =False
+                if errors are percent deviation from data moments
+
+    OTHER FUNCTIONS AND FILES CALLED BY THIS FUNCTION:
+        data_moments4()
+
+    OBJECTS CREATED WITHIN FUNCTION:
+    mean_data  = scalar, mean value of data
+    var_data   = scalar > 0, variance of data
+    moms_data  = (4, 1) matrix, column vector of two data moments
+    mean_model = scalar, mean value from model
+    var_model  = scalar > 0, variance from model
+    moms_model = (2, 1) matrix, column vector of two model moments
+    err_vec    = (2, 1) matrix, column vector of two moment error
+                 functions
+
+    FILES CREATED BY THIS FUNCTION: None
+
+    RETURNS: err_vec
+    --------------------------------------------------------------------
+    '''
+    sim_vals = trunc_norm_draws(unif_vals, mu, sigma, cut_lb, cut_ub)
+    bpct_1_dat, bpct_2_dat, bpct_3_dat, bpct_4_dat = \
+        data_moments4(data_vals)
+    moms_data = np.array([[bpct_1_dat], [bpct_2_dat], [bpct_3_dat],
+                          [bpct_4_dat]])
+    bpct_1_sim, bpct_2_sim, bpct_3_sim, bpct_4_sim = \
+        data_moments4(sim_vals)
+    bpct_1_mod = bpct_1_sim.mean()
+    bpct_2_mod = bpct_2_sim.mean()
+    bpct_3_mod = bpct_3_sim.mean()
+    bpct_4_mod = bpct_4_sim.mean()
+    moms_model = np.array([[bpct_1_mod], [bpct_2_mod], [bpct_3_mod],
+                          [bpct_4_mod]])
+    if simple:
+        err_vec = moms_model - moms_data
+    else:
+        err_vec = (moms_model - moms_data) / moms_data
+
+    return err_vec
+```
+
+```{code-cell} ipython3
+:tags: []
+
+def criterion4(params, *args):
+    '''
+    --------------------------------------------------------------------
+    This function computes the SMM weighted sum of squared moment errors
+    criterion function value given parameter values and an estimate of
+    the weighting matrix.
+    --------------------------------------------------------------------
+    INPUTS:
+    params    = (2,) vector, ([mu, sigma])
+    mu        = scalar, mean of the normally distributed random variable
+    sigma     = scalar > 0, standard deviation of the normally
+                distributed random variable
+    args      = length 5 tuple,
+                (xvals, unif_vals, cut_lb, cut_ub, W_hat)
+    xvals     = (N,) vector, values of the truncated normally
+                distributed random variable
+    unif_vals = (N, S) matrix, matrix of draws from U(0,1) distribution.
+                This fixes the seed of the draws for the simulations
+    cut_lb    = scalar or string, ='None' if no lower bound cutoff is
+                given, otherwise is scalar lower bound value of
+                distribution. Values below this cutoff have zero
+                probability
+    cut_ub    = scalar or string, ='None' if no upper bound cutoff is
+                given, otherwise is scalar lower bound value of
+                distribution. Values below this cutoff have zero
+                probability
+    W_hat     = (R, R) matrix, estimate of optimal weighting matrix
+
+    OTHER FUNCTIONS AND FILES CALLED BY THIS FUNCTION:
+        norm_pdf()
+
+    OBJECTS CREATED WITHIN FUNCTION:
+    err        = (2, 1) matrix, column vector of two moment error
+                 functions
+    crit_val   = scalar > 0, GMM criterion function value
+
+    FILES CREATED BY THIS FUNCTION: None
+
+    RETURNS: crit_val
+    --------------------------------------------------------------------
+    '''
+    mu, sigma = params
+    xvals, unif_vals, cut_lb, cut_ub, W_hat = args
+
+    # # These next two lines diagnose a problems in the next frame
+    # print('mu=', mu)
+    # print('sigma', sigma)
+
+    err = err_vec4(xvals, unif_vals, mu, sigma, cut_lb, cut_ub,
+                   simple=False)
+    crit_val = err.T @ W_hat @ err
+
+    return crit_val
+```
+
+Now we will execute the SMM minimization problem, but a strange issue will arise. And the issue has to do with the minimizer.
+
+```{code-cell} ipython3
+:tags: []
+
+mu_init4_1 = 300
+sig_init4_1 = 30
+params_init4_1 = np.array([mu_init4_1, sig_init4_1])
+W_hat4_1 = np.eye(4)
+smm_args4_1 = (data, unif_vals_2, 0.0, 450, W_hat4_1)
+results4_1 = opt.minimize(criterion4, params_init4_1, args=(smm_args4_1),
+                          method='L-BFGS-B',
+                          bounds=((1e-10, None), (1e-10, None)))
+mu_SMM4_1, sig_SMM4_1 = results4_1.x
+print('mu_SMM4_1=', mu_SMM4_1, ' sig_SMM4_1', sig_SMM4_1)
+print(results4_1)
+```
+
+Note that the optimization problem only did three function evaluations, and it decided that the parameter values that minimized the criterion function are the initial values. Something is wrong.
+
+To see what is happening in the minimizer, let's insert a line in the `criterion4()` function that prints out the values of $\mu$ and $\sigma$ for each function evaluation in the minimizer as well as the error vector associated with each guess of $\mu$ and $\sigma$.
+
+Note that the three function evaluations are for guesses of $\mu$ and $\sigma$ of:
+
+* Guess 1: $\mu$=`mu_init` and $\sigma$=`sig_init`
+* Guess 2: $\mu$=`mu_init + 0.00000001` and $\sigma$=`sig_init`
+* Guess 3: $\mu$=`mu_init` and $\sigma$=`sig_init + 0.00000001`
+
+This is the `L-BFGS-B` method's way of computing the Jacobian or slope (gradient) matrix of the criterion function by finite difference. However, the epsilon of `0.00000001` seems to be too small. We can set this step size to be bigger by using the `minimize()` function's `options={}` argument.
+
+The `options={}` argument in the `minimize()` function is a dictionary of solver options available to each particular method. In our case, we want to look at the `options={}` arguments for the [`L-BFGS-B` method](https://docs.scipy.org/doc/scipy/reference/optimize.minimize-lbfgsb.html#optimize-minimize-lbfgsb) of the `scipy.minimize()` function. Looking at this documentation, we find that we can set the `eps` option to something other than its default which is `options={'eps': 1e-08}`. In our case, we want to set that epsilon value used the finite differnce estimation of the Jacobian to be something bigger. Our means and variances seem to be in the 100's, so let's see if we get a solution setting the epsilon equal to 1.0.
+
+```{code-cell} ipython3
+:tags: []
+
+results4_1 = opt.minimize(criterion4, params_init4_1, args=(smm_args4_1),
+                          method='L-BFGS-B',
+                          bounds=((1e-10, None), (1e-10, None)),
+                          options={'eps': 1.0})
+mu_SMM4_1, sig_SMM4_1 = results4_1.x
+print('mu_SMM4_1=', mu_SMM4_1, ' sig_SMM4_1', sig_SMM4_1)
+print(results4_1)
+```
+
+{numref}`Figure %s <FigSMM_Econ381_SMM4_1>` shows the plot the PDF implied by these results $\hat{\mu}=362.2$ and $\hat{\sigma}=46.6$ against the histogram of the data.
+
+```{code-cell} ipython3
+:tags: ["hide-input", "remove-output"]
+
+# Plot the histogram of the data
+count, bins, ignored = plt.hist(data, 30, density=True,
+                                edgecolor='black', linewidth=1.2)
+
+plt.xlabel('Total points')
+plt.ylabel('Percent of scores')
+plt.xlim([0, 550])  # This gives the xmin and xmax to be plotted"
+
+# Plot the estimated SMM PDF
+dist_pts = np.linspace(cut_lb, cut_ub, 500)
+plt.plot(
+    dist_pts, trunc_norm_pdf(dist_pts, mu_SMM4_1, sig_SMM4_1, cut_lb, cut_ub), linewidth=2, color='k', label=(
+            f"1: $\mu$={np.round(mu_SMM4_1, decimals=1)}, " +
+            f"$\sigma$={np.round(sig_SMM4_1, decimals=1)}")
+        )
+plt.legend(loc='upper left')
+
+plt.show()
+```
+
+```{figure} ../../../images/smm/Econ381scores_smm4_1.png
+---
+height: 500px
+name: FigSMM_Econ381_SMM4_1
+---
+SMM-estimated PDF function and data histogram, 4 moments, identity weighting matrix, Econ 381 scores (2011-2012)
+```
+
+Let's print the data moments and the model moments as well as the error vector evaluated at the SMM estimates.
+
+```{code-cell} ipython3
+:tags: []
+
+bpct_1_data, bpct_2_data, bpct_3_data, bpct_4_data = data_moments4(data)
+print("Data moments =")
+print(bpct_1_data, bpct_2_data, bpct_3_data, bpct_4_data)
+sim_vals4_1 = trunc_norm_draws(unif_vals_2, mu_SMM4_1, sig_SMM4_1, 0.0, 450)
+bpct_1_sim4_1, bpct_2_sim4_1, bpct_3_sim4_1, bpct_4_sim4_1 = \
+    data_moments4(sim_vals4_1)
+bpct_1_model4_1 = bpct_1_sim4_1.mean()
+bpct_2_model4_1 = bpct_2_sim4_1.mean()
+bpct_3_model4_1 = bpct_3_sim4_1.mean()
+bpct_4_model4_1 = bpct_4_sim4_1.mean()
+print("")
+print("Model moments =")
+print(bpct_1_model4_1, bpct_2_model4_1, bpct_3_model4_1, bpct_4_model4_1)
+err4_1 = err_vec4(data, unif_vals_2, mu_SMM4_1, sig_SMM4_1, 0.0, 450, False)
+crit_params = np.array([mu_SMM4_1, sig_SMM4_1])
+criterion4_1 = criterion4(crit_params, data, unif_vals_2, 0.0, 450, W_hat4_1)
+print("")
+print('Error vector (pct. dev.) =', err4_1.reshape(4,))
+print("")
+print('Criterion func val=', criterion4_1[0][0])
+```
+
+We can compute the estimator of the variance-covariance matrix $\hat{\Sigma}$ of the SMM parameter estimator by computing the Jacobian of the error vector. In this case, the Jacobian $d(\tilde{x},x|\theta)$ is $R\times K = 4\times 2$.
+
+```{code-cell} ipython3
+:tags: []
+
+def Jac_err4(data_vals, unif_vals, mu, sigma, cut_lb, cut_ub, simple=False):
+    '''
+    This function computes the Jacobian matrix of partial derivatives of the R x 1 moment
+    error vector e(x|theta) with respect to the K parameters theta_i in the K x 1 parameter vector
+    theta. The resulting matrix is R x K Jacobian.
+    '''
+    Jac_err = np.zeros((4, 2))
+    h_mu = 1e-4 * mu
+    h_sig = 1e-4 * sigma
+    Jac_err[:, 0] = \
+        ((err_vec4(data_vals, unif_vals, mu + h_mu, sigma, cut_lb, cut_ub, simple) -
+          err_vec4(data_vals, unif_vals, mu - h_mu, sigma, cut_lb, cut_ub, simple)) / (2 * h_mu)).flatten()
+    Jac_err[:, 1] = \
+        ((err_vec4(data_vals, unif_vals, mu, sigma + h_sig, cut_lb, cut_ub, simple) -
+          err_vec4(data_vals, unif_vals, mu, sigma - h_sig, cut_lb, cut_ub, simple)) / (2 * h_sig)).flatten()
+
+    return Jac_err
+```
+
+```{code-cell} ipython3
+:tags: []
+
+d_err4_1 = Jac_err4(data, unif_vals_2, mu_SMM4_1, sig_SMM4_1, 0.0, 450.0, False)
+print("Jacobian matrix of derivatives of moment error functions (4 x 2) is:")
+print(d_err4_1)
+print("")
+print("Estimate of optimal weighting matrix is identity matrix (4 x 4):")
+print(W_hat4_1)
+SigHat4_1 = (1 / S) * lin.inv(d_err4_1.T @ W_hat4_1 @ d_err4_1)
+print("")
+print("Variance-covariance matrix of estimated parameter vector is:")
+print(SigHat4_1)
+print("")
+print('Std. err. mu_hat=', np.sqrt(SigHat4_1[0, 0]))
+print('Std. err. sig_hat=', np.sqrt(SigHat4_1[1, 1]))
+```
+
 
 (SecSMM_CodeExmp_MacrTest_4m2st)=
 #### Four moments, two-step optimal weighting matrix
 
+Let's see how much things change if we use the two-step estimator for the optimal weighting matrix $W$ instead of the identity matrix.
+
+```{code-cell} ipython3
+:tags: []
+
+def get_Err_mat4(data, unif_vals, mu, sigma, cut_lb, cut_ub, simple=False):
+    '''
+    --------------------------------------------------------------------
+    This function computes the R x S matrix of errors from each
+    simulated moment for each moment error. In this function, we have
+    hard coded R = 4.
+    --------------------------------------------------------------------
+    INPUTS:
+    xvals     = (N,) vector, test scores data
+    unif_vals = (N, S) matrix, uniform random variables that generate
+                the N observations of simulated data for S simulations
+    mu        = scalar, mean of the normally distributed random variable
+    sigma     = scalar > 0, standard deviation of the normally
+                distributed random variable
+    cut_lb    = scalar or string, ='None' if no cutoff is given,
+                otherwise is scalar lower bound value of distribution.
+                Values below this value have zero probability
+    cut_ub    = scalar or string, ='None' if no cutoff is given,
+                otherwise is scalar upper bound value of distribution.
+                Values above this value have zero probability
+    simple    = boolean, =True if errors are simple difference, =False
+                if errors are percent deviation from data moments
+
+    OTHER FUNCTIONS AND FILES CALLED BY THIS FUNCTION:
+        model_moments()
+
+    OBJECTS CREATED WITHIN FUNCTION:
+    R          = integer = 4, hard coded number of moments
+    S          = integer >= R, number of simulated datasets
+    Err_mat    = (R, S) matrix, error by moment and simulated data
+    mean_model = scalar, mean value from model
+    var_model  = scalar > 0, variance from model
+
+    FILES CREATED BY THIS FUNCTION: None
+
+    RETURNS: Err_mat
+    --------------------------------------------------------------------
+    '''
+    R = 4
+    S = unif_vals.shape[1]
+    Err_mat = np.zeros((R, S))
+    bpct_1_dat, bpct_2_dat, bpct_3_dat, bpct_4_dat = data_moments4(data)
+    sim_vals = trunc_norm_draws(unif_vals, mu, sigma, cut_lb, cut_ub)
+    bpct_1_sim, bpct_2_sim, bpct_3_sim, bpct_4_sim = data_moments4(sim_vals)
+    if simple:
+        Err_mat[0, :] = bpct_1_sim - bpct_1_dat
+        Err_mat[1, :] = bpct_2_sim - bpct_2_dat
+        Err_mat[2, :] = bpct_3_sim - bpct_3_dat
+        Err_mat[3, :] = bpct_4_sim - bpct_4_dat
+    else:
+        Err_mat[0, :] = (bpct_1_sim - bpct_1_dat) / bpct_1_dat
+        Err_mat[1, :] = (bpct_2_sim - bpct_2_dat) / bpct_2_dat
+        Err_mat[2, :] = (bpct_3_sim - bpct_3_dat) / bpct_3_dat
+        Err_mat[3, :] = (bpct_4_sim - bpct_4_dat) / bpct_4_dat
+
+    return Err_mat
+```
+
+```{code-cell} ipython3
+:tags: []
+
+Err_mat4 = get_Err_mat4(
+    data, unif_vals_2, mu_SMM4_1, sig_SMM4_1, 0.0, 450.0, False
+)
+VCV4 = (1 / S) * (Err_mat4 @ Err_mat4.T)
+print("2nd stage est. of var-cov matrix of moment error vec across sims (4 x 4):")
+print(VCV4)
+# Because VCV4 is poorly conditioned we use the pseudo-inverse to invert it,
+# which uses the singular value decomposition (SVD)
+W_hat4_2 = lin.pinv(VCV4)
+print("")
+print("2nd state est. of optimal weighting matrix (4 x 4):")
+print(W_hat4_2)
+```
+
+```{code-cell} ipython3
+:tags: []
+
+params_init4_2 = np.array([mu_SMM4_1, sig_SMM4_1])
+# params_init2_2 = np.array([400, 70])
+# W_hat[1, 1] = 2.0
+# W_hat[2, 2] = 2.0
+smm_args4_2 = (data, unif_vals_2, 0.0, 450, W_hat4_2)
+results4_2 = opt.minimize(criterion4, params_init4_2, args=(smm_args4_2),
+                          method='SLSQP',
+                          bounds=((1e-10, None), (1e-10, None)),
+                          options={'eps': 1.0})
+mu_SMM4_2, sig_SMM4_2 = results4_2.x
+print('mu_SMM4_2=', mu_SMM4_2, ' sig_SMM4_2', sig_SMM4_2)
+print(results4_2)
+```
+
+As can be seen in the SMM point estimates above of $\hat{\mu}=362.6$ and $\hat{\sigma}=46.6$, the optimal weighting matrix $\hat{W}_{2step}$ does not make a difference on the point estimates. This means that the plot of the SMM-estimated truncated normal distribution with the 2-step optimal weighting matrix is almost exactly the same as the one estimated with the identity matrix, shown in {numref}`Figure %s <FigSMM_Econ381_SMM4_1>`. But the two-step optimal weighting matrix will make a difference on the standard errors.
+
+```{code-cell} ipython3
+:tags: []
+
+print("Data moments =")
+print(bpct_1_data, bpct_2_data, bpct_3_data, bpct_4_data)
+sim_vals4_2 = trunc_norm_draws(unif_vals_2, mu_SMM4_2, sig_SMM4_2, 0.0, 450)
+bpct_1_sim4_2, bpct_2_sim4_2, bpct_3_sim4_2, bpct_4_sim4_2 = \
+    data_moments4(sim_vals4_2)
+bpct_1_model4_2 = bpct_1_sim4_2.mean()
+bpct_2_model4_2 = bpct_2_sim4_2.mean()
+bpct_3_model4_2 = bpct_3_sim4_2.mean()
+bpct_4_model4_2 = bpct_4_sim4_2.mean()
+print("")
+print("Model moments =")
+print(bpct_1_model4_2, bpct_2_model4_2, bpct_3_model4_2, bpct_4_model4_2)
+err4_2 = err_vec4(data, unif_vals_2, mu_SMM4_2, sig_SMM4_2, 0.0, 450,
+                  False)
+crit_params = np.array([mu_SMM4_2, sig_SMM4_2])
+criterion4_2 = criterion4(crit_params, data, unif_vals_2, 0.0, 450, W_hat4_2)
+print("")
+print('Error vector (pct. dev.) =', err4_2.reshape(4,))
+print("")
+print('Criterion func val =', criterion4_2[0][0])
+```
+
+The criterion function for different values of $\mu$ and $\sigma$ in this problem with four moments $R=4$ has a minimum, although it looks like there is a valley floor ridge along which values of $\mu$ and $\sigma$ produce approximately the same criterion function value.
+
+```{code-cell} ipython3
+:tags: ["remove-output"]
+
+mu_vals4 = np.linspace(340, 380, 90)
+sig_vals4 = np.linspace(20, 70, 100)
+# mu_vals = np.linspace(350, 370, 50)
+# sig_vals = np.linspace(85, 98, 50)
+crit_vals4 = np.zeros((90, 100))
+crit_args4 = (data, unif_vals_2, cut_lb, cut_ub, W_hat4_2)
+for mu_ind in range(90):
+    for sig_ind in range(100):
+        crit_params4 = np.array([mu_vals4[mu_ind], sig_vals4[sig_ind]])
+        crit_vals4[mu_ind, sig_ind] = \
+            criterion4(crit_params4, *crit_args4)[0][0]
+
+mu_mesh4, sig_mesh4 = np.meshgrid(mu_vals4, sig_vals4)
+
+crit_SMM4_2 = criterion4(np.array([mu_SMM4_2, sig_SMM4_2]), *crit_args4)[0][0]
+
+fig, ax = plt.subplots(subplot_kw={"projection": "3d"})
+ax.plot_surface(mu_mesh4.T, sig_mesh4.T, crit_vals4, rstride=8,
+                cstride=1, cmap=cmap1, alpha=0.9)
+ax.scatter(mu_SMM4_2, sig_SMM4_2, crit_SMM4_2, color='red', marker='o',
+           s=18, label='SMM4 estimate')
+ax.view_init(elev=20, azim=30, roll=0)
+ax.set_title('Criterion function for values of mu and sigma')
+ax.set_xlabel(r'$\mu$')
+ax.set_ylabel(r'$\sigma$')
+ax.set_zlabel(r'Crit. func.')
+plt.tight_layout()
+
+plt.show()
+```
+
+```{figure} ../../../images/smm/Econ381_crit4.png
+---
+height: 500px
+name: FigSMM_Econ381_crit4
+---
+Criterion function surface for values of $\mu$ and $\sigma$ for SMM estimation of truncated normal with four moments and 2-step optimal weighting matrix (SMM estimate shown as red dot)
+```
+
+As has been true in our other examples of GMM and SMM, the standard errors on the estimated parameter vector decrease substantially with the incorporation of an optimal weighting matrix.
+
+```{code-cell} ipython3
+:tags: []
+
+d_err4_2 = Jac_err4(
+    data, unif_vals_2, mu_SMM4_2, sig_SMM4_2, 0.0, 450.0, False
+)
+print("Jacobian matrix of derivatives of moment error functions (4 x 2) is:")
+print(d_err4_2)
+print("")
+print("2-step estimate of optimal weighting matrix (4 x 4) is:")
+print(W_hat4_2)
+SigHat4_2 = (1 / S) * lin.inv(d_err4_2.T @ W_hat4_2 @ d_err4_2)
+print("")
+print("Variance-covariance matrix of estimated parameter vector is:")
+print(SigHat4_2)
+print("")
+print('Std. err. mu_hat=', np.sqrt(SigHat4_2[0, 0]))
+print('Std. err. sig_hat=', np.sqrt(SigHat4_2[1, 1]))
+```
 
 
 (SecSMM_CodeExmp_BM72)=
