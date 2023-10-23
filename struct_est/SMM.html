@@ -1293,7 +1293,7 @@ Criterion function value is: 0.4429893115777857
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>mu_SMM1_1= 612.3371352249138  sig_SMM1_1= 197.26434895262162
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>mu_SMM1_1= 612.3319048024534  sig_SMM1_1= 197.26303566149244
 </pre></div>
 </div>
 </div>
@@ -1321,18 +1321,18 @@ Criterion function value is: 0.4429893115777857
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data mean of scores = 341.90869565217395 , Data variance of scores = 7827.997292398056
 
-Model mean 1 = 341.6692110494425 , Model variance 1 = 7827.864496338213
+Model mean 1 = 341.6690130387879 , Model variance 1 = 7827.866466512297
 
-Error vector 1 = [-7.00434373e-04 -1.69642445e-05]
+Error vector 1 = [-7.01013506e-04 -1.67125614e-05]
 
 Results from scipy.opmtimize.minimize:
   message: CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_&lt;=_PGTOL
   success: True
    status: 0
-      fun: 4.908960959342433e-07
+      fun: 4.916992449560748e-07
         x: [ 6.123e+02  1.973e+02]
       nit: 17
-      jac: [-7.436e-07  2.350e-06]
+      jac: [-7.454e-07  2.357e-06]
      nfev: 72
      njev: 24
  hess_inv: &lt;2x2 LbfgsInvHessProduct with dtype=float64&gt;
@@ -1457,19 +1457,19 @@ Results from scipy.opmtimize.minimize:
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Jacobian matrix of derivatives of moment error functions is:
-[[ 0.00089749 -0.00290433]
- [-0.00114132  0.00445698]]
+[[ 0.0008975  -0.00290434]
+ [-0.00114133  0.004457  ]]
 
 Weighting matrix W is:
 [[1. 0.]
  [0. 1.]]
 
 Variance-covariance matrix of estimated parameter vector is:
-[[602535.18442996 163802.17330123]
- [163802.17330123  44883.79092131]]
+[[602499.98744184 163793.83380005]
+ [163793.83380005  44881.85524372]]
 
-Std. err. mu_hat= 776.23139876583
-Std. err. sig_hat= 211.85794986573154
+Std. err. mu_hat= 776.2087267235777
+Std. err. sig_hat= 211.8533814781294
 </pre></div>
 </div>
 </div>
@@ -1558,12 +1558,12 @@ Std. err. sig_hat= 211.85794986573154
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2nd stage est. of var-cov matrix of moment error vec across sims:
-[[ 0.00033411 -0.00142289]
- [-0.00142289  0.01592879]]
+[[ 0.00033411 -0.00142288]
+ [-0.00142288  0.01592874]]
 
 2nd state est. of optimal weighting matrix:
-[[4830.88530228  431.53378728]
- [ 431.53378728  101.32749623]]
+[[4830.85282784  431.53075653]
+ [ 431.53075653  101.32740541]]
 </pre></div>
 </div>
 </div>
@@ -1581,7 +1581,7 @@ Std. err. sig_hat= 211.85794986573154
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>mu_SMM2_1= 619.4303074248937  sig_SMM2_1= 199.0747813692372
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>mu_SMM2_1= 619.4295828414915  sig_SMM2_1= 199.0745499003818
 </pre></div>
 </div>
 </div>
@@ -1611,15 +1611,15 @@ Std. err. sig_hat= 211.85794986573154
  [-0.0011259   0.00443426]]
 
 Weighting matrix W is:
-[[4830.88530228  431.53378728]
- [ 431.53378728  101.32749623]]
+[[4830.85282784  431.53075653]
+ [ 431.53075653  101.32740541]]
 
 Variance-covariance matrix of estimated parameter vector is:
-[[2397.38054356  745.29670501]
- [ 745.29670501  232.01757158]]
+[[2397.35566572  745.28979427]
+ [ 745.28979427  232.01568064]]
 
-Std. err. mu_hat= 48.963052841479445
-Std. err. sig_hat= 15.232123016118733
+Std. err. mu_hat= 48.96279879380848
+Std. err. sig_hat= 15.232060945338231
 </pre></div>
 </div>
 </div>
@@ -1635,9 +1635,654 @@ Std. err. sig_hat= 15.232123016118733
 <li><p>The percent of observations less than 220 (between 0 and 220)</p></li>
 </ol>
 <p>This means we are using four moments <span class="math notranslate nohighlight">\(R=4\)</span> to identify two paramters <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span> (<span class="math notranslate nohighlight">\(K=2\)</span>). This problem is now overidentified (<span class="math notranslate nohighlight">\(R&gt;K\)</span>). This is often a desired approach for SMM estimation.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">data_moments4</span><span class="p">(</span><span class="n">xvals</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    --------------------------------------------------------------------</span>
+<span class="sd">    This function computes the four data moments for SMM</span>
+<span class="sd">    (binpct_1, binpct_2, binpct_3, binpct_4) from both the actual data</span>
+<span class="sd">    and from the simulated data.</span>
+<span class="sd">    --------------------------------------------------------------------</span>
+<span class="sd">    INPUTS:</span>
+<span class="sd">    xvals = (N, S) matrix, (N,) vector, or scalar in (cut_lb, cut_ub),</span>
+<span class="sd">            test scores data, either real world or simulated. Real world</span>
+<span class="sd">            data will come in the form (N,). Simulated data comes in the</span>
+<span class="sd">            form (N,) or (N, S).</span>
+
+<span class="sd">    OTHER FUNCTIONS AND FILES CALLED BY THIS FUNCTION: None</span>
+
+<span class="sd">    OBJECTS CREATED WITHIN FUNCTION:</span>
+<span class="sd">    bpct_1 = scalar in [0, 1] or (S,) vector, percent of observations</span>
+<span class="sd">             0 &lt;= x &lt; 220</span>
+<span class="sd">    bpct_2 = scalar in [0, 1] or (S,) vector, percent of observations</span>
+<span class="sd">             220 &lt;= x &lt; 320</span>
+<span class="sd">    bpct_3 = scalar in [0, 1] or (S,) vector, percent of observations</span>
+<span class="sd">             320 &lt;= x &lt; 430</span>
+<span class="sd">    bpct_4 = scalar in [0, 1] or (S,) vector, percent of observations</span>
+<span class="sd">             430 &lt;= x &lt;= 450</span>
+
+<span class="sd">    FILES CREATED BY THIS FUNCTION: None</span>
+
+<span class="sd">    RETURNS: bpct_1, bpct_2, bpct_3, bpct_4</span>
+<span class="sd">    --------------------------------------------------------------------</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="n">xvals</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">bpct_1</span> <span class="o">=</span> <span class="p">(</span><span class="n">xvals</span> <span class="o">&lt;</span> <span class="mi">220</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="n">xvals</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">bpct_2</span> <span class="o">=</span> <span class="p">((</span><span class="n">xvals</span> <span class="o">&gt;=</span><span class="mi">220</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">xvals</span> <span class="o">&lt;</span> <span class="mi">320</span><span class="p">))</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="n">xvals</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">bpct_3</span> <span class="o">=</span> <span class="p">((</span><span class="n">xvals</span> <span class="o">&gt;=</span><span class="mi">320</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">xvals</span> <span class="o">&lt;</span> <span class="mi">430</span><span class="p">))</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="n">xvals</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">bpct_4</span> <span class="o">=</span> <span class="p">(</span><span class="n">xvals</span> <span class="o">&gt;=</span> <span class="mi">430</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="n">xvals</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">xvals</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">bpct_1</span> <span class="o">=</span> <span class="p">(</span><span class="n">xvals</span> <span class="o">&lt;</span> <span class="mi">220</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">/</span> <span class="n">xvals</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">bpct_2</span> <span class="o">=</span> <span class="p">(((</span><span class="n">xvals</span> <span class="o">&gt;=</span><span class="mi">220</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">xvals</span> <span class="o">&lt;</span> <span class="mi">320</span><span class="p">))</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">/</span>
+                    <span class="n">xvals</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">bpct_3</span> <span class="o">=</span> <span class="p">(((</span><span class="n">xvals</span> <span class="o">&gt;=</span><span class="mi">320</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">xvals</span> <span class="o">&lt;</span> <span class="mi">430</span><span class="p">))</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">/</span>
+                    <span class="n">xvals</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">bpct_4</span> <span class="o">=</span> <span class="p">(</span><span class="n">xvals</span> <span class="o">&gt;=</span> <span class="mi">430</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">/</span> <span class="n">xvals</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">bpct_1</span><span class="p">,</span> <span class="n">bpct_2</span><span class="p">,</span> <span class="n">bpct_3</span><span class="p">,</span> <span class="n">bpct_4</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">err_vec4</span><span class="p">(</span><span class="n">data_vals</span><span class="p">,</span> <span class="n">unif_vals</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">cut_lb</span><span class="p">,</span> <span class="n">cut_ub</span><span class="p">,</span> <span class="n">simple</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    --------------------------------------------------------------------</span>
+<span class="sd">    This function computes the vector of moment errors (in percent</span>
+<span class="sd">    deviation from the data moment vector) for SMM.</span>
+<span class="sd">    --------------------------------------------------------------------</span>
+<span class="sd">    INPUTS:</span>
+<span class="sd">    data_vals = (N,) vector, test scores data</span>
+<span class="sd">    unif_vals = (N, S) matrix, uniform values that generate S</span>
+<span class="sd">                simulations of N observations</span>
+<span class="sd">    mu        = scalar, mean of the nontruncated normal distribution</span>
+<span class="sd">                from which the truncated normal is derived</span>
+<span class="sd">    sigma     = scalar &gt; 0, standard deviation of the nontruncated</span>
+<span class="sd">                normal distribution from which the truncated normal is</span>
+<span class="sd">                derived</span>
+<span class="sd">    cut_lb    = scalar or string, =&#39;None&#39; if no lower bound cutoff is</span>
+<span class="sd">                given, otherwise is scalar lower bound value of</span>
+<span class="sd">                distribution. Values below this cutoff have zero</span>
+<span class="sd">                probability</span>
+<span class="sd">    cut_ub    = scalar or string, =&#39;None&#39; if no upper bound cutoff is</span>
+<span class="sd">                given, otherwise is scalar lower bound value of</span>
+<span class="sd">                distribution. Values below this cutoff have zero</span>
+<span class="sd">                probability</span>
+<span class="sd">    simple    = boolean, =True if errors are simple difference, =False</span>
+<span class="sd">                if errors are percent deviation from data moments</span>
+
+<span class="sd">    OTHER FUNCTIONS AND FILES CALLED BY THIS FUNCTION:</span>
+<span class="sd">        data_moments4()</span>
+
+<span class="sd">    OBJECTS CREATED WITHIN FUNCTION:</span>
+<span class="sd">    mean_data  = scalar, mean value of data</span>
+<span class="sd">    var_data   = scalar &gt; 0, variance of data</span>
+<span class="sd">    moms_data  = (4, 1) matrix, column vector of two data moments</span>
+<span class="sd">    mean_model = scalar, mean value from model</span>
+<span class="sd">    var_model  = scalar &gt; 0, variance from model</span>
+<span class="sd">    moms_model = (2, 1) matrix, column vector of two model moments</span>
+<span class="sd">    err_vec    = (2, 1) matrix, column vector of two moment error</span>
+<span class="sd">                 functions</span>
+
+<span class="sd">    FILES CREATED BY THIS FUNCTION: None</span>
+
+<span class="sd">    RETURNS: err_vec</span>
+<span class="sd">    --------------------------------------------------------------------</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">sim_vals</span> <span class="o">=</span> <span class="n">trunc_norm_draws</span><span class="p">(</span><span class="n">unif_vals</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">cut_lb</span><span class="p">,</span> <span class="n">cut_ub</span><span class="p">)</span>
+    <span class="n">bpct_1_dat</span><span class="p">,</span> <span class="n">bpct_2_dat</span><span class="p">,</span> <span class="n">bpct_3_dat</span><span class="p">,</span> <span class="n">bpct_4_dat</span> <span class="o">=</span> \
+        <span class="n">data_moments4</span><span class="p">(</span><span class="n">data_vals</span><span class="p">)</span>
+    <span class="n">moms_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">bpct_1_dat</span><span class="p">],</span> <span class="p">[</span><span class="n">bpct_2_dat</span><span class="p">],</span> <span class="p">[</span><span class="n">bpct_3_dat</span><span class="p">],</span>
+                          <span class="p">[</span><span class="n">bpct_4_dat</span><span class="p">]])</span>
+    <span class="n">bpct_1_sim</span><span class="p">,</span> <span class="n">bpct_2_sim</span><span class="p">,</span> <span class="n">bpct_3_sim</span><span class="p">,</span> <span class="n">bpct_4_sim</span> <span class="o">=</span> \
+        <span class="n">data_moments4</span><span class="p">(</span><span class="n">sim_vals</span><span class="p">)</span>
+    <span class="n">bpct_1_mod</span> <span class="o">=</span> <span class="n">bpct_1_sim</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="n">bpct_2_mod</span> <span class="o">=</span> <span class="n">bpct_2_sim</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="n">bpct_3_mod</span> <span class="o">=</span> <span class="n">bpct_3_sim</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="n">bpct_4_mod</span> <span class="o">=</span> <span class="n">bpct_4_sim</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="n">moms_model</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">bpct_1_mod</span><span class="p">],</span> <span class="p">[</span><span class="n">bpct_2_mod</span><span class="p">],</span> <span class="p">[</span><span class="n">bpct_3_mod</span><span class="p">],</span>
+                          <span class="p">[</span><span class="n">bpct_4_mod</span><span class="p">]])</span>
+    <span class="k">if</span> <span class="n">simple</span><span class="p">:</span>
+        <span class="n">err_vec</span> <span class="o">=</span> <span class="n">moms_model</span> <span class="o">-</span> <span class="n">moms_data</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">err_vec</span> <span class="o">=</span> <span class="p">(</span><span class="n">moms_model</span> <span class="o">-</span> <span class="n">moms_data</span><span class="p">)</span> <span class="o">/</span> <span class="n">moms_data</span>
+
+    <span class="k">return</span> <span class="n">err_vec</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">criterion4</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    --------------------------------------------------------------------</span>
+<span class="sd">    This function computes the SMM weighted sum of squared moment errors</span>
+<span class="sd">    criterion function value given parameter values and an estimate of</span>
+<span class="sd">    the weighting matrix.</span>
+<span class="sd">    --------------------------------------------------------------------</span>
+<span class="sd">    INPUTS:</span>
+<span class="sd">    params    = (2,) vector, ([mu, sigma])</span>
+<span class="sd">    mu        = scalar, mean of the normally distributed random variable</span>
+<span class="sd">    sigma     = scalar &gt; 0, standard deviation of the normally</span>
+<span class="sd">                distributed random variable</span>
+<span class="sd">    args      = length 5 tuple,</span>
+<span class="sd">                (xvals, unif_vals, cut_lb, cut_ub, W_hat)</span>
+<span class="sd">    xvals     = (N,) vector, values of the truncated normally</span>
+<span class="sd">                distributed random variable</span>
+<span class="sd">    unif_vals = (N, S) matrix, matrix of draws from U(0,1) distribution.</span>
+<span class="sd">                This fixes the seed of the draws for the simulations</span>
+<span class="sd">    cut_lb    = scalar or string, =&#39;None&#39; if no lower bound cutoff is</span>
+<span class="sd">                given, otherwise is scalar lower bound value of</span>
+<span class="sd">                distribution. Values below this cutoff have zero</span>
+<span class="sd">                probability</span>
+<span class="sd">    cut_ub    = scalar or string, =&#39;None&#39; if no upper bound cutoff is</span>
+<span class="sd">                given, otherwise is scalar lower bound value of</span>
+<span class="sd">                distribution. Values below this cutoff have zero</span>
+<span class="sd">                probability</span>
+<span class="sd">    W_hat     = (R, R) matrix, estimate of optimal weighting matrix</span>
+
+<span class="sd">    OTHER FUNCTIONS AND FILES CALLED BY THIS FUNCTION:</span>
+<span class="sd">        norm_pdf()</span>
+
+<span class="sd">    OBJECTS CREATED WITHIN FUNCTION:</span>
+<span class="sd">    err        = (2, 1) matrix, column vector of two moment error</span>
+<span class="sd">                 functions</span>
+<span class="sd">    crit_val   = scalar &gt; 0, GMM criterion function value</span>
+
+<span class="sd">    FILES CREATED BY THIS FUNCTION: None</span>
+
+<span class="sd">    RETURNS: crit_val</span>
+<span class="sd">    --------------------------------------------------------------------</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span> <span class="o">=</span> <span class="n">params</span>
+    <span class="n">xvals</span><span class="p">,</span> <span class="n">unif_vals</span><span class="p">,</span> <span class="n">cut_lb</span><span class="p">,</span> <span class="n">cut_ub</span><span class="p">,</span> <span class="n">W_hat</span> <span class="o">=</span> <span class="n">args</span>
+
+    <span class="c1"># # These next two lines diagnose a problems in the next frame</span>
+    <span class="c1"># print(&#39;mu=&#39;, mu)</span>
+    <span class="c1"># print(&#39;sigma&#39;, sigma)</span>
+
+    <span class="n">err</span> <span class="o">=</span> <span class="n">err_vec4</span><span class="p">(</span><span class="n">xvals</span><span class="p">,</span> <span class="n">unif_vals</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">cut_lb</span><span class="p">,</span> <span class="n">cut_ub</span><span class="p">,</span>
+                   <span class="n">simple</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">crit_val</span> <span class="o">=</span> <span class="n">err</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">W_hat</span> <span class="o">@</span> <span class="n">err</span>
+
+    <span class="k">return</span> <span class="n">crit_val</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we will execute the SMM minimization problem, but a strange issue will arise. And the issue has to do with the minimizer.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mu_init4_1</span> <span class="o">=</span> <span class="mi">300</span>
+<span class="n">sig_init4_1</span> <span class="o">=</span> <span class="mi">30</span>
+<span class="n">params_init4_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">mu_init4_1</span><span class="p">,</span> <span class="n">sig_init4_1</span><span class="p">])</span>
+<span class="n">W_hat4_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">smm_args4_1</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">unif_vals_2</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mi">450</span><span class="p">,</span> <span class="n">W_hat4_1</span><span class="p">)</span>
+<span class="n">results4_1</span> <span class="o">=</span> <span class="n">opt</span><span class="o">.</span><span class="n">minimize</span><span class="p">(</span><span class="n">criterion4</span><span class="p">,</span> <span class="n">params_init4_1</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">smm_args4_1</span><span class="p">),</span>
+                          <span class="n">method</span><span class="o">=</span><span class="s1">&#39;L-BFGS-B&#39;</span><span class="p">,</span>
+                          <span class="n">bounds</span><span class="o">=</span><span class="p">((</span><span class="mf">1e-10</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="p">(</span><span class="mf">1e-10</span><span class="p">,</span> <span class="kc">None</span><span class="p">)))</span>
+<span class="n">mu_SMM4_1</span><span class="p">,</span> <span class="n">sig_SMM4_1</span> <span class="o">=</span> <span class="n">results4_1</span><span class="o">.</span><span class="n">x</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;mu_SMM4_1=&#39;</span><span class="p">,</span> <span class="n">mu_SMM4_1</span><span class="p">,</span> <span class="s1">&#39; sig_SMM4_1&#39;</span><span class="p">,</span> <span class="n">sig_SMM4_1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">results4_1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>mu_SMM4_1= 300.0  sig_SMM4_1 30.0
+  message: CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_&lt;=_PGTOL
+  success: True
+   status: 0
+      fun: 12.836206045344852
+        x: [ 3.000e+02  3.000e+01]
+      nit: 0
+      jac: [ 0.000e+00  0.000e+00]
+     nfev: 3
+     njev: 1
+ hess_inv: &lt;2x2 LbfgsInvHessProduct with dtype=float64&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<p>Note that the optimization problem only did three function evaluations, and it decided that the parameter values that minimized the criterion function are the initial values. Something is wrong.</p>
+<p>To see what is happening in the minimizer, let’s insert a line in the <code class="docutils literal notranslate"><span class="pre">criterion4()</span></code> function that prints out the values of <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span> for each function evaluation in the minimizer as well as the error vector associated with each guess of <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span>.</p>
+<p>Note that the three function evaluations are for guesses of <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span> of:</p>
+<ul class="simple">
+<li><p>Guess 1: <span class="math notranslate nohighlight">\(\mu\)</span>=<code class="docutils literal notranslate"><span class="pre">mu_init</span></code> and <span class="math notranslate nohighlight">\(\sigma\)</span>=<code class="docutils literal notranslate"><span class="pre">sig_init</span></code></p></li>
+<li><p>Guess 2: <span class="math notranslate nohighlight">\(\mu\)</span>=<code class="docutils literal notranslate"><span class="pre">mu_init</span> <span class="pre">+</span> <span class="pre">0.00000001</span></code> and <span class="math notranslate nohighlight">\(\sigma\)</span>=<code class="docutils literal notranslate"><span class="pre">sig_init</span></code></p></li>
+<li><p>Guess 3: <span class="math notranslate nohighlight">\(\mu\)</span>=<code class="docutils literal notranslate"><span class="pre">mu_init</span></code> and <span class="math notranslate nohighlight">\(\sigma\)</span>=<code class="docutils literal notranslate"><span class="pre">sig_init</span> <span class="pre">+</span> <span class="pre">0.00000001</span></code></p></li>
+</ul>
+<p>This is the <code class="docutils literal notranslate"><span class="pre">L-BFGS-B</span></code> method’s way of computing the Jacobian or slope (gradient) matrix of the criterion function by finite difference. However, the epsilon of <code class="docutils literal notranslate"><span class="pre">0.00000001</span></code> seems to be too small. We can set this step size to be bigger by using the <code class="docutils literal notranslate"><span class="pre">minimize()</span></code> function’s <code class="docutils literal notranslate"><span class="pre">options={}</span></code> argument.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">options={}</span></code> argument in the <code class="docutils literal notranslate"><span class="pre">minimize()</span></code> function is a dictionary of solver options available to each particular method. In our case, we want to look at the <code class="docutils literal notranslate"><span class="pre">options={}</span></code> arguments for the <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/optimize.minimize-lbfgsb.html#optimize-minimize-lbfgsb"><code class="docutils literal notranslate"><span class="pre">L-BFGS-B</span></code> method</a> of the <code class="docutils literal notranslate"><span class="pre">scipy.minimize()</span></code> function. Looking at this documentation, we find that we can set the <code class="docutils literal notranslate"><span class="pre">eps</span></code> option to something other than its default which is <code class="docutils literal notranslate"><span class="pre">options={'eps':</span> <span class="pre">1e-08}</span></code>. In our case, we want to set that epsilon value used the finite differnce estimation of the Jacobian to be something bigger. Our means and variances seem to be in the 100’s, so let’s see if we get a solution setting the epsilon equal to 1.0.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results4_1</span> <span class="o">=</span> <span class="n">opt</span><span class="o">.</span><span class="n">minimize</span><span class="p">(</span><span class="n">criterion4</span><span class="p">,</span> <span class="n">params_init4_1</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">smm_args4_1</span><span class="p">),</span>
+                          <span class="n">method</span><span class="o">=</span><span class="s1">&#39;L-BFGS-B&#39;</span><span class="p">,</span>
+                          <span class="n">bounds</span><span class="o">=</span><span class="p">((</span><span class="mf">1e-10</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="p">(</span><span class="mf">1e-10</span><span class="p">,</span> <span class="kc">None</span><span class="p">)),</span>
+                          <span class="n">options</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;eps&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">})</span>
+<span class="n">mu_SMM4_1</span><span class="p">,</span> <span class="n">sig_SMM4_1</span> <span class="o">=</span> <span class="n">results4_1</span><span class="o">.</span><span class="n">x</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;mu_SMM4_1=&#39;</span><span class="p">,</span> <span class="n">mu_SMM4_1</span><span class="p">,</span> <span class="s1">&#39; sig_SMM4_1&#39;</span><span class="p">,</span> <span class="n">sig_SMM4_1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">results4_1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>mu_SMM4_1= 362.560593472098  sig_SMM4_1 46.57515195652185
+  message: CONVERGENCE: REL_REDUCTION_OF_F_&lt;=_FACTR*EPSMCH
+  success: True
+   status: 0
+      fun: 0.9819514324825378
+        x: [ 3.626e+02  4.658e+01]
+      nit: 8
+      jac: [ 2.845e-03 -1.022e-03]
+     nfev: 144
+     njev: 48
+ hess_inv: &lt;2x2 LbfgsInvHessProduct with dtype=float64&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<p><a class="reference internal" href="#figsmm-econ381-smm4-1"><span class="std std-numref">Figure 5</span></a> shows the plot the PDF implied by these results <span class="math notranslate nohighlight">\(\hat{\mu}=362.2\)</span> and <span class="math notranslate nohighlight">\(\hat{\sigma}=46.6\)</span> against the histogram of the data.</p>
+<div class="cell tag_hide-input tag_remove-output docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot the histogram of the data</span>
+<span class="n">count</span><span class="p">,</span> <span class="n">bins</span><span class="p">,</span> <span class="n">ignored</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.2</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Total points&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Percent of scores&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">550</span><span class="p">])</span>  <span class="c1"># This gives the xmin and xmax to be plotted&quot;</span>
+
+<span class="c1"># Plot the estimated SMM PDF</span>
+<span class="n">dist_pts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">cut_lb</span><span class="p">,</span> <span class="n">cut_ub</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">dist_pts</span><span class="p">,</span> <span class="n">trunc_norm_pdf</span><span class="p">(</span><span class="n">dist_pts</span><span class="p">,</span> <span class="n">mu_SMM4_1</span><span class="p">,</span> <span class="n">sig_SMM4_1</span><span class="p">,</span> <span class="n">cut_lb</span><span class="p">,</span> <span class="n">cut_ub</span><span class="p">),</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;1: $\mu$=</span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">mu_SMM4_1</span><span class="p">,</span><span class="w"> </span><span class="n">decimals</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="si">}</span><span class="s2">, &quot;</span> <span class="o">+</span>
+            <span class="sa">f</span><span class="s2">&quot;$\sigma$=</span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">sig_SMM4_1</span><span class="p">,</span><span class="w"> </span><span class="n">decimals</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper left&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<figure class="align-default" id="figsmm-econ381-smm4-1">
+<a class="reference internal image-reference" href="../_images/Econ381scores_smm4_1.png"><img alt="../_images/Econ381scores_smm4_1.png" src="../_images/Econ381scores_smm4_1.png" style="height: 500px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 5 </span><span class="caption-text">SMM-estimated PDF function and data histogram, 4 moments, identity weighting matrix, Econ 381 scores (2011-2012)</span><a class="headerlink" href="#figsmm-econ381-smm4-1" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Let’s print the data moments and the model moments as well as the error vector evaluated at the SMM estimates.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bpct_1_data</span><span class="p">,</span> <span class="n">bpct_2_data</span><span class="p">,</span> <span class="n">bpct_3_data</span><span class="p">,</span> <span class="n">bpct_4_data</span> <span class="o">=</span> <span class="n">data_moments4</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Data moments =&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">bpct_1_data</span><span class="p">,</span> <span class="n">bpct_2_data</span><span class="p">,</span> <span class="n">bpct_3_data</span><span class="p">,</span> <span class="n">bpct_4_data</span><span class="p">)</span>
+<span class="n">sim_vals4_1</span> <span class="o">=</span> <span class="n">trunc_norm_draws</span><span class="p">(</span><span class="n">unif_vals_2</span><span class="p">,</span> <span class="n">mu_SMM4_1</span><span class="p">,</span> <span class="n">sig_SMM4_1</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mi">450</span><span class="p">)</span>
+<span class="n">bpct_1_sim4_1</span><span class="p">,</span> <span class="n">bpct_2_sim4_1</span><span class="p">,</span> <span class="n">bpct_3_sim4_1</span><span class="p">,</span> <span class="n">bpct_4_sim4_1</span> <span class="o">=</span> \
+    <span class="n">data_moments4</span><span class="p">(</span><span class="n">sim_vals4_1</span><span class="p">)</span>
+<span class="n">bpct_1_model4_1</span> <span class="o">=</span> <span class="n">bpct_1_sim4_1</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">bpct_2_model4_1</span> <span class="o">=</span> <span class="n">bpct_2_sim4_1</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">bpct_3_model4_1</span> <span class="o">=</span> <span class="n">bpct_3_sim4_1</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">bpct_4_model4_1</span> <span class="o">=</span> <span class="n">bpct_4_sim4_1</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Model moments =&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">bpct_1_model4_1</span><span class="p">,</span> <span class="n">bpct_2_model4_1</span><span class="p">,</span> <span class="n">bpct_3_model4_1</span><span class="p">,</span> <span class="n">bpct_4_model4_1</span><span class="p">)</span>
+<span class="n">err4_1</span> <span class="o">=</span> <span class="n">err_vec4</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">unif_vals_2</span><span class="p">,</span> <span class="n">mu_SMM4_1</span><span class="p">,</span> <span class="n">sig_SMM4_1</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mi">450</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+<span class="n">crit_params</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">mu_SMM4_1</span><span class="p">,</span> <span class="n">sig_SMM4_1</span><span class="p">])</span>
+<span class="n">criterion4_1</span> <span class="o">=</span> <span class="n">criterion4</span><span class="p">(</span><span class="n">crit_params</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">unif_vals_2</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mi">450</span><span class="p">,</span> <span class="n">W_hat4_1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Error vector (pct. dev.) =&#39;</span><span class="p">,</span> <span class="n">err4_1</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">4</span><span class="p">,))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Criterion func val=&#39;</span><span class="p">,</span> <span class="n">criterion4_1</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data moments =
+0.08695652173913043 0.17391304347826086 0.6894409937888198 0.049689440993788817
+
+Model moments =
+0.0017391304347826085 0.1820496894409938 0.7702484472049688 0.04596273291925465
+
+Error vector (pct. dev.) = [-0.98        0.04678571  0.11720721 -0.075     ]
+
+Criterion func val= 0.9819514324825378
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can compute the estimator of the variance-covariance matrix <span class="math notranslate nohighlight">\(\hat{\Sigma}\)</span> of the SMM parameter estimator by computing the Jacobian of the error vector. In this case, the Jacobian <span class="math notranslate nohighlight">\(d(\tilde{x},x|\theta)\)</span> is <span class="math notranslate nohighlight">\(R\times K = 4\times 2\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">Jac_err4</span><span class="p">(</span><span class="n">data_vals</span><span class="p">,</span> <span class="n">unif_vals</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">cut_lb</span><span class="p">,</span> <span class="n">cut_ub</span><span class="p">,</span> <span class="n">simple</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    This function computes the Jacobian matrix of partial derivatives of the R x 1 moment</span>
+<span class="sd">    error vector e(x|theta) with respect to the K parameters theta_i in the K x 1 parameter vector</span>
+<span class="sd">    theta. The resulting matrix is R x K Jacobian.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">Jac_err</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="n">h_mu</span> <span class="o">=</span> <span class="mf">1e-4</span> <span class="o">*</span> <span class="n">mu</span>
+    <span class="n">h_sig</span> <span class="o">=</span> <span class="mf">1e-4</span> <span class="o">*</span> <span class="n">sigma</span>
+    <span class="n">Jac_err</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> \
+        <span class="p">((</span><span class="n">err_vec4</span><span class="p">(</span><span class="n">data_vals</span><span class="p">,</span> <span class="n">unif_vals</span><span class="p">,</span> <span class="n">mu</span> <span class="o">+</span> <span class="n">h_mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">cut_lb</span><span class="p">,</span> <span class="n">cut_ub</span><span class="p">,</span> <span class="n">simple</span><span class="p">)</span> <span class="o">-</span>
+          <span class="n">err_vec4</span><span class="p">(</span><span class="n">data_vals</span><span class="p">,</span> <span class="n">unif_vals</span><span class="p">,</span> <span class="n">mu</span> <span class="o">-</span> <span class="n">h_mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">cut_lb</span><span class="p">,</span> <span class="n">cut_ub</span><span class="p">,</span> <span class="n">simple</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">h_mu</span><span class="p">))</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+    <span class="n">Jac_err</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> \
+        <span class="p">((</span><span class="n">err_vec4</span><span class="p">(</span><span class="n">data_vals</span><span class="p">,</span> <span class="n">unif_vals</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span> <span class="o">+</span> <span class="n">h_sig</span><span class="p">,</span> <span class="n">cut_lb</span><span class="p">,</span> <span class="n">cut_ub</span><span class="p">,</span> <span class="n">simple</span><span class="p">)</span> <span class="o">-</span>
+          <span class="n">err_vec4</span><span class="p">(</span><span class="n">data_vals</span><span class="p">,</span> <span class="n">unif_vals</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span> <span class="o">-</span> <span class="n">h_sig</span><span class="p">,</span> <span class="n">cut_lb</span><span class="p">,</span> <span class="n">cut_ub</span><span class="p">,</span> <span class="n">simple</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">h_sig</span><span class="p">))</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">Jac_err</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">d_err4_1</span> <span class="o">=</span> <span class="n">Jac_err4</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">unif_vals_2</span><span class="p">,</span> <span class="n">mu_SMM4_1</span><span class="p">,</span> <span class="n">sig_SMM4_1</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">450.0</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Jacobian matrix of derivatives of moment error functions (4 x 2) is:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">d_err4_1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Estimate of optimal weighting matrix is identity matrix (4 x 4):&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">W_hat4_1</span><span class="p">)</span>
+<span class="n">SigHat4_1</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">S</span><span class="p">)</span> <span class="o">*</span> <span class="n">lin</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">d_err4_1</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">W_hat4_1</span> <span class="o">@</span> <span class="n">d_err4_1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Variance-covariance matrix of estimated parameter vector is:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">SigHat4_1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Std. err. mu_hat=&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">SigHat4_1</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Std. err. sig_hat=&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">SigHat4_1</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Jacobian matrix of derivatives of moment error functions (4 x 2) is:
+[[ 0.          0.        ]
+ [-0.05417814  0.07668099]
+ [ 0.01242414 -0.01934295]
+ [ 0.0172385   0.        ]]
+
+Estimate of optimal weighting matrix is identity matrix (4 x 4):
+[[1. 0. 0. 0.]
+ [0. 1. 0. 0.]
+ [0. 0. 1. 0.]
+ [0. 0. 0. 1.]]
+
+Variance-covariance matrix of estimated parameter vector is:
+[[33.48770545 23.53170341]
+ [23.53170341 18.13459776]]
+
+Std. err. mu_hat= 5.786856266717139
+Std. err. sig_hat= 4.258473642422251
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 <section id="four-moments-two-step-optimal-weighting-matrix">
 <span id="secsmm-codeexmp-macrtest-4m2st"></span><h4>Four moments, two-step optimal weighting matrix<a class="headerlink" href="#four-moments-two-step-optimal-weighting-matrix" title="Permalink to this heading">#</a></h4>
+<p>Let’s see how much things change if we use the two-step estimator for the optimal weighting matrix <span class="math notranslate nohighlight">\(W\)</span> instead of the identity matrix.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_Err_mat4</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">unif_vals</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">cut_lb</span><span class="p">,</span> <span class="n">cut_ub</span><span class="p">,</span> <span class="n">simple</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    --------------------------------------------------------------------</span>
+<span class="sd">    This function computes the R x S matrix of errors from each</span>
+<span class="sd">    simulated moment for each moment error. In this function, we have</span>
+<span class="sd">    hard coded R = 4.</span>
+<span class="sd">    --------------------------------------------------------------------</span>
+<span class="sd">    INPUTS:</span>
+<span class="sd">    xvals     = (N,) vector, test scores data</span>
+<span class="sd">    unif_vals = (N, S) matrix, uniform random variables that generate</span>
+<span class="sd">                the N observations of simulated data for S simulations</span>
+<span class="sd">    mu        = scalar, mean of the normally distributed random variable</span>
+<span class="sd">    sigma     = scalar &gt; 0, standard deviation of the normally</span>
+<span class="sd">                distributed random variable</span>
+<span class="sd">    cut_lb    = scalar or string, =&#39;None&#39; if no cutoff is given,</span>
+<span class="sd">                otherwise is scalar lower bound value of distribution.</span>
+<span class="sd">                Values below this value have zero probability</span>
+<span class="sd">    cut_ub    = scalar or string, =&#39;None&#39; if no cutoff is given,</span>
+<span class="sd">                otherwise is scalar upper bound value of distribution.</span>
+<span class="sd">                Values above this value have zero probability</span>
+<span class="sd">    simple    = boolean, =True if errors are simple difference, =False</span>
+<span class="sd">                if errors are percent deviation from data moments</span>
+
+<span class="sd">    OTHER FUNCTIONS AND FILES CALLED BY THIS FUNCTION:</span>
+<span class="sd">        model_moments()</span>
+
+<span class="sd">    OBJECTS CREATED WITHIN FUNCTION:</span>
+<span class="sd">    R          = integer = 4, hard coded number of moments</span>
+<span class="sd">    S          = integer &gt;= R, number of simulated datasets</span>
+<span class="sd">    Err_mat    = (R, S) matrix, error by moment and simulated data</span>
+<span class="sd">    mean_model = scalar, mean value from model</span>
+<span class="sd">    var_model  = scalar &gt; 0, variance from model</span>
+
+<span class="sd">    FILES CREATED BY THIS FUNCTION: None</span>
+
+<span class="sd">    RETURNS: Err_mat</span>
+<span class="sd">    --------------------------------------------------------------------</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">R</span> <span class="o">=</span> <span class="mi">4</span>
+    <span class="n">S</span> <span class="o">=</span> <span class="n">unif_vals</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">Err_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">R</span><span class="p">,</span> <span class="n">S</span><span class="p">))</span>
+    <span class="n">bpct_1_dat</span><span class="p">,</span> <span class="n">bpct_2_dat</span><span class="p">,</span> <span class="n">bpct_3_dat</span><span class="p">,</span> <span class="n">bpct_4_dat</span> <span class="o">=</span> <span class="n">data_moments4</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">sim_vals</span> <span class="o">=</span> <span class="n">trunc_norm_draws</span><span class="p">(</span><span class="n">unif_vals</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">cut_lb</span><span class="p">,</span> <span class="n">cut_ub</span><span class="p">)</span>
+    <span class="n">bpct_1_sim</span><span class="p">,</span> <span class="n">bpct_2_sim</span><span class="p">,</span> <span class="n">bpct_3_sim</span><span class="p">,</span> <span class="n">bpct_4_sim</span> <span class="o">=</span> <span class="n">data_moments4</span><span class="p">(</span><span class="n">sim_vals</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">simple</span><span class="p">:</span>
+        <span class="n">Err_mat</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">bpct_1_sim</span> <span class="o">-</span> <span class="n">bpct_1_dat</span>
+        <span class="n">Err_mat</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">bpct_2_sim</span> <span class="o">-</span> <span class="n">bpct_2_dat</span>
+        <span class="n">Err_mat</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">bpct_3_sim</span> <span class="o">-</span> <span class="n">bpct_3_dat</span>
+        <span class="n">Err_mat</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">bpct_4_sim</span> <span class="o">-</span> <span class="n">bpct_4_dat</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">Err_mat</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="p">(</span><span class="n">bpct_1_sim</span> <span class="o">-</span> <span class="n">bpct_1_dat</span><span class="p">)</span> <span class="o">/</span> <span class="n">bpct_1_dat</span>
+        <span class="n">Err_mat</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="p">(</span><span class="n">bpct_2_sim</span> <span class="o">-</span> <span class="n">bpct_2_dat</span><span class="p">)</span> <span class="o">/</span> <span class="n">bpct_2_dat</span>
+        <span class="n">Err_mat</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="p">(</span><span class="n">bpct_3_sim</span> <span class="o">-</span> <span class="n">bpct_3_dat</span><span class="p">)</span> <span class="o">/</span> <span class="n">bpct_3_dat</span>
+        <span class="n">Err_mat</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="p">(</span><span class="n">bpct_4_sim</span> <span class="o">-</span> <span class="n">bpct_4_dat</span><span class="p">)</span> <span class="o">/</span> <span class="n">bpct_4_dat</span>
+
+    <span class="k">return</span> <span class="n">Err_mat</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Err_mat4</span> <span class="o">=</span> <span class="n">get_Err_mat4</span><span class="p">(</span>
+    <span class="n">data</span><span class="p">,</span> <span class="n">unif_vals_2</span><span class="p">,</span> <span class="n">mu_SMM4_1</span><span class="p">,</span> <span class="n">sig_SMM4_1</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">450.0</span><span class="p">,</span> <span class="kc">False</span>
+<span class="p">)</span>
+<span class="n">VCV4</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">S</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">Err_mat4</span> <span class="o">@</span> <span class="n">Err_mat4</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;2nd stage est. of var-cov matrix of moment error vec across sims (4 x 4):&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">VCV4</span><span class="p">)</span>
+<span class="c1"># Because VCV4 is poorly conditioned we use the pseudo-inverse to invert it,</span>
+<span class="c1"># which uses the singular value decomposition (SVD)</span>
+<span class="n">W_hat4_2</span> <span class="o">=</span> <span class="n">lin</span><span class="o">.</span><span class="n">pinv</span><span class="p">(</span><span class="n">VCV4</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;2nd state est. of optimal weighting matrix (4 x 4):&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">W_hat4_2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2nd stage est. of var-cov matrix of moment error vec across sims (4 x 4):
+[[ 9.61938776e-01 -4.52040816e-02 -1.15173745e-01  7.28571429e-02]
+ [-4.52040816e-02  2.66198980e-02 -5.27670528e-04 -6.74107143e-03]
+ [-1.15173745e-01 -5.27670528e-04  1.57738820e-02 -1.54617117e-02]
+ [ 7.28571429e-02 -6.74107143e-03 -1.54617117e-02  1.10625000e-01]]
+
+2nd state est. of optimal weighting matrix (4 x 4):
+[[ 1.08330385  0.5343057  -0.21471629 -0.78666313]
+ [ 0.5343057  36.19111144 -9.22640243  0.41240869]
+ [-0.21471629 -9.22640243  2.40386307 -0.68543805]
+ [-0.78666313  0.41240869 -0.68543805  9.443683  ]]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">params_init4_2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">mu_SMM4_1</span><span class="p">,</span> <span class="n">sig_SMM4_1</span><span class="p">])</span>
+<span class="c1"># params_init2_2 = np.array([400, 70])</span>
+<span class="c1"># W_hat[1, 1] = 2.0</span>
+<span class="c1"># W_hat[2, 2] = 2.0</span>
+<span class="n">smm_args4_2</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">unif_vals_2</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mi">450</span><span class="p">,</span> <span class="n">W_hat4_2</span><span class="p">)</span>
+<span class="n">results4_2</span> <span class="o">=</span> <span class="n">opt</span><span class="o">.</span><span class="n">minimize</span><span class="p">(</span><span class="n">criterion4</span><span class="p">,</span> <span class="n">params_init4_2</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">smm_args4_2</span><span class="p">),</span>
+                          <span class="n">method</span><span class="o">=</span><span class="s1">&#39;SLSQP&#39;</span><span class="p">,</span>
+                          <span class="n">bounds</span><span class="o">=</span><span class="p">((</span><span class="mf">1e-10</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="p">(</span><span class="mf">1e-10</span><span class="p">,</span> <span class="kc">None</span><span class="p">)),</span>
+                          <span class="n">options</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;eps&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">})</span>
+<span class="n">mu_SMM4_2</span><span class="p">,</span> <span class="n">sig_SMM4_2</span> <span class="o">=</span> <span class="n">results4_2</span><span class="o">.</span><span class="n">x</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;mu_SMM4_2=&#39;</span><span class="p">,</span> <span class="n">mu_SMM4_2</span><span class="p">,</span> <span class="s1">&#39; sig_SMM4_2&#39;</span><span class="p">,</span> <span class="n">sig_SMM4_2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">results4_2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>mu_SMM4_2= 362.5605400454758  sig_SMM4_2 46.57507128065559
+ message: Optimization terminated successfully
+ success: True
+  status: 0
+     fun: 0.9984266286568925
+       x: [ 3.626e+02  4.658e+01]
+     nit: 1
+     jac: [ 5.467e-02  8.255e-02]
+    nfev: 14
+    njev: 1
+</pre></div>
+</div>
+</div>
+</div>
+<p>As can be seen in the SMM point estimates above of <span class="math notranslate nohighlight">\(\hat{\mu}=362.6\)</span> and <span class="math notranslate nohighlight">\(\hat{\sigma}=46.6\)</span>, the optimal weighting matrix <span class="math notranslate nohighlight">\(\hat{W}_{2step}\)</span> does not make a difference on the point estimates. This means that the plot of the SMM-estimated truncated normal distribution with the 2-step optimal weighting matrix is almost exactly the same as the one estimated with the identity matrix, shown in <a class="reference internal" href="#figsmm-econ381-smm4-1"><span class="std std-numref">Figure 5</span></a>. But the two-step optimal weighting matrix will make a difference on the standard errors.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Data moments =&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">bpct_1_data</span><span class="p">,</span> <span class="n">bpct_2_data</span><span class="p">,</span> <span class="n">bpct_3_data</span><span class="p">,</span> <span class="n">bpct_4_data</span><span class="p">)</span>
+<span class="n">sim_vals4_2</span> <span class="o">=</span> <span class="n">trunc_norm_draws</span><span class="p">(</span><span class="n">unif_vals_2</span><span class="p">,</span> <span class="n">mu_SMM4_2</span><span class="p">,</span> <span class="n">sig_SMM4_2</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mi">450</span><span class="p">)</span>
+<span class="n">bpct_1_sim4_2</span><span class="p">,</span> <span class="n">bpct_2_sim4_2</span><span class="p">,</span> <span class="n">bpct_3_sim4_2</span><span class="p">,</span> <span class="n">bpct_4_sim4_2</span> <span class="o">=</span> \
+    <span class="n">data_moments4</span><span class="p">(</span><span class="n">sim_vals4_2</span><span class="p">)</span>
+<span class="n">bpct_1_model4_2</span> <span class="o">=</span> <span class="n">bpct_1_sim4_2</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">bpct_2_model4_2</span> <span class="o">=</span> <span class="n">bpct_2_sim4_2</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">bpct_3_model4_2</span> <span class="o">=</span> <span class="n">bpct_3_sim4_2</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">bpct_4_model4_2</span> <span class="o">=</span> <span class="n">bpct_4_sim4_2</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Model moments =&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">bpct_1_model4_2</span><span class="p">,</span> <span class="n">bpct_2_model4_2</span><span class="p">,</span> <span class="n">bpct_3_model4_2</span><span class="p">,</span> <span class="n">bpct_4_model4_2</span><span class="p">)</span>
+<span class="n">err4_2</span> <span class="o">=</span> <span class="n">err_vec4</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">unif_vals_2</span><span class="p">,</span> <span class="n">mu_SMM4_2</span><span class="p">,</span> <span class="n">sig_SMM4_2</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mi">450</span><span class="p">,</span>
+                  <span class="kc">False</span><span class="p">)</span>
+<span class="n">crit_params</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">mu_SMM4_2</span><span class="p">,</span> <span class="n">sig_SMM4_2</span><span class="p">])</span>
+<span class="n">criterion4_2</span> <span class="o">=</span> <span class="n">criterion4</span><span class="p">(</span><span class="n">crit_params</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">unif_vals_2</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mi">450</span><span class="p">,</span> <span class="n">W_hat4_2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Error vector (pct. dev.) =&#39;</span><span class="p">,</span> <span class="n">err4_2</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">4</span><span class="p">,))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Criterion func val =&#39;</span><span class="p">,</span> <span class="n">criterion4_2</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data moments =
+0.08695652173913043 0.17391304347826086 0.6894409937888198 0.049689440993788817
+
+Model moments =
+0.0017391304347826085 0.1820496894409938 0.7702484472049688 0.04596273291925465
+
+Error vector (pct. dev.) = [-0.98        0.04678571  0.11720721 -0.075     ]
+
+Criterion func val = 0.9984266286568925
+</pre></div>
+</div>
+</div>
+</div>
+<p>The criterion function for different values of <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span> in this problem with four moments <span class="math notranslate nohighlight">\(R=4\)</span> has a minimum, although it looks like there is a valley floor ridge along which values of <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span> produce approximately the same criterion function value.</p>
+<div class="cell tag_remove-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mu_vals4</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">340</span><span class="p">,</span> <span class="mi">380</span><span class="p">,</span> <span class="mi">90</span><span class="p">)</span>
+<span class="n">sig_vals4</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="c1"># mu_vals = np.linspace(350, 370, 50)</span>
+<span class="c1"># sig_vals = np.linspace(85, 98, 50)</span>
+<span class="n">crit_vals4</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">90</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
+<span class="n">crit_args4</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">unif_vals_2</span><span class="p">,</span> <span class="n">cut_lb</span><span class="p">,</span> <span class="n">cut_ub</span><span class="p">,</span> <span class="n">W_hat4_2</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">mu_ind</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">90</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">sig_ind</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
+        <span class="n">crit_params4</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">mu_vals4</span><span class="p">[</span><span class="n">mu_ind</span><span class="p">],</span> <span class="n">sig_vals4</span><span class="p">[</span><span class="n">sig_ind</span><span class="p">]])</span>
+        <span class="n">crit_vals4</span><span class="p">[</span><span class="n">mu_ind</span><span class="p">,</span> <span class="n">sig_ind</span><span class="p">]</span> <span class="o">=</span> \
+            <span class="n">criterion4</span><span class="p">(</span><span class="n">crit_params4</span><span class="p">,</span> <span class="o">*</span><span class="n">crit_args4</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="n">mu_mesh4</span><span class="p">,</span> <span class="n">sig_mesh4</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">mu_vals4</span><span class="p">,</span> <span class="n">sig_vals4</span><span class="p">)</span>
+
+<span class="n">crit_SMM4_2</span> <span class="o">=</span> <span class="n">criterion4</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">mu_SMM4_2</span><span class="p">,</span> <span class="n">sig_SMM4_2</span><span class="p">]),</span> <span class="o">*</span><span class="n">crit_args4</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">subplot_kw</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;projection&quot;</span><span class="p">:</span> <span class="s2">&quot;3d&quot;</span><span class="p">})</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">mu_mesh4</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">sig_mesh4</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">crit_vals4</span><span class="p">,</span> <span class="n">rstride</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+                <span class="n">cstride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap1</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">mu_SMM4_2</span><span class="p">,</span> <span class="n">sig_SMM4_2</span><span class="p">,</span> <span class="n">crit_SMM4_2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span>
+           <span class="n">s</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;SMM4 estimate&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">view_init</span><span class="p">(</span><span class="n">elev</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">azim</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">roll</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Criterion function for values of mu and sigma&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\mu$&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\sigma$&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Crit. func.&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<figure class="align-default" id="figsmm-econ381-crit4">
+<a class="reference internal image-reference" href="../_images/Econ381_crit4.png"><img alt="../_images/Econ381_crit4.png" src="../_images/Econ381_crit4.png" style="height: 500px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 6 </span><span class="caption-text">Criterion function surface for values of <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span> for SMM estimation of truncated normal with four moments and 2-step optimal weighting matrix (SMM estimate shown as red dot)</span><a class="headerlink" href="#figsmm-econ381-crit4" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>As has been true in our other examples of GMM and SMM, the standard errors on the estimated parameter vector decrease substantially with the incorporation of an optimal weighting matrix.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">d_err4_2</span> <span class="o">=</span> <span class="n">Jac_err4</span><span class="p">(</span>
+    <span class="n">data</span><span class="p">,</span> <span class="n">unif_vals_2</span><span class="p">,</span> <span class="n">mu_SMM4_2</span><span class="p">,</span> <span class="n">sig_SMM4_2</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">450.0</span><span class="p">,</span> <span class="kc">False</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Jacobian matrix of derivatives of moment error functions (4 x 2) is:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">d_err4_2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;2-step estimate of optimal weighting matrix (4 x 4) is:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">W_hat4_2</span><span class="p">)</span>
+<span class="n">SigHat4_2</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">S</span><span class="p">)</span> <span class="o">*</span> <span class="n">lin</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">d_err4_2</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">W_hat4_2</span> <span class="o">@</span> <span class="n">d_err4_2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Variance-covariance matrix of estimated parameter vector is:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">SigHat4_2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Std. err. mu_hat=&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">SigHat4_2</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Std. err. sig_hat=&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">SigHat4_2</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Jacobian matrix of derivatives of moment error functions (4 x 2) is:
+[[ 0.          0.        ]
+ [-0.05417814  0.07668112]
+ [ 0.01242414 -0.01934298]
+ [ 0.0172385   0.        ]]
+
+2-step estimate of optimal weighting matrix (4 x 4) is:
+[[ 1.08330385  0.5343057  -0.21471629 -0.78666313]
+ [ 0.5343057  36.19111144 -9.22640243  0.41240869]
+ [-0.21471629 -9.22640243  2.40386307 -0.68543805]
+ [-0.78666313  0.41240869 -0.68543805  9.443683  ]]
+
+Variance-covariance matrix of estimated parameter vector is:
+[[3.53697411 2.47391182]
+ [2.47391182 1.77184156]]
+
+Std. err. mu_hat= 1.8806844791000032
+Std. err. sig_hat= 1.3311053920876743
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 </section>
 <section id="brock-and-mirman-1972-estimation-by-smm">
