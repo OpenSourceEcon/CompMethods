@@ -19,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=c5ced968eda925caa686" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=c5ced968eda925caa686" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=c5ced968eda925caa686" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=c5ced968eda925caa686" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -41,9 +41,9 @@
     <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
-  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=c5ced968eda925caa686" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=c5ced968eda925caa686"></script>
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -153,13 +153,14 @@ const thebe_selector_output = ".output, .cell_output"
   
   
   
+  
     
     
       
     
     
-    <img src="../_static/CompMethodsLogo.png" class="logo__image only-light" alt="Logo image"/>
-    <script>document.write(`<img src="../_static/CompMethodsLogo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+    <img src="../_static/CompMethodsLogo.png" class="logo__image only-light" alt="Computational Methods for Economists using Python - Home"/>
+    <script>document.write(`<img src="../_static/CompMethodsLogo.png" class="logo__image only-dark" alt="Computational Methods for Economists using Python - Home"/>`);</script>
   
   
 </a></div>
@@ -181,20 +182,14 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../python/intro.html">Introduction to Python</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../python/StandardLibrary.html">Python Standard Library</a></li>
-
+<li class="toctree-l1"><a class="reference internal" href="../python/ExceptionsIO.html">Exception Handling and File Input/Output</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../python/OOP.html">Object Oriented Programming</a></li>
-
 <li class="toctree-l1"><a class="reference internal" href="../python/NumPy.html">NumPy</a></li>
-
 <li class="toctree-l1"><a class="reference internal" href="../python/Pandas.html">Pandas</a></li>
-
 <li class="toctree-l1"><a class="reference internal" href="../python/Matplotlib.html">Matplotlib</a></li>
-
-<li class="toctree-l1"><a class="reference internal" href="../python/SciPy.html">SciPy</a></li>
-
+<li class="toctree-l1"><a class="reference internal" href="../python/SciPy.html">SciPy: Root finding, minimizing, interpolation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../python/DocStrings.html">Docstrings and Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../python/UnitTesting.html">Unit Testing</a></li>
-
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Git and GitHub</span></p>
 <ul class="nav bd-sidenav">
@@ -465,51 +460,51 @@ document.write(`
 <p>This chapter describes the simulated method of moments (SMM) estimation method. All data and images from this chapter can be found in the data directory (<a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/data/smm/">./data/smm/</a>) and images directory (<a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/images/smm/">./images/smm/</a>) for the GitHub repository for this online book.</p>
 <section id="the-smm-estimator">
 <span id="secsmmestimator"></span><h2>The SMM estimator<a class="headerlink" href="#the-smm-estimator" title="Permalink to this heading">#</a></h2>
-<p>Simulated method of moments (SMM) is analogous to the generalized method of moments (GMM) estimator. SMM could really be thought of as a particular type of GMM estimator. The SMM estimator chooses a vector of model parameters <span class="math notranslate nohighlight">\(\theta\)</span> to make simulated model moments match data moments. Seminal papers developing SMM are <span id="id1">[<a class="reference internal" href="../CompMethods_references.html#id19" title="Daniel McFadden. A method of simulated moments for estimation of discrete response models without numerical integration. Econometrica, 57(5):995-1026, September 1989.">McFadden, 1989</a>]</span>, <span id="id2">[<a class="reference internal" href="../CompMethods_references.html#id18" title="Bong-Soo Lee and Beth Fisher Ingram. Simulation estimation of time series models. Journal of Econometrics, 47(2-3):197-205, February 1991.">Lee and Ingram, 1991</a>]</span>, and <span id="id3">[<a class="reference internal" href="../CompMethods_references.html#id9" title="Darrell Duffie and Kenneth J. Singleton. Simulated moment estimation of markov models of asset prices. Econometrica, 61(4):929-952, July 1993.">Duffie and Singleton, 1993</a>]</span>. Good textbook treatments of SMM are found in <span id="id4">[<a class="reference internal" href="../CompMethods_references.html#id2" title="Jérôme Adda and Russell Cooper. Dynamic Economics: Quantitative Methods and Applications. MIT Press, 2003.">Adda and Cooper, 2003</a>]</span>, (pp. 87-100) and <span id="id5">[<a class="reference internal" href="../CompMethods_references.html#id8" title="Russell Davidson and James G. MacKinnon. Econometric Theory and Methods. Oxford University Press, 2004.">Davidson and MacKinnon, 2004</a>]</span>, (pp. 383-394).</p>
+<p>Simulated method of moments (SMM) is analogous to the generalized method of moments (GMM) estimator. SMM could really be thought of as a particular type of GMM estimator. The SMM estimator chooses a vector of model parameters <span class="math notranslate nohighlight">\(\theta\)</span> to make simulated model moments match data moments. Seminal papers developing SMM are <span id="id1">[<a class="reference internal" href="../CompMethods_references.html#id37" title="Daniel McFadden. A method of simulated moments for estimation of discrete response models without numerical integration. Econometrica, 57(5):995-1026, September 1989.">McFadden, 1989</a>]</span>, <span id="id2">[<a class="reference internal" href="../CompMethods_references.html#id36" title="Bong-Soo Lee and Beth Fisher Ingram. Simulation estimation of time series models. Journal of Econometrics, 47(2-3):197-205, February 1991.">Lee and Ingram, 1991</a>]</span>, and <span id="id3">[<a class="reference internal" href="../CompMethods_references.html#id21" title="Darrell Duffie and Kenneth J. Singleton. Simulated moment estimation of markov models of asset prices. Econometrica, 61(4):929-952, July 1993.">Duffie and Singleton, 1993</a>]</span>. Good textbook treatments of SMM are found in <span id="id4">[<a class="reference internal" href="../CompMethods_references.html#id2" title="Jérôme Adda and Russell Cooper. Dynamic Economics: Quantitative Methods and Applications. MIT Press, 2003.">Adda and Cooper, 2003</a>]</span>, (pp. 87-100) and <span id="id5">[<a class="reference internal" href="../CompMethods_references.html#id20" title="Russell Davidson and James G. MacKinnon. Econometric Theory and Methods. Oxford University Press, 2004.">Davidson and MacKinnon, 2004</a>]</span>, (pp. 383-394).</p>
 <p>Let the data be represented, in general, by <span class="math notranslate nohighlight">\(x\)</span>. This could have many variables, and it could be cross-sectional or time series. We define the estimation problem as one in which we want to model the data <span class="math notranslate nohighlight">\(x\)</span> using some parameterized model <span class="math notranslate nohighlight">\(g(x|\theta)\)</span> in which <span class="math notranslate nohighlight">\(\theta\)</span> is a <span class="math notranslate nohighlight">\(K\times 1\)</span> vector of parameters.</p>
 <div class="math notranslate nohighlight" id="equation-eqsmm-thetavec">
-<span class="eqno">(2)<a class="headerlink" href="#equation-eqsmm-thetavec" title="Permalink to this equation">#</a></span>\[    \theta \equiv \left[\theta_1, \theta_2, ...\theta_K\right]^T\]</div>
+<span class="eqno">(7)<a class="headerlink" href="#equation-eqsmm-thetavec" title="Permalink to this equation">#</a></span>\[    \theta \equiv \left[\theta_1, \theta_2, ...\theta_K\right]^T\]</div>
 <p>In the <a class="reference internal" href="MaxLikelihood.html#chap-maxlikeli"><span class="std std-ref">Maximum Likelihood Estimation</span></a> chapter, we used data <span class="math notranslate nohighlight">\(x\)</span> and model parameters <span class="math notranslate nohighlight">\(\theta\)</span> to maximize the likelihood of drawing that data <span class="math notranslate nohighlight">\(x\)</span> from the model given parameters <span class="math notranslate nohighlight">\(\theta\)</span>,</p>
 <div class="math notranslate nohighlight" id="equation-eqsmm-mlestimator">
-<span class="eqno">(3)<a class="headerlink" href="#equation-eqsmm-mlestimator" title="Permalink to this equation">#</a></span>\[    \hat{\theta}_{ML} = \theta:\quad \max_{\theta}\ln\mathcal{L} = \sum_{i=1}^N\ln\Bigl(f(x_i|\theta)\Bigr)\]</div>
+<span class="eqno">(8)<a class="headerlink" href="#equation-eqsmm-mlestimator" title="Permalink to this equation">#</a></span>\[    \hat{\theta}_{ML} = \theta:\quad \max_{\theta}\ln\mathcal{L} = \sum_{i=1}^N\ln\Bigl(f(x_i|\theta)\Bigr)\]</div>
 <p>where <span class="math notranslate nohighlight">\(f(x_i|\theta)\)</span> is the likelihood of seeing observation <span class="math notranslate nohighlight">\(x_i\)</span> in the data <span class="math notranslate nohighlight">\(x\)</span> given vector of parameters <span class="math notranslate nohighlight">\(\theta\)</span>.</p>
 <p>In the <a class="reference internal" href="GMM.html#chap-gmm"><span class="std std-ref">Generalized Method of Moments Estimation</span></a> chapter, we used data <span class="math notranslate nohighlight">\(x\)</span> and the <span class="math notranslate nohighlight">\(K\times 1\)</span> vector of model parameters <span class="math notranslate nohighlight">\(\theta\)</span> to minimize the distance between the vector of <span class="math notranslate nohighlight">\(R\geq K\)</span> model moments <span class="math notranslate nohighlight">\(m(x|\theta)\)</span> and data moments <span class="math notranslate nohighlight">\(m(x)\)</span>,</p>
 <div class="math notranslate nohighlight" id="equation-eqsmm-gmmestimator">
-<span class="eqno">(4)<a class="headerlink" href="#equation-eqsmm-gmmestimator" title="Permalink to this equation">#</a></span>\[    \hat{\theta}_{GMM} = \theta:\quad \min_{\theta}||m(x|\theta) - m(x)||\]</div>
+<span class="eqno">(9)<a class="headerlink" href="#equation-eqsmm-gmmestimator" title="Permalink to this equation">#</a></span>\[    \hat{\theta}_{GMM} = \theta:\quad \min_{\theta}||m(x|\theta) - m(x)||\]</div>
 <p>where,</p>
 <div class="math notranslate nohighlight" id="equation-eqsmm-modmomfuncvecgen">
-<span class="eqno">(5)<a class="headerlink" href="#equation-eqsmm-modmomfuncvecgen" title="Permalink to this equation">#</a></span>\[    m(x|\theta) \equiv \left[m_1(x|\theta), m_2(x|\theta),...m_R(x|\theta)\right]^T\]</div>
+<span class="eqno">(10)<a class="headerlink" href="#equation-eqsmm-modmomfuncvecgen" title="Permalink to this equation">#</a></span>\[    m(x|\theta) \equiv \left[m_1(x|\theta), m_2(x|\theta),...m_R(x|\theta)\right]^T\]</div>
 <p>and,</p>
 <div class="math notranslate nohighlight" id="equation-eqsmm-datamomfuncvecgen">
-<span class="eqno">(6)<a class="headerlink" href="#equation-eqsmm-datamomfuncvecgen" title="Permalink to this equation">#</a></span>\[    m(x)\equiv \left[m_1(x), m_2(x), ...m_R(x)\right]^T\]</div>
+<span class="eqno">(11)<a class="headerlink" href="#equation-eqsmm-datamomfuncvecgen" title="Permalink to this equation">#</a></span>\[    m(x)\equiv \left[m_1(x), m_2(x), ...m_R(x)\right]^T\]</div>
 <p>The following difficulties can arise with GMM making it not possible or very difficult.</p>
 <ul class="simple">
 <li><p>The model moment function <span class="math notranslate nohighlight">\(m(x|\theta)\)</span> is not known analytically.</p></li>
-<li><p>The data moments you are trying to match come from another model (indirect inference, see <span id="id6">[<a class="reference internal" href="../CompMethods_references.html#id23" title="Anthony A. Jr. Smith. Indirect inference. In Matias Vernengo, Esteban Perez Caldentey, and Barkley J. Rosser Jr., editors, New Palgrave Dictionary of Economics. Palgrave MacMillan, 2020. URL: http://www.econ.yale.edu/smith/palgrave7.pdf.">Smith, 2020</a>]</span>).</p></li>
-<li><p>The model moments <span class="math notranslate nohighlight">\(m(x|\theta)\)</span> are derived from <em>latent variables</em> that are not observed by the modeler. You only have moments, not the underlying data. See <span id="id7">[<a class="reference internal" href="../CompMethods_references.html#id17" title="G. Laroque and B. Salanié. Simulation based estimation models with lagged latent variables. Journal of Applied Econometrics, 8(Supplement):119-133, December 1993.">Laroque and Salanié, 1993</a>]</span>.</p></li>
+<li><p>The data moments you are trying to match come from another model (indirect inference, see <span id="id6">[<a class="reference internal" href="../CompMethods_references.html#id44" title="Anthony A. Jr. Smith. Indirect inference. In Matias Vernengo, Esteban Perez Caldentey, and Barkley J. Rosser Jr., editors, New Palgrave Dictionary of Economics. Palgrave MacMillan, 2020. URL: http://www.econ.yale.edu/smith/palgrave7.pdf.">Smith, 2020</a>]</span>).</p></li>
+<li><p>The model moments <span class="math notranslate nohighlight">\(m(x|\theta)\)</span> are derived from <em>latent variables</em> that are not observed by the modeler. You only have moments, not the underlying data. See <span id="id7">[<a class="reference internal" href="../CompMethods_references.html#id35" title="G. Laroque and B. Salanié. Simulation based estimation models with lagged latent variables. Journal of Applied Econometrics, 8(Supplement):119-133, December 1993.">Laroque and Salanié, 1993</a>]</span>.</p></li>
 <li><p>The model moments <span class="math notranslate nohighlight">\(m(x|\theta)\)</span> are derived from <em>censored variables</em> that are only partially observed by the modeler.</p></li>
-<li><p>The model moments <span class="math notranslate nohighlight">\(m(x|\theta)\)</span> are just difficult to derive analytically. Examples include moments that include multiple integrals over nonlinear functions as in <span id="id8">[<a class="reference internal" href="../CompMethods_references.html#id19" title="Daniel McFadden. A method of simulated moments for estimation of discrete response models without numerical integration. Econometrica, 57(5):995-1026, September 1989.">McFadden, 1989</a>]</span>.</p></li>
+<li><p>The model moments <span class="math notranslate nohighlight">\(m(x|\theta)\)</span> are just difficult to derive analytically. Examples include moments that include multiple integrals over nonlinear functions as in <span id="id8">[<a class="reference internal" href="../CompMethods_references.html#id37" title="Daniel McFadden. A method of simulated moments for estimation of discrete response models without numerical integration. Econometrica, 57(5):995-1026, September 1989.">McFadden, 1989</a>]</span>.</p></li>
 </ul>
-<p>SMM estimation is simply to simulate the model data <span class="math notranslate nohighlight">\(S\)</span> times, and use the average values of the moments from the simulated data as the estimator for the model moments. Let <span class="math notranslate nohighlight">\(\tilde{x}\equiv\{\tilde{x}_1,\tilde{x}_2,...\tilde{x}_s,...\tilde{x}_S\}\)</span> be the <span class="math notranslate nohighlight">\(S\)</span> simulations of the model data. And let the maximization problem in <a class="reference internal" href="#equation-eqsmm-smmestimator">(9)</a> be characterized by <span class="math notranslate nohighlight">\(R\)</span> average moments across simulations, where <span class="math notranslate nohighlight">\(\hat{m}_r\)</span> is the average value of the <span class="math notranslate nohighlight">\(r\)</span>th moment across the <span class="math notranslate nohighlight">\(S\)</span> simulations where,</p>
+<p>SMM estimation is simply to simulate the model data <span class="math notranslate nohighlight">\(S\)</span> times, and use the average values of the moments from the simulated data as the estimator for the model moments. Let <span class="math notranslate nohighlight">\(\tilde{x}\equiv\{\tilde{x}_1,\tilde{x}_2,...\tilde{x}_s,...\tilde{x}_S\}\)</span> be the <span class="math notranslate nohighlight">\(S\)</span> simulations of the model data. And let the maximization problem in <a class="reference internal" href="#equation-eqsmm-smmestimator">(14)</a> be characterized by <span class="math notranslate nohighlight">\(R\)</span> average moments across simulations, where <span class="math notranslate nohighlight">\(\hat{m}_r\)</span> is the average value of the <span class="math notranslate nohighlight">\(r\)</span>th moment across the <span class="math notranslate nohighlight">\(S\)</span> simulations where,</p>
 <div class="math notranslate nohighlight" id="equation-eqsmm-avgsimmoms-r">
-<span class="eqno">(7)<a class="headerlink" href="#equation-eqsmm-avgsimmoms-r" title="Permalink to this equation">#</a></span>\[    \hat{m}_r\left(\tilde{x}|\theta\right) = \frac{1}{S}\sum_{s=1}^S m_r\left(\tilde{x}_s|\theta\right)\]</div>
+<span class="eqno">(12)<a class="headerlink" href="#equation-eqsmm-avgsimmoms-r" title="Permalink to this equation">#</a></span>\[    \hat{m}_r\left(\tilde{x}|\theta\right) = \frac{1}{S}\sum_{s=1}^S m_r\left(\tilde{x}_s|\theta\right)\]</div>
 <p>and</p>
 <div class="math notranslate nohighlight" id="equation-eqsmm-avgsimmoms-vec">
-<span class="eqno">(8)<a class="headerlink" href="#equation-eqsmm-avgsimmoms-vec" title="Permalink to this equation">#</a></span>\[    \hat{m}\left(\tilde{x}|\theta\right) = \left[m_1\left(\tilde{x}|\theta\right), m_2\left(\tilde{x}|\theta\right),...m_R\left(\tilde{x}|\theta\right)\right]^T\]</div>
+<span class="eqno">(13)<a class="headerlink" href="#equation-eqsmm-avgsimmoms-vec" title="Permalink to this equation">#</a></span>\[    \hat{m}\left(\tilde{x}|\theta\right) = \left[m_1\left(\tilde{x}|\theta\right), m_2\left(\tilde{x}|\theta\right),...m_R\left(\tilde{x}|\theta\right)\right]^T\]</div>
 <p>Once we have an estimate of the vector of <span class="math notranslate nohighlight">\(R\)</span> average model moments <span class="math notranslate nohighlight">\(\hat{m}\left(\tilde{x}|\theta\right)\)</span> from our <span class="math notranslate nohighlight">\(S\)</span> simulations, SMM estimation is very similar to our presentation of GMM in <a class="reference internal" href="GMM.html#chap-gmm"><span class="std std-ref">Generalized Method of Moments Estimation</span></a>. The SMM approach of estimating the <span class="math notranslate nohighlight">\(K\times 1\)</span> parameter vector <span class="math notranslate nohighlight">\(\hat{\theta}_{SMM}\)</span> is to choose vector <span class="math notranslate nohighlight">\(\theta\)</span> to minimize some distance measure of the <span class="math notranslate nohighlight">\(R\)</span> data moments <span class="math notranslate nohighlight">\(m(x)\)</span> from the <span class="math notranslate nohighlight">\(R\)</span> simulated average model moments <span class="math notranslate nohighlight">\(\hat{m}(\tilde{x}|\theta)\)</span>.</p>
 <div class="math notranslate nohighlight" id="equation-eqsmm-smmestimator">
-<span class="eqno">(9)<a class="headerlink" href="#equation-eqsmm-smmestimator" title="Permalink to this equation">#</a></span>\[    \hat{\theta}_{SMM}=\theta:\quad \min_{\theta}\: ||\hat{m}(\tilde{x}|\theta)-m(x)||\]</div>
+<span class="eqno">(14)<a class="headerlink" href="#equation-eqsmm-smmestimator" title="Permalink to this equation">#</a></span>\[    \hat{\theta}_{SMM}=\theta:\quad \min_{\theta}\: ||\hat{m}(\tilde{x}|\theta)-m(x)||\]</div>
 <p>The distance measure <span class="math notranslate nohighlight">\(||\hat{m}(\tilde{x}|\theta)-m(x)||\)</span> can be any kind of norm. But it is important to recognize that your estimates <span class="math notranslate nohighlight">\(\hat{\theta}_{SMM}\)</span> will be dependent on what distance measure (norm) you choose. The most widely studied and used distance metric in GMM and SMM estimation is the <span class="math notranslate nohighlight">\(L^2\)</span> norm or the sum of squared errors in moments.</p>
 <p>Define the moment error vector <span class="math notranslate nohighlight">\(e(\tilde{x},x|\theta)\)</span> as the <span class="math notranslate nohighlight">\(R\times 1\)</span> vector of average moment error functions <span class="math notranslate nohighlight">\(e_r(\tilde{x},x|\theta)\)</span> of the <span class="math notranslate nohighlight">\(r\)</span>th average moment error.</p>
 <div class="math notranslate nohighlight" id="equation-eqsmm-momerror-vec">
-<span class="eqno">(10)<a class="headerlink" href="#equation-eqsmm-momerror-vec" title="Permalink to this equation">#</a></span>\[    e_(\tilde{x},x|\theta) \equiv \left[e_1(\tilde{x},x|\theta),e_2(\tilde{x},x|\theta),...e_R(\tilde{x},x|\theta)\right]^T\]</div>
+<span class="eqno">(15)<a class="headerlink" href="#equation-eqsmm-momerror-vec" title="Permalink to this equation">#</a></span>\[    e_(\tilde{x},x|\theta) \equiv \left[e_1(\tilde{x},x|\theta),e_2(\tilde{x},x|\theta),...e_R(\tilde{x},x|\theta)\right]^T\]</div>
 <p>We can define the <span class="math notranslate nohighlight">\(r\)</span>th average moment error as the percent difference in the average simulated <span class="math notranslate nohighlight">\(r\)</span>th moment value <span class="math notranslate nohighlight">\(\hat{m}_r(\tilde{x}|\theta)\)</span> from the <span class="math notranslate nohighlight">\(r\)</span>th data moment <span class="math notranslate nohighlight">\(m_r(x)\)</span>.</p>
 <div class="math notranslate nohighlight" id="equation-eqsmm-momerror-r">
-<span class="eqno">(11)<a class="headerlink" href="#equation-eqsmm-momerror-r" title="Permalink to this equation">#</a></span>\[    e_r(\tilde{x},x|\theta) \equiv \frac{\hat{m}_r(\tilde{x}|\theta)-m_r(x)}{m_r(x)} \quad\text{or}\quad \hat{m}_r(\tilde{x}|\theta)-m_r(x)\]</div>
+<span class="eqno">(16)<a class="headerlink" href="#equation-eqsmm-momerror-r" title="Permalink to this equation">#</a></span>\[    e_r(\tilde{x},x|\theta) \equiv \frac{\hat{m}_r(\tilde{x}|\theta)-m_r(x)}{m_r(x)} \quad\text{or}\quad \hat{m}_r(\tilde{x}|\theta)-m_r(x)\]</div>
 <p>It is important that the error function <span class="math notranslate nohighlight">\(e_r(\tilde{x},x|\theta)\)</span> be a percent deviation of the moments, although this will not work if the data moments are 0 or can be either positive or negative. This percent change transformation puts all the moments in the same units, which helps make sure that no moments receive unintended weighting simply due to its units. This ensures that the problem is scaled properly and will suffer from as little as possible ill conditioning.</p>
 <p>In this case, the SMM estimator is the following,</p>
 <div class="math notranslate nohighlight" id="equation-eqsmm-smmestgen">
-<span class="eqno">(12)<a class="headerlink" href="#equation-eqsmm-smmestgen" title="Permalink to this equation">#</a></span>\[    \hat{\theta}_{SMM}=\theta:\quad \min_{\theta}\:e(\tilde{x},x|\theta)^T \, W \, e(\tilde{x},x|\theta)\]</div>
+<span class="eqno">(17)<a class="headerlink" href="#equation-eqsmm-smmestgen" title="Permalink to this equation">#</a></span>\[    \hat{\theta}_{SMM}=\theta:\quad \min_{\theta}\:e(\tilde{x},x|\theta)^T \, W \, e(\tilde{x},x|\theta)\]</div>
 <p>where <span class="math notranslate nohighlight">\(W\)</span> is a <span class="math notranslate nohighlight">\(R\times R\)</span> weighting matrix in the criterion function. For now, think of this weighting matrix as the identity matrix. But we will show in Section <a class="reference internal" href="#secsmm-weightmatw"><span class="std std-ref">The Weighting Matrix (W)</span></a> a more optimal weighting matrix. We call the quadratic form expression <span class="math notranslate nohighlight">\(e(\tilde{x},x|\theta)^T \, W \, e(\tilde{x},x|\theta)\)</span> the <em>criterion function</em> because it is a strictly positive scalar that is the object of the minimization in the SMM problem statement. The <span class="math notranslate nohighlight">\(R\times R\)</span> weighting matrix <span class="math notranslate nohighlight">\(W\)</span> in the criterion function allows the econometrician to control how each moment is weighted in the minimization problem. For example, an <span class="math notranslate nohighlight">\(R\times R\)</span> identity matrix for <span class="math notranslate nohighlight">\(W\)</span> would give each moment equal weighting, and the criterion function would be a simply sum of squared percent deviations (errors). Other weighting strategies can be dictated by the nature of the problem or model.</p>
 <p>One last item to emphasize with SMM, which we will highlight in the examples in this chapter, is that the errors that are drawn for the <span class="math notranslate nohighlight">\(S\)</span> simulations of the model must be drawn only once so that the minimization problem for estimating <span class="math notranslate nohighlight">\(\hat{\theta}_{SMM}\)</span> does not have the underlying sampling changing for each guess of a value of <span class="math notranslate nohighlight">\(\theta\)</span>. Put more simply, you want the random draws for all the simulations to be held constant so that the only thing changing in the minimization problem is the value of the vector of parameters <span class="math notranslate nohighlight">\(\theta\)</span>.</p>
 </section>
@@ -517,14 +512,14 @@ document.write(`
 <span id="secsmm-weightmatw"></span><h2>The Weighting Matrix (W)<a class="headerlink" href="#the-weighting-matrix-w" title="Permalink to this heading">#</a></h2>
 <p>In the SMM criterion function in the problem statement above, some weighting matrices <span class="math notranslate nohighlight">\(W\)</span> produce precise estimates while others produce poor estimates with large variances. We want to choose the optimal weighting matrix <span class="math notranslate nohighlight">\(W\)</span> with the smallest possible asymptotic variance. This is an efficient or optimal SMM estimator. The optimal weighting matrix is the inverse variance covariance matrix of the moments at the optimal moments,</p>
 <div class="math notranslate nohighlight" id="equation-eqsmm-estw-opt">
-<span class="eqno">(13)<a class="headerlink" href="#equation-eqsmm-estw-opt" title="Permalink to this equation">#</a></span>\[    W^{opt} \equiv \Omega^{-1}(\tilde{x},x|\hat{\theta}_{SMM})\]</div>
+<span class="eqno">(18)<a class="headerlink" href="#equation-eqsmm-estw-opt" title="Permalink to this equation">#</a></span>\[    W^{opt} \equiv \Omega^{-1}(\tilde{x},x|\hat{\theta}_{SMM})\]</div>
 <p>where <span class="math notranslate nohighlight">\(\Omega(\tilde{x},x|\theta)\)</span> is the variance covariance matrix of the moment condition errors <span class="math notranslate nohighlight">\(e(\tilde{x},x|\theta)\)</span>. The intuition for using the inverse variance covariance matrix <span class="math notranslate nohighlight">\(\Omega^{-1}\)</span> as the optimal weighting matrix is the following. You want to downweight moments that have a high variance, and you want to weight more heavily the moments that are generated more precisely.</p>
 <p>Notice that this definition of the optimal weighting matrix is circular. <span class="math notranslate nohighlight">\(W^{opt}\)</span> is a function of the SMM estimates <span class="math notranslate nohighlight">\(\hat{\theta}_{SMM}\)</span>, but the optimal weighting matrix is used in the estimation of <span class="math notranslate nohighlight">\(\hat{\theta}_{SMM}\)</span>. This means that one has to use some kind of iterative fixed point method to find the true optimal weighting matrix <span class="math notranslate nohighlight">\(W^{opt}\)</span>. Below are some examples of weighting matrices to use.</p>
 <section id="the-identity-matrix-w-i">
 <span id="secsmm-w-i"></span><h3>The identity matrix (W=I)<a class="headerlink" href="#the-identity-matrix-w-i" title="Permalink to this heading">#</a></h3>
 <p>Many times, you can get away with just using the identity matrix as your weighting matrix <span class="math notranslate nohighlight">\(W = I\)</span>. This changes the criterion function to a simple sum of squared error functions such that each moment has the same weight.</p>
 <div class="math notranslate nohighlight" id="equation-eqsmm-estw-i">
-<span class="eqno">(14)<a class="headerlink" href="#equation-eqsmm-estw-i" title="Permalink to this equation">#</a></span>\[    \hat{\theta}_{SMM}=\theta:\quad \min_{\theta}\:e(\tilde{x},x|\theta)^T \, e(\tilde{x},x|\theta)\]</div>
+<span class="eqno">(19)<a class="headerlink" href="#equation-eqsmm-estw-i" title="Permalink to this equation">#</a></span>\[    \hat{\theta}_{SMM}=\theta:\quad \min_{\theta}\:e(\tilde{x},x|\theta)^T \, e(\tilde{x},x|\theta)\]</div>
 <p>If the problem is well conditioned and well identified, then your SMM estimates <span class="math notranslate nohighlight">\(\hat{\theta}_{SMM}\)</span> will not be greatly affected by this simplest of weighting matrices.</p>
 </section>
 <section id="two-step-variance-covariance-estimator-of-w">
@@ -532,10 +527,10 @@ document.write(`
 <p>The most common method of estimating the optimal weighting matrix for SMM estimates is the two-step variance covariance estimator. The name “two-step” refers to the two steps used to get the weighting matrix.</p>
 <p>The first step is to estimate the SMM parameter vector <span class="math notranslate nohighlight">\(\hat{\theta}_{1,SMM}\)</span> using the simple identity matrix as the weighting matrix <span class="math notranslate nohighlight">\(W = I\)</span>.</p>
 <div class="math notranslate nohighlight" id="equation-eqsmm-theta-2step-1">
-<span class="eqno">(15)<a class="headerlink" href="#equation-eqsmm-theta-2step-1" title="Permalink to this equation">#</a></span>\[    \hat{\theta}_{1,SMM}=\theta:\quad \min_{\theta}\:e(\tilde{x},x|\theta)^T \, I \, e(\tilde{x},x|\theta)\]</div>
+<span class="eqno">(20)<a class="headerlink" href="#equation-eqsmm-theta-2step-1" title="Permalink to this equation">#</a></span>\[    \hat{\theta}_{1,SMM}=\theta:\quad \min_{\theta}\:e(\tilde{x},x|\theta)^T \, I \, e(\tilde{x},x|\theta)\]</div>
 <p>Because we are simulating data, we can generate an estimator for the variance covariance matrix of the moment error vector <span class="math notranslate nohighlight">\(\hat{\Omega}\)</span> using just the simulated data moments and the data moments. This <span class="math notranslate nohighlight">\(E(\tilde{x},x|\theta)\)</span> matrix represents the contribution of the <span class="math notranslate nohighlight">\(s\)</span>th simulated moment to the <span class="math notranslate nohighlight">\(r\)</span>th moment error. Define <span class="math notranslate nohighlight">\(E(\tilde{x},x|\theta)\)</span> as the <span class="math notranslate nohighlight">\(R\times S\)</span> matrix of moment error functions from each simulation,</p>
 <div class="math notranslate nohighlight" id="equation-eqsmm-estw-errmat-lev-1">
-<span class="eqno">(16)<a class="headerlink" href="#equation-eqsmm-estw-errmat-lev-1" title="Permalink to this equation">#</a></span>\[\begin{split}    E(\tilde{x},x|\theta) =
+<span class="eqno">(21)<a class="headerlink" href="#equation-eqsmm-estw-errmat-lev-1" title="Permalink to this equation">#</a></span>\[\begin{split}    E(\tilde{x},x|\theta) =
       \begin{bmatrix}
         m_1(\tilde{x}_1|\theta) - m_1(x) &amp; m_1(\tilde{x}_2|\theta) - m_1(x) &amp; ... &amp; m_1(\tilde{x}_S|\theta) - m_1(x) \\
         m_2(\tilde{x}_1|\theta) - m_2(x) &amp; m_2(\tilde{x}_2|\theta) - m_2(x) &amp; ... &amp; m_2(\tilde{x}_S|\theta) - m_2(x) \\
@@ -544,7 +539,7 @@ document.write(`
       \end{bmatrix}\end{split}\]</div>
 <p>where <span class="math notranslate nohighlight">\(m_r(x)\)</span> is the <span class="math notranslate nohighlight">\(r\)</span>th data moment which is constant across each row, and <span class="math notranslate nohighlight">\(m_r(\tilde{x}_s|\theta)\)</span> is the <span class="math notranslate nohighlight">\(r\)</span>th model moment from the <span class="math notranslate nohighlight">\(s\)</span>th simulation which are changing across each row. When the errors are percent deviations, the <span class="math notranslate nohighlight">\(E(\tilde{x},x|\theta)\)</span> matrix is the following,</p>
 <div class="math notranslate nohighlight" id="equation-eqsmm-estw-errmat-pct-1">
-<span class="eqno">(17)<a class="headerlink" href="#equation-eqsmm-estw-errmat-pct-1" title="Permalink to this equation">#</a></span>\[\begin{split}    E(\tilde{x},x|\theta) =
+<span class="eqno">(22)<a class="headerlink" href="#equation-eqsmm-estw-errmat-pct-1" title="Permalink to this equation">#</a></span>\[\begin{split}    E(\tilde{x},x|\theta) =
       \begin{bmatrix}
         \frac{m_1(\tilde{x}_1|\theta) - m_1(x)}{m_1(x)} &amp; \frac{m_1(\tilde{x}_2|\theta) - m_1(x)}{m_1(x)} &amp; ... &amp; \frac{m_1(\tilde{x}_S|\theta) - m_1(x)}{m_1(x)} \\
         \frac{m_2(\tilde{x}_1|\theta) - m_2(x)}{m_2(x)} &amp; \frac{m_2(\tilde{x}_2|\theta) - m_2(x)}{m_2(x)} &amp; ... &amp; \frac{m_2(\tilde{x}_S|\theta) - m_2(x)}{m_2(x)} \\
@@ -553,41 +548,41 @@ document.write(`
       \end{bmatrix}\end{split}\]</div>
 <p>where the denominator of the percentage deviation or baseline is the model moment that does not change. We use the <span class="math notranslate nohighlight">\(E(\tilde{x},x|\theta)\)</span> data matrix and the Step 1 SMM estimate <span class="math notranslate nohighlight">\(e(x|\hat{\theta}_{1,SMM})\)</span> to get a new estimate of the variance covariance matrix.</p>
 <div class="math notranslate nohighlight" id="equation-eqsmm-2stepvarcov">
-<span class="eqno">(18)<a class="headerlink" href="#equation-eqsmm-2stepvarcov" title="Permalink to this equation">#</a></span>\[    \hat{\Omega}_2 = \frac{1}{S}E(\tilde{x},x|\hat{\theta}_{1,SMM})\,E(\tilde{x},x|\hat{\theta}_{1,SMM})^T\]</div>
+<span class="eqno">(23)<a class="headerlink" href="#equation-eqsmm-2stepvarcov" title="Permalink to this equation">#</a></span>\[    \hat{\Omega}_2 = \frac{1}{S}E(\tilde{x},x|\hat{\theta}_{1,SMM})\,E(\tilde{x},x|\hat{\theta}_{1,SMM})^T\]</div>
 <p>This is simply saying that the <span class="math notranslate nohighlight">\((r,s)\)</span>-element of the estimator of the variance-covariance matrix of the moment vector is the following.</p>
 <div class="math notranslate nohighlight" id="equation-eqsmm-2stepvarcov-rs">
-<span class="eqno">(19)<a class="headerlink" href="#equation-eqsmm-2stepvarcov-rs" title="Permalink to this equation">#</a></span>\[    \hat{\Omega}_{r,s} = \frac{1}{S}\sum_{i=1}^S\Bigl[m_r(\tilde{x}_i|\theta) - m_{r}(x)\Bigr]\Bigl[ m_s(\tilde{x}_i|\theta) - m_s(x)\Bigr]\]</div>
+<span class="eqno">(24)<a class="headerlink" href="#equation-eqsmm-2stepvarcov-rs" title="Permalink to this equation">#</a></span>\[    \hat{\Omega}_{r,s} = \frac{1}{S}\sum_{i=1}^S\Bigl[m_r(\tilde{x}_i|\theta) - m_{r}(x)\Bigr]\Bigl[ m_s(\tilde{x}_i|\theta) - m_s(x)\Bigr]\]</div>
 <p>The optimal weighting matrix is the inverse of the two-step variance covariance matrix.</p>
 <div class="math notranslate nohighlight" id="equation-eqsmm-estw-2step">
-<span class="eqno">(20)<a class="headerlink" href="#equation-eqsmm-estw-2step" title="Permalink to this equation">#</a></span>\[    \hat{W}^{two-step} \equiv \hat{\Omega}_2^{-1}\]</div>
+<span class="eqno">(25)<a class="headerlink" href="#equation-eqsmm-estw-2step" title="Permalink to this equation">#</a></span>\[    \hat{W}^{two-step} \equiv \hat{\Omega}_2^{-1}\]</div>
 <p>Lastly, re-estimate the SMM estimator using the optimal two-step weighting matrix <span class="math notranslate nohighlight">\(\hat{W}^{2step}\)</span>.</p>
 <div class="math notranslate nohighlight" id="equation-eqsmm-theta-2step-2">
-<span class="eqno">(21)<a class="headerlink" href="#equation-eqsmm-theta-2step-2" title="Permalink to this equation">#</a></span>\[    \hat{\theta}_{2,SMM}=\theta:\quad \min_{\theta}\:e(\tilde{x},x|\theta)^T \, \hat{W}^{two-step} \, e(\tilde{x},x|\theta)\]</div>
+<span class="eqno">(26)<a class="headerlink" href="#equation-eqsmm-theta-2step-2" title="Permalink to this equation">#</a></span>\[    \hat{\theta}_{2,SMM}=\theta:\quad \min_{\theta}\:e(\tilde{x},x|\theta)^T \, \hat{W}^{two-step} \, e(\tilde{x},x|\theta)\]</div>
 <p><span class="math notranslate nohighlight">\(\hat{\theta}_{2, SMM}\)</span> is called the two-step SMM estimator.</p>
 </section>
 <section id="iterated-variance-covariance-estimator-of-w">
 <span id="secsmm-w-iter"></span><h3>Iterated variance-covariance estimator of W<a class="headerlink" href="#iterated-variance-covariance-estimator-of-w" title="Permalink to this heading">#</a></h3>
 <p>The truly optimal weighting matrix <span class="math notranslate nohighlight">\(W^{opt}\)</span> is the iterated variance-covariance estimator of <span class="math notranslate nohighlight">\(W\)</span>. This procedure is to just repeat the process described in the two-step SMM estimator until the estimated weighting matrix no longer changes between iterations. Let <span class="math notranslate nohighlight">\(i\)</span> index the <span class="math notranslate nohighlight">\(i\)</span>th iterated SMM estimator,</p>
 <div class="math notranslate nohighlight" id="equation-eqsmm-theta-2step-i">
-<span class="eqno">(22)<a class="headerlink" href="#equation-eqsmm-theta-2step-i" title="Permalink to this equation">#</a></span>\[    \hat{\theta}_{i, SMM}=\theta:\quad \min_{\theta}\:e(\tilde{x},x|\theta)^T \, \hat{W}_{i} \, e(\tilde{x},x|\theta)\]</div>
+<span class="eqno">(27)<a class="headerlink" href="#equation-eqsmm-theta-2step-i" title="Permalink to this equation">#</a></span>\[    \hat{\theta}_{i, SMM}=\theta:\quad \min_{\theta}\:e(\tilde{x},x|\theta)^T \, \hat{W}_{i} \, e(\tilde{x},x|\theta)\]</div>
 <p>and the <span class="math notranslate nohighlight">\((i+1)\)</span>th estimate of the optimal weighting matrix is defined as the following.</p>
 <div class="math notranslate nohighlight" id="equation-eqsmm-estw-istep">
-<span class="eqno">(23)<a class="headerlink" href="#equation-eqsmm-estw-istep" title="Permalink to this equation">#</a></span>\[    \hat{W}_{i+1} \equiv \hat{\Omega}_{i+1}^{-1}\quad\text{where}\quad \hat{\Omega}_{i+1} = \frac{1}{S}E(\tilde{x},x|\hat{\theta}_{i,SMM})\,E(\tilde{x},x|\hat{\theta}_{i,SMM})^T\]</div>
+<span class="eqno">(28)<a class="headerlink" href="#equation-eqsmm-estw-istep" title="Permalink to this equation">#</a></span>\[    \hat{W}_{i+1} \equiv \hat{\Omega}_{i+1}^{-1}\quad\text{where}\quad \hat{\Omega}_{i+1} = \frac{1}{S}E(\tilde{x},x|\hat{\theta}_{i,SMM})\,E(\tilde{x},x|\hat{\theta}_{i,SMM})^T\]</div>
 <p>The iterated SMM estimator is the <span class="math notranslate nohighlight">\(\hat{\theta}_{i,SMM}\)</span> such that <span class="math notranslate nohighlight">\(\hat{W}_{i+1}\)</span> is very close to <span class="math notranslate nohighlight">\(\hat{W}_{i}\)</span> for some distance metric (norm).</p>
 <div class="math notranslate nohighlight" id="equation-eqsmm-theta-it">
-<span class="eqno">(24)<a class="headerlink" href="#equation-eqsmm-theta-it" title="Permalink to this equation">#</a></span>\[    \hat{\theta}_{it,SMM} = \hat{\theta}_{i,SMM}: \quad || \hat{W}_{i+1} - \hat{W}_{i} || &lt; \varepsilon\]</div>
+<span class="eqno">(29)<a class="headerlink" href="#equation-eqsmm-theta-it" title="Permalink to this equation">#</a></span>\[    \hat{\theta}_{it,SMM} = \hat{\theta}_{i,SMM}: \quad || \hat{W}_{i+1} - \hat{W}_{i} || &lt; \varepsilon\]</div>
 </section>
 <section id="newey-west-consistent-estimator-of-omega-and-w">
 <span id="secsmm-w-nw"></span><h3>Newey-West consistent estimator of <span class="math notranslate nohighlight">\(\Omega\)</span> and W<a class="headerlink" href="#newey-west-consistent-estimator-of-omega-and-w" title="Permalink to this heading">#</a></h3>
-<p>The Newey-West estimator of the optimal weighting matrix and variance covariance matrix is consistent in the presence of heteroskedasticity and autocorrelation in the data (See <span id="id9">[<a class="reference internal" href="../CompMethods_references.html#id20" title="Whitney K. Newey and Kenneth D. West. A simple, positive, semi-definite, heteroskedasticy and autocorrelation consistent covariance matrix. Econometrica, 55(3):703-708, May 1987.">Newey and West, 1987</a>]</span>). <span id="id10">[<a class="reference internal" href="../CompMethods_references.html#id2" title="Jérôme Adda and Russell Cooper. Dynamic Economics: Quantitative Methods and Applications. MIT Press, 2003.">Adda and Cooper, 2003</a>]</span> (p. 82) have a nice exposition of how to compute the Newey-West weighting matrix <span class="math notranslate nohighlight">\(\hat{W}_{nw}\)</span>. The asymptotic representation of the optimal weighting matrix <span class="math notranslate nohighlight">\(\hat{W}^{opt}\)</span> is the following:</p>
+<p>The Newey-West estimator of the optimal weighting matrix and variance covariance matrix is consistent in the presence of heteroskedasticity and autocorrelation in the data (See <span id="id9">[<a class="reference internal" href="../CompMethods_references.html#id39" title="Whitney K. Newey and Kenneth D. West. A simple, positive, semi-definite, heteroskedasticy and autocorrelation consistent covariance matrix. Econometrica, 55(3):703-708, May 1987.">Newey and West, 1987</a>]</span>). <span id="id10">[<a class="reference internal" href="../CompMethods_references.html#id2" title="Jérôme Adda and Russell Cooper. Dynamic Economics: Quantitative Methods and Applications. MIT Press, 2003.">Adda and Cooper, 2003</a>]</span> (p. 82) have a nice exposition of how to compute the Newey-West weighting matrix <span class="math notranslate nohighlight">\(\hat{W}_{nw}\)</span>. The asymptotic representation of the optimal weighting matrix <span class="math notranslate nohighlight">\(\hat{W}^{opt}\)</span> is the following:</p>
 <div class="math notranslate nohighlight" id="equation-eqsmm-estw-whatopt">
-<span class="eqno">(25)<a class="headerlink" href="#equation-eqsmm-estw-whatopt" title="Permalink to this equation">#</a></span>\[    \hat{W}^{opt} = \lim_{S\rightarrow\infty}\frac{1}{S}\sum_{i=1}^S \sum_{l=-\infty}^\infty E(\tilde{x}_i,x|\theta)E(\tilde{x}_{i-l},x|\theta)^T\]</div>
+<span class="eqno">(30)<a class="headerlink" href="#equation-eqsmm-estw-whatopt" title="Permalink to this equation">#</a></span>\[    \hat{W}^{opt} = \lim_{S\rightarrow\infty}\frac{1}{S}\sum_{i=1}^S \sum_{l=-\infty}^\infty E(\tilde{x}_i,x|\theta)E(\tilde{x}_{i-l},x|\theta)^T\]</div>
 <p>The Newey-West consistend estimator of <span class="math notranslate nohighlight">\(\hat{W}^{opt}\)</span> is:</p>
 <div class="math notranslate nohighlight" id="equation-eqsmm-estw-nw">
-<span class="eqno">(26)<a class="headerlink" href="#equation-eqsmm-estw-nw" title="Permalink to this equation">#</a></span>\[    \hat{W}_{nw} = \Gamma_{0,S} + \sum_{v=1}^q \left(1 - \left[\frac{v}{q+1}\right]\right)\left(\Gamma_{v,S} + \Gamma^T_{v,S}\right)\]</div>
+<span class="eqno">(31)<a class="headerlink" href="#equation-eqsmm-estw-nw" title="Permalink to this equation">#</a></span>\[    \hat{W}_{nw} = \Gamma_{0,S} + \sum_{v=1}^q \left(1 - \left[\frac{v}{q+1}\right]\right)\left(\Gamma_{v,S} + \Gamma^T_{v,S}\right)\]</div>
 <p>where</p>
 <div class="math notranslate nohighlight" id="equation-eqsmm-estw-nwgamma">
-<span class="eqno">(27)<a class="headerlink" href="#equation-eqsmm-estw-nwgamma" title="Permalink to this equation">#</a></span>\[    \Gamma_{v,S} = \frac{1}{S}\sum_{i=v+1}^S E(\tilde{x}_i,x|\theta)E(\tilde{x}_{i-v},x|\theta)^T\]</div>
+<span class="eqno">(32)<a class="headerlink" href="#equation-eqsmm-estw-nwgamma" title="Permalink to this equation">#</a></span>\[    \Gamma_{v,S} = \frac{1}{S}\sum_{i=v+1}^S E(\tilde{x}_i,x|\theta)E(\tilde{x}_{i-v},x|\theta)^T\]</div>
 <p>Of course, for autocorrelation, the subscript <span class="math notranslate nohighlight">\(i\)</span> can be changed to <span class="math notranslate nohighlight">\(t\)</span>.</p>
 </section>
 </section>
@@ -596,9 +591,9 @@ document.write(`
 <p>Let the parameter vector <span class="math notranslate nohighlight">\(\theta\)</span> have length <span class="math notranslate nohighlight">\(K\)</span> such that <span class="math notranslate nohighlight">\(K\)</span> parameters are being estimated. The estimated <span class="math notranslate nohighlight">\(K\times K\)</span> variance-covariance matrix <span class="math notranslate nohighlight">\(\hat{\Sigma}\)</span> of the estimated parameter vector <span class="math notranslate nohighlight">\(\hat{\theta}_{SMM}\)</span> is different from the <span class="math notranslate nohighlight">\(R\times R\)</span> variance-covariance matrix <span class="math notranslate nohighlight">\(\hat{\Omega}\)</span> of the <span class="math notranslate nohighlight">\(R\times 1\)</span> moment vector <span class="math notranslate nohighlight">\(e(\tilde{x},x|\theta)\)</span> from the previous section.</p>
 <p>Recall that each element of <span class="math notranslate nohighlight">\(e(\tilde{x},x|\theta)\)</span> is an average moment error across all simulations. <span class="math notranslate nohighlight">\(\hat{\Omega}\)</span> from the previous section is the <span class="math notranslate nohighlight">\(R\times R\)</span> variance-covariance matrix of the <span class="math notranslate nohighlight">\(R\)</span> moment errors used to identify the <span class="math notranslate nohighlight">\(K\)</span> parameters <span class="math notranslate nohighlight">\(\theta\)</span> to be estimated. The estimated variance-covariance matrix <span class="math notranslate nohighlight">\(\hat{\Sigma}\)</span> of the estimated parameter vector is a <span class="math notranslate nohighlight">\(K\times K\)</span> matrix. We say the model is <em>exactly identified</em> if <span class="math notranslate nohighlight">\(K = R\)</span> (number of parameters <span class="math notranslate nohighlight">\(K\)</span> equals number of moments <span class="math notranslate nohighlight">\(R\)</span>). We say the model is <em>overidentified</em> if <span class="math notranslate nohighlight">\(K&lt;R\)</span>. We say the model is <em>not identified</em> or <em>underidentified</em> if <span class="math notranslate nohighlight">\(K&gt;R\)</span>.</p>
 <p>Similar to the inverse Hessian estimator of the variance-covariance matrix of the maximum likelihood estimator from the <a class="reference internal" href="MaxLikelihood.html#chap-maxlikeli"><span class="std std-ref">Maximum Likelihood Estimation</span></a> chapter, the SMM variance-covariance matrix is related to the derivative of the criterion function with respect to each parameter. The intuition is that if the second derivative of the criterion function with respect to the parameters is large, there is a lot of curvature around the criterion minimizing estimate. In other words, the parameters of the model are precisely estimated. The inverse of the Hessian matrix will be small.</p>
-<p>Define <span class="math notranslate nohighlight">\(R\times K\)</span> matrix <span class="math notranslate nohighlight">\(d(\tilde{x},x|\theta)\)</span> as the Jacobian matrix of derivatives of the <span class="math notranslate nohighlight">\(R\times 1\)</span> error vector <span class="math notranslate nohighlight">\(e(\tilde{x},x|\theta)\)</span> from <a class="reference internal" href="#equation-eqsmm-momerror-vec">(10)</a>.</p>
+<p>Define <span class="math notranslate nohighlight">\(R\times K\)</span> matrix <span class="math notranslate nohighlight">\(d(\tilde{x},x|\theta)\)</span> as the Jacobian matrix of derivatives of the <span class="math notranslate nohighlight">\(R\times 1\)</span> error vector <span class="math notranslate nohighlight">\(e(\tilde{x},x|\theta)\)</span> from <a class="reference internal" href="#equation-eqsmm-momerror-vec">(15)</a>.</p>
 <div class="math notranslate nohighlight" id="equation-eqsmm-errvec-deriv">
-<span class="eqno">(28)<a class="headerlink" href="#equation-eqsmm-errvec-deriv" title="Permalink to this equation">#</a></span>\[\begin{split}    \begin{equation}
+<span class="eqno">(33)<a class="headerlink" href="#equation-eqsmm-errvec-deriv" title="Permalink to this equation">#</a></span>\[\begin{split}    \begin{equation}
       d(\tilde{x},x|\theta) \equiv
         \begin{bmatrix}
           \frac{\partial e_1(\tilde{x},x|\theta)}{\partial \theta_1} &amp; \frac{\partial e_1(\tilde{x},x|\theta)}{\partial \theta_2} &amp; ... &amp; \frac{\partial e_1(\tilde{x},x|\theta)}{\partial \theta_K} \\
@@ -609,27 +604,27 @@ document.write(`
     \end{equation}\end{split}\]</div>
 <p>The SMM estimates of the parameter vector <span class="math notranslate nohighlight">\(\hat{\theta}_{SMM}\)</span> are assymptotically normal. If <span class="math notranslate nohighlight">\(\theta_0\)</span> is the true value of the parameters, then the following holds,</p>
 <div class="math notranslate nohighlight" id="equation-eqsmm-theta-plim">
-<span class="eqno">(29)<a class="headerlink" href="#equation-eqsmm-theta-plim" title="Permalink to this equation">#</a></span>\[    \begin{equation}
+<span class="eqno">(34)<a class="headerlink" href="#equation-eqsmm-theta-plim" title="Permalink to this equation">#</a></span>\[    \begin{equation}
       \text{plim}_{S\rightarrow\infty}\sqrt{S}\left(\hat{\theta}_{SMM} - \theta_0\right) \sim \text{N}\left(0, \left[d(\tilde{x},x|\theta)^T W d(\tilde{x},x|\theta)\right]^{-1}\right)
     \end{equation}\]</div>
 <p>where <span class="math notranslate nohighlight">\(W\)</span> is the optimal weighting matrix from the SMM criterion function. The SMM estimator for the variance-covariance matrix <span class="math notranslate nohighlight">\(\hat{\Sigma}_{SMM}\)</span> of the parameter vector <span class="math notranslate nohighlight">\(\hat{\theta}_{SMM}\)</span> is the following.</p>
 <div class="math notranslate nohighlight" id="equation-eqsmm-sigmahat">
-<span class="eqno">(30)<a class="headerlink" href="#equation-eqsmm-sigmahat" title="Permalink to this equation">#</a></span>\[    \begin{equation}
+<span class="eqno">(35)<a class="headerlink" href="#equation-eqsmm-sigmahat" title="Permalink to this equation">#</a></span>\[    \begin{equation}
       \hat{\Sigma}_{SMM} = \frac{1}{S}\left[d(\tilde{x},x|\theta)^T W d(\tilde{x},x|\theta)\right]^{-1}
     \end{equation}\]</div>
 <p>In the examples below, we will use a finite difference method to compute numerical versions of the Jacobian matrix <span class="math notranslate nohighlight">\(d(\tilde{x},x|\theta)\)</span>. The following is a first-order forward finite difference numerical approximation of the first derivative of a function.</p>
 <div class="math notranslate nohighlight" id="equation-eqsmm-finitediff-1">
-<span class="eqno">(31)<a class="headerlink" href="#equation-eqsmm-finitediff-1" title="Permalink to this equation">#</a></span>\[    f'(x_0) = \lim_{h\rightarrow 0} \frac{f(x_0 + h) - f(x_0)}{h}\]</div>
+<span class="eqno">(36)<a class="headerlink" href="#equation-eqsmm-finitediff-1" title="Permalink to this equation">#</a></span>\[    f'(x_0) = \lim_{h\rightarrow 0} \frac{f(x_0 + h) - f(x_0)}{h}\]</div>
 <p>The following is a centered second-order finite difference numerical approximation of the derivative of a function. (See <a class="reference external" href="https://github.com/UC-MACSS/persp-model-econ_W19/blob/master/Notes/ACME_NumDiff.pdf">BYU ACME numerical differentiation lab</a> for more details.)</p>
 <div class="math notranslate nohighlight" id="equation-eqsmm-finitediff-2">
-<span class="eqno">(32)<a class="headerlink" href="#equation-eqsmm-finitediff-2" title="Permalink to this equation">#</a></span>\[    f'(x_0) \approx \frac{f(x_0 + h) - f(x_0 - h)}{2h}\]</div>
+<span class="eqno">(37)<a class="headerlink" href="#equation-eqsmm-finitediff-2" title="Permalink to this equation">#</a></span>\[    f'(x_0) \approx \frac{f(x_0 + h) - f(x_0 - h)}{2h}\]</div>
 </section>
 <section id="code-examples">
 <span id="secsmm-codeexmp"></span><h2>Code Examples<a class="headerlink" href="#code-examples" title="Permalink to this heading">#</a></h2>
 <p>In this section, we will use SMM to estimate parameters of the models from the <a class="reference internal" href="MaxLikelihood.html#chap-maxlikeli"><span class="std std-ref">Maximum Likelihood Estimation</span></a> chapter and from the <a class="reference internal" href="GMM.html#chap-gmm"><span class="std std-ref">Generalized Method of Moments Estimation</span></a> chapter.</p>
 <section id="fitting-a-truncated-normal-to-intermediate-macroeconomics-test-scores">
 <span id="secsmm-codeexmp-macrtest"></span><h3>Fitting a truncated normal to intermediate macroeconomics test scores<a class="headerlink" href="#fitting-a-truncated-normal-to-intermediate-macroeconomics-test-scores" title="Permalink to this heading">#</a></h3>
-<p>Let’s revisit the problem from the MLE and GMM notebooks of fitting a truncated normal distribution to intermediate macroeconomics test scores. The data are in the text file <a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/blob/main/data/smm/Econ381totpts.txt"><code class="docutils literal notranslate"><span class="pre">Econ381totpts.txt</span></code></a>. Recall that these test scores are between 0 and 450. <a class="reference internal" href="#figsmm-econscoretruncnorm"><span class="std std-numref">Figure 1</span></a> below shows a histogram of the data, as well as three truncated normal PDF’s with different values for <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span>. The black line is the maximum likelihood estimate of <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span> of the truncated normal pdf from the <a class="reference internal" href="MaxLikelihood.html#chap-maxlikeli"><span class="std std-ref">Maximum Likelihood Estimation</span></a> chapter. The red, green, and black lines are just the PDF’s of two “arbitrarily” chosen combinations of the truncated normal parameters <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span>.<a class="footnote-reference brackets" href="#truncnorm" id="id11" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a></p>
+<p>Let’s revisit the problem from the MLE and GMM notebooks of fitting a truncated normal distribution to intermediate macroeconomics test scores. The data are in the text file <a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/blob/main/data/smm/Econ381totpts.txt"><code class="docutils literal notranslate"><span class="pre">Econ381totpts.txt</span></code></a>. Recall that these test scores are between 0 and 450. <a class="reference internal" href="#figsmm-econscoretruncnorm"><span class="std std-numref">Figure 3</span></a> below shows a histogram of the data, as well as three truncated normal PDF’s with different values for <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span>. The black line is the maximum likelihood estimate of <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span> of the truncated normal pdf from the <a class="reference internal" href="MaxLikelihood.html#chap-maxlikeli"><span class="std std-ref">Maximum Likelihood Estimation</span></a> chapter. The red, green, and black lines are just the PDF’s of two “arbitrarily” chosen combinations of the truncated normal parameters <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span>.<a class="footnote-reference brackets" href="#truncnorm" id="id11" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a></p>
 <div class="cell tag_hide-input tag_remove-output docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -744,7 +739,7 @@ document.write(`
 <figure class="align-default" id="figsmm-econscoretruncnorm">
 <a class="reference internal image-reference" href="../_images/Econ381scores_truncnorm.png"><img alt="../_images/Econ381scores_truncnorm.png" src="../_images/Econ381scores_truncnorm.png" style="height: 500px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 1 </span><span class="caption-text">Macroeconomic midterm scores and three truncated normal distributions</span><a class="headerlink" href="#figsmm-econscoretruncnorm" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 3 </span><span class="caption-text">Macroeconomic midterm scores and three truncated normal distributions</span><a class="headerlink" href="#figsmm-econscoretruncnorm" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <section id="two-moments-identity-weighting-matrix">
@@ -980,7 +975,7 @@ Standard deviation of simulated scores = 31.632684126222152
 <figure class="align-default" id="figsmm-econscoresim1">
 <a class="reference internal image-reference" href="../_images/Econ381scores_sim1.png"><img alt="../_images/Econ381scores_sim1.png" src="../_images/Econ381scores_sim1.png" style="height: 500px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 2 </span><span class="caption-text">Histograms of one simulation of 161 Econ 381 test scores (2011-2012) from arbitrary truncated normal distribution compared to data</span><a class="headerlink" href="#figsmm-econscoresim1" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 4 </span><span class="caption-text">Histograms of one simulation of 161 Econ 381 test scores (2011-2012) from arbitrary truncated normal distribution compared to data</span><a class="headerlink" href="#figsmm-econscoresim1" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>From that simulation, we can calculate moments from the simulated data just like we did from the actual data. The following function <code class="docutils literal notranslate"><span class="pre">data_moments2()</span></code> computes the mean and the variance of the simulated data <span class="math notranslate nohighlight">\(x\)</span>, where <span class="math notranslate nohighlight">\(x\)</span> is an <span class="math notranslate nohighlight">\(N\times S\)</span> matrix of <span class="math notranslate nohighlight">\(S\)</span> simulations of <span class="math notranslate nohighlight">\(N\)</span> observations each.</p>
@@ -1293,7 +1288,7 @@ Criterion function value is: 0.4429893115777857
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>mu_SMM1_1= 612.3319048024534  sig_SMM1_1= 197.26303566149244
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>mu_SMM1_1= 612.3371352249138  sig_SMM1_1= 197.26434895262162
 </pre></div>
 </div>
 </div>
@@ -1320,19 +1315,20 @@ Criterion function value is: 0.4429893115777857
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data mean of scores = 341.90869565217395 , Data variance of scores = 7827.997292398056
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model mean 1 = 341.6692110494425 , Model variance 1 = 7827.864496338213
 
-Model mean 1 = 341.6690130387879 , Model variance 1 = 7827.866466512297
-
-Error vector 1 = [-7.01013506e-04 -1.67125614e-05]
+Error vector 1 = [-7.00434373e-04 -1.69642445e-05]
 
 Results from scipy.opmtimize.minimize:
   message: CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_&lt;=_PGTOL
   success: True
    status: 0
-      fun: 4.916992449560748e-07
+      fun: 4.908960959342433e-07
         x: [ 6.123e+02  1.973e+02]
       nit: 17
-      jac: [-7.454e-07  2.357e-06]
+      jac: [-7.436e-07  2.350e-06]
      nfev: 72
      njev: 24
  hess_inv: &lt;2x2 LbfgsInvHessProduct with dtype=float64&gt;
@@ -1340,7 +1336,7 @@ Results from scipy.opmtimize.minimize:
 </div>
 </div>
 </div>
-<p>Let’s plot the PDF implied by these SMM estimates <span class="math notranslate nohighlight">\((\hat{\mu}_{SMM},\hat{\sigma}_{SMM})=(612.337, 197.264)\)</span> against the histogram of the data in <a class="reference internal" href="#figsmm-econ381-smm1"><span class="std std-numref">Figure 3</span></a> below.</p>
+<p>Let’s plot the PDF implied by these SMM estimates <span class="math notranslate nohighlight">\((\hat{\mu}_{SMM},\hat{\sigma}_{SMM})=(612.337, 197.264)\)</span> against the histogram of the data in <a class="reference internal" href="#figsmm-econ381-smm1"><span class="std std-numref">Figure 5</span></a> below.</p>
 <div class="cell tag_remove-output docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot the histogram of the data</span>
@@ -1365,10 +1361,10 @@ Results from scipy.opmtimize.minimize:
 <figure class="align-default" id="figsmm-econ381-smm1">
 <a class="reference internal image-reference" href="../_images/Econ381scores_smm1.png"><img alt="../_images/Econ381scores_smm1.png" src="../_images/Econ381scores_smm1.png" style="height: 500px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 3 </span><span class="caption-text">SMM-estimated PDF function and data histogram, 2 moments, identity weighting matrix, Econ 381 scores (2011-2012)</span><a class="headerlink" href="#figsmm-econ381-smm1" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 5 </span><span class="caption-text">SMM-estimated PDF function and data histogram, 2 moments, identity weighting matrix, Econ 381 scores (2011-2012)</span><a class="headerlink" href="#figsmm-econ381-smm1" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
-<p>That looks just like the maximum likelihood estimate from the <a class="reference internal" href="MaxLikelihood.html#chap-maxlikeli"><span class="std std-ref">Maximum Likelihood Estimation</span></a> chapter. <a class="reference internal" href="#figsmm-econ381-crit1"><span class="std std-numref">Figure 4</span></a> below shows what the minimizer is doing. The figure shows the criterion function surface for different of <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span> in the truncated normal distribution. The minimizer is searching for the parameter values that give the lowest criterion function value.</p>
+<p>That looks just like the maximum likelihood estimate from the <a class="reference internal" href="MaxLikelihood.html#chap-maxlikeli"><span class="std std-ref">Maximum Likelihood Estimation</span></a> chapter. <a class="reference internal" href="#figsmm-econ381-crit1"><span class="std std-numref">Figure 6</span></a> below shows what the minimizer is doing. The figure shows the criterion function surface for different of <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span> in the truncated normal distribution. The minimizer is searching for the parameter values that give the lowest criterion function value.</p>
 <div class="cell tag_remove-output docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mu_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">60</span><span class="p">,</span> <span class="mi">700</span><span class="p">,</span> <span class="mi">90</span><span class="p">)</span>
@@ -1404,7 +1400,7 @@ Results from scipy.opmtimize.minimize:
 <figure class="align-default" id="figsmm-econ381-crit1">
 <a class="reference internal image-reference" href="../_images/Econ381_crit1.png"><img alt="../_images/Econ381_crit1.png" src="../_images/Econ381_crit1.png" style="height: 500px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 4 </span><span class="caption-text">Criterion function surface for values of <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span> for SMM estimation of truncated normal with two moments and identity weighting matrix (SMM estimate shown as red dot)</span><a class="headerlink" href="#figsmm-econ381-crit1" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 6 </span><span class="caption-text">Criterion function surface for values of <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span> for SMM estimation of truncated normal with two moments and identity weighting matrix (SMM estimate shown as red dot)</span><a class="headerlink" href="#figsmm-econ381-crit1" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>Let’s compute the SMM estimator for the variance-covariance matrix <span class="math notranslate nohighlight">\(\hat{\Sigma}_{SMM}\)</span> of our SMM estimates <span class="math notranslate nohighlight">\(\hat{\theta}_{SMM}\)</span> using the equation in Section <a class="reference internal" href="#secsmm-varcovtheta"><span class="std std-ref">Variance-Covariance Estimator of \hat{\theta}</span></a> based on the Jacobian <span class="math notranslate nohighlight">\(d(\tilde{x},x|\hat{\theta}_{SMM})\)</span> of the moment error vector <span class="math notranslate nohighlight">\(e(\tilde{x},x|\hat{\theta}_{SMM})\)</span> from the criterion function at the estimated (optimal) parameter values <span class="math notranslate nohighlight">\(\hat{\theta}_{SMM}\)</span>. We first write a function that computes the Jacobian matrix <span class="math notranslate nohighlight">\(d(x|\hat{\theta}_{SMM})\)</span>, which has shape <span class="math notranslate nohighlight">\(2\times 2\)</span> in this case with two moments <span class="math notranslate nohighlight">\(R=2\)</span>.</p>
@@ -1457,19 +1453,19 @@ Results from scipy.opmtimize.minimize:
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Jacobian matrix of derivatives of moment error functions is:
-[[ 0.0008975  -0.00290434]
- [-0.00114133  0.004457  ]]
+[[ 0.00089749 -0.00290433]
+ [-0.00114132  0.00445698]]
 
 Weighting matrix W is:
 [[1. 0.]
  [0. 1.]]
 
 Variance-covariance matrix of estimated parameter vector is:
-[[602499.98744184 163793.83380005]
- [163793.83380005  44881.85524372]]
+[[602535.18442996 163802.17330123]
+ [163802.17330123  44883.79092131]]
 
-Std. err. mu_hat= 776.2087267235777
-Std. err. sig_hat= 211.8533814781294
+Std. err. mu_hat= 776.23139876583
+Std. err. sig_hat= 211.85794986573154
 </pre></div>
 </div>
 </div>
@@ -1479,7 +1475,7 @@ Std. err. sig_hat= 211.8533814781294
 </section>
 <section id="two-moments-two-step-optimal-weighting-matrix">
 <span id="secsmm-codeexmp-macrtest-2m2st"></span><h4>Two moments, two-step optimal weighting matrix<a class="headerlink" href="#two-moments-two-step-optimal-weighting-matrix" title="Permalink to this heading">#</a></h4>
-<p>Similar to the maximum likelihood estimation problem in Chapter <a class="reference internal" href="MaxLikelihood.html#chap-maxlikeli"><span class="std std-ref">Maximum Likelihood Estimation</span></a>, it looks like the minimum value of the criterion function shown in <a class="reference internal" href="#figsmm-econ381-crit1"><span class="std std-numref">Figure 4</span></a> is roughly equal for a specific portion increase of <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span> together. That is, the estimation problem with these two moments probably has a correspondence of values of <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span> that give roughly the same minimum criterion function value. This issue has two possible solutions.</p>
+<p>Similar to the maximum likelihood estimation problem in Chapter <a class="reference internal" href="MaxLikelihood.html#chap-maxlikeli"><span class="std std-ref">Maximum Likelihood Estimation</span></a>, it looks like the minimum value of the criterion function shown in <a class="reference internal" href="#figsmm-econ381-crit1"><span class="std std-numref">Figure 6</span></a> is roughly equal for a specific portion increase of <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span> together. That is, the estimation problem with these two moments probably has a correspondence of values of <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span> that give roughly the same minimum criterion function value. This issue has two possible solutions.</p>
 <ol class="arabic simple">
 <li><p>Maybe we need the two-step variance covariance estimator to calculate a “more” optimal weighting matrix <span class="math notranslate nohighlight">\(W\)</span>.</p></li>
 <li><p>Maybe our two moments aren’t very good moments for fitting the data.</p></li>
@@ -1558,12 +1554,12 @@ Std. err. sig_hat= 211.8533814781294
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2nd stage est. of var-cov matrix of moment error vec across sims:
-[[ 0.00033411 -0.00142288]
- [-0.00142288  0.01592874]]
+[[ 0.00033411 -0.00142289]
+ [-0.00142289  0.01592879]]
 
 2nd state est. of optimal weighting matrix:
-[[4830.85282784  431.53075653]
- [ 431.53075653  101.32740541]]
+[[4830.88530228  431.53378728]
+ [ 431.53378728  101.32749623]]
 </pre></div>
 </div>
 </div>
@@ -1581,7 +1577,7 @@ Std. err. sig_hat= 211.8533814781294
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>mu_SMM2_1= 619.4295828414915  sig_SMM2_1= 199.0745499003818
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>mu_SMM2_1= 619.4303074248937  sig_SMM2_1= 199.0747813692372
 </pre></div>
 </div>
 </div>
@@ -1611,15 +1607,15 @@ Std. err. sig_hat= 211.8533814781294
  [-0.0011259   0.00443426]]
 
 Weighting matrix W is:
-[[4830.85282784  431.53075653]
- [ 431.53075653  101.32740541]]
+[[4830.88530228  431.53378728]
+ [ 431.53378728  101.32749623]]
 
 Variance-covariance matrix of estimated parameter vector is:
-[[2397.35566572  745.28979427]
- [ 745.28979427  232.01568064]]
+[[2397.38054356  745.29670501]
+ [ 745.29670501  232.01757158]]
 
-Std. err. mu_hat= 48.96279879380848
-Std. err. sig_hat= 15.232060945338231
+Std. err. mu_hat= 48.963052841479445
+Std. err. sig_hat= 15.232123016118733
 </pre></div>
 </div>
 </div>
@@ -1869,7 +1865,7 @@ Std. err. sig_hat= 15.232060945338231
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>mu_SMM4_1= 362.560593472098  sig_SMM4_1 46.57515195652185
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>mu_SMM4_1= 362.560593472098  sig_SMM4_1 46.5751519565219
   message: CONVERGENCE: REL_REDUCTION_OF_F_&lt;=_FACTR*EPSMCH
   success: True
    status: 0
@@ -1884,7 +1880,7 @@ Std. err. sig_hat= 15.232060945338231
 </div>
 </div>
 </div>
-<p><a class="reference internal" href="#figsmm-econ381-smm4-1"><span class="std std-numref">Figure 5</span></a> shows the plot the PDF implied by these results <span class="math notranslate nohighlight">\(\hat{\mu}=362.2\)</span> and <span class="math notranslate nohighlight">\(\hat{\sigma}=46.6\)</span> against the histogram of the data.</p>
+<p><a class="reference internal" href="#figsmm-econ381-smm4-1"><span class="std std-numref">Figure 7</span></a> shows the plot the PDF implied by these results <span class="math notranslate nohighlight">\(\hat{\mu}=362.2\)</span> and <span class="math notranslate nohighlight">\(\hat{\sigma}=46.6\)</span> against the histogram of the data.</p>
 <div class="cell tag_hide-input tag_remove-output docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -1918,7 +1914,7 @@ Std. err. sig_hat= 15.232060945338231
 <figure class="align-default" id="figsmm-econ381-smm4-1">
 <a class="reference internal image-reference" href="../_images/Econ381scores_smm4_1.png"><img alt="../_images/Econ381scores_smm4_1.png" src="../_images/Econ381scores_smm4_1.png" style="height: 500px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 5 </span><span class="caption-text">SMM-estimated PDF function and data histogram, 4 moments, identity weighting matrix, Econ 381 scores (2011-2012)</span><a class="headerlink" href="#figsmm-econ381-smm4-1" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 7 </span><span class="caption-text">SMM-estimated PDF function and data histogram, 4 moments, identity weighting matrix, Econ 381 scores (2011-2012)</span><a class="headerlink" href="#figsmm-econ381-smm4-1" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>Let’s print the data moments and the model moments as well as the error vector evaluated at the SMM estimates.</p>
@@ -2020,8 +2016,8 @@ Variance-covariance matrix of estimated parameter vector is:
 [[33.48770545 23.53170341]
  [23.53170341 18.13459776]]
 
-Std. err. mu_hat= 5.786856266717139
-Std. err. sig_hat= 4.258473642422251
+Std. err. mu_hat= 5.786856266717126
+Std. err. sig_hat= 4.258473642422245
 </pre></div>
 </div>
 </div>
@@ -2143,11 +2139,11 @@ Std. err. sig_hat= 4.258473642422251
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>mu_SMM4_2= 362.5605400454758  sig_SMM4_2 46.57507128065559
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>mu_SMM4_2= 362.5605400454758  sig_SMM4_2 46.57507128065564
  message: Optimization terminated successfully
  success: True
   status: 0
-     fun: 0.9984266286568925
+     fun: 0.9984266286568926
        x: [ 3.626e+02  4.658e+01]
      nit: 1
      jac: [ 5.467e-02  8.255e-02]
@@ -2157,7 +2153,7 @@ Std. err. sig_hat= 4.258473642422251
 </div>
 </div>
 </div>
-<p>As can be seen in the SMM point estimates above of <span class="math notranslate nohighlight">\(\hat{\mu}=362.6\)</span> and <span class="math notranslate nohighlight">\(\hat{\sigma}=46.6\)</span>, the optimal weighting matrix <span class="math notranslate nohighlight">\(\hat{W}_{2step}\)</span> does not make a difference on the point estimates. This means that the plot of the SMM-estimated truncated normal distribution with the 2-step optimal weighting matrix is almost exactly the same as the one estimated with the identity matrix, shown in <a class="reference internal" href="#figsmm-econ381-smm4-1"><span class="std std-numref">Figure 5</span></a>. But the two-step optimal weighting matrix will make a difference on the standard errors.</p>
+<p>As can be seen in the SMM point estimates above of <span class="math notranslate nohighlight">\(\hat{\mu}=362.6\)</span> and <span class="math notranslate nohighlight">\(\hat{\sigma}=46.6\)</span>, the optimal weighting matrix <span class="math notranslate nohighlight">\(\hat{W}_{2step}\)</span> does not make a difference on the point estimates. This means that the plot of the SMM-estimated truncated normal distribution with the 2-step optimal weighting matrix is almost exactly the same as the one estimated with the identity matrix, shown in <a class="reference internal" href="#figsmm-econ381-smm4-1"><span class="std std-numref">Figure 7</span></a>. But the two-step optimal weighting matrix will make a difference on the standard errors.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Data moments =&quot;</span><span class="p">)</span>
@@ -2192,7 +2188,7 @@ Model moments =
 
 Error vector (pct. dev.) = [-0.98        0.04678571  0.11720721 -0.075     ]
 
-Criterion func val = 0.9984266286568925
+Criterion func val = 0.9984266286568926
 </pre></div>
 </div>
 </div>
@@ -2236,7 +2232,7 @@ Criterion func val = 0.9984266286568925
 <figure class="align-default" id="figsmm-econ381-crit4">
 <a class="reference internal image-reference" href="../_images/Econ381_crit4.png"><img alt="../_images/Econ381_crit4.png" src="../_images/Econ381_crit4.png" style="height: 500px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 6 </span><span class="caption-text">Criterion function surface for values of <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span> for SMM estimation of truncated normal with four moments and 2-step optimal weighting matrix (SMM estimate shown as red dot)</span><a class="headerlink" href="#figsmm-econ381-crit4" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 8 </span><span class="caption-text">Criterion function surface for values of <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span> for SMM estimation of truncated normal with four moments and 2-step optimal weighting matrix (SMM estimate shown as red dot)</span><a class="headerlink" href="#figsmm-econ381-crit4" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>As has been true in our other examples of GMM and SMM, the standard errors on the estimated parameter vector decrease substantially with the incorporation of an optimal weighting matrix.</p>
@@ -2277,8 +2273,8 @@ Variance-covariance matrix of estimated parameter vector is:
 [[3.53697411 2.47391182]
  [2.47391182 1.77184156]]
 
-Std. err. mu_hat= 1.8806844791000032
-Std. err. sig_hat= 1.3311053920876743
+Std. err. mu_hat= 1.8806844791000217
+Std. err. sig_hat= 1.3311053920876885
 </pre></div>
 </div>
 </div>
@@ -2287,7 +2283,7 @@ Std. err. sig_hat= 1.3311053920876743
 </section>
 <section id="brock-and-mirman-1972-estimation-by-smm">
 <span id="secsmm-codeexmp-bm72"></span><h3>Brock and Mirman (1972) estimation by SMM<a class="headerlink" href="#brock-and-mirman-1972-estimation-by-smm" title="Permalink to this heading">#</a></h3>
-<p>In <a class="reference internal" href="#ExercStructEst_SMM_BM72"><span class="std std-numref">Exercise 3</span></a>, you will estimate four parameters in the <span id="id12">[<a class="reference internal" href="../CompMethods_references.html#id6" title="William A. Brock and Leonard J. Mirman. Optimal economic growth and uncertainty: the discounted case. Journal of Economic Theory, 4(3):479-513, June 1972.">Brock and Mirman, 1972</a>]</span> macroeconomic model by simulating the model to get six moments.</p>
+<p>In <a class="reference internal" href="#ExercStructEst_SMM_BM72"><span class="std std-numref">Exercise 56</span></a>, you will estimate four parameters in the <span id="id12">[<a class="reference internal" href="../CompMethods_references.html#id6" title="William A. Brock and Leonard J. Mirman. Optimal economic growth and uncertainty: the discounted case. Journal of Economic Theory, 4(3):479-513, June 1972.">Brock and Mirman, 1972</a>]</span> macroeconomic model by simulating the model to get six moments.</p>
 </section>
 </section>
 <section id="secsmm-ident">
@@ -2297,7 +2293,7 @@ Std. err. sig_hat= 1.3311053920876743
 </section>
 <section id="indirect-inference">
 <span id="secsmm-indirinf"></span><h2>Indirect inference<a class="headerlink" href="#indirect-inference" title="Permalink to this heading">#</a></h2>
-<p>Indirect inference is a particular application of SMM with some specific characteristics. As moments to match it uses parameters of an auxiliary model that can be estimated both on the real-world data and on the simulated data. <span id="id13">[<a class="reference internal" href="../CompMethods_references.html#id23" title="Anthony A. Jr. Smith. Indirect inference. In Matias Vernengo, Esteban Perez Caldentey, and Barkley J. Rosser Jr., editors, New Palgrave Dictionary of Economics. Palgrave MacMillan, 2020. URL: http://www.econ.yale.edu/smith/palgrave7.pdf.">Smith, 2020</a>]</span> gives a great summary of the topic with some examples. See also <span id="id14">[<a class="reference internal" href="../CompMethods_references.html#id15" title="Christian Gourieroux and Alain Monfort. Simulation-based Econometric Methods. Oxford University Press, 1996.">Gourieroux and Monfort, 1996</a>]</span> (ch. 4) for a textbook treatment of the topic.</p>
+<p>Indirect inference is a particular application of SMM with some specific characteristics. As moments to match it uses parameters of an auxiliary model that can be estimated both on the real-world data and on the simulated data. <span id="id13">[<a class="reference internal" href="../CompMethods_references.html#id44" title="Anthony A. Jr. Smith. Indirect inference. In Matias Vernengo, Esteban Perez Caldentey, and Barkley J. Rosser Jr., editors, New Palgrave Dictionary of Economics. Palgrave MacMillan, 2020. URL: http://www.econ.yale.edu/smith/palgrave7.pdf.">Smith, 2020</a>]</span> gives a great summary of the topic with some examples. See also <span id="id14">[<a class="reference internal" href="../CompMethods_references.html#id31" title="Christian Gourieroux and Alain Monfort. Simulation-based Econometric Methods. Oxford University Press, 1996.">Gourieroux and Monfort, 1996</a>]</span> (ch. 4) for a textbook treatment of the topic.</p>
 <section id="restatement-of-the-general-smm-estimation-problem">
 <span id="secsmm-indirinf-smmprob"></span><h3>Restatement of the general SMM estimation problem<a class="headerlink" href="#restatement-of-the-general-smm-estimation-problem" title="Permalink to this heading">#</a></h3>
 <p>Define a model or data generating process (DGP) as a system of equations,</p>
@@ -2331,41 +2327,41 @@ Std. err. sig_hat= 1.3311053920876743
 <span id="secsmm-exerc"></span><h2>Exercises<a class="headerlink" href="#exercises" title="Permalink to this heading">#</a></h2>
 <div class="exercise green admonition" id="ExercStructEst_SMM_BM72">
 
-<p class="admonition-title"><span class="caption-number">Exercise 3 </span> (Estimating the Brock and Mirman (1972) model by SMM)</p>
+<p class="admonition-title"><span class="caption-number">Exercise 56 </span> (Estimating the Brock and Mirman (1972) model by SMM)</p>
 <section id="exercise-content">
 <p>You can observe time series data in an economy for the following variables: <span class="math notranslate nohighlight">\((c_t, k_t, w_t, r_t, y_t)\)</span>. The data can be loaded from the file <a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/blob/main/data/smm/NewMacroSeries.txt"><code class="docutils literal notranslate"><span class="pre">NewMacroSeries.txt</span></code></a> in the online book repository data folder <code class="docutils literal notranslate"><span class="pre">data/smm/</span></code>. This file is a comma separated text file with no labels. The variables are ordered as <span class="math notranslate nohighlight">\((c_t, k_t, w_t, r_t, y_t)\)</span>. These data have 100 periods, which are quarterly (25 years). Suppose you think that the data are generated by a process similar to the <span id="id15">[<a class="reference internal" href="../CompMethods_references.html#id6" title="William A. Brock and Leonard J. Mirman. Optimal economic growth and uncertainty: the discounted case. Journal of Economic Theory, 4(3):479-513, June 1972.">Brock and Mirman, 1972</a>]</span> paper. A simplified set of characterizing equations of the Brock and Mirman model are the following six equations.</p>
 <div class="math notranslate nohighlight" id="equation-eqsmm-bm72-eul">
-<span class="eqno">(33)<a class="headerlink" href="#equation-eqsmm-bm72-eul" title="Permalink to this equation">#</a></span>\[    (c_t)^{-1} - \beta E\left[r_{t+1}(c_{t+1})^{-1}\right] = 0\]</div>
+<span class="eqno">(38)<a class="headerlink" href="#equation-eqsmm-bm72-eul" title="Permalink to this equation">#</a></span>\[    (c_t)^{-1} - \beta E\left[r_{t+1}(c_{t+1})^{-1}\right] = 0\]</div>
 <div class="math notranslate nohighlight" id="equation-eqsmm-bm72-bc">
-<span class="eqno">(34)<a class="headerlink" href="#equation-eqsmm-bm72-bc" title="Permalink to this equation">#</a></span>\[    c_t + k_{t+1} - w_t - r_t k_t = 0\]</div>
+<span class="eqno">(39)<a class="headerlink" href="#equation-eqsmm-bm72-bc" title="Permalink to this equation">#</a></span>\[    c_t + k_{t+1} - w_t - r_t k_t = 0\]</div>
 <div class="math notranslate nohighlight" id="equation-eqsmm-bm72-focl">
-<span class="eqno">(35)<a class="headerlink" href="#equation-eqsmm-bm72-focl" title="Permalink to this equation">#</a></span>\[    w_t - (1-\alpha)e^{z_t}(k_t)^\alpha = 0\]</div>
+<span class="eqno">(40)<a class="headerlink" href="#equation-eqsmm-bm72-focl" title="Permalink to this equation">#</a></span>\[    w_t - (1-\alpha)e^{z_t}(k_t)^\alpha = 0\]</div>
 <div class="math notranslate nohighlight" id="equation-eqsmm-bm72-fock">
-<span class="eqno">(36)<a class="headerlink" href="#equation-eqsmm-bm72-fock" title="Permalink to this equation">#</a></span>\[    r_t - \alpha e^{z_t}(k_t)^{\alpha-1} = 0\]</div>
+<span class="eqno">(41)<a class="headerlink" href="#equation-eqsmm-bm72-fock" title="Permalink to this equation">#</a></span>\[    r_t - \alpha e^{z_t}(k_t)^{\alpha-1} = 0\]</div>
 <div class="math notranslate nohighlight" id="equation-eqsmm-bm72-zt">
-<span class="eqno">(37)<a class="headerlink" href="#equation-eqsmm-bm72-zt" title="Permalink to this equation">#</a></span>\[    z_t = \rho z_{t-1} + (1-\rho)\mu + \varepsilon_t \quad\text{where}\quad \varepsilon_t\sim N(0,\sigma^2)\]</div>
+<span class="eqno">(42)<a class="headerlink" href="#equation-eqsmm-bm72-zt" title="Permalink to this equation">#</a></span>\[    z_t = \rho z_{t-1} + (1-\rho)\mu + \varepsilon_t \quad\text{where}\quad \varepsilon_t\sim N(0,\sigma^2)\]</div>
 <div class="math notranslate nohighlight" id="equation-eqsmm-bm72-prod">
-<span class="eqno">(38)<a class="headerlink" href="#equation-eqsmm-bm72-prod" title="Permalink to this equation">#</a></span>\[    y_t = e^{z_t}(k_t)^\alpha\]</div>
+<span class="eqno">(43)<a class="headerlink" href="#equation-eqsmm-bm72-prod" title="Permalink to this equation">#</a></span>\[    y_t = e^{z_t}(k_t)^\alpha\]</div>
 <p>The variable <span class="math notranslate nohighlight">\(c_t\)</span> is aggregate consumption in period <span class="math notranslate nohighlight">\(t\)</span>, <span class="math notranslate nohighlight">\(k_{t+1}\)</span> is total household savings and investment in period <span class="math notranslate nohighlight">\(t\)</span> for which they receive a return in the next period <span class="math notranslate nohighlight">\(t+1\)</span> (this model assumes full depreciation of capital). The wage per unit of labor in period <span class="math notranslate nohighlight">\(t\)</span> is <span class="math notranslate nohighlight">\(w_t\)</span>, and the interest rate or rate of return on investment is
-<span class="math notranslate nohighlight">\(r_t\)</span>. Total factor productivity is <span class="math notranslate nohighlight">\(z_t\)</span>, which follows an AR(1) process given in <a class="reference internal" href="#equation-eqsmm-bm72-zt">(37)</a>. GDP is <span class="math notranslate nohighlight">\(y_t\)</span>. The rest of the symbols in the equations are parameters that must be estimated or calibrated <span class="math notranslate nohighlight">\((\alpha, \beta, \rho, \mu, \sigma)\)</span>. The constraints on these parameters are the following.</p>
+<span class="math notranslate nohighlight">\(r_t\)</span>. Total factor productivity is <span class="math notranslate nohighlight">\(z_t\)</span>, which follows an AR(1) process given in <a class="reference internal" href="#equation-eqsmm-bm72-zt">(42)</a>. GDP is <span class="math notranslate nohighlight">\(y_t\)</span>. The rest of the symbols in the equations are parameters that must be estimated or calibrated <span class="math notranslate nohighlight">\((\alpha, \beta, \rho, \mu, \sigma)\)</span>. The constraints on these parameters are the following.</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{equation*}
   \alpha,\beta \in (0,1),\quad \mu,\sigma &gt; 0, \quad\rho\in(-1,1)
 \end{equation*}\]</div>
 <p>Assume that the first observation in the data file variables is <span class="math notranslate nohighlight">\(t=1\)</span>. Let <span class="math notranslate nohighlight">\(k_1\)</span> be the first observation in the data fil for the variable <span class="math notranslate nohighlight">\(k_t\)</span>. One nice property of the <span id="id16">[<a class="reference internal" href="../CompMethods_references.html#id6" title="William A. Brock and Leonard J. Mirman. Optimal economic growth and uncertainty: the discounted case. Journal of Economic Theory, 4(3):479-513, June 1972.">Brock and Mirman, 1972</a>]</span> model is that the household decision has a known analytical solution in which the optimal savings decision <span class="math notranslate nohighlight">\(k_{t+1}\)</span> is a function of the productivity shock today <span class="math notranslate nohighlight">\(z_t\)</span> and the amount of capital today <span class="math notranslate nohighlight">\(k_t\)</span>.</p>
 <div class="math notranslate nohighlight" id="equation-eqsmm-bm72-pf">
-<span class="eqno">(39)<a class="headerlink" href="#equation-eqsmm-bm72-pf" title="Permalink to this equation">#</a></span>\[    k_{t+1} = \alpha\beta e^{z_t}(k_t)^\alpha\]</div>
-<p>With this solution <a class="reference internal" href="#equation-eqsmm-bm72-pf">(39)</a> and equations <a class="reference internal" href="#equation-eqsmm-bm72-bc">(34)</a> through <a class="reference internal" href="#equation-eqsmm-bm72-zt">(37)</a>, it is straightforward to simulate the data of the <span id="id17">[<a class="reference internal" href="../CompMethods_references.html#id6" title="William A. Brock and Leonard J. Mirman. Optimal economic growth and uncertainty: the discounted case. Journal of Economic Theory, 4(3):479-513, June 1972.">Brock and Mirman, 1972</a>]</span> model given parameters <span class="math notranslate nohighlight">\((\alpha, \beta, \rho, \mu, \sigma)\)</span>.</p>
+<span class="eqno">(44)<a class="headerlink" href="#equation-eqsmm-bm72-pf" title="Permalink to this equation">#</a></span>\[    k_{t+1} = \alpha\beta e^{z_t}(k_t)^\alpha\]</div>
+<p>With this solution <a class="reference internal" href="#equation-eqsmm-bm72-pf">(44)</a> and equations <a class="reference internal" href="#equation-eqsmm-bm72-bc">(39)</a> through <a class="reference internal" href="#equation-eqsmm-bm72-zt">(42)</a>, it is straightforward to simulate the data of the <span id="id17">[<a class="reference internal" href="../CompMethods_references.html#id6" title="William A. Brock and Leonard J. Mirman. Optimal economic growth and uncertainty: the discounted case. Journal of Economic Theory, 4(3):479-513, June 1972.">Brock and Mirman, 1972</a>]</span> model given parameters <span class="math notranslate nohighlight">\((\alpha, \beta, \rho, \mu, \sigma)\)</span>.</p>
 <p>First, assume that <span class="math notranslate nohighlight">\(z_0=\mu\)</span> and that <span class="math notranslate nohighlight">\(k_1=\text{mean}(k_t)\)</span> from the data. These are initial values that will not change across simulations. Also assume that <span class="math notranslate nohighlight">\(\beta=0.99\)</span>.</p>
 <p>Next, draw a matrix of <span class="math notranslate nohighlight">\(S=1,000\)</span> simulations (columns) of <span class="math notranslate nohighlight">\(T=100\)</span> (rows) from a uniform distribution <span class="math notranslate nohighlight">\(u_{s,t}\sim U(0,1)\)</span>. These draws will not change across this SMM estimation procedure.</p>
 <p>For each guess of the parameter vector <span class="math notranslate nohighlight">\((\alpha,\rho,\mu,\sigma)\)</span> given <span class="math notranslate nohighlight">\(\beta=0.99\)</span>, you can use <span class="math notranslate nohighlight">\(u_{s,t}\)</span> to generate normally distributed errors <span class="math notranslate nohighlight">\(\varepsilon_{s,t}\sim N(0,\sigma^2)\)</span> using the inverse cdf of the normal distribution, where <span class="math notranslate nohighlight">\(s\)</span> is the index of the simulation number (columns).</p>
-<p>With <span class="math notranslate nohighlight">\(\varepsilon_{s,t}\)</span>, <span class="math notranslate nohighlight">\(\rho\)</span>, <span class="math notranslate nohighlight">\(\mu\)</span>, and <span class="math notranslate nohighlight">\(z_0=\mu\)</span>, you can use <a class="reference internal" href="#equation-eqsmm-bm72-zt">(37)</a> to generate the simulationed values for <span class="math notranslate nohighlight">\(z_{s,t}\)</span>.</p>
-<p>With <span class="math notranslate nohighlight">\(\alpha\)</span>, <span class="math notranslate nohighlight">\(\beta=0.99\)</span>, <span class="math notranslate nohighlight">\(z_{s,t}\)</span>, and <span class="math notranslate nohighlight">\(k_1\)</span>, you can use <a class="reference internal" href="#equation-eqsmm-bm72-pf">(39)</a> to generate simulated values for <span class="math notranslate nohighlight">\(k_{t+1}\)</span>.</p>
-<p>With <span class="math notranslate nohighlight">\(\alpha\)</span>, <span class="math notranslate nohighlight">\(z_{s,t}\)</span>, and <span class="math notranslate nohighlight">\(k_{s,t}\)</span>, you can use <a class="reference internal" href="#equation-eqsmm-bm72-focl">(35)</a> and <a class="reference internal" href="#equation-eqsmm-bm72-fock">(36)</a> to generate simulated values for <span class="math notranslate nohighlight">\(w_{s,t}\)</span> and <span class="math notranslate nohighlight">\(r_{s,t}\)</span>, respectively.</p>
-<p>With <span class="math notranslate nohighlight">\(w_{s,t}\)</span>, <span class="math notranslate nohighlight">\(r_{s,t}\)</span>, and <span class="math notranslate nohighlight">\(k_{s,t}\)</span>, you can use <a class="reference internal" href="#equation-eqsmm-bm72-bc">(34)</a> to generate simulated values for <span class="math notranslate nohighlight">\(c_{s,t}\)</span>.</p>
-<p>With <span class="math notranslate nohighlight">\(\alpha\)</span>, <span class="math notranslate nohighlight">\(z_{s,t}\)</span>, and <span class="math notranslate nohighlight">\(k_{s,t}\)</span>, you can use <a class="reference internal" href="#equation-eqsmm-bm72-prod">(38)</a> to generate simulated values for <span class="math notranslate nohighlight">\(y_{s,t}\)</span>.</p>
+<p>With <span class="math notranslate nohighlight">\(\varepsilon_{s,t}\)</span>, <span class="math notranslate nohighlight">\(\rho\)</span>, <span class="math notranslate nohighlight">\(\mu\)</span>, and <span class="math notranslate nohighlight">\(z_0=\mu\)</span>, you can use <a class="reference internal" href="#equation-eqsmm-bm72-zt">(42)</a> to generate the simulationed values for <span class="math notranslate nohighlight">\(z_{s,t}\)</span>.</p>
+<p>With <span class="math notranslate nohighlight">\(\alpha\)</span>, <span class="math notranslate nohighlight">\(\beta=0.99\)</span>, <span class="math notranslate nohighlight">\(z_{s,t}\)</span>, and <span class="math notranslate nohighlight">\(k_1\)</span>, you can use <a class="reference internal" href="#equation-eqsmm-bm72-pf">(44)</a> to generate simulated values for <span class="math notranslate nohighlight">\(k_{t+1}\)</span>.</p>
+<p>With <span class="math notranslate nohighlight">\(\alpha\)</span>, <span class="math notranslate nohighlight">\(z_{s,t}\)</span>, and <span class="math notranslate nohighlight">\(k_{s,t}\)</span>, you can use <a class="reference internal" href="#equation-eqsmm-bm72-focl">(40)</a> and <a class="reference internal" href="#equation-eqsmm-bm72-fock">(41)</a> to generate simulated values for <span class="math notranslate nohighlight">\(w_{s,t}\)</span> and <span class="math notranslate nohighlight">\(r_{s,t}\)</span>, respectively.</p>
+<p>With <span class="math notranslate nohighlight">\(w_{s,t}\)</span>, <span class="math notranslate nohighlight">\(r_{s,t}\)</span>, and <span class="math notranslate nohighlight">\(k_{s,t}\)</span>, you can use <a class="reference internal" href="#equation-eqsmm-bm72-bc">(39)</a> to generate simulated values for <span class="math notranslate nohighlight">\(c_{s,t}\)</span>.</p>
+<p>With <span class="math notranslate nohighlight">\(\alpha\)</span>, <span class="math notranslate nohighlight">\(z_{s,t}\)</span>, and <span class="math notranslate nohighlight">\(k_{s,t}\)</span>, you can use <a class="reference internal" href="#equation-eqsmm-bm72-prod">(43)</a> to generate simulated values for <span class="math notranslate nohighlight">\(y_{s,t}\)</span>.</p>
 <ol class="arabic simple">
-<li><p>Estimate four parameters <span class="math notranslate nohighlight">\((\alpha, \rho,\mu,\sigma)\)</span> given <span class="math notranslate nohighlight">\(\beta=0.99\)</span> of the <span id="id18">[<a class="reference internal" href="../CompMethods_references.html#id6" title="William A. Brock and Leonard J. Mirman. Optimal economic growth and uncertainty: the discounted case. Journal of Economic Theory, 4(3):479-513, June 1972.">Brock and Mirman, 1972</a>]</span> model described by equations <a class="reference internal" href="#equation-eqsmm-bm72-eul">(33)</a> through <a class="reference internal" href="#equation-eqsmm-bm72-prod">(38)</a> and <a class="reference internal" href="#equation-eqsmm-bm72-pf">(39)</a> by SMM. Choose the four parameters to match the following six moments from the 100 periods of empirical data <span class="math notranslate nohighlight">\(\{c_t,k_t, w_t, r_t, y_t\}_{t=1}^{100}\)</span> in <a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/blob/main/data/smm/NewMacroSeries.txt"><code class="docutils literal notranslate"><span class="pre">NewMacroSeries.txt</span></code></a>: <span class="math notranslate nohighlight">\(\text{mean}(c_t)\)</span>, <span class="math notranslate nohighlight">\(\text{mean}(k_t)\)</span>, <span class="math notranslate nohighlight">\(\text{mean}(c_t/y_t)\)</span>, <span class="math notranslate nohighlight">\(\text{var}(y_t)\)</span>, <span class="math notranslate nohighlight">\(\text{corr}(c_t, c_{t-1})\)</span>, <span class="math notranslate nohighlight">\(\text{corr}(c_t, k_t)\)</span>. In your simulations of the model, set <span class="math notranslate nohighlight">\(T=100\)</span> and <span class="math notranslate nohighlight">\(S=1,000\)</span>. Input the bounds to be <span class="math notranslate nohighlight">\(\alpha\in[0.01,0.99]\)</span>, <span class="math notranslate nohighlight">\(\rho\in[-0.99,0.99]\)</span>, <span class="math notranslate nohighlight">\(\mu\in[5, 14]\)</span>, and <span class="math notranslate nohighlight">\(\sigma\in[0.01, 1.1]\)</span>.
+<li><p>Estimate four parameters <span class="math notranslate nohighlight">\((\alpha, \rho,\mu,\sigma)\)</span> given <span class="math notranslate nohighlight">\(\beta=0.99\)</span> of the <span id="id18">[<a class="reference internal" href="../CompMethods_references.html#id6" title="William A. Brock and Leonard J. Mirman. Optimal economic growth and uncertainty: the discounted case. Journal of Economic Theory, 4(3):479-513, June 1972.">Brock and Mirman, 1972</a>]</span> model described by equations <a class="reference internal" href="#equation-eqsmm-bm72-eul">(38)</a> through <a class="reference internal" href="#equation-eqsmm-bm72-prod">(43)</a> and <a class="reference internal" href="#equation-eqsmm-bm72-pf">(44)</a> by SMM. Choose the four parameters to match the following six moments from the 100 periods of empirical data <span class="math notranslate nohighlight">\(\{c_t,k_t, w_t, r_t, y_t\}_{t=1}^{100}\)</span> in <a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/blob/main/data/smm/NewMacroSeries.txt"><code class="docutils literal notranslate"><span class="pre">NewMacroSeries.txt</span></code></a>: <span class="math notranslate nohighlight">\(\text{mean}(c_t)\)</span>, <span class="math notranslate nohighlight">\(\text{mean}(k_t)\)</span>, <span class="math notranslate nohighlight">\(\text{mean}(c_t/y_t)\)</span>, <span class="math notranslate nohighlight">\(\text{var}(y_t)\)</span>, <span class="math notranslate nohighlight">\(\text{corr}(c_t, c_{t-1})\)</span>, <span class="math notranslate nohighlight">\(\text{corr}(c_t, k_t)\)</span>. In your simulations of the model, set <span class="math notranslate nohighlight">\(T=100\)</span> and <span class="math notranslate nohighlight">\(S=1,000\)</span>. Input the bounds to be <span class="math notranslate nohighlight">\(\alpha\in[0.01,0.99]\)</span>, <span class="math notranslate nohighlight">\(\rho\in[-0.99,0.99]\)</span>, <span class="math notranslate nohighlight">\(\mu\in[5, 14]\)</span>, and <span class="math notranslate nohighlight">\(\sigma\in[0.01, 1.1]\)</span>.
 Also, use the identity matrix as your weighting matrix <span class="math notranslate nohighlight">\(\textbf{W}=\textbf{I}\)</span> as shown in section <a class="reference internal" href="#secsmm-w-i"><span class="std std-ref">The identity matrix (W=I)</span></a>. Report your solution <span class="math notranslate nohighlight">\(\hat{\theta} = \left(\hat{\alpha},\hat{\rho},\hat{\mu},\hat{\sigma}\right)\)</span>, the vector of moment differences at the optimum, and the criterion function value. Also report your standard errors for the estimated parameter vector <span class="math notranslate nohighlight">\(\hat{\theta} = \left(\hat{\alpha},\hat{\rho},\hat{\mu},\hat{\sigma}\right)\)</span> based on the identity matrix for the optimal weighting matrix.</p></li>
 <li><p>Perform the estimation using the two-step estimator for the optimal weighting matrix <span class="math notranslate nohighlight">\(\textbf{W}_{2step}\)</span>, as shown in section <a class="reference internal" href="#secsmm-w-2step"><span class="std std-ref">Two-step variance-covariance estimator of W</span></a>. Report your solution <span class="math notranslate nohighlight">\(\hat{\theta} = \left(\hat{\alpha},\hat{\rho},\hat{\mu},\hat{\sigma}\right)\)</span>, the vector of moment differences at the optimum, and the criterion function value. Also report your standard errors for the estimated parameter vector <span class="math notranslate nohighlight">\(\hat{\theta} = \left(\hat{\alpha},\hat{\rho},\hat{\mu},\hat{\sigma}\right)\)</span> based on the two-step optimal weighting matrix <span class="math notranslate nohighlight">\(\textbf{W}_{2step}\)</span>.</p></li>
 </ol>
@@ -2522,8 +2518,8 @@ By Richard W. Evans
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=c5ced968eda925caa686"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686"></script>
 
   <footer class="bd-footer">
   </footer>

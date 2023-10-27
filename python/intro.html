@@ -19,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=c5ced968eda925caa686" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=c5ced968eda925caa686" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=c5ced968eda925caa686" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=c5ced968eda925caa686" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -41,9 +41,9 @@
     <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
-  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=c5ced968eda925caa686" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=c5ced968eda925caa686"></script>
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -151,13 +151,14 @@ const thebe_selector_output = ".output, .cell_output"
   
   
   
+  
     
     
       
     
     
-    <img src="../_static/CompMethodsLogo.png" class="logo__image only-light" alt="Logo image"/>
-    <script>document.write(`<img src="../_static/CompMethodsLogo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+    <img src="../_static/CompMethodsLogo.png" class="logo__image only-light" alt="Computational Methods for Economists using Python - Home"/>
+    <script>document.write(`<img src="../_static/CompMethodsLogo.png" class="logo__image only-dark" alt="Computational Methods for Economists using Python - Home"/>`);</script>
   
   
 </a></div>
@@ -179,20 +180,14 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Introduction to Python</a></li>
 <li class="toctree-l1"><a class="reference internal" href="StandardLibrary.html">Python Standard Library</a></li>
-
+<li class="toctree-l1"><a class="reference internal" href="ExceptionsIO.html">Exception Handling and File Input/Output</a></li>
 <li class="toctree-l1"><a class="reference internal" href="OOP.html">Object Oriented Programming</a></li>
-
 <li class="toctree-l1"><a class="reference internal" href="NumPy.html">NumPy</a></li>
-
 <li class="toctree-l1"><a class="reference internal" href="Pandas.html">Pandas</a></li>
-
 <li class="toctree-l1"><a class="reference internal" href="Matplotlib.html">Matplotlib</a></li>
-
-<li class="toctree-l1"><a class="reference internal" href="SciPy.html">SciPy</a></li>
-
+<li class="toctree-l1"><a class="reference internal" href="SciPy.html">SciPy: Root finding, minimizing, interpolation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="DocStrings.html">Docstrings and Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="UnitTesting.html">Unit Testing</a></li>
-
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Git and GitHub</span></p>
 <ul class="nav bd-sidenav">
@@ -423,6 +418,8 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#working-with-python">Working with Python</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-packages">Python Packages</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-training-topics">Python Training Topics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-using-the-unix-shell">(Optional): Using the Unix Shell</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">Exercises</a></li>
 </ul>
             </nav>
         </div>
@@ -436,8 +433,9 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="introduction-to-python">
 <span id="chap-pythonintro"></span><h1>Introduction to Python<a class="headerlink" href="#introduction-to-python" title="Permalink to this heading">#</a></h1>
-<p>The <code class="docutils literal notranslate"><span class="pre">OG-Core</span></code> model, as well as the country-specific calibration packages, are written in the Python programming language. These training materials will provide you with sufficient background with Python and some of its most-used packages for data science that you will be able to understand and contribute to the source code underlying <code class="docutils literal notranslate"><span class="pre">OG-Core</span></code> and the calibration packages. We assume some basic background with mathematics, economics, and programming, but we do not assume any prior knowledge of Python.</p>
-<p>As we walk you through the basics of Python, we will leverage some excellent open source materials put together by <a class="reference external" href="https://quantecon.org/">QuantEcon</a> and the <a class="reference external" href="https://acme.byu.edu/">Applied and Computational Mathematics Emphasis at BYU (BYU ACME)</a>. And while we will point you to their tutorials, we have customized all our excercises to be relevant to the <code class="docutils literal notranslate"><span class="pre">OG-Core</span></code> model and the calibration packages.</p>
+<p>This chapter was coauthored by Jason DeBacker and Richard W. Evans.</p>
+<p>Many models are written in the Python programming language. Python is the 2nd most widely used language on all GitHub repository projects <span id="id1">[<a class="reference internal" href="../CompMethods_references.html#id27" title="GitHub. Octoverse 2022: the state of open source software. Report, GitHub, Inc., November 17 2022. URL: https://octoverse.github.com/.">GitHub, 2022</a>]</span>, and Python is the 1st most used programming language according to the PYPL ranking of September 2023 <span id="id2">[<a class="reference internal" href="../CompMethods_references.html#id45" title="Stackscale. Most popular programming languages in 2023. Report, Stackscale Grupo Aire, September 13 2023. URL: https://www.stackscale.com/blog/most-popular-programming-languages/#Top_10_programming_languages_in_2023.">Stackscale, 2023</a>]</span>.</p>
+<p>As these tutorials walk you through the basics of Python, they will leverage some excellent open source materials put together by <a class="reference external" href="https://quantecon.org/">QuantEcon</a> and the <a class="reference external" href="https://acme.byu.edu/2023-2024-materials">Applied and Computational Mathematics Emphasis at BYU (BYU ACME)</a>. And while the tutorials will point you to those of these other organizations, we have customized all our excercises to be relevant to the work and research of economists.</p>
 <section id="overview-of-python">
 <span id="secpythonintrooverview"></span><h2>Overview of Python<a class="headerlink" href="#overview-of-python" title="Permalink to this heading">#</a></h2>
 <p>The <a class="reference external" href="http://Python.org">Python.org</a> site has documentation essays, one of which is entitled “<a class="reference external" href="https://www.python.org/doc/essays/blurb/">What is Python? Executive Summary</a>”. The first paragraph contains the following description.</p>
@@ -445,7 +443,7 @@ document.write(`
 <div><p>Python is an interpreted, object-oriented, high-level programming language with dynamic semantics. Its high-level built in data structures, combined with dynamic typing and dynamic binding, make it very attractive for Rapid Application Development, as well as for use as a scripting or glue language to connect existing components together. Python’s simple, easy to learn syntax emphasizes readability and therefore reduces the cost of program maintenance. Python supports modules and packages, which encourages program modularity and code reuse. The Python interpreter and the extensive standard library are available in source or binary form without charge for all major platforms, and can be freely distributed.</p>
 </div></blockquote>
 <p>In addition to the description above, Python is an open source programming language that is freely available and customizable (see <a class="reference external" href="https://www.python.org/downloads/source/">https://www.python.org/downloads/source/</a>).</p>
-<p>Python has some built in functionality with the standard library, but most of the functionality comes from packages that are developed by the open source community. The most important packages for data science are: NumPy, SciPy, Pandas, and Matplotlib.  We will introduce each of these packages as we go through the training materials as they are used heavily in <code class="docutils literal notranslate"><span class="pre">OG-Core</span></code> and the corresponding country calibration packages.</p>
+<p>Python has some built in functionality with the standard library, but most of the functionality comes from packages that are developed by the open source community. The most important packages for data science are: NumPy, SciPy, Pandas, and Matplotlib.  We will introduce each of these packages as we go through the training materials as they are used heavily in economics applications.</p>
 </section>
 <section id="installing-python">
 <span id="secpythonintroinstall"></span><h2>Installing Python<a class="headerlink" href="#installing-python" title="Permalink to this heading">#</a></h2>
@@ -472,18 +470,20 @@ document.write(`
 <li><p>Pylance</p></li>
 </ul>
 <p>In addition, <a class="reference external" href="https://github.com/features/copilot">GitHub Copilot</a> is an amazing resource and can be added as an extension to VS Code. However, this service is not free of charge and does require an internet connection to work.</p>
-<div class="exercise admonition" id="ExerPythonIntro">
-
-<p class="admonition-title"><span class="caption-number">Exercise 1 </span></p>
-<section id="exercise-content">
-<p>Read the BYU ACME “<a class="reference external" href="https://acme.byu.edu/00000181-448a-d778-a18f-dfcae22f0001/intro-to-python">Introduction to Python</a>” lab and complete Problems 1 through 8 in the lab. <span id="id1">[<a class="reference internal" href="../CompMethods_references.html#id7" title="BYU ACME. Introduction to python. Open access lab, Brigham Young University Applied and Computational Mathematics Emphasis, 2021. URL: https://acme.byu.edu/00000181-448a-d778-a18f-dfcae22f0001/intro-to-python.">ACME, 2021</a>]</span></p>
-</section>
+<p>In the iframe below is a PDF of the BYU ACME open-access lab entitled, “Python Intro”. You can either scroll through the lab on this page using the iframe window, or you can download the PDF for use on your computer. See <span id="id3">[<a class="reference internal" href="../CompMethods_references.html#id16" title="BYU ACME. Introduction to python. In BYU ACME 2023-2024 Incoming Junior Materials, chapter 2. 2023. URL: https://acme.byu.edu/2023-2024-materials.">BYU ACME, 2023</a>]</span>. <a class="reference internal" href="#ExerPythonIntro"><span class="std std-numref">Exercise 1</span></a> below has you work through the problems in this BYU ACME lab. The Python code file (<a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/code/PythonIntro/python_intro.py"><code class="docutils literal notranslate"><span class="pre">python_intro.py</span></code></a>) used in the lab is stored in the <a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/code/PythonIntro"><code class="docutils literal notranslate"><span class="pre">./code/PythonIntro/</span></code></a> directory.</p>
+<div>
+  <iframe id="inlineFrameExample"
+      title="Inline Frame Example"
+      width="100%"
+      height="700"
+      src="https://drive.google.com/file/d/1CHl8C-QKgs8jHzsRfJSMWkVqq0elzP1F/preview?usp=sharing">
+  </iframe>
 </div>
-<p>[Put a review of Python data types here: string, byte, float, list, set, dict. Discuss mutability versus immutability as well as iterability. Also introduce NumPy arrays and Pandas DataFrames.]</p>
+<p>We cover Python’s built-in functions, constants, and data types and their properties in <a class="reference internal" href="StandardLibrary.html#ExerStandardLibrary"><span class="std std-numref">Exercise 3</span></a> of the <a class="reference internal" href="StandardLibrary.html#chap-stdlib"><span class="std std-ref">Python Standard Library</span></a> chapter. We also introduce different commonly used objects like Numpy arrays and operations in chapter <a class="reference internal" href="NumPy.html#chap-numpy"><span class="std std-ref">NumPy</span></a> and Pandas DataFrames and operations in chapter <a class="reference internal" href="Pandas.html#chap-pandas"><span class="std std-ref">Pandas</span></a>.</p>
 </section>
 <section id="python-packages">
 <span id="secpythonintropackages"></span><h2>Python Packages<a class="headerlink" href="#python-packages" title="Permalink to this heading">#</a></h2>
-<p>When using <code class="docutils literal notranslate"><span class="pre">OG-Core</span></code> there are a handful of Python packages that will be useful and that these training materials will cover:</p>
+<p>Economics applications heavily use a handful of Python packages that will be useful and that these training materials will cover:</p>
 <ol class="arabic simple">
 <li><p>The Standard Library</p></li>
 <li><p>NumPy for numerical computing (e.g., arrays, linear algebra, etc.)</p></li>
@@ -491,23 +491,51 @@ document.write(`
 <li><p>Matplotlib for plotting</p></li>
 <li><p>SciPy for scientific computing (e.g., optimization, interpolation, etc.)</p></li>
 </ol>
-<p>All of these will be included as part of your installation of Anaconda.  Anaconda also includes a package manager called <code class="docutils literal notranslate"><span class="pre">conda</span></code> that will allow you to install additional packages and well help keep versions of packages consistent with each other.  We will not cover this in these training materials, but you can find more information about <code class="docutils literal notranslate"><span class="pre">conda</span></code> <a class="reference external" href="https://docs.conda.io/en/latest/">here</a> and you’ll find references to <code class="docutils literal notranslate"><span class="pre">conda</span></code> as we install the <code class="docutils literal notranslate"><span class="pre">OG-Core</span></code> package in the latter part of these training materials.</p>
+<p>All of these will be included as part of your installation of Anaconda. Anaconda also includes a package manager called <code class="docutils literal notranslate"><span class="pre">conda</span></code> that will allow you to install additional packages and well help keep versions of packages consistent with each other.  We will not cover this in these training materials, but you can find more information about <code class="docutils literal notranslate"><span class="pre">conda</span></code> <a class="reference external" href="https://docs.conda.io/en/latest/">here</a> and you’ll find references to <code class="docutils literal notranslate"><span class="pre">conda</span></code> as we install packages throughout these training materials.</p>
 </section>
 <section id="python-training-topics">
 <span id="secpythonintrotopics"></span><h2>Python Training Topics<a class="headerlink" href="#python-training-topics" title="Permalink to this heading">#</a></h2>
 <ol class="arabic simple">
 <li><p><a class="reference internal" href="StandardLibrary.html"><span class="doc std std-doc">Python Standard Library</span></a></p></li>
+<li><p><a class="reference internal" href="ExceptionsIO.html"><span class="doc std std-doc">Exception handling and file input/output</span></a></p></li>
 <li><p><a class="reference internal" href="OOP.html"><span class="doc std std-doc">Object Oriented Programming</span></a></p></li>
 <li><p><a class="reference internal" href="NumPy.html"><span class="doc std std-doc">NumPy</span></a></p></li>
 <li><p><a class="reference internal" href="Pandas.html"><span class="doc std std-doc">Pandas</span></a></p></li>
 <li><p><a class="reference internal" href="Matplotlib.html"><span class="doc std std-doc">Matplotlib</span></a></p></li>
 <li><p><a class="reference internal" href="SciPy.html"><span class="doc std std-doc">SciPy</span></a></p></li>
-<li><p><a class="reference internal" href="DocStrings.html"><span class="doc std std-doc">Doc strings and comments</span></a></p></li>
-<li><p><a class="reference internal" href="UnitTesting.html"><span class="doc std std-doc">Unit testing in Python</span></a></p></li>
+<li><p><a class="reference internal" href="DocStrings.html"><span class="doc std std-doc">Doc strings and documentation</span></a></p></li>
+<li><p><a class="reference internal" href="UnitTesting.html"><span class="doc std std-doc">Unit testing</span></a></p></li>
 </ol>
-<!-- (SecPythonIntroFootnotes)=
-## Footnotes -->
-<!-- [^citation_note]: See {cite}`AuerbachEtAl:1981,AuerbachEtAl:1983`, {cite}`AuerbachKotlikoff:1983a,AuerbachKotlikoff:1983b,AuerbachKotlikoff:1983c`, and {cite}`AuerbachKotlikoff:1985`. -->
+</section>
+<section id="optional-using-the-unix-shell">
+<span id="secpythonintrounix"></span><h2>(Optional): Using the Unix Shell<a class="headerlink" href="#optional-using-the-unix-shell" title="Permalink to this heading">#</a></h2>
+<p>Unix is an old operating system that is the basis for the Linux and Mac operating systems. Many Python users with Mac or Linux operating systems follow a workflow that includes working in the terminal and using Unix commands. This section is optional because Windows terminals do not have the same Unix commands. For those interested, feel free to work through the Unix lab below from BYU ACME. This lab features great examples and instruction, and also has seven good exercises for you to practice on.</p>
+<p>In the iframe below is a PDF of the BYU ACME open-access lab entitled, “Unix Shell 1: Introduction”. You can either scroll through the lab on this page using the iframe window, or you can download the PDF for use on your computer. See <span id="id4">[<a class="reference internal" href="../CompMethods_references.html#id19" title="BYU ACME. Unix shell 1: introduction. In BYU ACME 2023-2024 Incoming Junior Materials, chapter 1. 2023. URL: https://acme.byu.edu/2023-2024-materials.">BYU ACME, 2023</a>]</span>. <a class="reference internal" href="#ExerUnix1"><span class="std std-numref">Exercise 2</span></a> below has you work through the problems in this BYU ACME lab. The shell script file (<a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/code/UnixShell1/unixshell1.sh"><code class="docutils literal notranslate"><span class="pre">unixshell1.sh</span></code></a>) used in the lab, along with the associated zip file (<a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/code/UnixShell1/Shell1.zip"><code class="docutils literal notranslate"><span class="pre">Shell1.zip</span></code></a>), are stored in the <a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/code/UnixShell1"><code class="docutils literal notranslate"><span class="pre">./code/UnixShell1/</span></code></a> directory.</p>
+<div>
+  <iframe id="inlineFrameExample"
+      title="Inline Frame Example"
+      width="100%"
+      height="700"
+      src="https://drive.google.com/file/d/18eTLp_FhWFYgAItIZnX6gesIvg91rXW5/preview?usp=sharing">
+  </iframe>
+</div>
+</section>
+<section id="exercises">
+<span id="secpythonintroexercises"></span><h2>Exercises<a class="headerlink" href="#exercises" title="Permalink to this heading">#</a></h2>
+<div class="exercise green admonition" id="ExerPythonIntro">
+
+<p class="admonition-title"><span class="caption-number">Exercise 1 </span> (Python introduction)</p>
+<section id="exercise-content">
+<p>Read the BYU ACME “<a class="reference external" href="https://drive.google.com/file/d/1CHl8C-QKgs8jHzsRfJSMWkVqq0elzP1F/view?usp=sharing">Introduction to Python</a>” lab and complete Problems 1 through 8 in the lab. <span id="id5">[<a class="reference internal" href="../CompMethods_references.html#id16" title="BYU ACME. Introduction to python. In BYU ACME 2023-2024 Incoming Junior Materials, chapter 2. 2023. URL: https://acme.byu.edu/2023-2024-materials.">BYU ACME, 2023</a>]</span></p>
+</section>
+</div>
+<div class="exercise green admonition" id="ExerUnix1">
+
+<p class="admonition-title"><span class="caption-number">Exercise 2 </span> (OPTIONAL: Unix shell commands)</p>
+<section id="exercise-content">
+<p>Read the BYU ACME “<a class="reference external" href="https://drive.google.com/file/d/18eTLp_FhWFYgAItIZnX6gesIvg91rXW5/view?usp=sharing">Unix Shell 1: Introduction</a>” lab and complete Problems 1 through 7 in the lab. <span id="id6">[<a class="reference internal" href="../CompMethods_references.html#id19" title="BYU ACME. Unix shell 1: introduction. In BYU ACME 2023-2024 Incoming Junior Materials, chapter 1. 2023. URL: https://acme.byu.edu/2023-2024-materials.">BYU ACME, 2023</a>]</span></p>
+</section>
+</div>
 </section>
 </section>
 
@@ -579,6 +607,8 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#working-with-python">Working with Python</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-packages">Python Packages</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-training-topics">Python Training Topics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-using-the-unix-shell">(Optional): Using the Unix Shell</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">Exercises</a></li>
 </ul>
   </nav></div>
 
@@ -626,8 +656,8 @@ By Richard W. Evans
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=c5ced968eda925caa686"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686"></script>
 
   <footer class="bd-footer">
   </footer>

@@ -19,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=c5ced968eda925caa686" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=c5ced968eda925caa686" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=c5ced968eda925caa686" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=c5ced968eda925caa686" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -41,9 +41,9 @@
     <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
-  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=c5ced968eda925caa686" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=c5ced968eda925caa686"></script>
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -153,13 +153,14 @@ const thebe_selector_output = ".output, .cell_output"
   
   
   
+  
     
     
       
     
     
-    <img src="../_static/CompMethodsLogo.png" class="logo__image only-light" alt="Logo image"/>
-    <script>document.write(`<img src="../_static/CompMethodsLogo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+    <img src="../_static/CompMethodsLogo.png" class="logo__image only-light" alt="Computational Methods for Economists using Python - Home"/>
+    <script>document.write(`<img src="../_static/CompMethodsLogo.png" class="logo__image only-dark" alt="Computational Methods for Economists using Python - Home"/>`);</script>
   
   
 </a></div>
@@ -181,20 +182,14 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction to Python</a></li>
 <li class="toctree-l1"><a class="reference internal" href="StandardLibrary.html">Python Standard Library</a></li>
-
+<li class="toctree-l1"><a class="reference internal" href="ExceptionsIO.html">Exception Handling and File Input/Output</a></li>
 <li class="toctree-l1"><a class="reference internal" href="OOP.html">Object Oriented Programming</a></li>
-
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">NumPy</a></li>
-
 <li class="toctree-l1"><a class="reference internal" href="Pandas.html">Pandas</a></li>
-
 <li class="toctree-l1"><a class="reference internal" href="Matplotlib.html">Matplotlib</a></li>
-
-<li class="toctree-l1"><a class="reference internal" href="SciPy.html">SciPy</a></li>
-
+<li class="toctree-l1"><a class="reference internal" href="SciPy.html">SciPy: Root finding, minimizing, interpolation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="DocStrings.html">Docstrings and Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="UnitTesting.html">Unit Testing</a></li>
-
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Git and GitHub</span></p>
 <ul class="nav bd-sidenav">
@@ -420,10 +415,10 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">NumPy</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">Exercises</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extensions-and-future-paths">Extensions and future paths</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">Exercises</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">Footnotes</a></li>
 </ul>
-
             </nav>
         </div>
     </div>
@@ -436,27 +431,132 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="numpy">
 <span id="chap-numpy"></span><h1>NumPy<a class="headerlink" href="#numpy" title="Permalink to this heading">#</a></h1>
-<p>ACME materials link…</p>
+<p>This chapter was coauthored by Jason DeBacker and Richard W. Evans.</p>
+<p>NumPy is Python’s fundamantal numerical package (the name stands for “numerical Python”), and is at the basis of most computation using Python.<a class="footnote-reference brackets" href="#id7" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> Our discussion of Python’s NumPy package starts with Travis Oliphant, who was the primary creator of the NumPy package, a founding contributor to Python’s SciPy package (covered in the <a class="reference internal" href="SciPy.html#chap-scipy"><span class="std std-ref">SciPy: Root finding, minimizing, interpolation</span></a> chapter), founder of <a class="reference external" href="https://www.anaconda.com/">Anaconda, Inc.</a> that maintains the most popular distribution of Python, and a co-founder of the <a class="reference external" href="https://numfocus.org/">NumFOCUS</a> non-profit that fiscally supports some of the primary package projects in Python.<a class="footnote-reference brackets" href="#oliphant" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a></p>
+<p>Oliphant was a mathematics and electrical engineering student who came up through his masters degree using MATLAB with a focus primarily on signal processing. While working on a PhD, he needed to create custom code that could do signal processing operations that had never been done before. These operations required combinations of mathematical operations. Oliphant liked the ideas of network and collaboration in the open source software community, and Python was a language that felt intuitive and comfortable to him. However, Python had no established numerical matrix operations libraries. Oliphant created the NumPy package to be that numerical engine based on linear algebra array operations.</p>
+<p>The fundamental object of the NumPy package is the NumPy array <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.array.html"><code class="docutils literal notranslate"><span class="pre">numpy.array</span></code></a>. Python’s native objects—such as lists, tuples, and dictionaries—can hold numbers and perform operations on those numbers. But the NumPy array allows for storing high-dimensional arrays of numbers on which linear algebra and tensor functions can be operated. These linear algebra operations are more effecient than working with lists and tuples, and they form the foundation of modern optimization and machine learning. Learning to use Python’s NumPy package is an essential skill for many numerical computations and other operations.</p>
+<p>The iframe below contains a PDF of the BYU ACME open-access lab entitled, “Introduction to NumPy”. You can either scroll through the lab on this page using the iframe window, or you can download the PDF for use on your computer. See <span id="id3">[<a class="reference internal" href="../CompMethods_references.html#id11" title="BYU ACME. Introduction to numpy. In BYU ACME 2023-2024 Incoming Junior Materials, chapter 4. 2023. URL: https://acme.byu.edu/2023-2024-materials.">BYU ACME, 2023</a>]</span>. <a class="reference internal" href="#ExerNumPy-acme1"><span class="std std-numref">Exercise 15</span></a> below has you work through the problems in this BYU ACME lab. A Python file template (<a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/code/NumPyIntro/numpy_intro.py"><code class="docutils literal notranslate"><span class="pre">numpy_intro.py</span></code></a>) and a matrix data file (<a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/code/NumPyIntro/grid.npy"><code class="docutils literal notranslate"><span class="pre">grid.npy</span></code></a>) used in the lab are stored in the <a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/code/NumPyIntro"><code class="docutils literal notranslate"><span class="pre">./code/NumPyIntro/</span></code></a> directory.</p>
+<div>
+  <iframe id="inlineFrameExample"
+      title="Inline Frame Example"
+      width="100%"
+      height="700"
+      src="https://drive.google.com/file/d/1Hj3ok81gJAxcUTHh_8BrxX-B4belupPN/preview?usp=sharing">
+  </iframe>
+</div>
+<p>The following iframe contains a PDF of the BYU ACME open-access lab entitled, “Advanced NumPy”, which contains content and exercises that build off of the previous BYU ACME NumPy lab. You can either scroll through the lab on this page using the iframe window, or you can download the PDF for use on your computer. See <span id="id4">[<a class="reference internal" href="../CompMethods_references.html#id12" title="BYU ACME. Advanced numpy. In BYU ACME 2023-2024 Incoming Senior Materials, chapter 1. 2023. URL: https://acme.byu.edu/2023-2024-materials.">BYU ACME, 2023</a>]</span>. <a class="reference internal" href="#ExerNumPy-acme2"><span class="std std-numref">Exercise 16</span></a> below has you work through the problems in this BYU ACME lab. A Python file template (<a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/code/AdvancedNumPy/_advanced_numpy.py"><code class="docutils literal notranslate"><span class="pre">advanced_numpy.py</span></code></a>) used in the lab are stored in the <a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/code/AdvancedNumPy"><code class="docutils literal notranslate"><span class="pre">./code/AdvancedNumPy/</span></code></a> directory.</p>
+<div>
+  <iframe id="inlineFrameExample"
+      title="Inline Frame Example"
+      width="100%"
+      height="700"
+      src="https://drive.google.com/file/d/15KxliSp0C_mLf7TrLQbnC0wO4YaK7ePi/preview?usp=sharing">
+  </iframe>
+</div>
+<section id="extensions-and-future-paths">
+<span id="secnumpyextensions"></span><h2>Extensions and future paths<a class="headerlink" href="#extensions-and-future-paths" title="Permalink to this heading">#</a></h2>
+<p>One of the drawbacks to the degree to which NumPy arrays are fundamental to Python’s numerical computing is that the format of those arrays is a requirement in Python’s most highly used scientific computing and machine learning packages (<a class="reference internal" href="SciPy.html#chap-scipy"><span class="std std-ref">SciPy: Root finding, minimizing, interpolation</span></a> and scikit-learn). However, advances in hardware, large data methods, and optimization algorithms now take much more advantage of parallel computing algorithms, hybrid architectures across multiple traditional processors and GPU’s. All of these innovations have been difficult to incorporate into Python’s scientific computing stack because NumPy arrays have been difficult to make flexible to these architectures.</p>
+<p>Below are three areas that have been working to make Python better on these dimentions.</p>
+<ul class="simple">
+<li><p>Dask arrays</p></li>
+<li><p>QuantSight development and support of array API’s in SciPy and in scikit-learn. See here for the <a class="reference external" href="https://labs.quansight.org/blog/array-api-support-scikit-learn">scikit-learn blog post</a>. And see here for the <a class="reference external" href="https://labs.quansight.org/blog/scipy-array-api">SciPy blog post</a>.</p></li>
+<li><p>Modular’s development of the Mojo programming language.</p></li>
+</ul>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="exercises">
-<h1>Exercises<a class="headerlink" href="#exercises" title="Permalink to this heading">#</a></h1>
-<p>TODO: update excerises to be more relevant to OG-Core. e.g., matrix represents savings.  Then we do some array operations to multiple savings by the “population distribution” matrix omega.  Then sum to get total savings, accounting for population weights.</p>
-<ol class="arabic simple">
-<li><p>Create a Numpy array <code class="docutils literal notranslate"><span class="pre">b</span></code> (defined this as the savings of 2 types of agents over 5 periods):
-$$ [
-M=</p></li>
-</ol>
-<div class="amsmath math notranslate nohighlight" id="equation-81f2291f-ffa1-4dce-9ffc-2c776fb4cffa">
-<span class="eqno">(1)<a class="headerlink" href="#equation-81f2291f-ffa1-4dce-9ffc-2c776fb4cffa" title="Permalink to this equation">#</a></span>\[\begin{bmatrix}
-    1 &amp; 2 &amp; 3 &amp; 4 &amp; 5 \\
-    3 &amp; 4 &amp; 5 &amp; 6 &amp; 7
-  \end{bmatrix}\]</div>
-<p>].  Use the <code class="docutils literal notranslate"><span class="pre">shape</span></code> method of Numpy arrays to print the shape of this matrix.  Use array slicing to print the first row of <code class="docutils literal notranslate"><span class="pre">A</span></code>.  Use array slicing to print the second column of <code class="docutils literal notranslate"><span class="pre">A</span></code>.  Use array slicing to print the first two rows and the last three columns of <code class="docutils literal notranslate"><span class="pre">A</span></code>.
-2. Reshape the matrix <code class="docutils literal notranslate"><span class="pre">A</span></code> unto a 5x2 matrix.  Assign this new matrix to name <code class="docutils literal notranslate"><span class="pre">B</span></code>.  Use matrix multiplication to find <code class="docutils literal notranslate"><span class="pre">C</span></code>, which is the dot product of <code class="docutils literal notranslate"><span class="pre">A</span></code> and <code class="docutils literal notranslate"><span class="pre">B</span></code>.
-3. Multiply the matrix <code class="docutils literal notranslate"><span class="pre">A</span></code> by itself element-wise (Hadamard product).
-4. In one line, create a matrix of zeros that is the same size as <code class="docutils literal notranslate"><span class="pre">A</span></code>.
-5. Something with <code class="docutils literal notranslate"><span class="pre">np.where</span></code>.
-6. Something with appending/stacking.</p>
+<section id="exercises">
+<span id="secnumpyexercises"></span><h2>Exercises<a class="headerlink" href="#exercises" title="Permalink to this heading">#</a></h2>
+<div class="exercise green admonition" id="ExerNumPy-acme1">
+
+<p class="admonition-title"><span class="caption-number">Exercise 15 </span></p>
+<section id="exercise-content">
+<p>Read the BYU ACME “<a class="reference external" href="https://drive.google.com/file/d/1Hj3ok81gJAxcUTHh_8BrxX-B4belupPN/view?usp=sharing">Introduction to NumPy</a>” lab and complete Problems 1 through 7 in the lab. <span id="id5">[<a class="reference internal" href="../CompMethods_references.html#id11" title="BYU ACME. Introduction to numpy. In BYU ACME 2023-2024 Incoming Junior Materials, chapter 4. 2023. URL: https://acme.byu.edu/2023-2024-materials.">BYU ACME, 2023</a>]</span></p>
+</section>
+</div>
+<div class="exercise green admonition" id="ExerNumPy-acme2">
+
+<p class="admonition-title"><span class="caption-number">Exercise 16 </span></p>
+<section id="exercise-content">
+<p>Read the BYU ACME “<a class="reference external" href="https://drive.google.com/file/d/15KxliSp0C_mLf7TrLQbnC0wO4YaK7ePi/view?usp=sharing">Advanced NumPy</a>” lab and complete Problems 1 through 7 in the lab. <span id="id6">[<a class="reference internal" href="../CompMethods_references.html#id12" title="BYU ACME. Advanced numpy. In BYU ACME 2023-2024 Incoming Senior Materials, chapter 1. 2023. URL: https://acme.byu.edu/2023-2024-materials.">BYU ACME, 2023</a>]</span></p>
+</section>
+</div>
+<div class="exercise green admonition" id="ExerNumpy-array">
+
+<p class="admonition-title"><span class="caption-number">Exercise 17 </span></p>
+<section id="exercise-content">
+<p>Create a Numpy array <code class="docutils literal notranslate"><span class="pre">b</span></code> (defined this as the savings of 2 agents (the rows) over 5 periods (the columns)):</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+  b= \begin{bmatrix}
+       1.1 &amp; 2.2 &amp; 3.0 &amp; 2.0 &amp; 1.0 \\
+       3.3 &amp; 4.4 &amp; 5.0 &amp; 3.7 &amp; 2.0
+     \end{bmatrix}
+\end{equation*}\]</div>
+<p>Use the <code class="docutils literal notranslate"><span class="pre">shape</span></code> method of NumPy arrays to print the shape of this matrix.  Use array slicing to print the first row of <code class="docutils literal notranslate"><span class="pre">b</span></code>, which represents the lifecycle savings decisions of the first agent (i.e., the amount they choose to save in each of their 5 periods of life). Use array slicing to print the second column of <code class="docutils literal notranslate"><span class="pre">b</span></code>, which is the savings of both agents when they are in their second period of life. Finally, use array slicing to print the first two rows and the last three columns of <code class="docutils literal notranslate"><span class="pre">b</span></code> (i.e., the savings of both agents from middle age onwards).</p>
+</section>
+</div>
+<div class="exercise green admonition" id="ExerNumpy-dotproduct">
+
+<p class="admonition-title"><span class="caption-number">Exercise 18 </span></p>
+<section id="exercise-content">
+<p>Now let’s think about the matrix <code class="docutils literal notranslate"><span class="pre">b</span></code> as representing not two individual agents, but two types of agents who each live for five periods. In this way, we will interpret the values in <code class="docutils literal notranslate"><span class="pre">b</span></code> as the total savings of different cohorts of these two types of agents who are all living together at a point in time. Now, define a matrix <code class="docutils literal notranslate"><span class="pre">Omega</span></code>:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+  \Omega=
+    \begin{bmatrix}
+      0.05 &amp; 0.05 &amp; 0.08 &amp; 0.06 &amp; 0.2 \\
+      0.12 &amp; 0.16 &amp; 0.03 &amp; 0.2 &amp; 0.05
+    \end{bmatrix}
+\end{equation*}\]</div>
+<p><code class="docutils literal notranslate"><span class="pre">Omega</span></code> represents the fraction of agents in the economy of each type/cohort (Note that the elements of <code class="docutils literal notranslate"><span class="pre">Omega</span></code> sum to 1). Use matrix multiplication to find <code class="docutils literal notranslate"><span class="pre">B</span></code>, which is the dot product of <code class="docutils literal notranslate"><span class="pre">b</span></code> and the transpose of <code class="docutils literal notranslate"><span class="pre">Omega</span></code>.</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+  B = b\Omega^T
+\end{equation*}\]</div>
+<p>Print your matrix <code class="docutils literal notranslate"><span class="pre">B</span></code>. What is its shape? What does <code class="docutils literal notranslate"><span class="pre">B</span></code> represent?</p>
+</section>
+</div>
+<div class="exercise green admonition" id="ExerNumpy-mult">
+
+<p class="admonition-title"><span class="caption-number">Exercise 19 </span></p>
+<section id="exercise-content">
+<p>Multiply element-wise (Hadamard product) the matrix <code class="docutils literal notranslate"><span class="pre">b</span></code> from <a class="reference internal" href="#ExerNumpy-array"><span class="std std-numref">Exercise 17</span></a> by the matrix <code class="docutils literal notranslate"><span class="pre">Omega</span></code> from <a class="reference internal" href="#ExerNumpy-dotproduct"><span class="std std-numref">Exercise 18</span></a>. Use the <code class="docutils literal notranslate"><span class="pre">numpy.array.sum()</span></code> method on the resulting matrix, with the appropriate <code class="docutils literal notranslate"><span class="pre">axis</span></code> argument in the parentheses to find the total savings of each cohort.</p>
+</section>
+</div>
+<div class="exercise green admonition" id="ExerNumpy-zeros">
+
+<p class="admonition-title"><span class="caption-number">Exercise 20 </span></p>
+<section id="exercise-content">
+<p>In one line, create a matrix of zeros that is the same size as <code class="docutils literal notranslate"><span class="pre">b</span></code> from <a class="reference internal" href="#ExerNumpy-array"><span class="std std-numref">Exercise 17</span></a>.</p>
+</section>
+</div>
+<div class="exercise green admonition" id="ExerNumpy-where">
+
+<p class="admonition-title"><span class="caption-number">Exercise 21 </span></p>
+<section id="exercise-content">
+<p>Use <code class="docutils literal notranslate"><span class="pre">numpy.where</span></code> to return the elements of <code class="docutils literal notranslate"><span class="pre">b</span></code> from <a class="reference internal" href="#ExerNumpy-array"><span class="std std-numref">Exercise 17</span></a> that are greater than 2.0 and zero elsewhere.</p>
+</section>
+</div>
+<div class="exercise green admonition" id="ExerNumpy-stack">
+
+<p class="admonition-title"><span class="caption-number">Exercise 22 </span></p>
+<section id="exercise-content">
+<p>Now suppose a third type of agent. This agent has savings <span class="math notranslate nohighlight">\(b_3 = \left[4.1, 5.1, 7.1, 4.5, 0.9\right]\)</span>.  Use <code class="docutils literal notranslate"><span class="pre">numpy.vstack</span></code> to stack <code class="docutils literal notranslate"><span class="pre">b</span></code> from <a class="reference internal" href="#ExerNumpy-array"><span class="std std-numref">Exercise 17</span></a> on top of <code class="docutils literal notranslate"><span class="pre">b_3</span></code> to create a new <span class="math notranslate nohighlight">\(3\times 5\)</span> matrix <code class="docutils literal notranslate"><span class="pre">b_new</span></code>.</p>
+</section>
+</div>
+</section>
+<section id="footnotes">
+<span id="secnumpyfootnotes"></span><h2>Footnotes<a class="headerlink" href="#footnotes" title="Permalink to this heading">#</a></h2>
+<p>The footnotes from this chapter.</p>
+<hr class="footnotes docutils" />
+<aside class="footnote brackets" id="id7" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p>The website for NumPy is <a class="reference external" href="https://numpy.org">https://numpy.org</a>.</p>
+</aside>
+<aside class="footnote brackets" id="oliphant" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
+<p>Travis Oliphant has a <a class="reference external" href="https://en.wikipedia.org/wiki/Travis_Oliphant">Wikipedia page</a> <span id="id8">[<a class="reference internal" href="../CompMethods_references.html#id40" title="Wikipedia Contributors. &quot;Travis Oliphant&quot;. Wikipedia, The Free Encyclopedia, 2023. [Online; accessed 5-October-2023]. URL: https://en.wikipedia.org/wiki/Travis_Oliphant.">Wikipedia Contributors, 2023</a>]</span>. We highly recommend <a class="reference external" href="https://youtu.be/gFEE3w7F0ww?si=XKcRlcw7FXkA9oxB">Oliphant’s interview</a> on the Lex Fridman Podcast from September 22, 2021 <span id="id9">[<a class="reference internal" href="../CompMethods_references.html#id26" title="Lex Fridman. Travis oliphant: numpy, scipy, anaconda, python and scientific programming. Podcast #224, Lex Fridman Podcast, September 22 2021. URL: https://youtu.be/gFEE3w7F0ww?si=XKcRlcw7FXkA9oxB.">Fridman, 2021</a>]</span>.</p>
+</aside>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -522,10 +622,10 @@ M=</p></li>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">NumPy</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">Exercises</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extensions-and-future-paths">Extensions and future paths</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">Exercises</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">Footnotes</a></li>
 </ul>
-
   </nav></div>
 
 </div></div>
@@ -572,8 +672,8 @@ By Richard W. Evans
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=c5ced968eda925caa686"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686"></script>
 
   <footer class="bd-footer">
   </footer>

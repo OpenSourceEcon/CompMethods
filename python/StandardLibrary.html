@@ -19,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=c5ced968eda925caa686" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=c5ced968eda925caa686" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=c5ced968eda925caa686" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=c5ced968eda925caa686" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -41,9 +41,9 @@
     <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
-  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=c5ced968eda925caa686" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=c5ced968eda925caa686"></script>
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -70,7 +70,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Object Oriented Programming" href="OOP.html" />
+    <link rel="next" title="Exception Handling and File Input/Output" href="ExceptionsIO.html" />
     <link rel="prev" title="Introduction to Python" href="intro.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -151,13 +151,14 @@ const thebe_selector_output = ".output, .cell_output"
   
   
   
+  
     
     
       
     
     
-    <img src="../_static/CompMethodsLogo.png" class="logo__image only-light" alt="Logo image"/>
-    <script>document.write(`<img src="../_static/CompMethodsLogo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+    <img src="../_static/CompMethodsLogo.png" class="logo__image only-light" alt="Computational Methods for Economists using Python - Home"/>
+    <script>document.write(`<img src="../_static/CompMethodsLogo.png" class="logo__image only-dark" alt="Computational Methods for Economists using Python - Home"/>`);</script>
   
   
 </a></div>
@@ -179,20 +180,14 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction to Python</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Python Standard Library</a></li>
-
+<li class="toctree-l1"><a class="reference internal" href="ExceptionsIO.html">Exception Handling and File Input/Output</a></li>
 <li class="toctree-l1"><a class="reference internal" href="OOP.html">Object Oriented Programming</a></li>
-
 <li class="toctree-l1"><a class="reference internal" href="NumPy.html">NumPy</a></li>
-
 <li class="toctree-l1"><a class="reference internal" href="Pandas.html">Pandas</a></li>
-
 <li class="toctree-l1"><a class="reference internal" href="Matplotlib.html">Matplotlib</a></li>
-
-<li class="toctree-l1"><a class="reference internal" href="SciPy.html">SciPy</a></li>
-
+<li class="toctree-l1"><a class="reference internal" href="SciPy.html">SciPy: Root finding, minimizing, interpolation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="DocStrings.html">Docstrings and Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="UnitTesting.html">Unit Testing</a></li>
-
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Git and GitHub</span></p>
 <ul class="nav bd-sidenav">
@@ -418,10 +413,8 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Python Standard Library</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">Exercises</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">Exercises</a></li>
 </ul>
-
             </nav>
         </div>
     </div>
@@ -434,17 +427,55 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="python-standard-library">
 <span id="chap-stdlib"></span><h1>Python Standard Library<a class="headerlink" href="#python-standard-library" title="Permalink to this heading">#</a></h1>
-<p>ACME materials link…</p>
+<p>This chapter was coauthored by Jason DeBacker and Richard W. Evans.</p>
+<p>The <strong>standard library</strong> of Python is all the built-in functions of the programming language as well as the modules included with the most common Python distributions. The Python online documentation has an <a class="reference external" href="https://docs.python.org/3/library/index.html">excellent page</a> describing the standard library. These functionalities include built-in <a class="reference external" href="https://docs.python.org/3/library/functions.html">functions</a>, <a class="reference external" href="https://docs.python.org/3/library/constants.html">constants</a>, and <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html">object types</a>, and <a class="reference external" href="https://docs.python.org/3/library/datatypes.html">data types</a>. We recommend that you read these sections in the Python documentation.</p>
+<p>In addition, the iframe below contains a PDF of the BYU ACME open-access lab entitled, “The Standard Library”. You can either scroll through the lab on this page using the iframe window, or you can download the PDF for use on your computer. See <span id="id1">[<a class="reference internal" href="../CompMethods_references.html#id17" title="BYU ACME. Standard library. In BYU ACME 2023-2024 Incoming Junior Materials, chapter 3. 2023. URL: https://acme.byu.edu/2023-2024-materials.">BYU ACME, 2023</a>]</span>. <a class="reference internal" href="#ExerStandardLibrary"><span class="std std-numref">Exercise 3</span></a> below has you work through the problems in this BYU ACME lab. The two Python files used in this lab are stored in the <a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/code/StandardLibrary"><code class="docutils literal notranslate"><span class="pre">./code/StandardLibrary/</span></code></a> directory.</p>
+<div>
+  <iframe id="inlineFrameExample"
+      title="Inline Frame Example"
+      width="100%"
+      height="700"
+      src="https://drive.google.com/file/d/1JT2TolhLhyQBO2iyGoBZYVPgni0dc3x6/preview?usp=sharing">
+  </iframe>
+</div>
+<section id="exercises">
+<span id="secstdlibexercises"></span><h2>Exercises<a class="headerlink" href="#exercises" title="Permalink to this heading">#</a></h2>
+<div class="exercise green admonition" id="ExerStandardLibrary">
+
+<p class="admonition-title"><span class="caption-number">Exercise 3 </span></p>
+<section id="exercise-content">
+<p>Read the BYU ACME “<a class="reference external" href="https://drive.google.com/file/d/1JT2TolhLhyQBO2iyGoBZYVPgni0dc3x6/view?usp=sharing">The Standard Library</a>” lab and complete Problems 1 through 5 in the lab. <span id="id2">[<a class="reference internal" href="../CompMethods_references.html#id17" title="BYU ACME. Standard library. In BYU ACME 2023-2024 Incoming Junior Materials, chapter 3. 2023. URL: https://acme.byu.edu/2023-2024-materials.">BYU ACME, 2023</a>]</span></p>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="exercises">
-<h1>Exercises<a class="headerlink" href="#exercises" title="Permalink to this heading">#</a></h1>
-<ol class="arabic simple">
-<li><p>Determining which of Python’s build in objects (string, dict, list, tuple, set, int) are mutable and which are immutable.</p></li>
-<li><p>Create a python module and run it from the command line</p></li>
-<li><p>Create a python notebook and run it from VS Code</p></li>
-<li><p>Write a function in the notebook and run it</p></li>
-<li><p>Use the <code class="docutils literal notranslate"><span class="pre">sys</span></code> module to create a relative path from a Python module, print that path</p></li>
-</ol>
+</div>
+<div class="exercise green admonition" id="ExerStd-module_run">
+
+<p class="admonition-title"><span class="caption-number">Exercise 4 </span></p>
+<section id="exercise-content">
+<p>Create a python module that prints something (e.g. <code class="docutils literal notranslate"><span class="pre">Hello</span> <span class="pre">World!</span></code>) and run it from the command line using <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">module_name.py</span></code>.</p>
+</section>
+</div>
+<div class="exercise green admonition" id="ExerStd-notebook_run">
+
+<p class="admonition-title"><span class="caption-number">Exercise 5 </span></p>
+<section id="exercise-content">
+<p>Create a Jupyter notebook (<code class="docutils literal notranslate"><span class="pre">.ipynb</span></code>) with your Python code from <a class="reference internal" href="#ExerStd-module_run"><span class="std std-numref">Exercise 4</span></a> and run it in the VS Code text editor.</p>
+</section>
+</div>
+<div class="exercise green admonition" id="ExerStd-def_function">
+
+<p class="admonition-title"><span class="caption-number">Exercise 6 </span></p>
+<section id="exercise-content">
+<p>Write a function that finds the Fibonacci sequence up to an integer <code class="docutils literal notranslate"><span class="pre">N</span></code> &gt; 0 in the notebook.  Now call this function for <code class="docutils literal notranslate"><span class="pre">N</span> <span class="pre">=</span> <span class="pre">10</span></code> and <code class="docutils literal notranslate"><span class="pre">N=100</span></code>.</p>
+</section>
+</div>
+<div class="exercise green admonition" id="ExerStd-sys">
+
+<p class="admonition-title"><span class="caption-number">Exercise 7 </span></p>
+<section id="exercise-content">
+<p>Use the <code class="docutils literal notranslate"><span class="pre">sys</span></code> module to create a relative path from a Python module, print that path.</p>
+</section>
+</div>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -487,11 +518,11 @@ document.write(`
       </div>
     </a>
     <a class="right-next"
-       href="OOP.html"
+       href="ExceptionsIO.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Object Oriented Programming</p>
+        <p class="prev-next-title">Exception Handling and File Input/Output</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -510,10 +541,8 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Python Standard Library</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">Exercises</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">Exercises</a></li>
 </ul>
-
   </nav></div>
 
 </div></div>
@@ -560,8 +589,8 @@ By Richard W. Evans
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=c5ced968eda925caa686"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686"></script>
 
   <footer class="bd-footer">
   </footer>

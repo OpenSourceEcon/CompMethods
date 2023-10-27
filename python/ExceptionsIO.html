@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Maximum Likelihood Estimation &#8212; Computational Methods for Economists using Python</title>
+    <title>Exception Handling and File Input/Output &#8212; Computational Methods for Economists using Python</title>
   
   
   
@@ -66,12 +66,12 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'struct_est/MaxLikelihood';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'python/ExceptionsIO';</script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Generalized Method of Moments Estimation" href="GMM.html" />
-    <link rel="prev" title="Introduction to Structural Estimation" href="intro.html" />
+    <link rel="next" title="Object Oriented Programming" href="OOP.html" />
+    <link rel="prev" title="Python Standard Library" href="StandardLibrary.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -177,17 +177,17 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="../contrib/contributing.html">Contributor Guide</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Coding in Python</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../python/intro.html">Introduction to Python</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../python/StandardLibrary.html">Python Standard Library</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../python/ExceptionsIO.html">Exception Handling and File Input/Output</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../python/OOP.html">Object Oriented Programming</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../python/NumPy.html">NumPy</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../python/Pandas.html">Pandas</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../python/Matplotlib.html">Matplotlib</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../python/SciPy.html">SciPy: Root finding, minimizing, interpolation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../python/DocStrings.html">Docstrings and Documentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../python/UnitTesting.html">Unit Testing</a></li>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction to Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="StandardLibrary.html">Python Standard Library</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Exception Handling and File Input/Output</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OOP.html">Object Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="NumPy.html">NumPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Pandas.html">Pandas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Matplotlib.html">Matplotlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SciPy.html">SciPy: Root finding, minimizing, interpolation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DocStrings.html">Docstrings and Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="UnitTesting.html">Unit Testing</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Git and GitHub</span></p>
 <ul class="nav bd-sidenav">
@@ -206,11 +206,11 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="../deep_learn/intro.html">Neural Nets and Deep Learning</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Structural Estimation</span></p>
-<ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction to Structural Estimation</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Maximum Likelihood Estimation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="GMM.html">Generalized Method of Moments Estimation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="SMM.html">Simulated Method of Moments Estimation</a></li>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../struct_est/intro.html">Introduction to Structural Estimation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../struct_est/MaxLikelihood.html">Maximum Likelihood Estimation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../struct_est/GMM.html">Generalized Method of Moments Estimation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../struct_est/SMM.html">Simulated Method of Moments Estimation</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Appendix</span></p>
 <ul class="nav bd-sidenav">
@@ -291,7 +291,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/OpenSourceEcon/CompMethods/issues/new?title=Issue%20on%20page%20%2Fstruct_est/MaxLikelihood.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/OpenSourceEcon/CompMethods/issues/new?title=Issue%20on%20page%20%2Fpython/ExceptionsIO.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -321,7 +321,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="../_sources/struct_est/MaxLikelihood.md" target="_blank"
+      <li><a href="../_sources/python/ExceptionsIO.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -403,7 +403,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Maximum Likelihood Estimation</h1>
+    <h1>Exception Handling and File Input/Output</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -413,7 +413,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">Footnotes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">Exercises</a></li>
 </ul>
             </nav>
         </div>
@@ -425,12 +425,29 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="maximum-likelihood-estimation">
-<span id="chap-maxlikeli"></span><h1>Maximum Likelihood Estimation<a class="headerlink" href="#maximum-likelihood-estimation" title="Permalink to this heading">#</a></h1>
-<p>The most recent version of the <a class="reference external" href="https://github.com/rickecon/StructEst_W20/blob/master/Notebooks/MLE/MLest.ipynb"><code class="docutils literal notranslate"><span class="pre">MLest.ipynb</span></code></a> notebook is currently in the <a class="reference external" href="https://github.com/rickecon/StructEst_W20">StructEst_W20</a> repository in the <a class="reference external" href="https://github.com/rickecon/StructEst_W20/tree/master/Notebooks/MLE"><code class="docutils literal notranslate"><span class="pre">/Notebooks/MLE</span></code></a> directory. All the accompanying data and images are also in that directory. I will be updating this chapter to include all the content from the <a class="reference external" href="https://github.com/rickecon/StructEst_W20/blob/master/Notebooks/MLE/MLest.ipynb"><code class="docutils literal notranslate"><span class="pre">MLest.ipynb</span></code></a> notebook along with exercises and lecture content from the maximum likelihood estimation section of that course.</p>
-<section id="footnotes">
-<span id="secmaxlikelifootnotes"></span><h2>Footnotes<a class="headerlink" href="#footnotes" title="Permalink to this heading">#</a></h2>
-<!-- [^citation_note]: See {cite}`AuerbachEtAl:1981,AuerbachEtAl:1983`, {cite}`AuerbachKotlikoff:1983a,AuerbachKotlikoff:1983b,AuerbachKotlikoff:1983c`, and {cite}`AuerbachKotlikoff:1985`. -->
+  <section class="tex2jax_ignore mathjax_ignore" id="exception-handling-and-file-input-output">
+<span id="chap-exceptio"></span><h1>Exception Handling and File Input/Output<a class="headerlink" href="#exception-handling-and-file-input-output" title="Permalink to this heading">#</a></h1>
+<p>This chapter was coauthored by Jason DeBacker and Richard W. Evans.</p>
+<p>Python stops the computation process when it encounters an error. Sometimes you want to describe certain errors with descriptive error messages. And sometimes you want your code to move past errors while saving them and including descriptive error messages. Other times, you want to ensure that no errors occur and that your program stops and informs you in the case of an error.</p>
+<p>Python’s error handling, assertion functionality, traceback capability, and type hinting are powerful methods to make sure your code does what you expect it to do, breaks when you expect it to break, and moves past issues when you don’t want the computation to stop.</p>
+<p>The iframe below contains a PDF of the BYU ACME open-access lab entitled, “Exceptions and File Input/Output”. You can either scroll through the lab on this page using the iframe window, or you can download the PDF for use on your computer. See <span id="id1">[<a class="reference internal" href="../CompMethods_references.html#id7" title="BYU ACME. Exceptions and file input/output. In BYU ACME 2023-2024 Incoming Junior Materials, chapter 7. 2023. URL: https://acme.byu.edu/2023-2024-materials.">BYU ACME, 2023</a>]</span>. <a class="reference internal" href="#ExerExceptionIO"><span class="std std-numref">Exercise 8</span></a> below has you work through the problems in this BYU ACME lab. The Python file (<a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/code/Exceptions_FileIO/exceptions_filIO.py"><code class="docutils literal notranslate"><span class="pre">exceptions_fileIO.py</span></code></a>) and associated text files (<code class="docutils literal notranslate"><span class="pre">.txt</span></code>) associated with this lab are stored in the <a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/code/Exceptions_FileIO"><code class="docutils literal notranslate"><span class="pre">./code/Exceptions_FileIO/</span></code></a> directory.</p>
+<div>
+  <iframe id="inlineFrameExample"
+      title="Inline Frame Example"
+      width="100%"
+      height="700"
+      src="https://drive.google.com/file/d/1gAam1i1Gy0YgULT92ul72DUqRCb4q2fA/preview?usp=sharing">
+  </iframe>
+</div>
+<section id="exercises">
+<span id="secexceptioexercises"></span><h2>Exercises<a class="headerlink" href="#exercises" title="Permalink to this heading">#</a></h2>
+<div class="exercise green admonition" id="ExerExceptionIO">
+
+<p class="admonition-title"><span class="caption-number">Exercise 8 </span></p>
+<section id="exercise-content">
+<p>Read the BYU ACME “<a class="reference external" href="https://drive.google.com/file/d/1gAam1i1Gy0YgULT92ul72DUqRCb4q2fA/view?usp=sharing">Exceptions and file input/output</a>” lab and complete Problems 1 through 4 in the lab. <span id="id2">[<a class="reference internal" href="../CompMethods_references.html#id7" title="BYU ACME. Exceptions and file input/output. In BYU ACME 2023-2024 Incoming Junior Materials, chapter 7. 2023. URL: https://acme.byu.edu/2023-2024-materials.">BYU ACME, 2023</a>]</span></p>
+</section>
+</div>
 </section>
 </section>
 
@@ -447,7 +464,7 @@ document.write(`
         },
         kernelOptions: {
             name: "python3",
-            path: "./struct_est"
+            path: "./python"
         },
         predefinedOutput: true
     }
@@ -465,20 +482,20 @@ document.write(`
                   <!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="intro.html"
+       href="StandardLibrary.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Introduction to Structural Estimation</p>
+        <p class="prev-next-title">Python Standard Library</p>
       </div>
     </a>
     <a class="right-next"
-       href="GMM.html"
+       href="OOP.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Generalized Method of Moments Estimation</p>
+        <p class="prev-next-title">Object Oriented Programming</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -497,7 +514,7 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">Footnotes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">Exercises</a></li>
 </ul>
   </nav></div>
 

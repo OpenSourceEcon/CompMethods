@@ -19,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=c5ced968eda925caa686" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=c5ced968eda925caa686" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=c5ced968eda925caa686" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=c5ced968eda925caa686" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -41,9 +41,9 @@
     <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
-  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=c5ced968eda925caa686" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=c5ced968eda925caa686"></script>
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -73,7 +73,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="NumPy" href="NumPy.html" />
-    <link rel="prev" title="Python Standard Library" href="StandardLibrary.html" />
+    <link rel="prev" title="Exception Handling and File Input/Output" href="ExceptionsIO.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -153,13 +153,14 @@ const thebe_selector_output = ".output, .cell_output"
   
   
   
+  
     
     
       
     
     
-    <img src="../_static/CompMethodsLogo.png" class="logo__image only-light" alt="Logo image"/>
-    <script>document.write(`<img src="../_static/CompMethodsLogo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+    <img src="../_static/CompMethodsLogo.png" class="logo__image only-light" alt="Computational Methods for Economists using Python - Home"/>
+    <script>document.write(`<img src="../_static/CompMethodsLogo.png" class="logo__image only-dark" alt="Computational Methods for Economists using Python - Home"/>`);</script>
   
   
 </a></div>
@@ -181,20 +182,14 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction to Python</a></li>
 <li class="toctree-l1"><a class="reference internal" href="StandardLibrary.html">Python Standard Library</a></li>
-
+<li class="toctree-l1"><a class="reference internal" href="ExceptionsIO.html">Exception Handling and File Input/Output</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Object Oriented Programming</a></li>
-
 <li class="toctree-l1"><a class="reference internal" href="NumPy.html">NumPy</a></li>
-
 <li class="toctree-l1"><a class="reference internal" href="Pandas.html">Pandas</a></li>
-
 <li class="toctree-l1"><a class="reference internal" href="Matplotlib.html">Matplotlib</a></li>
-
-<li class="toctree-l1"><a class="reference internal" href="SciPy.html">SciPy</a></li>
-
+<li class="toctree-l1"><a class="reference internal" href="SciPy.html">SciPy: Root finding, minimizing, interpolation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="DocStrings.html">Docstrings and Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="UnitTesting.html">Unit Testing</a></li>
-
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Git and GitHub</span></p>
 <ul class="nav bd-sidenav">
@@ -420,10 +415,8 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Object Oriented Programming</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">Exercises</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">Exercises</a></li>
 </ul>
-
             </nav>
         </div>
     </div>
@@ -436,17 +429,64 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="object-oriented-programming">
 <span id="chap-oop"></span><h1>Object Oriented Programming<a class="headerlink" href="#object-oriented-programming" title="Permalink to this heading">#</a></h1>
-<p>ACME materials link…</p>
+<p>This chapter was coauthored by Jason DeBacker and Richard W. Evans.</p>
+<p>Python is literally a programming language built on objects. Objects are instances of classes. And classes are definitions of objects with their corresponding methods and attributes. Objects are a powerful way to group functionality and attributes in a class that has a limited and common set of characteristics.</p>
+<p>An analogy is how life forms are classified by <a class="reference external" href="https://en.wikipedia.org/wiki/Taxonomic_rank">taxonomic rank</a> going from most general to most specific: domain, kingdom, phylum, class, order, family, genus, and species <span id="id1">[<a class="reference internal" href="../CompMethods_references.html#id49" title="Wikipedia Contributors. &quot;Taxonomic rank&quot;. Wikipedia, The Free Encyclopedia, 2023. [Online; accessed 04-October-2023]. URL: https://en.wikipedia.org/wiki/Taxonomic_rank.">Wikipedia Contributors, 2023</a>]</span>. If you have a model of all the different types of cats, you would probably care about the taxonomic rank <em>family</em> of <em>felidae</em> or cats. If you were interested in modeling all the different types of mammals that live on land, you might need many different <em>orders</em>, with sub-class objects for each <em>family</em>, <em>genus</em>, and <em>species</em> within each order.</p>
+<p>Python objects defined as classes have a limited set of attributes that apply to that class in the same way the cat family <em>felidae</em> has different attributes than the dog family <em>canidae</em>. In the family of <code class="docutils literal notranslate"><span class="pre">OG-Core</span></code> macroeconomic model country calibrations, we have many custom objects defined by classes, the most important of which might be the <code class="docutils literal notranslate"><span class="pre">parameters</span></code> class.</p>
+<p>Using objects wisely and efficiently can make your code more readable, easier to modify and use, more scalable, and more interoperable. The iframe below contains a PDF of the BYU ACME open-access lab entitled, “Object-oriented Programming”. You can either scroll through the lab on this page using the iframe window, or you can download the PDF for use on your computer. See <span id="id2">[<a class="reference internal" href="../CompMethods_references.html#id13" title="BYU ACME. Object-oriented programming. In BYU ACME 2023-2024 Incoming Junior Materials, chapter 5. 2023. URL: https://acme.byu.edu/2023-2024-materials.">BYU ACME, 2023</a>]</span>. <a class="reference internal" href="#ExerOOP-acme"><span class="std std-numref">Exercise 9</span></a> below has you work through the problems in this BYU ACME lab. A Python file (<a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/code/ObjectOriented/.py/object_oriented.py"><code class="docutils literal notranslate"><span class="pre">object_oriented.py</span></code></a>) template for the problems in this lab is stored in the <a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/code/ObjectOriented"><code class="docutils literal notranslate"><span class="pre">./code/ObjectOriented/</span></code></a> directory.</p>
+<div>
+  <iframe id="inlineFrameExample"
+      title="Inline Frame Example"
+      width="100%"
+      height="700"
+      src="https://drive.google.com/file/d/1dtDaHYhA_7_6vt_uh60CHIPlHf6CA3qf/preview?usp=sharing">
+  </iframe>
+</div>
+<section id="exercises">
+<span id="secoopexercises"></span><h2>Exercises<a class="headerlink" href="#exercises" title="Permalink to this heading">#</a></h2>
+<div class="exercise green admonition" id="ExerOOP-acme">
+
+<p class="admonition-title"><span class="caption-number">Exercise 9 </span></p>
+<section id="exercise-content">
+<p>Read the BYU ACME “<a class="reference external" href="https://drive.google.com/file/d/1dtDaHYhA_7_6vt_uh60CHIPlHf6CA3qf/view?usp=sharing">Object-oriented programming</a>” lab and complete Problems 1 through 4 in the lab. <span id="id3">[<a class="reference internal" href="../CompMethods_references.html#id7" title="BYU ACME. Exceptions and file input/output. In BYU ACME 2023-2024 Incoming Junior Materials, chapter 7. 2023. URL: https://acme.byu.edu/2023-2024-materials.">BYU ACME, 2023</a>]</span></p>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="exercises">
-<h1>Exercises<a class="headerlink" href="#exercises" title="Permalink to this heading">#</a></h1>
-<ol class="arabic simple">
-<li><p>Define a class called <code class="docutils literal notranslate"><span class="pre">Specifications</span></code> with an attribute that is the rate of time preference, <span class="math notranslate nohighlight">\(\beta\)</span>.  Create instances of this class called <code class="docutils literal notranslate"><span class="pre">p</span></code> for <span class="math notranslate nohighlight">\(\beta=0.96\)</span> and <span class="math notranslate nohighlight">\(\beta=0.99\)</span>.</p></li>
-<li><p>Update the <code class="docutils literal notranslate"><span class="pre">Specifications</span></code> class so that allows one to specify the value of <span class="math notranslate nohighlight">\(\beta\)</span> upon initialization of the class and checks that <span class="math notranslate nohighlight">\(\beta\)</span> is between 0 and 1.</p></li>
-<li><p>Modify the <code class="docutils literal notranslate"><span class="pre">Specifications</span></code> class so that it has a method that prints the value of <span class="math notranslate nohighlight">\(\beta\)</span>.</p></li>
-<li><p>Change the input of <span class="math notranslate nohighlight">\(\beta\)</span> to the class so that it is input at an annual rate.  Allow another attribute of the class called <code class="docutils literal notranslate"><span class="pre">S</span></code> that is the number of periods in an economic agent’s life.  Include a method in the <code class="docutils literal notranslate"><span class="pre">Specifications</span></code> class that adjusts the value  the value of <span class="math notranslate nohighlight">\(\beta\)</span> to represent the discount rate applied per model period, which will be equivalent to <code class="docutils literal notranslate"><span class="pre">S/80</span></code> years.</p></li>
-<li><p>Add a method to the <code class="docutils literal notranslate"><span class="pre">Specifications</span></code> class that allows one to update the values of the class attributes <code class="docutils literal notranslate"><span class="pre">S</span></code> and <code class="docutils literal notranslate"><span class="pre">beta_annual</span></code> by providing a dictionary of the form <code class="docutils literal notranslate"><span class="pre">{&quot;S&quot;:</span> <span class="pre">40,</span> <span class="pre">&quot;beta_annual&quot;:</span> <span class="pre">0.8}</span></code>.  Ensure that when the instance is updated, the new <code class="docutils literal notranslate"><span class="pre">beta</span></code> attribute is consistent with the new <code class="docutils literal notranslate"><span class="pre">S</span></code> and <code class="docutils literal notranslate"><span class="pre">beta_annual</span></code>.</p></li>
-</ol>
+</div>
+<div class="exercise green admonition" id="ExerOOP-defclass">
+
+<p class="admonition-title"><span class="caption-number">Exercise 10 </span></p>
+<section id="exercise-content">
+<p>Define a class called <code class="docutils literal notranslate"><span class="pre">Specifications</span></code> with an attribute that is the rate of time preference <code class="docutils literal notranslate"><span class="pre">beta</span></code> (usually represented by the Greek letter <span class="math notranslate nohighlight">\(\beta\)</span>). Create two instances of this class, the first called <code class="docutils literal notranslate"><span class="pre">p1</span></code> for <code class="docutils literal notranslate"><span class="pre">beta=0.96</span></code> and the second called <code class="docutils literal notranslate"><span class="pre">p2</span></code> for <code class="docutils literal notranslate"><span class="pre">beta=0.99</span></code>.</p>
+</section>
+</div>
+<div class="exercise green admonition" id="ExerOOP-attr">
+
+<p class="admonition-title"><span class="caption-number">Exercise 11 </span></p>
+<section id="exercise-content">
+<p>Update the <code class="docutils literal notranslate"><span class="pre">Specifications</span></code> class from <a class="reference internal" href="#ExerOOP-defclass"><span class="std std-numref">Exercise 10</span></a> so that it not only allows one to specify the value of <code class="docutils literal notranslate"><span class="pre">beta</span></code> upon instantiation of the class but also checks that <code class="docutils literal notranslate"><span class="pre">beta</span></code> is between 0 and 1.</p>
+</section>
+</div>
+<div class="exercise green admonition" id="ExerOOP-method">
+
+<p class="admonition-title"><span class="caption-number">Exercise 12 </span></p>
+<section id="exercise-content">
+<p>Modify the <code class="docutils literal notranslate"><span class="pre">Specifications</span></code> class from <a class="reference internal" href="#ExerOOP-attr"><span class="std std-numref">Exercise 11</span></a> so that it has a method that prints the value of <code class="docutils literal notranslate"><span class="pre">beta</span></code>.</p>
+</section>
+</div>
+<div class="exercise green admonition" id="ExerOOP-adjust">
+
+<p class="admonition-title"><span class="caption-number">Exercise 13 </span></p>
+<section id="exercise-content">
+<p>Building off the <code class="docutils literal notranslate"><span class="pre">Specifications</span></code> class in <a class="reference internal" href="#ExerOOP-method"><span class="std std-numref">Exercise 12</span></a>, change the input of <code class="docutils literal notranslate"><span class="pre">beta</span></code> to the class so that it is input at an annual rate <code class="docutils literal notranslate"><span class="pre">beta_annual</span></code>. Allow another attribute of the class called <code class="docutils literal notranslate"><span class="pre">S</span></code> that is the number of periods in an economic agent’s life. Include a method in the <code class="docutils literal notranslate"><span class="pre">Specifications</span></code> class that adjusts the value of <code class="docutils literal notranslate"><span class="pre">beta</span></code> to represent the discount rate applied per model period. Let each model period be <code class="docutils literal notranslate"><span class="pre">S/80</span></code> years, such that each model period equals one years when <code class="docutils literal notranslate"><span class="pre">S=80</span></code>.</p>
+</section>
+</div>
+<div class="exercise green admonition" id="ExerOOP-update">
+
+<p class="admonition-title"><span class="caption-number">Exercise 14 </span></p>
+<section id="exercise-content">
+<p>Add a method to the <code class="docutils literal notranslate"><span class="pre">Specifications</span></code> class in <a class="reference internal" href="#ExerOOP-adjust"><span class="std std-numref">Exercise 13</span></a> that allows one to update the values of the class attributes <code class="docutils literal notranslate"><span class="pre">S</span></code> and <code class="docutils literal notranslate"><span class="pre">beta_annual</span></code> by providing a dictionary of the form <code class="docutils literal notranslate"><span class="pre">{&quot;S&quot;:</span> <span class="pre">40,</span> <span class="pre">&quot;beta_annual&quot;:</span> <span class="pre">0.8}</span></code>.  Ensure that when the instance is updated, the new <code class="docutils literal notranslate"><span class="pre">beta</span></code> attribute is consistent with the new <code class="docutils literal notranslate"><span class="pre">S</span></code> and <code class="docutils literal notranslate"><span class="pre">beta_annual</span></code>.</p>
+</section>
+</div>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -480,12 +520,12 @@ document.write(`
                   <!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="StandardLibrary.html"
+       href="ExceptionsIO.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Python Standard Library</p>
+        <p class="prev-next-title">Exception Handling and File Input/Output</p>
       </div>
     </a>
     <a class="right-next"
@@ -512,10 +552,8 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Object Oriented Programming</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">Exercises</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">Exercises</a></li>
 </ul>
-
   </nav></div>
 
 </div></div>
@@ -562,8 +600,8 @@ By Richard W. Evans
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=c5ced968eda925caa686"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686"></script>
 
   <footer class="bd-footer">
   </footer>

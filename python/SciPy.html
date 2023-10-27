@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>SciPy &#8212; Computational Methods for Economists using Python</title>
+    <title>SciPy: Root finding, minimizing, interpolation &#8212; Computational Methods for Economists using Python</title>
   
   
   
@@ -19,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=c5ced968eda925caa686" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=c5ced968eda925caa686" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=c5ced968eda925caa686" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=c5ced968eda925caa686" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -41,9 +41,9 @@
     <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
-  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=c5ced968eda925caa686" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=c5ced968eda925caa686"></script>
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -153,13 +153,14 @@ const thebe_selector_output = ".output, .cell_output"
   
   
   
+  
     
     
       
     
     
-    <img src="../_static/CompMethodsLogo.png" class="logo__image only-light" alt="Logo image"/>
-    <script>document.write(`<img src="../_static/CompMethodsLogo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+    <img src="../_static/CompMethodsLogo.png" class="logo__image only-light" alt="Computational Methods for Economists using Python - Home"/>
+    <script>document.write(`<img src="../_static/CompMethodsLogo.png" class="logo__image only-dark" alt="Computational Methods for Economists using Python - Home"/>`);</script>
   
   
 </a></div>
@@ -181,20 +182,14 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction to Python</a></li>
 <li class="toctree-l1"><a class="reference internal" href="StandardLibrary.html">Python Standard Library</a></li>
-
+<li class="toctree-l1"><a class="reference internal" href="ExceptionsIO.html">Exception Handling and File Input/Output</a></li>
 <li class="toctree-l1"><a class="reference internal" href="OOP.html">Object Oriented Programming</a></li>
-
 <li class="toctree-l1"><a class="reference internal" href="NumPy.html">NumPy</a></li>
-
 <li class="toctree-l1"><a class="reference internal" href="Pandas.html">Pandas</a></li>
-
 <li class="toctree-l1"><a class="reference internal" href="Matplotlib.html">Matplotlib</a></li>
-
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">SciPy</a></li>
-
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">SciPy: Root finding, minimizing, interpolation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="DocStrings.html">Docstrings and Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="UnitTesting.html">Unit Testing</a></li>
-
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Git and GitHub</span></p>
 <ul class="nav bd-sidenav">
@@ -410,7 +405,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>SciPy</h1>
+    <h1>SciPy: Root finding, minimizing, interpolation</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -420,10 +415,20 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">SciPy</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">Exercises</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#root-finding">Root finding</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#root-finding-theory">Root finding theory</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#root-finding-examples">Root finding examples</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#simple-numerical-example">Simple numerical example</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#og-core-equations-example">OG-Core equations example</a></li>
 </ul>
-
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#minimization">Minimization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interpolation">Interpolation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">Exercises</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">Footnotes</a></li>
+</ul>
             </nav>
         </div>
     </div>
@@ -434,19 +439,441 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="scipy">
-<span id="chap-scipy"></span><h1>SciPy<a class="headerlink" href="#scipy" title="Permalink to this heading">#</a></h1>
-<p>ACME materials link…</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="scipy-root-finding-minimizing-interpolation">
+<span id="chap-scipy"></span><h1>SciPy: Root finding, minimizing, interpolation<a class="headerlink" href="#scipy-root-finding-minimizing-interpolation" title="Permalink to this heading">#</a></h1>
+<p>This chapter was coauthored by Jason DeBacker and Richard W. Evans.</p>
+<p>SciPy is Python’s primary scientific computing package.<a class="footnote-reference brackets" href="#scipy" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> As described in the <a class="reference internal" href="NumPy.html#chap-numpy"><span class="std std-ref">NumPy</span></a> chapter, SciPy is built with NumPy as a core dependency. The SciPy website <a class="reference external" href="https://scipy.org/">homepage</a> states that, “SciPy provides algorithms for optimization, integration, interpolation, eigenvalue problems, algebraic equations, differential equations, statistics and many other classes of problems.”</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">OG-Core</span></code> model and its country calibrations use SciPy primarily for three functionalities, although there are some other smaller use cases.</p>
+<ul class="simple">
+<li><p>Finding the roots or zeros of functions (<a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.root.html"><code class="docutils literal notranslate"><span class="pre">scipy.optimize.root</span></code></a>)</p></li>
+<li><p>Solving minimization problem (<a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.minimize.html"><code class="docutils literal notranslate"><span class="pre">scipy.optimize.minimize</span></code></a>)</p></li>
+<li><p>Interpolation (<a class="reference external" href="https://docs.scipy.org/doc/scipy/tutorial/interpolate.html"><code class="docutils literal notranslate"><span class="pre">scipy.interpolate</span></code></a>)</p></li>
+</ul>
+<section id="root-finding">
+<span id="secscipyroot"></span><h2>Root finding<a class="headerlink" href="#root-finding" title="Permalink to this heading">#</a></h2>
+<section id="root-finding-theory">
+<span id="secscipyroot-theory"></span><h3>Root finding theory<a class="headerlink" href="#root-finding-theory" title="Permalink to this heading">#</a></h3>
+<p>Root finding is equivalent to finding the solution to a system of equations. For example, observe the following quadratic equation.</p>
+<div class="math notranslate nohighlight" id="equation-eqscipy-univarnonzerofunc">
+<span class="eqno">(1)<a class="headerlink" href="#equation-eqscipy-univarnonzerofunc" title="Permalink to this equation">#</a></span>\[  ax^2 + bx + c = 12\]</div>
+<p>We can always restate that equation as a function that equals zero.</p>
+<div class="math notranslate nohighlight" id="equation-eqscipy-univarzerofunc">
+<span class="eqno">(2)<a class="headerlink" href="#equation-eqscipy-univarzerofunc" title="Permalink to this equation">#</a></span>\[  ax^2 + bx + c - 12 = 0\]</div>
+<p>Let <span class="math notranslate nohighlight">\(f(x)\)</span> be a vector of functions <span class="math notranslate nohighlight">\(f_r(x)\)</span>, each of which is a function of a vector of variables <span class="math notranslate nohighlight">\(x\equiv\left[x_1,x_2,...x_K\right]\)</span>. Without loss of generality, we can specify an arbitrary number of functions <span class="math notranslate nohighlight">\(f(x)\)</span> as an equation equal to zero.</p>
+<div class="math notranslate nohighlight" id="equation-eqscipy-zerofunc">
+<span class="eqno">(3)<a class="headerlink" href="#equation-eqscipy-zerofunc" title="Permalink to this equation">#</a></span>\[\begin{split}  f(x)=0 \quad\text{or}\quad
+    \begin{bmatrix}
+      f_1(x) \\
+      f_2(x) \\
+      \vdots \\
+      f_R(x) \\
+    \end{bmatrix} =
+    \begin{bmatrix}
+      0 \\
+      0 \\
+      \vdots \\
+      0
+    \end{bmatrix}\end{split}\]</div>
+<p>Examples of systems that fit this representation in <a class="reference internal" href="#equation-eqscipy-zerofunc">(3)</a> include single equations like <a class="reference internal" href="#equation-eqscipy-univarnonzerofunc">(1)</a> and <a class="reference internal" href="#equation-eqscipy-univarzerofunc">(2)</a>, systems of linear equations, univariate and multivariate equations, and systems of nonlinear equations.</p>
+<div class="proof definition admonition" id="DefSciPy_SysRank">
+<p class="admonition-title"><span class="caption-number">Definition 1 </span> (System Rank)</p>
+<section class="definition-content" id="proof-content">
+<p>The <strong>system rank</strong> <span class="math notranslate nohighlight">\(R^*\)</span> for the system of <span class="math notranslate nohighlight">\(R\)</span> equations <span class="math notranslate nohighlight">\(f(x)\)</span> with <span class="math notranslate nohighlight">\(K\)</span> variables <span class="math notranslate nohighlight">\(x=[x_1, x_2,...x_K]\)</span> is the number of equations in <span class="math notranslate nohighlight">\(f:\mathbb{R}^K\rightarrow\mathbb{R}^R\)</span> that are independent of each other, such that <span class="math notranslate nohighlight">\(R^*\leq R\)</span>, where independence of two equations is defined as:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+  f_r(x) \neq f_s(x) \quad\forall r\neq s
+\end{equation*}\]</div>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="exercises">
-<h1>Exercises<a class="headerlink" href="#exercises" title="Permalink to this heading">#</a></h1>
+</div><p>As an example of system rank in <a class="reference internal" href="#DefSciPy_SysRank">Definition 1</a>, the following system of equations has three equations <span class="math notranslate nohighlight">\(R=3\)</span> but only has rank two <span class="math notranslate nohighlight">\(R^*=2\)</span> because the first equation is equal to the second equation. The first equation is simply two times the first equation. The second equation gives no unique information once we know the first equation. Only two equations in this system give unique information.</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+  \begin{split}
+    3x + y +10z = 0.5 \\
+    6x + 2y + 20z = 1 \\
+    x + y - z = 7
+  \end{split}
+\end{equation*}\]</div>
+<p>System rank of <span class="math notranslate nohighlight">\(R^*&lt;R\)</span> can also occur when two equations are nonlinear combinations of each other. The following system of two equations <span class="math notranslate nohighlight">\(R=2\)</span> only has system rank <span class="math notranslate nohighlight">\(R^*=1\)</span> because the second equation is just the square of the first equation. Again, the second equation gives no unique information once we know the first equation.</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+  \begin{split}
+    x + y = 0 \\
+    x^2 + 2xy + y^2 = 0
+  \end{split}
+\end{equation*}\]</div>
+<div class="proof definition admonition" id="DefSciPy_Identif">
+<p class="admonition-title"><span class="caption-number">Definition 2 </span> (Identification)</p>
+<section class="definition-content" id="proof-content">
+<p>A system of equations <span class="math notranslate nohighlight">\(f(x)\)</span> with <span class="math notranslate nohighlight">\(K\)</span> variables <span class="math notranslate nohighlight">\(x=[x_1, x_2,...x_K]\)</span> and <span class="math notranslate nohighlight">\(R^*\)</span> independent equations is characterized as:</p>
+<ul class="simple">
+<li><p><strong>identified</strong> if the number of independent equations is at least as large as the number of variables <span class="math notranslate nohighlight">\(R^*\geq K\)</span></p></li>
+<li><p><strong>exactly identified</strong> if the number of independent equations exactly equals the number of variables <span class="math notranslate nohighlight">\(R^*=K\)</span></p></li>
+<li><p><strong>over identified</strong> if the number of independent equations is strictly greater than the number of variables <span class="math notranslate nohighlight">\(R^*&gt;K\)</span></p></li>
+<li><p><strong>under identified</strong> if the number of independent equations is strictly less than the number of variables <span class="math notranslate nohighlight">\(R^*&lt;K\)</span></p></li>
+</ul>
+</section>
+</div><p>Many systems of equations that occur in theoretical models are <em>exactly identified</em> as defined in <a class="reference internal" href="#DefSciPy_Identif">Definition 2</a>. The easiest way to solve exactly identified systems of linear equations—systems in which each function <span class="math notranslate nohighlight">\(f_i(x)\)</span> is a linear function of the vector of <span class="math notranslate nohighlight">\(x\)</span> variables—is often matrix inversion. When the system of equations <span class="math notranslate nohighlight">\(f(x)\)</span> is nonlinear, finding the solution takes more advanced methods.<a class="footnote-reference brackets" href="#scipyjuddmethods" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a></p>
+<p>It is <em>not</em> widely recognized among researchers that even in systems of equations for which existence and uniqueness of the solution can be proven, no root finding algorithm with finite computational power exists that guarantees convergence to the solution of the system in every case. Judd states:</p>
+<blockquote>
+<div><p>Nonlinear equation solving presents problems not present with linear equations or optimization. In particular, the existence problem is much more difficult for nonlinear systems. Unless one has an existence proof in had, a programmer must keep in mind that the absence of a solutino may explain a program’s failure to converge. Ever if there exists a solution, all methods will do poorly if the problem is poorly conditioned near a solution. Transforming the problem will often improve performance.<span id="id3">[<a class="reference internal" href="../CompMethods_references.html#id33" title="Kenneth L. Judd. Numerical Methods in Economics. MIT Press, 1998.">Judd, 1998</a>]</span> (p. 192)</p>
+</div></blockquote>
+<p>Because root finding in nonlinear systems can be so difficult, much research into the best methods has accumulated over the years. And the approaches to solving nonlinear systems can be an art as much as a science. This is also true of minimization problems discussed in the next section (<a class="reference internal" href="#secscipymin"><span class="std std-ref">Minimization</span></a>). For this reason, the <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.root.html"><code class="docutils literal notranslate"><span class="pre">scipy.optimize.root</span></code></a> module has many different solution algorithms you can use to find the solution to a nonlinear system of equations (e.g., <code class="docutils literal notranslate"><span class="pre">hybr</span></code>, <code class="docutils literal notranslate"><span class="pre">lm</span></code>, <code class="docutils literal notranslate"><span class="pre">linearmixing</span></code>).</p>
+<p>All of the root finder methods in <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.root.html"><code class="docutils literal notranslate"><span class="pre">scipy.optimize.root</span></code></a> are iterative. They take an initial guess for the solution for the variable vector <span class="math notranslate nohighlight">\(x_i\)</span>, evaluate the functions <span class="math notranslate nohighlight">\(f(x_i)\)</span> in <a class="reference internal" href="#equation-eqscipy-zerofuncerr">(4)</a> at <span class="math notranslate nohighlight">\(x_i\)</span>, and guess a new value for the solution vector <span class="math notranslate nohighlight">\(x_{i+1}\)</span> until the errors on the left-hand-side of the functions in <a class="reference internal" href="#equation-eqscipy-zerofuncerr">(4)</a> get arbitrarily close to zero.</p>
+<div class="math notranslate nohighlight" id="equation-eqscipy-zerofuncerr">
+<span class="eqno">(4)<a class="headerlink" href="#equation-eqscipy-zerofuncerr" title="Permalink to this equation">#</a></span>\[\begin{split}  \hat{x} = x:\quad
+    \begin{bmatrix}
+      f_1(x) \\
+      f_2(x) \\
+      \vdots \\
+      f_R(x) \\
+    \end{bmatrix} =
+    \begin{bmatrix}
+      \varepsilon_1 \\
+      \varepsilon_2 \\
+      \vdots \\
+      \varepsilon_R
+    \end{bmatrix} \quad\text{and}\quad
+    || \left[\varepsilon_1, \varepsilon_2,...\varepsilon_R\right] || \leq \text{toler}\end{split}\]</div>
+<p>Before we go through some root finding examples using <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.root.html"><code class="docutils literal notranslate"><span class="pre">scipy.optimize.root</span></code></a>, we want to share some root finding wisdom in the following <a class="reference internal" href="#ObsSciPy_RootMinWisdom">Observation 1</a> that we have learned over the years. The wisdom in this definition also applies to minimization problems discussed in the following section.</p>
+<div class="proof observation admonition" id="ObsSciPy_RootMinWisdom">
+<p class="admonition-title"><span class="caption-number">Observation 1 </span> (Root finding and minimization problem wisdom)</p>
+<section class="observation-content" id="proof-content">
+<p>The following strategies for successfully finding the solution to systems of equations or finding the global minimum of an optimization problem come from long experience working with these problems.</p>
 <ol class="arabic simple">
-<li><p>Define household FOC for savings and use <code class="docutils literal notranslate"><span class="pre">scipy.optimize.root</span></code> to solve for the optimal savings rate for a household with CRRA utility</p></li>
-<li><p>Define the household FOC for labor supply and use <code class="docutils literal notranslate"><span class="pre">scipy.optimize.root</span></code> to solve for the optimal labor supply for a household with ellipitcal utility</p></li>
-<li><p>Use <code class="docutils literal notranslate"><span class="pre">scipy.optimize.minimize</span></code> to minimize the function <span class="math notranslate nohighlight">\(f(x) = x^2 + 2x + 1\)</span> (or some other function).</p></li>
-<li><p>Use <code class="docutils literal notranslate"><span class="pre">scipy.optimize.minimize</span></code> to minimize the function <span class="math notranslate nohighlight">\(f(x) = x^2 + 2x + 1\)</span> (or some other function) subject to the constraint that <span class="math notranslate nohighlight">\(x \geq 2\)</span>.</p></li>
-<li><p>Use <code class="docutils literal notranslate"><span class="pre">scipy.interpolate</span></code>…</p></li>
+<li><p>Knowing and debugging the <strong>underlying model theory</strong> is often more effective and more important than finding the best, most advanced, or most robust root finder or minimizer. In most instances in which our optimizers have given non solutions or incorrect solutions, the adjustment that fixed the problem was most often going back to the underlying system of equations and understanding what they mean.</p></li>
+<li><p>Choose an <strong>intelligent initial guess</strong>. Many optimization algorithms require an initial guess as an input. When the underlying system of equations or criterion function is highly nonlinear, a good initial guess is critical for the root finder or minimizer to converge. The theory or the underlying data often suggest a reasonable initial guess. In dynamic models, the steady-state or the previous period’s solution might be a good initial guess.</p></li>
+<li><p>Give the root finder or minimizer <strong>as much information as possible</strong> about the problem. Many root finders and minimizers can take as inputs contraints on the solution and theoretical derivatives. These save the algorithm computational calories and may engage components of the algorithm that are specifically designed to use those details.</p></li>
 </ol>
+</section>
+</div></section>
+<section id="root-finding-examples">
+<span id="secscipyroot-examp"></span><h3>Root finding examples<a class="headerlink" href="#root-finding-examples" title="Permalink to this heading">#</a></h3>
+<section id="simple-numerical-example">
+<span id="secscipyroot-examp1"></span><h4>Simple numerical example<a class="headerlink" href="#simple-numerical-example" title="Permalink to this heading">#</a></h4>
+<p>Assume that the system of equations we are trying to solve is a two-equation system <span class="math notranslate nohighlight">\(R=2\)</span> of nonlinear independent equations in two variables <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span>.</p>
+<div class="math notranslate nohighlight" id="equation-eqscipyrootex1a">
+<span class="eqno">(5)<a class="headerlink" href="#equation-eqscipyrootex1a" title="Permalink to this equation">#</a></span>\[  x^2 - 4x + 5 - y = 0\]</div>
+<div class="math notranslate nohighlight" id="equation-eqscipyrootex1b">
+<span class="eqno">(6)<a class="headerlink" href="#equation-eqscipyrootex1b" title="Permalink to this equation">#</a></span>\[  e^x - y = 0\]</div>
+<p>By plotting these two equations in <a class="reference internal" href="#figscipyroot-examp1"><span class="std std-numref">Figure 1</span></a>, we can see that there is only one solution. And just by looking at the plot, we can see that the solution is close to <span class="math notranslate nohighlight">\((\hat{x},\hat{y})\approx (0.9, 2.2)\)</span>.</p>
+<div class="cell tag_hide-input tag_remove-output docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+
+<span class="k">def</span> <span class="nf">eq1_y_SciPyRoot_examp1</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This function uses the function of x and y in the first equation of example 1</span>
+<span class="sd">    in the SciPy Chapter, Root finding section to take a value for x and deliver</span>
+<span class="sd">    the corresponding value for y</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="mi">5</span>
+
+    <span class="k">return</span> <span class="n">y</span>
+
+
+<span class="k">def</span> <span class="nf">eq2_y_SciPyRoot_examp1</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This function uses the function of x and y in the second equation of example 1</span>
+<span class="sd">    in the SciPy Chapter, Root finding section to take a value for x and deliver</span>
+<span class="sd">    the corresponding value for y</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">y</span>
+
+
+<span class="n">xmin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span>
+<span class="n">xmax</span> <span class="o">=</span> <span class="mi">6</span>
+<span class="n">xvals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
+<span class="n">y1vals</span> <span class="o">=</span> <span class="n">eq1_y_SciPyRoot_examp1</span><span class="p">(</span><span class="n">xvals</span><span class="p">)</span>
+<span class="n">y2vals</span> <span class="o">=</span> <span class="n">eq2_y_SciPyRoot_examp1</span><span class="p">(</span><span class="n">xvals</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xvals</span><span class="p">,</span> <span class="n">y1vals</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;equation 1: $y=x^2 - 4x + 5$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xvals</span><span class="p">,</span> <span class="n">y2vals</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;equation 2: $y=e^x$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hlines</span><span class="p">([</span><span class="mi">0</span><span class="p">],</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;black&quot;</span><span class="p">],</span> <span class="n">linestyles</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;dashed&quot;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$x$ values&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$y$ values&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<figure class="align-default" id="figscipyroot-examp1">
+<a class="reference internal image-reference" href="../_images/root_examp1.png"><img alt="../_images/root_examp1.png" src="../_images/root_examp1.png" style="height: 500px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 1 </span><span class="caption-text">Solution to two nonlinear functions in <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span></span><a class="headerlink" href="#figscipyroot-examp1" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>We can now use SciPy’s root finder <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.root.html"><code class="docutils literal notranslate"><span class="pre">scipy.optimize.root</span></code></a> to find the solution to equations <a class="reference internal" href="#equation-eqscipyrootex1a">(5)</a> and <a class="reference internal" href="#equation-eqscipyrootex1b">(6)</a>.</p>
+<p>Note first some properties of the theory or the functions in the system of equations. Although equation <a class="reference internal" href="#equation-eqscipyrootex1a">(5)</a> is defined for any <span class="math notranslate nohighlight">\(x\)</span> in the real line <span class="math notranslate nohighlight">\(x\in(-\infty,\infty)\)</span>, it is only defined for <span class="math notranslate nohighlight">\(y\)</span> weakly greater than one <span class="math notranslate nohighlight">\(y\geq 1\)</span>. However, the left-hand-side of <a class="reference internal" href="#equation-eqscipyrootex1a">(5)</a> is defined for any values of <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> on the real line. Similarly, equation <a class="reference internal" href="#equation-eqscipyrootex1b">(6)</a> is defined for any <span class="math notranslate nohighlight">\(x\)</span> in the real line <span class="math notranslate nohighlight">\(x\in(-\infty,\infty)\)</span>, it is only defined for strictly positive <span class="math notranslate nohighlight">\(y&gt;0\)</span>. But any values for <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> on the real line are defined for the left-hand-side of <a class="reference internal" href="#equation-eqscipyrootex1b">(6)</a>.</p>
+<p>The following Python code block executes a <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.root.html"><code class="docutils literal notranslate"><span class="pre">scipy.optimize.root</span></code></a> root finder to find the solution to equations <a class="reference internal" href="#equation-eqscipyrootex1a">(5)</a> and <a class="reference internal" href="#equation-eqscipyrootex1b">(6)</a>. The key components to a Scipy root finder are</p>
+<ul class="simple">
+<li><p>An error function (see <code class="docutils literal notranslate"><span class="pre">errfunc_SciPyRoot_examp1</span></code> function below) that takes an arbitrary vector of input variable values <span class="math notranslate nohighlight">\(x\)</span> and outputs the corresponding right-hand-side errors associated with that vector as shown in the right-hand-side of <a class="reference internal" href="#equation-eqscipy-zerofuncerr">(4)</a>.</p></li>
+<li><p>An initial guess <span class="math notranslate nohighlight">\(x_{init}\)</span> (see <code class="docutils literal notranslate"><span class="pre">init_guess_xy</span></code> list below) that does not violate any of the properties of the equations of the problem.</p></li>
+</ul>
+<p>The root finder algorithm then iterates on values of the <span class="math notranslate nohighlight">\(x\)</span> vector starting at the initial guess <span class="math notranslate nohighlight">\(x_{init}\)</span> that reduce the error values that are right-hand-side of <a class="reference internal" href="#equation-eqscipy-zerofuncerr">(4)</a> which is the the output of <code class="docutils literal notranslate"><span class="pre">errfunc_SciPyRoot_examp1</span></code> function below.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scipy.optimize</span> <span class="k">as</span> <span class="nn">opt</span>
+
+
+<span class="k">def</span> <span class="nf">f1_SciPyRoot_examp1</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This is the evaluation of the right-hand-side of the first equation of example 1</span>
+<span class="sd">    in the SciPy Chapter, Root finding section. We can interpret this value as an</span>
+<span class="sd">    error because it need not equal zero in general.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">error1</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="mi">5</span> <span class="o">-</span> <span class="n">y</span>
+
+    <span class="k">return</span> <span class="n">error1</span>
+
+
+<span class="k">def</span> <span class="nf">f2_SciPyRoot_examp1</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This is the evaluation of the right-hand-side of the second equation of example 1</span>
+<span class="sd">    in the SciPy Chapter, Root finding section. We can interpret this value as an</span>
+<span class="sd">    error because it need not equal zero in general.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">error2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="n">y</span>
+
+    <span class="k">return</span> <span class="n">error2</span>
+
+
+<span class="k">def</span> <span class="nf">errfunc_SciPyRoot_examp1</span><span class="p">(</span><span class="n">xy_list</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This function takes as arguments</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">xy_list</span>
+    <span class="n">error_func1</span> <span class="o">=</span> <span class="n">f1_SciPyRoot_examp1</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+    <span class="n">error_func2</span> <span class="o">=</span> <span class="n">f2_SciPyRoot_examp1</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+    <span class="n">errors_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">error_func1</span><span class="p">,</span> <span class="n">error_func2</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">errors_list</span>
+
+
+<span class="n">init_guess_xy</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">solution</span> <span class="o">=</span> <span class="n">opt</span><span class="o">.</span><span class="n">root</span><span class="p">(</span><span class="n">errfunc_SciPyRoot_examp1</span><span class="p">,</span> <span class="n">init_guess_xy</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">solution</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The solution for (x, y) is:&quot;</span><span class="p">,</span> <span class="n">solution</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The error values for eq1 and eq2 at the solution are:&quot;</span><span class="p">,</span> <span class="n">solution</span><span class="o">.</span><span class="n">fun</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> message: The solution converged.
+ success: True
+  status: 1
+     fun: [-1.235e-13 -1.017e-13]
+       x: [ 8.463e-01  2.331e+00]
+    nfev: 10
+    fjac: [[-8.332e-01  5.529e-01]
+           [-5.529e-01 -8.332e-01]]
+       r: [ 3.416e+00  2.714e-01  1.357e+00]
+     qtf: [-1.145e-10 -3.728e-10]
+
+The solution for (x, y) is: [0.84630378 2.33101497]
+
+The error values for eq1 and eq2 at the solution are: [-1.23456800e-13 -1.01696429e-13]
+</pre></div>
+</div>
+</div>
+</div>
+<p>As we saw in <a class="reference internal" href="#figscipyroot-examp1"><span class="std std-numref">Figure 1</span></a>, the solution is <span class="math notranslate nohighlight">\((\hat{x},\hat{y})=(0.846, 2.331)\)</span> and the zero functions are solved to <span class="math notranslate nohighlight">\(1e-12\)</span> precision. <a class="reference internal" href="#ExerScipy-root-lin"><span class="std std-numref">Exercise 42</span></a> has you test the linear algebra solution to a system of linear equations to the SciPy root finder solution.</p>
+</section>
+<section id="og-core-equations-example">
+<span id="secscipyroot-examp2"></span><h4>OG-Core equations example<a class="headerlink" href="#og-core-equations-example" title="Permalink to this heading">#</a></h4>
+<p>In the <code class="docutils literal notranslate"><span class="pre">OG-Core</span></code> macroeconomic model, every age-<span class="math notranslate nohighlight">\(s\)</span> individual in the model chooses how much to consume <span class="math notranslate nohighlight">\(c_{s,t}\)</span>, save <span class="math notranslate nohighlight">\(b_{s+1,t+1}\)</span>, and work <span class="math notranslate nohighlight">\(n_{s,t}\)</span> in each period <span class="math notranslate nohighlight">\(t\)</span>.<a class="footnote-reference brackets" href="#og-core-indiv" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a> In this model, each individual’s decision problem can be reduced to choosing consumption <span class="math notranslate nohighlight">\(c_{s,t}\)</span> and labor supply <span class="math notranslate nohighlight">\(n_{s,t}\)</span> each period. In <a class="reference internal" href="#ExerScipy-root_labor"><span class="std std-numref">Exercise 43</span></a> and <a class="reference internal" href="#ExerScipy-root_save"><span class="std std-numref">Exercise 44</span></a>, you will use SciPy’s root finder to solve for optimal labor supply decisions for three different households and optimal consumption decisions over the lifetime of a household, respectively.</p>
+</section>
+</section>
+</section>
+<section id="minimization">
+<span id="secscipymin"></span><h2>Minimization<a class="headerlink" href="#minimization" title="Permalink to this heading">#</a></h2>
+<p>Minimization problems are a more general type of problem than root finding problems. Any root finding problem can be reformulated as a minimization problem. But it is not the case that any minimization problem can be reformulated as a root finding problem. Furthermore, if a minimization problem can be reformulated as a root finding problem, it is often much faster to compute the root finding problem. But the minimization problem allows for more generality and often more robustness.</p>
+<p><a class="reference internal" href="#ExerScipy-root-min"><span class="std std-numref">Exercise 46</span></a> has you compute the solution to a problem using minimization and root finding, respectively, and to compare the corresponding computation times. One of our favorite books and resources on the mathematics behind minimization problems is <span id="id5">[<a class="reference internal" href="../CompMethods_references.html#id32" title="Jeffrey Humpherys and Tyler J. Jarvis. Foundations of Applied Mathematics: Algorithms, Approximation, Optimization. Volume 2. SIAM, Society for Industrial and Applied Mathematics, 2020.">Humpherys and Jarvis, 2020</a>]</span> (section IV, pp.519-760).</p>
+</section>
+<section id="interpolation">
+<span id="secscipyinterp"></span><h2>Interpolation<a class="headerlink" href="#interpolation" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="exercises">
+<span id="secscipyexercises"></span><h2>Exercises<a class="headerlink" href="#exercises" title="Permalink to this heading">#</a></h2>
+<div class="exercise green admonition" id="ExerScipy-root-lin">
+
+<p class="admonition-title"><span class="caption-number">Exercise 42 </span> (Linear algebra vs. root finder)</p>
+<section id="exercise-content">
+<p>Define an exactly identified linear system of three equations and three unknown variables <span class="math notranslate nohighlight">\(R=R^*=3=K\)</span>.</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+  \begin{split}
+    3x_1 +  x_2 - 9x_3 &amp;= 0.0 \\
+    -4x_1 + 6x_2 + 2x_3 &amp;= 0.5 \\
+    5x_1 - 8x_2 + 7x_3 &amp;= -2.5
+  \end{split}
+\end{equation*}\]</div>
+<p>or</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+  \begin{bmatrix}
+    3 &amp; 1 &amp; -9 \\
+    -4 &amp; 6 &amp; 2 \\
+    5 &amp; -8 &amp; 7 \\
+  \end{bmatrix}
+  \begin{bmatrix}
+    x_1 \\ x_2 \\ x_3
+  \end{bmatrix} =
+  \begin{bmatrix}
+    0.0 \\ 0.5 \\ -2.5
+  \end{bmatrix}
+\end{equation*}\]</div>
+<p>Use linear algebra matrix inversion to solve for the solution <span class="math notranslate nohighlight">\(\hat{x}\equiv[\hat{x}_1,\hat{x}_2,\hat{x}_3]^T\)</span> to the equation (i.e., <span class="math notranslate nohighlight">\(\hat{x} = A^{-1}b\)</span>). Next, use <code class="docutils literal notranslate"><span class="pre">scipy.optimize.root</span></code> to solve for the same solution. Verify that both sets of answers are close to the nearest <span class="math notranslate nohighlight">\(1e-8\)</span>.</p>
+</section>
+</div>
+<div class="exercise green admonition" id="ExerScipy-root_labor">
+
+<p class="admonition-title"><span class="caption-number">Exercise 43 </span></p>
+<section id="exercise-content">
+<p>In a three-period-lived agent overlapping generations model, let <span class="math notranslate nohighlight">\(s=\{1,2,3\}\)</span> represent the age of an individual. In every period, a young agent <span class="math notranslate nohighlight">\(s=1\)</span>, a middle-aged agent <span class="math notranslate nohighlight">\(s=2\)</span>, and an old agent <span class="math notranslate nohighlight">\(s=3\)</span> exist in the economy together. The consumption-labor Euler equation for each age-<span class="math notranslate nohighlight">\(s\)</span> agent represents the optimal labor supply decision <span class="math notranslate nohighlight">\(n_s\)</span> that balances benefit of extra consumption from labor income with the disutility of working, given the consumption amount <span class="math notranslate nohighlight">\(c_s\)</span> and the current wage <span class="math notranslate nohighlight">\(w\)</span>.<a class="footnote-reference brackets" href="#evansphillips" id="id6" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a></p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+  \frac{w}{c_s} = (n_s)^\frac{1}{2}\left[1 - (n_s)^\frac{3}{2}\right]^{-\frac{1}{3}} \quad\text{for}\quad s=1,2,3
+\end{equation*}\]</div>
+<p>Let the wage be one <span class="math notranslate nohighlight">\(w=1\)</span> and let the consumption of each aged individual be <span class="math notranslate nohighlight">\([c_1,c_2,c_3]=[1.0, 2.0, 1.5]\)</span>. The system of three equations and three unknowns <span class="math notranslate nohighlight">\([n_1,n_2,n_3]\)</span> is therefore the following.</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+  \begin{split}
+    1 &amp;= (n_1)^\frac{1}{2}\left[1 - (n_1)^\frac{3}{2}\right]^{-\frac{1}{3}} \\
+    \frac{1}{2} &amp;= (n_2)^\frac{1}{2}\left[1 - (n_2)^\frac{3}{2}\right]^{-\frac{1}{3}} \\
+    \frac{1}{1.5} &amp;= (n_3)^\frac{1}{2}\left[1 - (n_3)^\frac{3}{2}\right]^{-\frac{1}{3}}
+  \end{split}
+\end{equation*}\]</div>
+<p>Use SciPy’s root finder to solve for each age agent’s optimal labor supply decision <span class="math notranslate nohighlight">\([\hat{n}_1,\hat{n}_2,\hat{n}_3]\)</span>. Each equation is independently identified in that each function <span class="math notranslate nohighlight">\(f_s(n_s)\)</span> is only a function of one variable. But solve for all three variables simultaneously.</p>
+</section>
+</div>
+<div class="exercise green admonition" id="ExerScipy-root_save">
+
+<p class="admonition-title"><span class="caption-number">Exercise 44 </span></p>
+<section id="exercise-content">
+<p>In a four-period-lived agent overlapping generations model, let <span class="math notranslate nohighlight">\(s=\{1,2,3,4\}\)</span> represent the age of an individual. Assume that labor supply over the lifetime of an individual is exogenously supplied. Let <span class="math notranslate nohighlight">\(n_s\)</span> be the amount of labor supplied by the age-<span class="math notranslate nohighlight">\(s\)</span> individual in any period <span class="math notranslate nohighlight">\(t\)</span>. Then assume the lifetime labor supply of an individual is exogenously <span class="math notranslate nohighlight">\((n_1,n_2,n_3,n_4)=(0.3, 0.5, 0.6, 0.2)\)</span>. The consumption-savings Euler equation for each of the youngest three age-<span class="math notranslate nohighlight">\(s\)</span> agents represents the optimal savings decision <span class="math notranslate nohighlight">\(b_{s+1,t+1}\)</span> that balances benefit of consumption in the current period <span class="math notranslate nohighlight">\(c_t\)</span> with discounted consumption in the next period <span class="math notranslate nohighlight">\(c_{t+1}\)</span>, given preference parameter values and exogenous labor supply <span class="math notranslate nohighlight">\(n_s\)</span>. The oldest agent <span class="math notranslate nohighlight">\(s=4\)</span> has no savings decision because they die at the end of the period.</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+  \begin{split}
+    &amp;(c_{s,t})^{-1.5} = \beta\left(1 + r_{t+1}\right)(c_{s+1,t+1})^{-1.5} \quad\text{for}\quad s=1,2,3 \\
+    \text{where}\quad &amp;c_{s,t} = w_t n_s + (1 + r_t)b_{s,t} - b_{s+1,t+1} \quad\text{and}\quad b_{1,t}, b_{5,t}=0
+  \end{split}
+\end{equation*}\]</div>
+<p>If we plug the budget constraint from the second line of the equation above into each of the Euler equations in the first line, and assume <span class="math notranslate nohighlight">\(\beta = 0.8\)</span>, constant wages <span class="math notranslate nohighlight">\(w_t=1\)</span> for all <span class="math notranslate nohighlight">\(t\)</span>, constant interest rates <span class="math notranslate nohighlight">\(r_t=0.1\)</span> for all <span class="math notranslate nohighlight">\(t\)</span>, and exogenous labor supply over the lifetime is <span class="math notranslate nohighlight">\((n_1,n_2,n_3,n_4)=(0.3, 0.5, 0.6, 0.2)\)</span>, we get a system of three Euler equations in three unknown optimal savings amounts <span class="math notranslate nohighlight">\((b_{2,t+1}, b_{3,t+2}, b_{4,t+3})\)</span> over the lifetime of the individual.</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+  \begin{split}
+    \left[n_1 - b_{2,t+1}\right]^{-1.5} &amp;= 0.8(1.1)\left[n_2 + 1.1b_{2,t+1} - b_{3,t+2}\right]^{-1.5} \\
+    \left[n_2 + 1.1b_{2,t+1} - b_{3,t+2}\right]^{-1.5} &amp;= 0.8(1.1)\left[n_3 + 1.1b_{3,t+2} - b_{4,t+3}\right]^{-1.5} \\
+    \left[n_3 + 1.1b_{3,t+2} - b_{4,t+3}\right]^{-1.5} &amp;= 0.8(1.1)\left[n_4 + 1.1b_{4,t+3}\right]^{-1.5}
+  \end{split}
+\end{equation*}\]</div>
+<p>Use SciPy’s root finder to solve for the three optimal lifetime savings amounts <span class="math notranslate nohighlight">\((\hat{b}_{2,t+1},\hat{b}_{3,t+2},\hat{b}_{4,t+3})\)</span>. Plug those values back into the budget constraint <span class="math notranslate nohighlight">\(c_{s,t}= w_t n_s + (1 + r_t)b_{s,t} - b_{s+1,t+1}\)</span> given <span class="math notranslate nohighlight">\(b_{1,t}, b_{5,t}=0\)</span> to solve for optimal consumption values <span class="math notranslate nohighlight">\((\hat{c}_{1,t},\hat{c}_{2,t+1},\hat{c}_{3,t+2}, \hat{c}_{4,t+3})\)</span>.</p>
+</section>
+</div>
+<div class="exercise green admonition" id="ExerScipy-BM72_ss">
+
+<p class="admonition-title"><span class="caption-number">Exercise 45 </span></p>
+<section id="exercise-content">
+<p><span id="id7">[<a class="reference internal" href="../CompMethods_references.html#id6" title="William A. Brock and Leonard J. Mirman. Optimal economic growth and uncertainty: the discounted case. Journal of Economic Theory, 4(3):479-513, June 1972.">Brock and Mirman, 1972</a>]</span> is a simple two-period-lived overlapping generations model, the stochastic equilibrium of which is characterized by six dynamic equations (equations in which the variables are changing over time). The deterministic steady-state of the model is characterized by the variables reaching constant values that do not change over time. The deterministic steady state of the <span id="id8">[<a class="reference internal" href="../CompMethods_references.html#id6" title="William A. Brock and Leonard J. Mirman. Optimal economic growth and uncertainty: the discounted case. Journal of Economic Theory, 4(3):479-513, June 1972.">Brock and Mirman, 1972</a>]</span> is characterized by the following five equations and five unknown variables <span class="math notranslate nohighlight">\((c, k, y, w, r)\)</span>,</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+  \begin{split}
+    \frac{1}{c} &amp;= \beta\frac{r}{c} \\
+    c &amp;= (1+r)k + w \\
+    w &amp;= (1-\alpha)k^\alpha \\
+    r &amp;= \alpha k^{\alpha-1} \\
+    y &amp;= k^\alpha
+  \end{split}
+\end{equation*}\]</div>
+<p>where <span class="math notranslate nohighlight">\(c\)</span> is consumption, <span class="math notranslate nohighlight">\(k\)</span> is capital investment/savings, <span class="math notranslate nohighlight">\(y\)</span> is GDP, <span class="math notranslate nohighlight">\(w\)</span> is the wage, and <span class="math notranslate nohighlight">\(r\)</span> is the interest rate. Assume <span class="math notranslate nohighlight">\(\beta=0.7\)</span> and <span class="math notranslate nohighlight">\(\alpha=0.35\)</span>. Solve for the steady-state variables <span class="math notranslate nohighlight">\((c, k, y, w, r)\)</span> using the above five equations and SciPy’s root finder.</p>
+</section>
+</div>
+<div class="exercise green admonition" id="ExerScipy-root-min">
+
+<p class="admonition-title"><span class="caption-number">Exercise 46 </span> (Root finder vs. minimizer)</p>
+<section id="exercise-content">
+<p>Characterize a minimization problem that can also be solved using a root finder. Write code to solve the problem both ways. Record the respective computation times of both solution methods. How does the minimization method computation time compare to the root finder computation time?</p>
+</section>
+</div>
+<div class="exercise green admonition" id="ExerScipy-min_constraint">
+
+<p class="admonition-title"><span class="caption-number">Exercise 47 </span></p>
+<section id="exercise-content">
+<p>Use <code class="docutils literal notranslate"><span class="pre">scipy.optimize.minimize</span></code> to minimize the function <span class="math notranslate nohighlight">\(f(x,y)=x^2y\)</span> on the unit circle, i.e., subject to <span class="math notranslate nohighlight">\(x^2 + y^2 = 1\)</span>.  Use the <code class="docutils literal notranslate"><span class="pre">constraints</span></code> keyword argument to specify the constraint.  What is the minimum value of <span class="math notranslate nohighlight">\(f(x,y)\)</span> subject to this constraint?  Can you confirm this by doing the problem by hand using calculus?</p>
+</section>
+</div>
+<div class="exercise green admonition" id="ExerScipy-interp">
+
+<p class="admonition-title"><span class="caption-number">Exercise 48 </span></p>
+<section id="exercise-content">
+<p>Consider the following <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> vectors, which represent some functional relationship, <code class="docutils literal notranslate"><span class="pre">y=f(x)</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+  <span class="mf">5.15151515</span><span class="p">,</span>   <span class="mf">3.13131313</span><span class="p">,</span>  <span class="o">-</span><span class="mf">6.36363636</span><span class="p">,</span>   <span class="mf">9.39393939</span><span class="p">,</span>
+  <span class="o">-</span><span class="mf">1.31313131</span><span class="p">,</span>   <span class="mf">0.50505051</span><span class="p">,</span>  <span class="o">-</span><span class="mf">0.50505051</span><span class="p">,</span>  <span class="o">-</span><span class="mf">2.12121212</span><span class="p">,</span>
+  <span class="o">-</span><span class="mf">7.37373737</span><span class="p">,</span>  <span class="o">-</span><span class="mf">0.1010101</span> <span class="p">,</span>   <span class="mf">3.73737374</span><span class="p">,</span>   <span class="mf">2.52525253</span><span class="p">,</span>
+  <span class="mf">2.12121212</span><span class="p">,</span> <span class="o">-</span><span class="mf">10.</span>        <span class="p">,</span>  <span class="o">-</span><span class="mf">9.5959596</span> <span class="p">,</span>   <span class="mf">6.36363636</span><span class="p">,</span>
+  <span class="mf">3.53535354</span><span class="p">,</span>  <span class="o">-</span><span class="mf">5.75757576</span><span class="p">,</span>  <span class="o">-</span><span class="mf">4.34343434</span><span class="p">,</span>  <span class="o">-</span><span class="mf">8.18181818</span><span class="p">,</span>
+  <span class="mf">8.18181818</span><span class="p">,</span>  <span class="o">-</span><span class="mf">3.13131313</span><span class="p">,</span>   <span class="mf">2.92929293</span><span class="p">,</span>   <span class="mf">4.74747475</span><span class="p">,</span>
+  <span class="o">-</span><span class="mf">6.56565657</span><span class="p">,</span>  <span class="o">-</span><span class="mf">0.3030303</span> <span class="p">,</span>  <span class="o">-</span><span class="mf">2.32323232</span><span class="p">,</span>   <span class="mf">1.11111111</span><span class="p">,</span>
+  <span class="o">-</span><span class="mf">7.17171717</span><span class="p">,</span>  <span class="o">-</span><span class="mf">5.55555556</span><span class="p">,</span>  <span class="o">-</span><span class="mf">3.73737374</span><span class="p">,</span>  <span class="o">-</span><span class="mf">4.14141414</span><span class="p">,</span>
+  <span class="mf">8.38383838</span><span class="p">,</span>   <span class="mf">4.94949495</span><span class="p">,</span>   <span class="mf">0.70707071</span><span class="p">,</span>  <span class="o">-</span><span class="mf">3.33333333</span><span class="p">,</span>
+  <span class="mf">6.96969697</span><span class="p">,</span>  <span class="o">-</span><span class="mf">2.72727273</span><span class="p">,</span>   <span class="mf">5.55555556</span><span class="p">,</span>  <span class="o">-</span><span class="mf">7.77777778</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+  <span class="o">-</span><span class="mf">0.90512352</span><span class="p">,</span>  <span class="mf">0.01027934</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.0803643</span> <span class="p">,</span>  <span class="mf">0.03083368</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.96698762</span><span class="p">,</span>
+  <span class="mf">0.48385164</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.48385164</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.85230712</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.8868821</span> <span class="p">,</span> <span class="o">-</span><span class="mf">0.10083842</span><span class="p">,</span>
+  <span class="o">-</span><span class="mf">0.56115544</span><span class="p">,</span>  <span class="mf">0.57805259</span><span class="p">,</span>  <span class="mf">0.85230712</span><span class="p">,</span>  <span class="mf">0.54402111</span><span class="p">,</span>  <span class="mf">0.17034683</span><span class="p">,</span>
+  <span class="mf">0.0803643</span> <span class="p">,</span> <span class="o">-</span><span class="mf">0.38366419</span><span class="p">,</span>  <span class="mf">0.50174037</span><span class="p">,</span>  <span class="mf">0.93270486</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.94674118</span><span class="p">,</span>
+  <span class="mf">0.94674118</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.01027934</span><span class="p">,</span>  <span class="mf">0.21070855</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.99938456</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.27872982</span><span class="p">,</span>
+  <span class="o">-</span><span class="mf">0.2984138</span> <span class="p">,</span> <span class="o">-</span><span class="mf">0.73002623</span><span class="p">,</span>  <span class="mf">0.8961922</span> <span class="p">,</span> <span class="o">-</span><span class="mf">0.77614685</span><span class="p">,</span>  <span class="mf">0.66510151</span><span class="p">,</span>
+  <span class="mf">0.56115544</span><span class="p">,</span>  <span class="mf">0.84137452</span><span class="p">,</span>  <span class="mf">0.86287948</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.97202182</span><span class="p">,</span>  <span class="mf">0.64960951</span><span class="p">,</span>
+  <span class="mf">0.19056796</span><span class="p">,</span>  <span class="mf">0.63384295</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.40256749</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.66510151</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.99709789</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>Create a scatter plot of <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> to see their relationship.  Is it hard to tell what this function looks like?</p>
+<p>Now use <code class="docutils literal notranslate"><span class="pre">scipy.interpolate.interp1d</span></code> to interpolate the function <span class="math notranslate nohighlight">\(f(x)\)</span> using <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code>.  Use the keyword argument <code class="docutils literal notranslate"><span class="pre">kind='cubic'</span></code> to specify that you want to use cubic splines to interpolate the function and <code class="docutils literal notranslate"><span class="pre">fill_value=extrapolate</span></code> to note that you want to extrapolate beyond the values in the original <code class="docutils literal notranslate"><span class="pre">x</span></code> vector.</p>
+<p>Create a plot of this interpolated function over the domain <span class="math notranslate nohighlight">\(x \in [-10, 10]\)</span>.  Can you now see what this function is?</p>
+</section>
+</div>
+</section>
+<section id="footnotes">
+<span id="secscipyfootnotes"></span><h2>Footnotes<a class="headerlink" href="#footnotes" title="Permalink to this heading">#</a></h2>
+<p>The footnotes from this chapter.</p>
+<hr class="footnotes docutils" />
+<aside class="footnote brackets" id="scipy" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p>The website for Python’s SciPy package is <a class="reference external" href="https://scipy.org">https://scipy.org</a>.</p>
+</aside>
+<aside class="footnote brackets" id="scipyjuddmethods" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
+<p>See <span id="id9">[<a class="reference internal" href="../CompMethods_references.html#id33" title="Kenneth L. Judd. Numerical Methods in Economics. MIT Press, 1998.">Judd, 1998</a>]</span> (Chap. 5) for a discussion of solution methods to nonlinear equations.</p>
+</aside>
+<aside class="footnote brackets" id="og-core-indiv" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">3</a><span class="fn-bracket">]</span></span>
+<p>See <code class="docutils literal notranslate"><span class="pre">OG-Core</span></code> model documentation theory chapter “<a class="reference external" href="https://pslmodels.github.io/OG-Core/content/theory/households.html">Households</a>”.</p>
+</aside>
+<aside class="footnote brackets" id="evansphillips" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id6">4</a><span class="fn-bracket">]</span></span>
+<p>This Euler equation corresponds to a simple model in which the coefficient of relative risk aversion is unity <span class="math notranslate nohighlight">\(\sigma=1\)</span> in a CRRA utility function and the disutility of labor supply is characterized by the functional form proposed in <span id="id10">[<a class="reference internal" href="../CompMethods_references.html#id25" title="Richard W. Evans and Kerk L. Phillips. Advantages of an ellipse when modeling leisure utility. Computational Economics, 51(3):513-533, March 2017.">Evans and Phillips, 2017</a>]</span>, with <span class="math notranslate nohighlight">\(b=1\)</span>, <span class="math notranslate nohighlight">\(\nu=1.5\)</span>, and maximum labor supply <span class="math notranslate nohighlight">\(l=1\)</span>.</p>
+</aside>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -512,10 +939,20 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">SciPy</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">Exercises</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#root-finding">Root finding</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#root-finding-theory">Root finding theory</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#root-finding-examples">Root finding examples</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#simple-numerical-example">Simple numerical example</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#og-core-equations-example">OG-Core equations example</a></li>
 </ul>
-
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#minimization">Minimization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interpolation">Interpolation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">Exercises</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">Footnotes</a></li>
+</ul>
   </nav></div>
 
 </div></div>
@@ -562,8 +999,8 @@ By Richard W. Evans
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=c5ced968eda925caa686"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686"></script>
 
   <footer class="bd-footer">
   </footer>

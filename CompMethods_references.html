@@ -19,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=c5ced968eda925caa686" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=c5ced968eda925caa686" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=c5ced968eda925caa686" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=c5ced968eda925caa686" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -41,9 +41,9 @@
     <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
-  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=c5ced968eda925caa686" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=c5ced968eda925caa686"></script>
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
@@ -150,13 +150,14 @@ const thebe_selector_output = ".output, .cell_output"
   
   
   
+  
     
     
       
     
     
-    <img src="_static/CompMethodsLogo.png" class="logo__image only-light" alt="Logo image"/>
-    <script>document.write(`<img src="_static/CompMethodsLogo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+    <img src="_static/CompMethodsLogo.png" class="logo__image only-light" alt="Computational Methods for Economists using Python - Home"/>
+    <script>document.write(`<img src="_static/CompMethodsLogo.png" class="logo__image only-dark" alt="Computational Methods for Economists using Python - Home"/>`);</script>
   
   
 </a></div>
@@ -178,20 +179,14 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="python/intro.html">Introduction to Python</a></li>
 <li class="toctree-l1"><a class="reference internal" href="python/StandardLibrary.html">Python Standard Library</a></li>
-
+<li class="toctree-l1"><a class="reference internal" href="python/ExceptionsIO.html">Exception Handling and File Input/Output</a></li>
 <li class="toctree-l1"><a class="reference internal" href="python/OOP.html">Object Oriented Programming</a></li>
-
 <li class="toctree-l1"><a class="reference internal" href="python/NumPy.html">NumPy</a></li>
-
 <li class="toctree-l1"><a class="reference internal" href="python/Pandas.html">Pandas</a></li>
-
 <li class="toctree-l1"><a class="reference internal" href="python/Matplotlib.html">Matplotlib</a></li>
-
-<li class="toctree-l1"><a class="reference internal" href="python/SciPy.html">SciPy</a></li>
-
+<li class="toctree-l1"><a class="reference internal" href="python/SciPy.html">SciPy: Root finding, minimizing, interpolation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="python/DocStrings.html">Docstrings and Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="python/UnitTesting.html">Unit Testing</a></li>
-
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Git and GitHub</span></p>
 <ul class="nav bd-sidenav">
@@ -422,10 +417,6 @@ document.write(`
   <section class="tex2jax_ignore mathjax_ignore" id="references">
 <h1>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h1>
 <div class="docutils container" id="id1">
-<div class="citation" id="id7" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span>ACM21<span class="fn-bracket">]</span></span>
-<p>BYU ACME. Introduction to python. Open access lab, Brigham Young University Applied and Computational Mathematics Emphasis, 2021. URL: <a class="reference external" href="https://acme.byu.edu/00000181-448a-d778-a18f-dfcae22f0001/intro-to-python">https://acme.byu.edu/00000181-448a-d778-a18f-dfcae22f0001/intro-to-python</a>.</p>
-</div>
 <div class="citation" id="id2" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>AC03<span class="fn-bracket">]</span></span>
 <p>Jérôme Adda and Russell Cooper. <em>Dynamic Economics: Quantitative Methods and Applications</em>. MIT Press, 2003.</p>
@@ -446,61 +437,165 @@ document.write(`
 <span class="label"><span class="fn-bracket">[</span>BM72<span class="fn-bracket">]</span></span>
 <p>William A. Brock and Leonard J. Mirman. Optimal economic growth and uncertainty: the discounted case. <em>Journal of Economic Theory</em>, 4(3):479–513, June 1972.</p>
 </div>
-<div class="citation" id="id8" role="doc-biblioentry">
+<div class="citation" id="id20" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>DM04<span class="fn-bracket">]</span></span>
 <p>Russell Davidson and James G. MacKinnon. <em>Econometric Theory and Methods</em>. Oxford University Press, 2004.</p>
 </div>
-<div class="citation" id="id9" role="doc-biblioentry">
+<div class="citation" id="id21" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>DS93<span class="fn-bracket">]</span></span>
 <p>Darrell Duffie and Kenneth J. Singleton. Simulated moment estimation of markov models of asset prices. <em>Econometrica</em>, 61(4):929–952, July 1993.</p>
 </div>
-<div class="citation" id="id15" role="doc-biblioentry">
+<div class="citation" id="id25" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>EP17<span class="fn-bracket">]</span></span>
+<p>Richard W. Evans and Kerk L. Phillips. Advantages of an ellipse when modeling leisure utility. <em>Computational Economics</em>, 51(3):513–533, March 2017.</p>
+</div>
+<div class="citation" id="id26" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>Fri21<span class="fn-bracket">]</span></span>
+<p>Lex Fridman. Travis oliphant: numpy, scipy, anaconda, python and scientific programming. Podcast #224, Lex Fridman Podcast, September 22 2021. URL: <a class="reference external" href="https://youtu.be/gFEE3w7F0ww?si=XKcRlcw7FXkA9oxB">https://youtu.be/gFEE3w7F0ww?si=XKcRlcw7FXkA9oxB</a>.</p>
+</div>
+<div class="citation" id="id27" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>Git22<span class="fn-bracket">]</span></span>
+<p>GitHub. Octoverse 2022: the state of open source software. Report, GitHub, Inc., November 17 2022. URL: <a class="reference external" href="https://octoverse.github.com/">https://octoverse.github.com/</a>.</p>
+</div>
+<div class="citation" id="id30" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>GvanRossum01<span class="fn-bracket">]</span></span>
+<p>David Goodger and Guido van Rossum. Pep 257–Docstring conventions. Python Enhancement Proposal 257, Python Steering Council, May 29 2001. URL: <a class="reference external" href="https://peps.python.org/pep-0257">https://peps.python.org/pep-0257</a>.</p>
+</div>
+<div class="citation" id="id31" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>GM96<span class="fn-bracket">]</span></span>
 <p>Christian Gourieroux and Alain Monfort. <em>Simulation-based Econometric Methods</em>. Oxford University Press, 1996.</p>
 </div>
-<div class="citation" id="id16" role="doc-biblioentry">
+<div class="citation" id="id32" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>HJ20<span class="fn-bracket">]</span></span>
+<p>Jeffrey Humpherys and Tyler J. Jarvis. <em>Foundations of Applied Mathematics: Algorithms, Approximation, Optimization</em>. Volume 2. SIAM, Society for Industrial and Applied Mathematics, 2020.</p>
+</div>
+<div class="citation" id="id33" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>Jud98<span class="fn-bracket">]</span></span>
+<p>Kenneth L. Judd. <em>Numerical Methods in Economics</em>. MIT Press, 1998.</p>
+</div>
+<div class="citation" id="id34" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>Kea10<span class="fn-bracket">]</span></span>
 <p>Michael P. Keane. Structural vs. atheoretic approaches to econometrics. <em>Journal of Econometrics</em>, 156(1):3–20, May 2010.</p>
 </div>
-<div class="citation" id="id17" role="doc-biblioentry">
+<div class="citation" id="id35" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>LSalanie93<span class="fn-bracket">]</span></span>
 <p>G. Laroque and B. Salanié. Simulation based estimation models with lagged latent variables. <em>Journal of Applied Econometrics</em>, 8(Supplement):119–133, December 1993.</p>
 </div>
-<div class="citation" id="id18" role="doc-biblioentry">
+<div class="citation" id="id36" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>LI91<span class="fn-bracket">]</span></span>
 <p>Bong-Soo Lee and Beth Fisher Ingram. Simulation estimation of time series models. <em>Journal of Econometrics</em>, 47(2-3):197–205, February 1991.</p>
 </div>
-<div class="citation" id="id19" role="doc-biblioentry">
+<div class="citation" id="id37" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>McF89<span class="fn-bracket">]</span></span>
 <p>Daniel McFadden. A method of simulated moments for estimation of discrete response models without numerical integration. <em>Econometrica</em>, 57(5):995–1026, September 1989.</p>
 </div>
-<div class="citation" id="id20" role="doc-biblioentry">
+<div class="citation" id="id38" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>Mer23<span class="fn-bracket">]</span></span>
+<p>James Mertz. Documenting python code: a complete guide. Tutorial, RealPython, 2023. [Online; accessed 08-October-2023]. URL: <a class="reference external" href="https://realpython.com/documenting-python-code/">https://realpython.com/documenting-python-code/</a>.</p>
+</div>
+<div class="citation" id="id39" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>NW87<span class="fn-bracket">]</span></span>
 <p>Whitney K. Newey and Kenneth D. West. A simple, positive, semi-definite, heteroskedasticy and autocorrelation consistent covariance matrix. <em>Econometrica</em>, 55(3):703–708, May 1987.</p>
 </div>
-<div class="citation" id="id21" role="doc-biblioentry">
+<div class="citation" id="id42" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>Rus87<span class="fn-bracket">]</span></span>
 <p>John Rust. Optimal replacement of gmc bus engines: an empirical model of harold zurcher. <em>Econometrica</em>, 55(5):999–1033, September 1987. URL: <a class="reference external" href="https://www.jstor.org/stable/1911259">https://www.jstor.org/stable/1911259</a>.</p>
 </div>
-<div class="citation" id="id22" role="doc-biblioentry">
+<div class="citation" id="id43" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>Rus10<span class="fn-bracket">]</span></span>
 <p>John Rust. Comments on: `structural vs. atheoretic approaches to econometrics'. <em>Journal of Econometrics</em>, 156(1):21–24, May 2010.</p>
 </div>
-<div class="citation" id="id23" role="doc-biblioentry">
+<div class="citation" id="id44" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>Smi20<span class="fn-bracket">]</span></span>
 <p>Anthony A. Jr. Smith. Indirect inference. In Matias Vernengo, Esteban Perez Caldentey, and Barkley J. Rosser Jr., editors, <em>New Palgrave Dictionary of Economics</em>. Palgrave MacMillan, 2020. URL: <a class="reference external" href="http://www.econ.yale.edu/smith/palgrave7.pdf">http://www.econ.yale.edu/smith/palgrave7.pdf</a>.</p>
 </div>
-<div class="citation" id="id24" role="doc-biblioentry">
+<div class="citation" id="id45" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>Sta23<span class="fn-bracket">]</span></span>
+<p>Stackscale. Most popular programming languages in 2023. Report, Stackscale Grupo Aire, September 13 2023. URL: <a class="reference external" href="https://www.stackscale.com/blog/most-popular-programming-languages/#Top_10_programming_languages_in_2023">https://www.stackscale.com/blog/most-popular-programming-languages/#Top_10_programming_languages_in_2023</a>.</p>
+</div>
+<div class="citation" id="id46" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>SW20<span class="fn-bracket">]</span></span>
 <p>Ludwig Straub and Iván Werning. Positive long-run capital taxation: chamley-judd revisited. <em>American Economic Review</em>, 110(1):86–119, January 2020. URL: <a class="reference external" href="https://pubs.aeaweb.org/doi/pdfplus/10.1257/aer.20150210">https://pubs.aeaweb.org/doi/pdfplus/10.1257/aer.20150210</a>.</p>
 </div>
+<div class="citation" id="id48" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>Wal20<span class="fn-bracket">]</span></span>
+<p>Jack Wallen. Github to replace master with main starting in october: what developers need to do now. Technical Report, TechRepublic, September 22 2020. URL: <a class="reference external" href="https://www.techrepublic.com/article/github-to-replace-master-with-main-starting-in-october-what-developers-need-to-know/">https://www.techrepublic.com/article/github-to-replace-master-with-main-starting-in-october-what-developers-need-to-know/</a>.</p>
+</div>
+<div class="citation" id="id12" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>BYUACME23a<span class="fn-bracket">]</span></span>
+<p>BYU ACME. Advanced numpy. In <em>BYU ACME 2023-2024 Incoming Senior Materials</em>, chapter 1. 2023. URL: <a class="reference external" href="https://acme.byu.edu/2023-2024-materials">https://acme.byu.edu/2023-2024-materials</a>.</p>
+</div>
+<div class="citation" id="id10" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>BYUACME23b<span class="fn-bracket">]</span></span>
+<p>BYU ACME. Animations and 3d plotting in matplotlib. In <em>BYU ACME 2023-2024 Incoming Senior Materials</em>, chapter 5. 2023. URL: <a class="reference external" href="https://acme.byu.edu/2023-2024-materials">https://acme.byu.edu/2023-2024-materials</a>.</p>
+</div>
+<div class="citation" id="id7" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>BYUACME23c<span class="fn-bracket">]</span></span>
+<p>BYU ACME. Exceptions and file input/output. In <em>BYU ACME 2023-2024 Incoming Junior Materials</em>, chapter 7. 2023. URL: <a class="reference external" href="https://acme.byu.edu/2023-2024-materials">https://acme.byu.edu/2023-2024-materials</a>.</p>
+</div>
+<div class="citation" id="id8" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>BYUACME23d<span class="fn-bracket">]</span></span>
+<p>BYU ACME. Introduction to matplotlib. In <em>BYU ACME 2023-2024 Incoming Junior Materials</em>, chapter 6. 2023. URL: <a class="reference external" href="https://acme.byu.edu/2023-2024-materials">https://acme.byu.edu/2023-2024-materials</a>.</p>
+</div>
+<div class="citation" id="id11" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>BYUACME23e<span class="fn-bracket">]</span></span>
+<p>BYU ACME. Introduction to numpy. In <em>BYU ACME 2023-2024 Incoming Junior Materials</em>, chapter 4. 2023. URL: <a class="reference external" href="https://acme.byu.edu/2023-2024-materials">https://acme.byu.edu/2023-2024-materials</a>.</p>
+</div>
+<div class="citation" id="id16" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>BYUACME23f<span class="fn-bracket">]</span></span>
+<p>BYU ACME. Introduction to python. In <em>BYU ACME 2023-2024 Incoming Junior Materials</em>, chapter 2. 2023. URL: <a class="reference external" href="https://acme.byu.edu/2023-2024-materials">https://acme.byu.edu/2023-2024-materials</a>.</p>
+</div>
 <div class="citation" id="id13" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>BYUACME23g<span class="fn-bracket">]</span></span>
+<p>BYU ACME. Object-oriented programming. In <em>BYU ACME 2023-2024 Incoming Junior Materials</em>, chapter 5. 2023. URL: <a class="reference external" href="https://acme.byu.edu/2023-2024-materials">https://acme.byu.edu/2023-2024-materials</a>.</p>
+</div>
+<div class="citation" id="id14" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>BYUACME23h<span class="fn-bracket">]</span></span>
+<p>BYU ACME. Pandas 1: introduction. In <em>BYU ACME 2023-2024 Incoming Senior Materials</em>, chapter 2. 2023. URL: <a class="reference external" href="https://acme.byu.edu/2023-2024-materials">https://acme.byu.edu/2023-2024-materials</a>.</p>
+</div>
+<div class="citation" id="id9" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>BYUACME23i<span class="fn-bracket">]</span></span>
+<p>BYU ACME. Pandas 2: plotting. In <em>BYU ACME 2023-2024 Incoming Senior Materials</em>, chapter 3. 2023. URL: <a class="reference external" href="https://acme.byu.edu/2023-2024-materials">https://acme.byu.edu/2023-2024-materials</a>.</p>
+</div>
+<div class="citation" id="id15" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>BYUACME23j<span class="fn-bracket">]</span></span>
+<p>BYU ACME. Pandas 3: grouping. In <em>BYU ACME 2023-2024 Incoming Senior Materials</em>, chapter 4. 2023. URL: <a class="reference external" href="https://acme.byu.edu/2023-2024-materials">https://acme.byu.edu/2023-2024-materials</a>.</p>
+</div>
+<div class="citation" id="id17" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>BYUACME23k<span class="fn-bracket">]</span></span>
+<p>BYU ACME. Standard library. In <em>BYU ACME 2023-2024 Incoming Junior Materials</em>, chapter 3. 2023. URL: <a class="reference external" href="https://acme.byu.edu/2023-2024-materials">https://acme.byu.edu/2023-2024-materials</a>.</p>
+</div>
+<div class="citation" id="id18" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>BYUACME23l<span class="fn-bracket">]</span></span>
+<p>BYU ACME. Unit testing. In <em>BYU ACME 2023-2024 Incoming Junior Materials</em>, chapter 8. 2023. URL: <a class="reference external" href="https://acme.byu.edu/2023-2024-materials">https://acme.byu.edu/2023-2024-materials</a>.</p>
+</div>
+<div class="citation" id="id19" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>BYUACME23m<span class="fn-bracket">]</span></span>
+<p>BYU ACME. Unix shell 1: introduction. In <em>BYU ACME 2023-2024 Incoming Junior Materials</em>, chapter 1. 2023. URL: <a class="reference external" href="https://acme.byu.edu/2023-2024-materials">https://acme.byu.edu/2023-2024-materials</a>.</p>
+</div>
+<div class="citation" id="id47" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>vanRossumWC01<span class="fn-bracket">]</span></span>
+<p>Guido van Rossum, Barry Warsaw, and Nick Coghlan. Pep 8–Style guide for python code. Python Enhancement Proposal 8, Python Steering Council, July 5 2001. URL: <a class="reference external" href="https://peps.python.org/pep-0008">https://peps.python.org/pep-0008</a>.</p>
+</div>
+<div class="citation" id="id28" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>WikipediaContributors20a<span class="fn-bracket">]</span></span>
 <p>Wikipedia Contributors. &quot;Git&quot;. <em>Wikipedia, The Free Encyclopedia</em>, 2020. [Online; accessed 19-August-2020]. URL: <a class="reference external" href="https://en.wikipedia.org/wiki/Git">https://en.wikipedia.org/wiki/Git</a>.</p>
 </div>
-<div class="citation" id="id14" role="doc-biblioentry">
+<div class="citation" id="id29" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>WikipediaContributors20b<span class="fn-bracket">]</span></span>
 <p>Wikipedia Contributors. &quot;Integrated development environment&quot;. <em>Wikipedia, The Free Encyclopedia</em>, 2020. [Online; accessed 3-August-2020]. URL: <a class="reference external" href="https://en.wikipedia.org/wiki/Integrated_development_environment">https://en.wikipedia.org/wiki/Integrated_development_environment</a>.</p>
+</div>
+<div class="citation" id="id49" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>WikipediaContributors23a<span class="fn-bracket">]</span></span>
+<p>Wikipedia Contributors. &quot;Taxonomic rank&quot;. <em>Wikipedia, The Free Encyclopedia</em>, 2023. [Online; accessed 04-October-2023]. URL: <a class="reference external" href="https://en.wikipedia.org/wiki/Taxonomic_rank">https://en.wikipedia.org/wiki/Taxonomic_rank</a>.</p>
+</div>
+<div class="citation" id="id40" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>WikipediaContributors23b<span class="fn-bracket">]</span></span>
+<p>Wikipedia Contributors. &quot;Travis Oliphant&quot;. <em>Wikipedia, The Free Encyclopedia</em>, 2023. [Online; accessed 5-October-2023]. URL: <a class="reference external" href="https://en.wikipedia.org/wiki/Travis_Oliphant">https://en.wikipedia.org/wiki/Travis_Oliphant</a>.</p>
+</div>
+<div class="citation" id="id41" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>WikipediaContributors23c<span class="fn-bracket">]</span></span>
+<p>Wikipedia Contributors. &quot;pandas (software)&quot;. <em>Wikipedia, The Free Encyclopedia</em>, 2023. [Online; accessed 5-October-2023]. URL: <a class="reference external" href="https://en.wikipedia.org/wiki/Pandas_(software)">https://en.wikipedia.org/wiki/Pandas_(software)</a>.</p>
 </div>
 </div>
 </div>
@@ -594,8 +689,8 @@ By Richard W. Evans
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+  <script src="_static/scripts/bootstrap.js?digest=c5ced968eda925caa686"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686"></script>
 
   <footer class="bd-footer">
   </footer>

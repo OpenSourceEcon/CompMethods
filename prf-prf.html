@@ -18,12 +18,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=c5ced968eda925caa686" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=c5ced968eda925caa686" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=c5ced968eda925caa686" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=c5ced968eda925caa686" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -40,9 +40,9 @@
     <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
-  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=c5ced968eda925caa686" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=c5ced968eda925caa686"></script>
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
@@ -155,13 +155,14 @@ const thebe_selector_output = ".output, .cell_output"
   
   
   
+  
     
     
       
     
     
-    <img src="_static/CompMethodsLogo.png" class="logo__image only-light" alt="Logo image"/>
-    <script>document.write(`<img src="_static/CompMethodsLogo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+    <img src="_static/CompMethodsLogo.png" class="logo__image only-light" alt="Computational Methods for Economists using Python - Home"/>
+    <script>document.write(`<img src="_static/CompMethodsLogo.png" class="logo__image only-dark" alt="Computational Methods for Economists using Python - Home"/>`);</script>
   
   
 </a></div>
@@ -183,20 +184,14 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="python/intro.html">Introduction to Python</a></li>
 <li class="toctree-l1"><a class="reference internal" href="python/StandardLibrary.html">Python Standard Library</a></li>
-
+<li class="toctree-l1"><a class="reference internal" href="python/ExceptionsIO.html">Exception Handling and File Input/Output</a></li>
 <li class="toctree-l1"><a class="reference internal" href="python/OOP.html">Object Oriented Programming</a></li>
-
 <li class="toctree-l1"><a class="reference internal" href="python/NumPy.html">NumPy</a></li>
-
 <li class="toctree-l1"><a class="reference internal" href="python/Pandas.html">Pandas</a></li>
-
 <li class="toctree-l1"><a class="reference internal" href="python/Matplotlib.html">Matplotlib</a></li>
-
-<li class="toctree-l1"><a class="reference internal" href="python/SciPy.html">SciPy</a></li>
-
+<li class="toctree-l1"><a class="reference internal" href="python/SciPy.html">SciPy: Root finding, minimizing, interpolation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="python/DocStrings.html">Docstrings and Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="python/UnitTesting.html">Unit Testing</a></li>
-
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Git and GitHub</span></p>
 <ul class="nav bd-sidenav">
@@ -380,6 +375,11 @@ document.write(`
    <h1>Proof Index</h1>
 
    <div class="modindex-jumpbox">
+   <a href="#cap-DefGit"><strong>DefGit</strong></a> | 
+   <a href="#cap-DefGitHub"><strong>DefGitHub</strong></a> | 
+   <a href="#cap-DefRepository"><strong>DefRepository</strong></a> | 
+   <a href="#cap-DefSciPy_Identif"><strong>DefSciPy_Identif</strong></a> | 
+   <a href="#cap-DefSciPy_SysRank"><strong>DefSciPy_SysRank</strong></a> | 
    <a href="#cap-DefStructEst_Calib"><strong>DefStructEst_Calib</strong></a> | 
    <a href="#cap-DefStructEst_DGP"><strong>DefStructEst_DGP</strong></a> | 
    <a href="#cap-DefStructEst_EndogVar"><strong>DefStructEst_EndogVar</strong></a> | 
@@ -388,10 +388,53 @@ document.write(`
    <a href="#cap-DefStructEst_ReducedEst"><strong>DefStructEst_ReducedEst</strong></a> | 
    <a href="#cap-DefStructEst_ReducedMod"><strong>DefStructEst_ReducedMod</strong></a> | 
    <a href="#cap-DefStructEst_StructEst"><strong>DefStructEst_StructEst</strong></a> | 
-   <a href="#cap-DefStructEst_StructMod"><strong>DefStructEst_StructMod</strong></a>
+   <a href="#cap-DefStructEst_StructMod"><strong>DefStructEst_StructMod</strong></a> | 
+   <a href="#cap-ObsDocStrings_Eagleson"><strong>ObsDocStrings_Eagleson</strong></a> | 
+   <a href="#cap-ObsDocStrings_Guido"><strong>ObsDocStrings_Guido</strong></a> | 
+   <a href="#cap-ObsSciPy_RootMinWisdom"><strong>ObsSciPy_RootMinWisdom</strong></a>
    </div>
 
    <table class="indextable modindextable">
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-DefGit"><td></td><td>
+       <strong>DefGit</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="git/intro.html#DefGit"><code class="xref">DefGit</code></a> <em>(git/intro)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-DefGitHub"><td></td><td>
+       <strong>DefGitHub</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="git/intro.html#DefGitHub"><code class="xref">DefGitHub</code></a> <em>(git/intro)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-DefRepository"><td></td><td>
+       <strong>DefRepository</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="git/intro.html#DefRepository"><code class="xref">DefRepository</code></a> <em>(git/intro)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-DefSciPy_Identif"><td></td><td>
+       <strong>DefSciPy_Identif</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="python/SciPy.html#DefSciPy_Identif"><code class="xref">DefSciPy_Identif</code></a> <em>(python/SciPy)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-DefSciPy_SysRank"><td></td><td>
+       <strong>DefSciPy_SysRank</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="python/SciPy.html#DefSciPy_SysRank"><code class="xref">DefSciPy_SysRank</code></a> <em>(python/SciPy)</em></td><td>
+       <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-DefStructEst_Calib"><td></td><td>
        <strong>DefStructEst_Calib</strong></td><td></td></tr>
@@ -464,6 +507,30 @@ document.write(`
        <td>
        <a href="struct_est/intro.html#DefStructEst_StructMod"><code class="xref">DefStructEst_StructMod</code></a> <em>(struct_est/intro)</em></td><td>
        <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-ObsDocStrings_Eagleson"><td></td><td>
+       <strong>ObsDocStrings_Eagleson</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="python/DocStrings.html#ObsDocStrings_Eagleson"><code class="xref">ObsDocStrings_Eagleson</code></a> <em>(python/DocStrings)</em></td><td>
+       <em>observation</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-ObsDocStrings_Guido"><td></td><td>
+       <strong>ObsDocStrings_Guido</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="python/DocStrings.html#ObsDocStrings_Guido"><code class="xref">ObsDocStrings_Guido</code></a> <em>(python/DocStrings)</em></td><td>
+       <em>observation</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-ObsSciPy_RootMinWisdom"><td></td><td>
+       <strong>ObsSciPy_RootMinWisdom</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="python/SciPy.html#ObsSciPy_RootMinWisdom"><code class="xref">ObsSciPy_RootMinWisdom</code></a> <em>(python/SciPy)</em></td><td>
+       <em>observation</em></td></tr>
    </table>
 
 
@@ -526,8 +593,8 @@ By Richard W. Evans
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+  <script src="_static/scripts/bootstrap.js?digest=c5ced968eda925caa686"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686"></script>
 
   <footer class="bd-footer">
   </footer>

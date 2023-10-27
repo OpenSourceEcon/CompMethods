@@ -19,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=c5ced968eda925caa686" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=c5ced968eda925caa686" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=c5ced968eda925caa686" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=c5ced968eda925caa686" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -41,9 +41,9 @@
     <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
-  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=c5ced968eda925caa686" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=c5ced968eda925caa686"></script>
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -70,7 +70,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="SciPy" href="SciPy.html" />
+    <link rel="next" title="SciPy: Root finding, minimizing, interpolation" href="SciPy.html" />
     <link rel="prev" title="Pandas" href="Pandas.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -151,13 +151,14 @@ const thebe_selector_output = ".output, .cell_output"
   
   
   
+  
     
     
       
     
     
-    <img src="../_static/CompMethodsLogo.png" class="logo__image only-light" alt="Logo image"/>
-    <script>document.write(`<img src="../_static/CompMethodsLogo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+    <img src="../_static/CompMethodsLogo.png" class="logo__image only-light" alt="Computational Methods for Economists using Python - Home"/>
+    <script>document.write(`<img src="../_static/CompMethodsLogo.png" class="logo__image only-dark" alt="Computational Methods for Economists using Python - Home"/>`);</script>
   
   
 </a></div>
@@ -179,20 +180,14 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction to Python</a></li>
 <li class="toctree-l1"><a class="reference internal" href="StandardLibrary.html">Python Standard Library</a></li>
-
+<li class="toctree-l1"><a class="reference internal" href="ExceptionsIO.html">Exception Handling and File Input/Output</a></li>
 <li class="toctree-l1"><a class="reference internal" href="OOP.html">Object Oriented Programming</a></li>
-
 <li class="toctree-l1"><a class="reference internal" href="NumPy.html">NumPy</a></li>
-
 <li class="toctree-l1"><a class="reference internal" href="Pandas.html">Pandas</a></li>
-
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Matplotlib</a></li>
-
-<li class="toctree-l1"><a class="reference internal" href="SciPy.html">SciPy</a></li>
-
+<li class="toctree-l1"><a class="reference internal" href="SciPy.html">SciPy: Root finding, minimizing, interpolation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="DocStrings.html">Docstrings and Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="UnitTesting.html">Unit Testing</a></li>
-
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Git and GitHub</span></p>
 <ul class="nav bd-sidenav">
@@ -418,10 +413,10 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Matplotlib</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">Exercises</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-animations-and-3d">(Optional): Animations and 3D</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">Exercises</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">Footnotes</a></li>
 </ul>
-
             </nav>
         </div>
     </div>
@@ -434,18 +429,86 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="matplotlib">
 <span id="chap-matplotlib"></span><h1>Matplotlib<a class="headerlink" href="#matplotlib" title="Permalink to this heading">#</a></h1>
-<p>Many plotting packages for Python.  Some of the most popular are <a class="reference external" href="https://matplotlib.org/">Matplotlib</a>, <a class="reference external" href="https://plotly.com/">Plotly</a>, <a class="reference external" href="http://bokeh.org/">Bokeh</a>, and <a class="reference external" href="https://seaborn.pydata.org/">Seaborn</a>.  Of these, Matplotlib is the most general for static images and is what is used on <code class="docutils literal notranslate"><span class="pre">OG-Core</span></code>. Once you have a general idea of how to create plots in Python, that knowlege will generalize (to varying degrees) to the other plotting packages.</p>
-<p>ACME materials link…</p>
+<p>This chapter was coauthored by Jason DeBacker and Richard W. Evans.</p>
+<p><a class="reference external" href="https://matplotlib.org">Matplotlib</a> is Python’s most widely used and most basic visualization package.<a class="footnote-reference brackets" href="#matplotlib1" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> Some of the other most popular Python visualization packages <a class="reference external" href="http://bokeh.org/">Bokeh</a>, <a class="reference external" href="https://plotly.com/">Plotly</a>, and <a class="reference external" href="https://seaborn.pydata.org/">Seaborn</a>. Of these, Matplotlib is the most general for static images and is what is used on <code class="docutils literal notranslate"><span class="pre">OG-Core</span></code>. Once you have a general idea of how to create plots in Python, that knowlege will generalize (to varying degrees) to the other plotting packages.</p>
+<p>The iframe below contains a PDF of the BYU ACME open-access lab entitled, “<a class="reference external" href="https://drive.google.com/file/d/12dnf8tjXBExoQf6W3J5_b52AN27GoBTV/view?usp=sharing">Introduction to Matplotlib</a>”. You can either scroll through the lab on this page using the iframe window, or you can download the PDF for use on your computer. See <span id="id2">[<a class="reference internal" href="../CompMethods_references.html#id8" title="BYU ACME. Introduction to matplotlib. In BYU ACME 2023-2024 Incoming Junior Materials, chapter 6. 2023. URL: https://acme.byu.edu/2023-2024-materials.">BYU ACME, 2023</a>]</span>. <a class="reference internal" href="#ExerMatplot-acme1"><span class="std std-numref">Exercise 37</span></a> below has you work through the problems in this BYU ACME lab. A Python file template (<a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/code/Matplotlib1/matplotlib_intro.py"><code class="docutils literal notranslate"><span class="pre">matplotlib_intro.py</span></code></a>) and a data file (<a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/code/Matplotlib1/FARS.npy"><code class="docutils literal notranslate"><span class="pre">FARS.npy</span></code></a>) used in the lab are stored in the <a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/code/Matplotlib1"><code class="docutils literal notranslate"><span class="pre">./code/Matplotlib1/</span></code></a> directory.</p>
+<div>
+  <iframe id="inlineFrameExample"
+      title="Inline Frame Example"
+      width="100%"
+      height="700"
+      src="https://drive.google.com/file/d/12dnf8tjXBExoQf6W3J5_b52AN27GoBTV/preview?usp=sharing">
+  </iframe>
+</div>
+<p>The iframe below contains a PDF of the BYU ACME open-access lab entitled, “<a class="reference external" href="https://drive.google.com/file/d/1grhP5AcxR9uzvTHSmM4Q4kABM0XENH8r/view?usp=sharing">Pandas 2: Plotting</a>”. In spite of having “Pandas” in the title, we include this lab here in this Matplotlib chapter because all of the plotting uses the Matplotlib package. You can either scroll through the lab on this page using the iframe window, or you can download the PDF for use on your computer. See <span id="id3">[<a class="reference internal" href="../CompMethods_references.html#id9" title="BYU ACME. Pandas 2: plotting. In BYU ACME 2023-2024 Incoming Senior Materials, chapter 3. 2023. URL: https://acme.byu.edu/2023-2024-materials.">BYU ACME, 2023</a>]</span>. <a class="reference internal" href="#ExerMatplot-acme2"><span class="std std-numref">Exercise 38</span></a> below has you work through the problems in this BYU ACME lab. A Jupyter notebook file template (<a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/code/Matplotlib2/matplotlib2.ipynb"><code class="docutils literal notranslate"><span class="pre">matplotlib2.ipynb</span></code></a>) used in the lab is stored in the <a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/code/Matplotlib2"><code class="docutils literal notranslate"><span class="pre">./code/Matplotlib2/</span></code></a> directory. The <a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/data/Pandas1/budget.csv"><code class="docutils literal notranslate"><span class="pre">budget.csv</span></code></a> and <a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/data/Pandas1/crime_data.csv"><code class="docutils literal notranslate"><span class="pre">crime_data.csv</span></code></a> data files are stored in the <a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/data/Pandas1"><code class="docutils literal notranslate"><span class="pre">./data/Pandas1</span></code></a> directory, which were used in the “<a class="reference external" href="https://drive.google.com/file/d/1t5fjjQXBSIYekZUZIDRvMQOcfCpy8edh/view?usp=sharing">Pandas 1: Introduction</a>” lab. And the other data file used in this lab <a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/data/Pandas3/college.csv"><code class="docutils literal notranslate"><span class="pre">college.csv</span></code></a> is stored in the <a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/data/Pandas3"><code class="docutils literal notranslate"><span class="pre">./data/Pandas3</span></code></a> directory, which was used in the “<a class="reference external" href="https://drive.google.com/file/d/13DoapcC2whPxSzQQCRaOKv6jow4AkeuZ/view?usp=sharing">Pandas 3: Grouping</a>” lab.</p>
+<div>
+  <iframe id="inlineFrameExample"
+      title="Inline Frame Example"
+      width="100%"
+      height="700"
+      src="https://drive.google.com/file/d/1grhP5AcxR9uzvTHSmM4Q4kABM0XENH8r/preview?usp=sharing">
+  </iframe>
+</div>
+<section id="optional-animations-and-3d">
+<span id="secmatplotlibanim3d"></span><h2>(Optional): Animations and 3D<a class="headerlink" href="#optional-animations-and-3d" title="Permalink to this heading">#</a></h2>
+<p>This section with its accompanying BYU ACME lab and <a class="reference internal" href="#ExerMatplot-acme3"><span class="std std-numref">Exercise 39</span></a> is optional because these plotting skills are used less often and because other plotting packages do a better job of visualization dynamics. That said, this lab is a good one. And the 3D plotting in Matplotlib is fairly good.</p>
+<p>The iframe below contains a PDF of the BYU ACME open-access lab entitled, “<a class="reference external" href="https://drive.google.com/file/d/19y4Uhe4uckSx83duWyELrUz0K-tiYGFc/view?usp=sharing">Animations and 3D Plotting in Matplotlib</a>”. You can either scroll through the lab on this page using the iframe window, or you can download the PDF for use on your computer. See <span id="id4">[<a class="reference internal" href="../CompMethods_references.html#id10" title="BYU ACME. Animations and 3d plotting in matplotlib. In BYU ACME 2023-2024 Incoming Senior Materials, chapter 5. 2023. URL: https://acme.byu.edu/2023-2024-materials.">BYU ACME, 2023</a>]</span>. Optional <a class="reference internal" href="#ExerMatplot-acme3"><span class="std std-numref">Exercise 39</span></a> below has you work through the problems in this BYU ACME lab. A Jupyter notebook file template (<a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/code/Matplotlib3/animation.ipynb"><code class="docutils literal notranslate"><span class="pre">animation.ipynb</span></code></a>) used in the lab is stored in the <a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/code/Matplotlib3"><code class="docutils literal notranslate"><span class="pre">./code/Matplotlib3/</span></code></a> directory. And two data files used in the lab are stored in the <a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/data/Matplotlib3"><code class="docutils literal notranslate"><span class="pre">./data/Matplotlib3</span></code></a> directory.</p>
+<div>
+  <iframe id="inlineFrameExample"
+      title="Inline Frame Example"
+      width="100%"
+      height="700"
+      src="https://drive.google.com/file/d/19y4Uhe4uckSx83duWyELrUz0K-tiYGFc/preview?usp=sharing">
+  </iframe>
+</div>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="exercises">
-<h1>Exercises<a class="headerlink" href="#exercises" title="Permalink to this heading">#</a></h1>
-<ol class="arabic simple">
-<li><p>Take UN pop data, create line plot</p></li>
-<li><p>Format it - title, font, legened, etc</p></li>
-<li><p>Collapse data and create bar plot</p></li>
-<li><p>Plot mulitple series</p></li>
-<li><p>Grouped bar plot</p></li>
-</ol>
+<section id="exercises">
+<span id="secmatplotlibexercises"></span><h2>Exercises<a class="headerlink" href="#exercises" title="Permalink to this heading">#</a></h2>
+<div class="exercise green admonition" id="ExerMatplot-acme1">
+
+<p class="admonition-title"><span class="caption-number">Exercise 37 </span></p>
+<section id="exercise-content">
+<p>Read the BYU ACME “<a class="reference external" href="https://drive.google.com/file/d/12dnf8tjXBExoQf6W3J5_b52AN27GoBTV/view?usp=sharing">Introduction to Matplotlib</a>” lab and complete Problems 1 through 6 in the lab. <span id="id5">[<a class="reference internal" href="../CompMethods_references.html#id8" title="BYU ACME. Introduction to matplotlib. In BYU ACME 2023-2024 Incoming Junior Materials, chapter 6. 2023. URL: https://acme.byu.edu/2023-2024-materials.">BYU ACME, 2023</a>]</span></p>
+</section>
+</div>
+<div class="exercise green admonition" id="ExerMatplot-acme2">
+
+<p class="admonition-title"><span class="caption-number">Exercise 38 </span></p>
+<section id="exercise-content">
+<p>Read the BYU ACME “<a class="reference external" href="https://drive.google.com/file/d/1grhP5AcxR9uzvTHSmM4Q4kABM0XENH8r/view?usp=sharing">Pandas 2: Plotting</a>” lab and complete Problems 1 through 4 in the lab. <span id="id6">[<a class="reference internal" href="../CompMethods_references.html#id9" title="BYU ACME. Pandas 2: plotting. In BYU ACME 2023-2024 Incoming Senior Materials, chapter 3. 2023. URL: https://acme.byu.edu/2023-2024-materials.">BYU ACME, 2023</a>]</span></p>
+</section>
+</div>
+<div class="exercise green admonition" id="ExerMatplot-acme3">
+
+<p class="admonition-title"><span class="caption-number">Exercise 39 </span> (OPTIONAL: Animations nad 3D)</p>
+<section id="exercise-content">
+<p>Read the BYU ACME “<a class="reference external" href="https://drive.google.com/file/d/19y4Uhe4uckSx83duWyELrUz0K-tiYGFc/view?usp=sharing">Animations and 3D Plotting in Matplotlib</a>” lab and complete Problems 1 through 5 in the lab. <span id="id7">[<a class="reference internal" href="../CompMethods_references.html#id10" title="BYU ACME. Animations and 3d plotting in matplotlib. In BYU ACME 2023-2024 Incoming Senior Materials, chapter 5. 2023. URL: https://acme.byu.edu/2023-2024-materials.">BYU ACME, 2023</a>]</span></p>
+</section>
+</div>
+<div class="exercise green admonition" id="ExerMatplot-bar">
+
+<p class="admonition-title"><span class="caption-number">Exercise 40 </span></p>
+<section id="exercise-content">
+<p>Using the country GDP DataFrame you created in Exercise <a class="reference internal" href="Pandas.html#ExerPandas-make_df"><span class="std std-numref">Exercise 25</span></a>, collapse these data to find mean GDP per capita by country.  Create a bar plot that shows the means for each of the four countries.</p>
+</section>
+</div>
+<div class="exercise green admonition" id="ExerMatplot-grouped_bar">
+
+<p class="admonition-title"><span class="caption-number">Exercise 41 </span></p>
+<section id="exercise-content">
+<p>Using same DataFrame as above, create a grouped bar plot that represents the full DataFrame and shows GDP per capita for each country and year.  Group the bar plot so that there is a grouping for each decade and within each group, all four countries are represented.</p>
+</section>
+</div>
+</section>
+<section id="footnotes">
+<span id="secmatplotlibfootnotes"></span><h2>Footnotes<a class="headerlink" href="#footnotes" title="Permalink to this heading">#</a></h2>
+<p>The footnotes from this chapter.</p>
+<hr class="footnotes docutils" />
+<aside class="footnote brackets" id="matplotlib1" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p>Matplotlib’s website is <a class="reference external" href="https://matplotlib.org">https://matplotlib.org</a>.</p>
+</aside>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -492,7 +555,7 @@ document.write(`
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">SciPy</p>
+        <p class="prev-next-title">SciPy: Root finding, minimizing, interpolation</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -511,10 +574,10 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Matplotlib</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">Exercises</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-animations-and-3d">(Optional): Animations and 3D</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">Exercises</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">Footnotes</a></li>
 </ul>
-
   </nav></div>
 
 </div></div>
@@ -561,8 +624,8 @@ By Richard W. Evans
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=c5ced968eda925caa686"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686"></script>
 
   <footer class="bd-footer">
   </footer>

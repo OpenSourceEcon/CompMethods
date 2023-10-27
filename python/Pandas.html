@@ -19,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=c5ced968eda925caa686" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=c5ced968eda925caa686" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=c5ced968eda925caa686" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=c5ced968eda925caa686" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -41,9 +41,9 @@
     <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
-  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=c5ced968eda925caa686" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=c5ced968eda925caa686"></script>
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -151,13 +151,14 @@ const thebe_selector_output = ".output, .cell_output"
   
   
   
+  
     
     
       
     
     
-    <img src="../_static/CompMethodsLogo.png" class="logo__image only-light" alt="Logo image"/>
-    <script>document.write(`<img src="../_static/CompMethodsLogo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+    <img src="../_static/CompMethodsLogo.png" class="logo__image only-light" alt="Computational Methods for Economists using Python - Home"/>
+    <script>document.write(`<img src="../_static/CompMethodsLogo.png" class="logo__image only-dark" alt="Computational Methods for Economists using Python - Home"/>`);</script>
   
   
 </a></div>
@@ -179,20 +180,14 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction to Python</a></li>
 <li class="toctree-l1"><a class="reference internal" href="StandardLibrary.html">Python Standard Library</a></li>
-
+<li class="toctree-l1"><a class="reference internal" href="ExceptionsIO.html">Exception Handling and File Input/Output</a></li>
 <li class="toctree-l1"><a class="reference internal" href="OOP.html">Object Oriented Programming</a></li>
-
 <li class="toctree-l1"><a class="reference internal" href="NumPy.html">NumPy</a></li>
-
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Pandas</a></li>
-
 <li class="toctree-l1"><a class="reference internal" href="Matplotlib.html">Matplotlib</a></li>
-
-<li class="toctree-l1"><a class="reference internal" href="SciPy.html">SciPy</a></li>
-
+<li class="toctree-l1"><a class="reference internal" href="SciPy.html">SciPy: Root finding, minimizing, interpolation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="DocStrings.html">Docstrings and Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="UnitTesting.html">Unit Testing</a></li>
-
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Git and GitHub</span></p>
 <ul class="nav bd-sidenav">
@@ -418,10 +413,9 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Pandas</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">Exercises</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">Exercises</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">Footnotes</a></li>
 </ul>
-
             </nav>
         </div>
     </div>
@@ -434,23 +428,183 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="pandas">
 <span id="chap-pandas"></span><h1>Pandas<a class="headerlink" href="#pandas" title="Permalink to this heading">#</a></h1>
-<p>ACME materials link…</p>
+<p>This chapter was coauthored by Jason DeBacker and Richard W. Evans.</p>
+<p>Pandas is to data wrangling and analysis in Python what <a class="reference internal" href="NumPy.html#chap-numpy"><span class="std std-ref">NumPy</span></a> is to numerical methods in Python. Pandas is Python’s primary data analysis package.<a class="footnote-reference brackets" href="#pandas1" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> Its name is derived from the econometric term, “panel data”. The Pandas package was originially developed in 2008 by Wes McKinney while at global investment firm AQR Capital Management.<a class="footnote-reference brackets" href="#pandas2" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a> The Python Pandas package became open source in 2009, and Pandas became a NumFOCUS sponsored project in 2015.</p>
+<p>The primary Python object in Pandas is the DataFrame (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html"><code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a>). A Pandas DataFrame is similar to the R programming language’s dataframe.<a class="footnote-reference brackets" href="#pandasr" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a> The dataframe is a two-dimensional data object that often include rows that serve as observations, columns that serve as variables, advanced date functions, and rich multi-layered indexing capability. Pandas also includes rich functionality for reading in data, saving and exporting data, data cleaning and munging, data description, and data manipulation, selection, and grouping.</p>
+<p>Pandas also has a Series object (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html"><code class="docutils literal notranslate"><span class="pre">pandas.Series</span></code></a>), that represents a single data series, often a single variable from a DataFrame. The operations on and attributes of a Pandas Series object are similar to those of the DataFrame.</p>
+<p>The iframe below contains a PDF of the BYU ACME open-access lab entitled, “Pandas 1: Introduction”. You can either scroll through the lab on this page using the iframe window, or you can download the PDF for use on your computer. See <span id="id4">[<a class="reference internal" href="../CompMethods_references.html#id14" title="BYU ACME. Pandas 1: introduction. In BYU ACME 2023-2024 Incoming Senior Materials, chapter 2. 2023. URL: https://acme.byu.edu/2023-2024-materials.">BYU ACME, 2023</a>]</span>. <a class="reference internal" href="#ExerPandas-acme1"><span class="std std-numref">Exercise 23</span></a> below has you work through the problems in this BYU ACME lab. The data files used in this lab are stored in the <a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/data/Pandas1"><code class="docutils literal notranslate"><span class="pre">./data/Pandas1/</span></code></a> directory. A Jupyter notebook file template (<a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/code/Pandas1/pandas1.ipynb"><code class="docutils literal notranslate"><span class="pre">pandas1.ipynb</span></code></a>) used in the lab is stored in the <a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/code/Pandas1"><code class="docutils literal notranslate"><span class="pre">./code/Pandas1/</span></code></a> directory.</p>
+<div>
+  <iframe id="inlineFrameExample"
+      title="Inline Frame Example"
+      width="100%"
+      height="700"
+      src="https://drive.google.com/file/d/1t5fjjQXBSIYekZUZIDRvMQOcfCpy8edh/preview?usp=sharing">
+  </iframe>
+</div>
+<p>The iframe below contains a PDF of the BYU ACME open-access lab entitled, “Pandas 3: Grouping”. You can either scroll through the lab on this page using the iframe window, or you can download the PDF for use on your computer. See <span id="id5">[<a class="reference internal" href="../CompMethods_references.html#id15" title="BYU ACME. Pandas 3: grouping. In BYU ACME 2023-2024 Incoming Senior Materials, chapter 4. 2023. URL: https://acme.byu.edu/2023-2024-materials.">BYU ACME, 2023</a>]</span>. <a class="reference internal" href="#ExerPandas-acme2"><span class="std std-numref">Exercise 24</span></a> below has you work through the problems in this BYU ACME lab. The data files used in this lab are stored in the <a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/data/Pandas3"><code class="docutils literal notranslate"><span class="pre">./data/Pandas3/</span></code></a> directory. A Jupyter notebook file template (<a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/code/Pandas3/pandas3.ipynb"><code class="docutils literal notranslate"><span class="pre">pandas3.ipynb</span></code></a>) used in the lab is stored in the <a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/code/Pandas3"><code class="docutils literal notranslate"><span class="pre">./code/Pandas3/</span></code></a> directory.</p>
+<div>
+  <iframe id="inlineFrameExample"
+      title="Inline Frame Example"
+      width="100%"
+      height="700"
+      src="https://drive.google.com/file/d/13DoapcC2whPxSzQQCRaOKv6jow4AkeuZ/preview?usp=sharing">
+  </iframe>
+</div>
+<section id="exercises">
+<span id="secpandasexercises"></span><h2>Exercises<a class="headerlink" href="#exercises" title="Permalink to this heading">#</a></h2>
+<div class="exercise green admonition" id="ExerPandas-acme1">
+
+<p class="admonition-title"><span class="caption-number">Exercise 23 </span></p>
+<section id="exercise-content">
+<p>Read the BYU ACME “<a class="reference external" href="https://drive.google.com/file/d/1t5fjjQXBSIYekZUZIDRvMQOcfCpy8edh/view?usp=sharing">Pandas 1: Introduction</a>” lab and complete Problems 1 through 6 in the lab. <span id="id6">[<a class="reference internal" href="../CompMethods_references.html#id14" title="BYU ACME. Pandas 1: introduction. In BYU ACME 2023-2024 Incoming Senior Materials, chapter 2. 2023. URL: https://acme.byu.edu/2023-2024-materials.">BYU ACME, 2023</a>]</span></p>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="exercises">
-<h1>Exercises<a class="headerlink" href="#exercises" title="Permalink to this heading">#</a></h1>
-<ol class="arabic simple">
-<li><p>Creating a DataFrame from a dictionary.  Simple example with GDP and inflation for a small set of countries over a few years.</p></li>
-<li><p>Inspecting a DataFrame with <code class="docutils literal notranslate"><span class="pre">head</span></code> and <code class="docutils literal notranslate"><span class="pre">tail</span></code> and <code class="docutils literal notranslate"><span class="pre">describe</span></code> and <code class="docutils literal notranslate"><span class="pre">keys</span></code></p></li>
-<li><p>Something to illustrate indexing.  Can turn dataframe into a panel with multindex.</p></li>
-<li><p>Using <code class="docutils literal notranslate"><span class="pre">groupby</span></code> to aggregate data.</p></li>
-<li><p>Printing a DataFrame as a table (e.g. to tex or json or md)</p></li>
-<li><p>Read in a csv file as a DataFrame.  Use UN population data as an example.  Saving a DataFrame to a CSV file.</p></li>
-<li><p>Creating a new variable in a DataFrame.</p></li>
-<li><p>Selecting a subset of a DataFrame. Using <code class="docutils literal notranslate"><span class="pre">.loc</span></code> and subsetting columns etc</p></li>
-<li><p>Using <code class="docutils literal notranslate"><span class="pre">merge</span></code> to join two DataFrames.  Read other UN data (e.g., fertility) and merge with data from (4)</p></li>
-<li><p>Using the <code class="docutils literal notranslate"><span class="pre">plot</span></code> method</p></li>
-<li><p>Replacing values, dropping, renaming columns</p></li>
-</ol>
+</div>
+<div class="exercise green admonition" id="ExerPandas-acme2">
+
+<p class="admonition-title"><span class="caption-number">Exercise 24 </span></p>
+<section id="exercise-content">
+<p>Read the BYU ACME “<a class="reference external" href="https://drive.google.com/file/d/13DoapcC2whPxSzQQCRaOKv6jow4AkeuZ/view?usp=sharing">Pandas 3: Grouping</a>” lab and complete Problems 1 through 5 in the lab. <span id="id7">[<a class="reference internal" href="../CompMethods_references.html#id15" title="BYU ACME. Pandas 3: grouping. In BYU ACME 2023-2024 Incoming Senior Materials, chapter 4. 2023. URL: https://acme.byu.edu/2023-2024-materials.">BYU ACME, 2023</a>]</span></p>
+</section>
+</div>
+<div class="exercise green admonition" id="ExerPandas-make_df">
+
+<p class="admonition-title"><span class="caption-number">Exercise 25 </span></p>
+<section id="exercise-content">
+<p>Consider the following GDP per capita data (in constant 2011$, source: <a class="reference external" href="https://www.rug.nl/ggdc/historicaldevelopment/maddison/releases/maddison-project-database-2020?lang=en">Maddison Project Database</a>):</p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p>IND</p></th>
+<th class="head"><p>MYS</p></th>
+<th class="head"><p>USA</p></th>
+<th class="head"><p>ZAF</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1990</p></td>
+<td><p>2,087</p></td>
+<td><p>8,179</p></td>
+<td><p>36,982</p></td>
+<td><p>6,111</p></td>
+</tr>
+<tr class="row-odd"><td><p>2000</p></td>
+<td><p>2,753</p></td>
+<td><p>13,475</p></td>
+<td><p>45,886</p></td>
+<td><p>7,583</p></td>
+</tr>
+<tr class="row-even"><td><p>2010</p></td>
+<td><p>4,526</p></td>
+<td><p>18,574</p></td>
+<td><p>49,267</p></td>
+<td><p>11,319</p></td>
+</tr>
+<tr class="row-odd"><td><p>2018</p></td>
+<td><p>6,806</p></td>
+<td><p>24,842</p></td>
+<td><p>55,335</p></td>
+<td><p>12,166</p></td>
+</tr>
+</tbody>
+</table>
+<p>Create a dictionary with keys <code class="docutils literal notranslate"><span class="pre">Year</span></code>, <code class="docutils literal notranslate"><span class="pre">IND</span></code>, <code class="docutils literal notranslate"><span class="pre">MYS</span></code>, <code class="docutils literal notranslate"><span class="pre">USA</span></code>, and <code class="docutils literal notranslate"><span class="pre">ZAF</span></code> and values that are lists of the GDP per capita data for each country.  Create a DataFrame named <code class="docutils literal notranslate"><span class="pre">df</span></code> from this dictionary.  Print the DataFrame.</p>
+</section>
+</div>
+<div class="exercise green admonition" id="ExerPandas-inspect">
+
+<p class="admonition-title"><span class="caption-number">Exercise 26 </span></p>
+<section id="exercise-content">
+<p>Inspect this data frame.  Print <code class="docutils literal notranslate"><span class="pre">df.head(3)</span></code>.  Print <code class="docutils literal notranslate"><span class="pre">df.tail(3)</span></code>.  Get a list of column names with the <code class="docutils literal notranslate"><span class="pre">keys</span></code> method.  Finally, use the  <code class="docutils literal notranslate"><span class="pre">describe</span></code> method to print descriptive statistics.</p>
+</section>
+</div>
+<div class="exercise green admonition" id="ExerPandas-index">
+
+<p class="admonition-title"><span class="caption-number">Exercise 27 </span></p>
+<section id="exercise-content">
+<p>Pandas DataFrames use an index to keep track of rows. Note the default index in a DataFrame <code class="docutils literal notranslate"><span class="pre">df</span></code> are integers for each row. Change the index so the year is the index value. Print the updated DataFrame <code class="docutils literal notranslate"><span class="pre">df</span></code>.</p>
+</section>
+</div>
+<div class="exercise green admonition" id="ExerPandas-reshape">
+
+<p class="admonition-title"><span class="caption-number">Exercise 28 </span></p>
+<section id="exercise-content">
+<p>In this exercise reshape your DataFrame <code class="docutils literal notranslate"><span class="pre">df</span></code> from <a class="reference internal" href="#ExerPandas-index"><span class="std std-numref">Exercise 27</span></a> into a long panel format with a <a class="reference external" href="https://pandas.pydata.org/docs/user_guide/advanced.html"><code class="docutils literal notranslate"><span class="pre">MultiIndex</span></code></a> for the columns. The first level of the <code class="docutils literal notranslate"><span class="pre">MultiIndex</span></code> should be the country name and the second level should be the year. The values should be the GDP per capita. To do this, use the <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.pivot_table.html"><code class="docutils literal notranslate"><span class="pre">pivot_table</span></code></a> or <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.stack.html"><code class="docutils literal notranslate"><span class="pre">stack</span></code></a> methods of the DataFrame class. Please print the resulting DataFrame.</p>
+</section>
+</div>
+<div class="exercise green admonition" id="ExerPandas-groupby">
+
+<p class="admonition-title"><span class="caption-number">Exercise 29 </span></p>
+<section id="exercise-content">
+<p>Create a new variable that is the growth rate in GDP per capita from the prior period measure. To do this, use <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.groupby.html"><code class="docutils literal notranslate"><span class="pre">groupby</span></code></a> to find growth rate for each country over the sample.</p>
+</section>
+</div>
+<div class="exercise green admonition" id="ExerPandas-print_tables">
+
+<p class="admonition-title"><span class="caption-number">Exercise 30 </span></p>
+<section id="exercise-content">
+<p>The DataFrame object has several methods to help output a formatted table suitable for reports or presentations. Use one of these methods to print a DataFrame formatted as a <a class="reference external" href="https://www.markdownguide.org/basic-syntax/">markdown</a> table.</p>
+</section>
+</div>
+<div class="exercise green admonition" id="ExerPandas-read">
+
+<p class="admonition-title"><span class="caption-number">Exercise 31 </span></p>
+<section id="exercise-content">
+<p>In most cases, you are likely to use a DataFrame as a container for a large dataset, not something simple that you can enter by manually as we did above. Pandas has <a class="reference external" href="https://pandas.pydata.org/docs/user_guide/io.html">several methods</a> to read in data from files are various formats. Let’s use one of these methods to read in some population data extracted from the <a class="reference external" href="https://population.un.org/wpp/">United Nations’ World Population Prospects</a>. Note that Pandas will download these data for you if you have a URL to the data file. The URL for these data on South Africa’s population is: <a class="reference external" href="https://raw.githubusercontent.com/EAPD-DRB/OG-ZAF/main/ogzaf/data/demographic/un_zaf_pop.csv">https://raw.githubusercontent.com/EAPD-DRB/OG-ZAF/main/ogzaf/data/demographic/un_zaf_pop.csv</a>. Please read in these data (Note: the separator is the verical bar (“|”) and the header is on the second line (in Python this has index 1, so you’ll want to use the argument <code class="docutils literal notranslate"><span class="pre">header=1</span></code>)). Print the first 5 rows of the DataFrame.</p>
+</section>
+</div>
+<div class="exercise green admonition" id="ExerPandas-subset">
+
+<p class="admonition-title"><span class="caption-number">Exercise 32 </span></p>
+<section id="exercise-content">
+<p>Now we’ll select a subset of this DataFrame. Please create a new DataFrame called <code class="docutils literal notranslate"><span class="pre">zaf_pop</span></code> that contains only the columns <code class="docutils literal notranslate"><span class="pre">AgeId</span></code>, <code class="docutils literal notranslate"><span class="pre">Value</span></code> and only rows where <code class="docutils literal notranslate"><span class="pre">SexId=3</span></code> (i.e., both sexes are included), <code class="docutils literal notranslate"><span class="pre">TimeLabel=2021</span></code> (i.e., only values for the year 2021). Print the first 5 rows of the DataFrame.</p>
+</section>
+</div>
+<div class="exercise green admonition" id="ExerPandas-new_var">
+
+<p class="admonition-title"><span class="caption-number">Exercise 33 </span></p>
+<section id="exercise-content">
+<p>With your new <code class="docutils literal notranslate"><span class="pre">zaf_pop</span></code> DataFrame, rename the column <code class="docutils literal notranslate"><span class="pre">Value</span></code> to <code class="docutils literal notranslate"><span class="pre">Count</span></code>. Create a new variable in the DataFrame called <code class="docutils literal notranslate"><span class="pre">Density</span></code> that is the fraction of the total population for each age. Print the first 5 rows of the DataFrame.</p>
+</section>
+</div>
+<div class="exercise green admonition" id="ExerPandas-plot">
+
+<p class="admonition-title"><span class="caption-number">Exercise 34 </span></p>
+<section id="exercise-content">
+<p>Use the Pandas DataFrame <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.plot.html"><code class="docutils literal notranslate"><span class="pre">plot</span></code></a> method to plot the population density across age for South Africa.</p>
+</section>
+</div>
+<div class="exercise green admonition" id="ExerPandas-merge">
+
+<p class="admonition-title"><span class="caption-number">Exercise 35 </span></p>
+<section id="exercise-content">
+<p>It is often the case that we need to combine more than one dataset. Pandas offers a few options to do this, including the [<code class="docutils literal notranslate"><span class="pre">merge</span></code>] and <a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.join.html"><code class="docutils literal notranslate"><span class="pre">join</span></code></a> methods of the DataFrame class. Let’s test this, but reading in the original data again, and finding the population of women in 2021. Then use <code class="docutils literal notranslate"><span class="pre">merge</span></code> or <code class="docutils literal notranslate"><span class="pre">join</span></code> to combine the <code class="docutils literal notranslate"><span class="pre">zaf_pop</span></code> and <code class="docutils literal notranslate"><span class="pre">zaf_female_pop</span></code> DataFrames. Plot the density of women and the overall population together.</p>
+</section>
+</div>
+<div class="exercise green admonition" id="ExerPandas-save">
+
+<p class="admonition-title"><span class="caption-number">Exercise 36 </span></p>
+<section id="exercise-content">
+<p>Save your final DataFrame to your hard drive as a comma separated values <code class="docutils literal notranslate"><span class="pre">.csv</span></code> format file.</p>
+</section>
+</div>
+</section>
+<section id="footnotes">
+<span id="secpandasfootnotes"></span><h2>Footnotes<a class="headerlink" href="#footnotes" title="Permalink to this heading">#</a></h2>
+<p>The footnotes from this chapter.</p>
+<hr class="footnotes docutils" />
+<aside class="footnote brackets" id="pandas1" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p>The website for Pandas is <a class="reference external" href="https://pandas.pydata.org/">https://pandas.pydata.org/</a>.</p>
+</aside>
+<aside class="footnote brackets" id="pandas2" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
+<p>See the “About” page on the Pandas website (<a class="reference external" href="https://pandas.pydata.org/about/">https://pandas.pydata.org/about/</a>) as well as the Pandas Wikipedia article <span id="id8">[<a class="reference internal" href="../CompMethods_references.html#id41" title="Wikipedia Contributors. &quot;pandas (software)&quot;. Wikipedia, The Free Encyclopedia, 2023. [Online; accessed 5-October-2023]. URL: https://en.wikipedia.org/wiki/Pandas_(software).">Wikipedia Contributors, 2023</a>]</span>.</p>
+</aside>
+<aside class="footnote brackets" id="pandasr" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">3</a><span class="fn-bracket">]</span></span>
+<p>The Pandas online documentation has a page that gives a correspondence between Pandas Dataframe functionality and R dataframe functionality (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/getting_started/comparison/comparison_with_r.html">https://pandas.pydata.org/pandas-docs/stable/getting_started/comparison/comparison_with_r.html</a>).</p>
+</aside>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -516,10 +670,9 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Pandas</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">Exercises</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">Exercises</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">Footnotes</a></li>
 </ul>
-
   </nav></div>
 
 </div></div>
@@ -566,8 +719,8 @@ By Richard W. Evans
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=c5ced968eda925caa686"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686"></script>
 
   <footer class="bd-footer">
   </footer>
