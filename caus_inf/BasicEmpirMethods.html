@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Basic Causal Inference &#8212; Computational Methods for Economists using Python</title>
+    <title>Basic Empirical Methods &#8212; Computational Methods for Economists using Python</title>
   
   
   
@@ -66,7 +66,9 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'caus_inf/intro';</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'caus_inf/BasicEmpirMethods';</script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -195,7 +197,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Basic Causal Inference</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Basic Causal Inference</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Basic Empirical Methods</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Basic Machine Learning</span></p>
 <ul class="nav bd-sidenav">
@@ -291,7 +293,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/OpenSourceEcon/CompMethods/issues/new?title=Issue%20on%20page%20%2Fcaus_inf/intro.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/OpenSourceEcon/CompMethods/issues/new?title=Issue%20on%20page%20%2Fcaus_inf/BasicEmpirMethods.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -321,7 +323,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="../_sources/caus_inf/intro.md" target="_blank"
+      <li><a href="../_sources/caus_inf/BasicEmpirMethods.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -403,7 +405,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Basic Causal Inference</h1>
+    <h1>Basic Empirical Methods</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -413,6 +415,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">Exercises</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">Footnotes</a></li>
 </ul>
             </nav>
@@ -425,12 +428,62 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="basic-causal-inference">
-<span id="chap-causinfintro"></span><h1>Basic Causal Inference<a class="headerlink" href="#basic-causal-inference" title="Permalink to this heading">#</a></h1>
-<p>Put basic causal inference intro here.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="basic-empirical-methods">
+<span id="chap-basicempirmethods"></span><h1>Basic Empirical Methods<a class="headerlink" href="#basic-empirical-methods" title="Permalink to this heading">#</a></h1>
+<p>Put basic empirical methods here. <a class="reference internal" href="#ExerBasicEmpir_MultLinRegress"><span class="std std-numref">Exercise 55</span></a></p>
+<section id="exercises">
+<span id="secbasicempirexercises"></span><h2>Exercises<a class="headerlink" href="#exercises" title="Permalink to this heading">#</a></h2>
+<div class="exercise green admonition" id="ExerBasicEmpir_MultLinRegress">
+
+<p class="admonition-title"><span class="caption-number">Exercise 55 </span> (Multiple linear regression)</p>
+<section id="exercise-content">
+<p>For this problem, you will use the 397 observations from the <a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/data/BasicEmpirMethods/Auto.csv"><code class="docutils literal notranslate"><span class="pre">Auto.csv</span></code></a> dataset in the <a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/data/BasicEmpirMethods"><code class="docutils literal notranslate"><span class="pre">/data/BasicEmpirMethods/</span></code></a> folder of the repository for this book.<a class="footnote-reference brackets" href="#auto" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> This dataset includes 397 observations on miles per gallon (<code class="docutils literal notranslate"><span class="pre">mpg</span></code>), number of cylinders (<code class="docutils literal notranslate"><span class="pre">cylinders</span></code>), engine displacement (<code class="docutils literal notranslate"><span class="pre">displacement</span></code>), horsepower (<code class="docutils literal notranslate"><span class="pre">horsepower</span></code>), vehicle weight (<code class="docutils literal notranslate"><span class="pre">weight</span></code>), acceleration (<code class="docutils literal notranslate"><span class="pre">acceleration</span></code>), vehicle year (<code class="docutils literal notranslate"><span class="pre">year</span></code>), vehicle origin (<code class="docutils literal notranslate"><span class="pre">origin</span></code>), and vehicle name (<code class="docutils literal notranslate"><span class="pre">name</span></code>).</p>
+<ol class="arabic simple">
+<li><p>Import the data using the <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html"><code class="docutils literal notranslate"><span class="pre">pandas.read_csv()</span></code></a> function. Look for characters that seem out of place that might indicate missing values. Replace them with missing values using the <code class="docutils literal notranslate"><span class="pre">na_values=...</span></code> option.</p></li>
+<li><p>Produce a scatterplot matrix which includes all of the quantitative variables <code class="docutils literal notranslate"><span class="pre">mpg</span></code>, <code class="docutils literal notranslate"><span class="pre">cylinders</span></code>, <code class="docutils literal notranslate"><span class="pre">displacement</span></code>, <code class="docutils literal notranslate"><span class="pre">horsepower</span></code>, <code class="docutils literal notranslate"><span class="pre">weight</span></code>, <code class="docutils literal notranslate"><span class="pre">acceleration</span></code>, <code class="docutils literal notranslate"><span class="pre">year</span></code>, <code class="docutils literal notranslate"><span class="pre">origin</span></code>. Call your DataFrame of quantitative variables <code class="docutils literal notranslate"><span class="pre">df_quant</span></code>. [Use the pandas scatterplot function in the code block below.]</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pandas.plotting</span> <span class="kn">import</span> <span class="n">scatter_matrix</span>
+
+<span class="n">scatter_matrix</span><span class="p">(</span><span class="n">df_quant</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">diagonal</span><span class="o">=</span><span class="s1">&#39;kde&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<ol class="arabic" start="3">
+<li><p>Compute the correlation matrix for the quantitative variables (<span class="math notranslate nohighlight">\(8\times 8\)</span>) using the <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.corr.html"><code class="docutils literal notranslate"><span class="pre">pandas.DataFrame.corr()</span></code></a> method.</p></li>
+<li><p>Estimate the following multiple linear regression model of <span class="math notranslate nohighlight">\(mpg_i\)</span> on all other quantitative variables, where <span class="math notranslate nohighlight">\(u_i\)</span> is an error term for each observation, using Python’s <code class="docutils literal notranslate"><span class="pre">statsmodels.api.OLS()</span></code> function.</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+      \begin{split}
+        mpg_i &amp;= \beta_0 + \beta_1 cylinders_i + \beta_2 displacement_i + \beta_3 horsepower_i + ... \\
+        &amp;\qquad \beta_4 weight_i + \beta_5 acceleration_i + \beta_6 year_i + \beta_7 origin_i + u_i
+      \end{split}
+    \end{equation*}\]</div>
+<ul class="simple">
+<li><p>Which of the coefficients is statistically significant at the 1% level?</p></li>
+<li><p>Which of the coefficients is NOT statistically significant at the 10% level?</p></li>
+<li><p>Give an interpretation in words of the estimated coefficient <span class="math notranslate nohighlight">\(\hat{\beta}_6\)</span> on <span class="math notranslate nohighlight">\(year_i\)</span> using the estimated value of <span class="math notranslate nohighlight">\(\hat{\beta}_6\)</span>.</p></li>
+</ul>
+</li>
+<li><p>Looking at your scatterplot matrix from part (2), what are the three variables that look most likely to have a nonlinear relationship with <span class="math notranslate nohighlight">\(mpg_i\)</span>?</p>
+<ul class="simple">
+<li><p>Estimate a new multiple regression model by OLS in which you include squared terms on the three variables you identified as having a nonlinear relationship to <span class="math notranslate nohighlight">\(mpg_i\)</span> as well as a squared term on <span class="math notranslate nohighlight">\(acceleration_i\)</span>.</p></li>
+<li><p>Report your adjusted R-squared statistic. Is it better or worse than the adjusted R-squared from part (4)?</p></li>
+<li><p>What happened to the statistical significance of the <span class="math notranslate nohighlight">\(displacement_i\)</span> variable coefficient and the coefficient on its squared term?</p></li>
+<li><p>What happened to the statistical significance of the cylinders variable?</p></li>
+</ul>
+</li>
+<li><p>Using the regression model from part (5) and the <code class="docutils literal notranslate"><span class="pre">.predict()</span></code> function, what would be the predicted miles per gallon <span class="math notranslate nohighlight">\(mpg\)</span> of a car with 6 cylinders, displacement of 200, horsepower of 100, a weight of 3,100, acceleration of 15.1, model year of 1999, and origin of 1?</p></li>
+</ol>
+</section>
+</div>
+</section>
 <section id="footnotes">
-<span id="seccausinfintrofootnotes"></span><h2>Footnotes<a class="headerlink" href="#footnotes" title="Permalink to this heading">#</a></h2>
-<!-- [^citation_note]: See {cite}`AuerbachEtAl:1981,AuerbachEtAl:1983`, {cite}`AuerbachKotlikoff:1983a,AuerbachKotlikoff:1983b,AuerbachKotlikoff:1983c`, and {cite}`AuerbachKotlikoff:1985`. -->
+<span id="secbasicempirfootnotes"></span><h2>Footnotes<a class="headerlink" href="#footnotes" title="Permalink to this heading">#</a></h2>
+<p>The footnotes from this chapter.</p>
+<hr class="footnotes docutils" />
+<aside class="footnote brackets" id="auto" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p>The <a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/data/BasicEmpirMethods/Auto.csv"><code class="docutils literal notranslate"><span class="pre">Auto.csv</span></code></a> dataset comes from <span id="id2">[<a class="reference internal" href="../CompMethods_references.html#id33" title="Gareth James, Daniela Witten, Trevor Hastie, and Robert Tibshirani. An Introduction to Statistical Learning with Applications in R. Springer Texts in Statistics. Springer, 2017.">James <em>et al.</em>, 2017</a>]</span> (ch. 3) and is also available at <a class="reference external" href="http://www-bcf.usc.edu/~gareth/ISL/data.html">http://www-bcf.usc.edu/~gareth/ISL/data.html</a>.</p>
+</aside>
 </section>
 </section>
 
@@ -497,6 +550,7 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">Exercises</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">Footnotes</a></li>
 </ul>
   </nav></div>
