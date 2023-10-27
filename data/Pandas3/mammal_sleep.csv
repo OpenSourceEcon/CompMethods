@@ -1,0 +1,84 @@
+name,genus,vore,order,sleep_total,sleep_rem,sleep_cycle
+Cheetah,Acinonyx,carni,Carnivora,12.1,,
+Owl monkey,Aotus,omni,Primates,17.0,1.8,
+Mountain beaver,Aplodontia,herbi,Rodentia,14.4,2.4,
+Greater short-tailed shrew,Blarina,omni,Soricomorpha,14.9,2.3,0.133333333
+Cow,Bos,herbi,Artiodactyla,4.0,0.7,0.666666667
+Three-toed sloth,Bradypus,herbi,Pilosa,14.4,2.2,0.7666666670000001
+Northern fur seal,Callorhinus,carni,Carnivora,8.7,1.4,0.38333333299999994
+Vesper mouse,Calomys,,Rodentia,7.0,,
+Dog,Canis,carni,Carnivora,10.1,2.9,0.333333333
+Roe deer,Capreolus,herbi,Artiodactyla,3.0,,
+Goat,Capri,herbi,Artiodactyla,5.3,0.6,
+Guinea pig,Cavis,herbi,Rodentia,9.4,0.8,0.21666666699999998
+Grivet,Cercopithecus,omni,Primates,10.0,0.7,
+Chinchilla,Chinchilla,herbi,Rodentia,12.5,1.5,0.11666666699999999
+Star-nosed mole,Condylura,omni,Soricomorpha,10.3,2.2,
+African giant pouched rat,Cricetomys,omni,Rodentia,8.3,2.0,
+Lesser short-tailed shrew,Cryptotis,omni,Soricomorpha,9.1,1.4,0.15
+Long-nosed armadillo,Dasypus,carni,Cingulata,17.4,3.1,0.38333333299999994
+Tree hyrax,Dendrohyrax,herbi,Hyracoidea,5.3,0.5,
+North American Opossum,Didelphis,omni,Didelphimorphia,18.0,4.9,0.333333333
+Asian elephant,Elephas,herbi,Proboscidea,3.9,,
+Big brown bat,Eptesicus,insecti,Chiroptera,19.7,3.9,0.11666666699999999
+Horse,Equus,herbi,Perissodactyla,2.9,0.6,1.0
+Donkey,Equus,herbi,Perissodactyla,3.1,0.4,
+European hedgehog,Erinaceus,omni,Erinaceomorpha,10.1,3.5,0.283333333
+Patas monkey,Erythrocebus,omni,Primates,10.9,1.1,
+Western american chipmunk,Eutamias,herbi,Rodentia,14.9,,
+Domestic cat,Felis,carni,Carnivora,12.5,3.2,0.41666666700000005
+Galago,Galago,omni,Primates,9.8,1.1,0.55
+Giraffe,Giraffa,herbi,Artiodactyla,1.9,0.4,
+Pilot whale,Globicephalus,carni,Cetacea,2.7,0.1,
+Gray seal,Haliochoerus,carni,Carnivora,6.2,1.5,
+Gray hyrax,Heterohyrax,herbi,Hyracoidea,6.3,0.6,
+Human,Homo,omni,Primates,8.0,1.9,1.5
+Mongoose lemur,Lemur,herbi,Primates,9.5,0.9,
+African elephant,Loxodonta,herbi,Proboscidea,3.3,,
+Thick-tailed opposum,Lutreolina,carni,Didelphimorphia,19.4,6.6,
+Macaque,Macaca,omni,Primates,10.1,1.2,0.75
+Mongolian gerbil,Meriones,herbi,Rodentia,14.2,1.9,
+Golden hamster,Mesocricetus,herbi,Rodentia,14.3,3.1,0.2
+Vole ,Microtus,herbi,Rodentia,12.8,,
+House mouse,Mus,herbi,Rodentia,12.5,1.4,0.18333333300000001
+Little brown bat,Myotis,insecti,Chiroptera,19.9,2.0,0.2
+Round-tailed muskrat,Neofiber,herbi,Rodentia,14.6,,
+Slow loris,Nyctibeus,carni,Primates,11.0,,
+Degu,Octodon,herbi,Rodentia,7.7,0.9,
+Northern grasshopper mouse,Onychomys,carni,Rodentia,14.5,,
+Rabbit,Oryctolagus,herbi,Lagomorpha,8.4,0.9,0.41666666700000005
+Sheep,Ovis,herbi,Artiodactyla,3.8,0.6,
+Chimpanzee,Pan,omni,Primates,9.7,1.4,1.4166666669999999
+Tiger,Panthera,carni,Carnivora,15.8,,
+Jaguar,Panthera,carni,Carnivora,10.4,,
+Lion,Panthera,carni,Carnivora,13.5,,
+Baboon,Papio,omni,Primates,9.4,1.0,0.666666667
+Desert hedgehog,Paraechinus,,Erinaceomorpha,10.3,2.7,
+Potto,Perodicticus,omni,Primates,11.0,,
+Deer mouse,Peromyscus,,Rodentia,11.5,,
+Phalanger,Phalanger,,Diprotodontia,13.7,1.8,
+Caspian seal,Phoca,carni,Carnivora,3.5,0.4,
+Common porpoise,Phocoena,carni,Cetacea,5.6,,
+Potoroo,Potorous,herbi,Diprotodontia,11.1,1.5,
+Giant armadillo,Priodontes,insecti,Cingulata,18.1,6.1,
+Rock hyrax,Procavia,,Hyracoidea,5.4,0.5,
+Laboratory rat,Rattus,herbi,Rodentia,13.0,2.4,0.18333333300000001
+African striped mouse,Rhabdomys,omni,Rodentia,8.7,,
+Squirrel monkey,Saimiri,omni,Primates,9.6,1.4,
+Eastern american mole,Scalopus,insecti,Soricomorpha,8.4,2.1,0.166666667
+Cotton rat,Sigmodon,herbi,Rodentia,11.3,1.1,0.15
+Mole rat,Spalax,,Rodentia,10.6,2.4,
+Arctic ground squirrel,Spermophilus,herbi,Rodentia,16.6,,
+Thirteen-lined ground squirrel,Spermophilus,herbi,Rodentia,13.8,3.4,0.21666666699999998
+Golden-mantled ground squirrel,Spermophilus,herbi,Rodentia,15.9,3.0,
+Musk shrew,Suncus,,Soricomorpha,12.8,2.0,0.18333333300000001
+Pig,Sus,omni,Artiodactyla,9.1,2.4,0.5
+Short-nosed echidna,Tachyglossus,insecti,Monotremata,8.6,,
+Eastern american chipmunk,Tamias,herbi,Rodentia,15.8,,
+Brazilian tapir,Tapirus,herbi,Perissodactyla,4.4,1.0,0.9
+Tenrec,Tenrec,omni,Afrosoricida,15.6,2.3,
+Tree shrew,Tupaia,omni,Scandentia,8.9,2.6,0.233333333
+Bottle-nosed dolphin,Tursiops,carni,Cetacea,5.2,,
+Genet,Genetta,carni,Carnivora,6.3,1.3,
+Arctic fox,Vulpes,carni,Carnivora,12.5,,
+Red fox,Vulpes,carni,Carnivora,9.8,2.4,0.35
