@@ -21,7 +21,7 @@ parts:
     - file: git/intro
   - caption: Basic Causal Inference
     chapters:
-    - file: caus_inf/intro
+    - file: caus_inf/BasicEmpirMethods
   - caption: Basic Machine Learning
     chapters:
     - file: basic_ml/intro
