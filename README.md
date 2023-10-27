@@ -20,5 +20,8 @@ Please use the following citation form for this book.
 General citation to the book:
 * Evans, Richard W., *Computational Methods for Economists using Python*, Open access Jupyter Book, v#.#.#, 2023, https://opensourceecon.github.io/CompMethods/.
 
-Citation to a chapter in the book:
-* Evans, Richard W., "[insert chapter name]", in *Computational Methods for Economists using Python*, Open access Jupyter Book, v#.#.#, 2023, https://opensourceecon.github.io/CompMethods/ + [chapter path].
+Citation to a chapter in the book only authored by Evans:
+* Evans, Richard W., "[insert chapter name]", in *Computational Methods for Economists using Python*, Open access Jupyter Book, v#.#.#, 2023, https://opensourceecon.github.io/CompMethods + [chapter path].
+
+Citation to a chapter in the book only authored by multiple authors:
+* DeBacker, Jason and Richard W. Evans, "[insert chapter name]", in *Computational Methods for Economists using Python*, Open access Jupyter Book, v#.#.#, 2023, https://opensourceecon.github.io/CompMethods + [chapter path].

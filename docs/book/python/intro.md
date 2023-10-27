@@ -1,9 +1,11 @@
 (Chap_PythonIntro)=
 # Introduction to Python
 
-The `OG-Core` model, as well as the country-specific calibration packages, are written in the Python programming language. These training materials will provide you with sufficient background with Python and some of its most-used packages for data science that you will be able to understand and contribute to the source code underlying `OG-Core` and the calibration packages. We assume some basic background with mathematics, economics, and programming, but we do not assume any prior knowledge of Python.
+This chapter was coauthored by Jason DeBacker and Richard W. Evans.
 
-As we walk you through the basics of Python, we will leverage some excellent open source materials put together by [QuantEcon](https://quantecon.org/) and the [Applied and Computational Mathematics Emphasis at BYU (BYU ACME)](https://acme.byu.edu/). And while we will point you to their tutorials, we have customized all our excercises to be relevant to the `OG-Core` model and the calibration packages.
+Many models are written in the Python programming language. Python is the 2nd most widely used language on all GitHub repository projects {cite}`GitHub:2022`, and Python is the 1st most used programming language according to the PYPL ranking of September 2023 {cite}`Stackscale:2023`.
+
+As these tutorials walk you through the basics of Python, they will leverage some excellent open source materials put together by [QuantEcon](https://quantecon.org/) and the [Applied and Computational Mathematics Emphasis at BYU (BYU ACME)](https://acme.byu.edu/2023-2024-materials). And while the tutorials will point you to those of these other organizations, we have customized all our excercises to be relevant to the work and research of economists.
 
 
 (SecPythonIntroOverview)=
@@ -14,7 +16,7 @@ The Python.org site has documentation essays, one of which is entitled "[What is
 
 In addition to the description above, Python is an open source programming language that is freely available and customizable (see https://www.python.org/downloads/source/).
 
-Python has some built in functionality with the standard library, but most of the functionality comes from packages that are developed by the open source community. The most important packages for data science are: NumPy, SciPy, Pandas, and Matplotlib.  We will introduce each of these packages as we go through the training materials as they are used heavily in `OG-Core` and the corresponding country calibration packages.
+Python has some built in functionality with the standard library, but most of the functionality comes from packages that are developed by the open source community. The most important packages for data science are: NumPy, SciPy, Pandas, and Matplotlib.  We will introduce each of these packages as we go through the training materials as they are used heavily in economics applications.
 
 
 (SecPythonIntroInstall)=
@@ -45,20 +47,24 @@ Some extensions that we recommend installing into your VS Code:
 
 In addition, [GitHub Copilot](https://github.com/features/copilot) is an amazing resource and can be added as an extension to VS Code. However, this service is not free of charge and does require an internet connection to work.
 
-```{exercise-start}
-:label: ExerPythonIntro
-```
-Read the BYU ACME "[Introduction to Python](https://acme.byu.edu/00000181-448a-d778-a18f-dfcae22f0001/intro-to-python)" lab and complete Problems 1 through 8 in the lab. {cite}`BYUACME_PythonIntro`
-```{exercise-end}
-```
+In the iframe below is a PDF of the BYU ACME open-access lab entitled, "Python Intro". You can either scroll through the lab on this page using the iframe window, or you can download the PDF for use on your computer. See {cite}`BYUACME_PythonIntro`. {numref}`ExerPythonIntro` below has you work through the problems in this BYU ACME lab. The Python code file ([`python_intro.py`](https://github.com/OpenSourceEcon/CompMethods/tree/main/code/PythonIntro/python_intro.py)) used in the lab is stored in the [`./code/PythonIntro/`](https://github.com/OpenSourceEcon/CompMethods/tree/main/code/PythonIntro) directory.
 
-[Put a review of Python data types here: string, byte, float, list, set, dict. Discuss mutability versus immutability as well as iterability. Also introduce NumPy arrays and Pandas DataFrames.]
+<div>
+  <iframe id="inlineFrameExample"
+      title="Inline Frame Example"
+      width="100%"
+      height="700"
+      src="https://drive.google.com/file/d/1CHl8C-QKgs8jHzsRfJSMWkVqq0elzP1F/preview?usp=sharing">
+  </iframe>
+</div>
+
+We cover Python's built-in functions, constants, and data types and their properties in {numref}`ExerStandardLibrary` of the {ref}`Chap_StdLib` chapter. We also introduce different commonly used objects like Numpy arrays and operations in chapter {ref}`Chap_Numpy` and Pandas DataFrames and operations in chapter {ref}`Chap_Pandas`.
 
 
 (SecPythonIntroPackages)=
 ## Python Packages
 
-When using `OG-Core` there are a handful of Python packages that will be useful and that these training materials will cover:
+Economics applications heavily use a handful of Python packages that will be useful and that these training materials will cover:
 
 1. The Standard Library
 2. NumPy for numerical computing (e.g., arrays, linear algebra, etc.)
@@ -66,23 +72,54 @@ When using `OG-Core` there are a handful of Python packages that will be useful 
 4. Matplotlib for plotting
 5. SciPy for scientific computing (e.g., optimization, interpolation, etc.)
 
-All of these will be included as part of your installation of Anaconda.  Anaconda also includes a package manager called `conda` that will allow you to install additional packages and well help keep versions of packages consistent with each other.  We will not cover this in these training materials, but you can find more information about `conda` [here](https://docs.conda.io/en/latest/) and you'll find references to `conda` as we install the `OG-Core` package in the latter part of these training materials.
+All of these will be included as part of your installation of Anaconda. Anaconda also includes a package manager called `conda` that will allow you to install additional packages and well help keep versions of packages consistent with each other.  We will not cover this in these training materials, but you can find more information about `conda` [here](https://docs.conda.io/en/latest/) and you'll find references to `conda` as we install packages throughout these training materials.
 
 
 (SecPythonIntroTopics)=
 ## Python Training Topics
 
 1. [Python Standard Library](StandardLibrary.md)
-2. [Object Oriented Programming](OOP.md)
-3. [NumPy](NumPy.md)
-4. [Pandas](Pandas.md)
-5. [Matplotlib](Matplotlib.md)
-6. [SciPy](SciPy.md)
-7. [Doc strings and comments](DocStrings.md)
-8. [Unit testing in Python](UnitTesting.md)
+2. [Exception handling and file input/output](ExceptionsIO.md)
+3. [Object Oriented Programming](OOP.md)
+4. [NumPy](NumPy.md)
+5. [Pandas](Pandas.md)
+6. [Matplotlib](Matplotlib.md)
+7. [SciPy](SciPy.md)
+8. [Doc strings and documentation](DocStrings.md)
+9. [Unit testing](UnitTesting.md)
 
 
-<!-- (SecPythonIntroFootnotes)=
-## Footnotes -->
+(SecPythonIntroUnix)=
+## (Optional): Using the Unix Shell
 
-<!-- [^citation_note]: See {cite}`AuerbachEtAl:1981,AuerbachEtAl:1983`, {cite}`AuerbachKotlikoff:1983a,AuerbachKotlikoff:1983b,AuerbachKotlikoff:1983c`, and {cite}`AuerbachKotlikoff:1985`. -->
+Unix is an old operating system that is the basis for the Linux and Mac operating systems. Many Python users with Mac or Linux operating systems follow a workflow that includes working in the terminal and using Unix commands. This section is optional because Windows terminals do not have the same Unix commands. For those interested, feel free to work through the Unix lab below from BYU ACME. This lab features great examples and instruction, and also has seven good exercises for you to practice on.
+
+In the iframe below is a PDF of the BYU ACME open-access lab entitled, "Unix Shell 1: Introduction". You can either scroll through the lab on this page using the iframe window, or you can download the PDF for use on your computer. See {cite}`BYUACME_Unix1`. {numref}`ExerUnix1` below has you work through the problems in this BYU ACME lab. The shell script file ([`unixshell1.sh`](https://github.com/OpenSourceEcon/CompMethods/tree/main/code/UnixShell1/unixshell1.sh)) used in the lab, along with the associated zip file ([`Shell1.zip`](https://github.com/OpenSourceEcon/CompMethods/tree/main/code/UnixShell1/Shell1.zip)), are stored in the [`./code/UnixShell1/`](https://github.com/OpenSourceEcon/CompMethods/tree/main/code/UnixShell1) directory.
+
+<div>
+  <iframe id="inlineFrameExample"
+      title="Inline Frame Example"
+      width="100%"
+      height="700"
+      src="https://drive.google.com/file/d/18eTLp_FhWFYgAItIZnX6gesIvg91rXW5/preview?usp=sharing">
+  </iframe>
+</div>
+
+(SecPythonIntroExercises)=
+## Exercises
+
+```{exercise-start} Python introduction
+:label: ExerPythonIntro
+:class: green
+```
+Read the BYU ACME "[Introduction to Python](https://drive.google.com/file/d/1CHl8C-QKgs8jHzsRfJSMWkVqq0elzP1F/view?usp=sharing)" lab and complete Problems 1 through 8 in the lab. {cite}`BYUACME_PythonIntro`
+```{exercise-end}
+```
+
+```{exercise-start} OPTIONAL: Unix shell commands
+:label: ExerUnix1
+:class: green
+```
+Read the BYU ACME "[Unix Shell 1: Introduction](https://drive.google.com/file/d/18eTLp_FhWFYgAItIZnX6gesIvg91rXW5/view?usp=sharing)" lab and complete Problems 1 through 7 in the lab. {cite}`BYUACME_Unix1`
+```{exercise-end}
+```

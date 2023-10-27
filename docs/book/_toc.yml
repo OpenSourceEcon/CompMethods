@@ -8,6 +8,7 @@ parts:
     chapters:
     - file: python/intro
     - file: python/StandardLibrary
+    - file: python/ExceptionsIO
     - file: python/OOP
     - file: python/NumPy
     - file: python/Pandas
