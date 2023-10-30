@@ -12,7 +12,7 @@ This site contains open access tutorial materials and exercises for learning and
 * (2016-present) President, Open Research Group, Inc.
 * (2022-present) Senior Research Fellow and Director of Open Policy, Center for Growth and Opportunity at Utah State University.
 
-The core maintainer of this project is the following:
+The core maintainer of this project is the following. However, some of the chapters have been jointly developed with coauthors as noted at the top of some chapters.
 * [**Richard W. Evans**](https://sites.google.com/site/rickecon), Senior Research Fellow and Director of Open Policy, Center for Growth and Opportunity at Utah State University; President and Co-founder, Open Research Group, Inc. (GitHub handle: [@rickecon](https://github.com/rickecon))
 
 We welcome collaboration on the maintenance and improvement of this tutorial. If you have changes you would like to see or errors that you find, please open [an issue](https://github.com/OpenSourceEcon/CompMethods/issues) in the GitHub repository or submit a [pull request](https://github.com/OpenSourceEcon/CompMethods/pulls). More details on how to collaborate with this project are the {ref}`Chap_Contrib` chapter.
@@ -29,7 +29,11 @@ This site was created using the [Executable Books](https://executablebooks.org/)
 
 
 ## Associated repository components
-Put here a description of the code and tests available in the repository.
+Code related to labs and exercises in the online book are posted in the [`./code/`](https://github.com/OpenSourceEcon/CompMethods/tree/main/code) directory of the book's GitHub repository. The `code` directory has subdirectories that are organized by chapter name.
+
+Data related to labs and exercises in the online book are posted in the [`./data/`](https://github.com/OpenSourceEcon/CompMethods/tree/main/data) directory of the book's GitHub repository. The `data` directory has subdirectories that are organized by chapter name.
+
+Images related to labs and exercises in the online book are posted in the [`./images/`](https://github.com/OpenSourceEcon/CompMethods/tree/main/images) directory of the book's GitHub repository. The `images` directory has subdirectories that are organized by chapter name.
 
 
 ## Citing this book
