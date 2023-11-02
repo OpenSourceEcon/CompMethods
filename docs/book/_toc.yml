@@ -19,12 +19,12 @@ parts:
   - caption: Git and GitHub
     chapters:
     - file: git/intro
-  - caption: Basic Causal Inference
+  - caption: Basic Empirical Methods
     chapters:
-    - file: caus_inf/BasicEmpirMethods
+    - file: basic_empirics/BasicEmpirMethods
   - caption: Basic Machine Learning
     chapters:
-    - file: basic_ml/intro
+    - file: basic_ml/ml_intro
   - caption: Neural Nets and Deep Learning
     chapters:
     - file: deep_learn/intro
