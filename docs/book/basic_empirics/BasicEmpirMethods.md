@@ -100,7 +100,7 @@ These variables and other data used in the paper are available for download on [
 
 
 (SecBasicEmpDescrBasic)=
-### Basic Data Description
+### Basic data description
 
 The following cells downloads the data from {cite}`AcemogluEtAl:2001` from the file `maketable1.dta` and displays the first five observations from the data.
 
@@ -109,8 +109,9 @@ The following cells downloads the data from {cite}`AcemogluEtAl:2001` from the f
 
 import pandas as pd
 
-df1 = pd.read_stata('https://github.com/QuantEcon/QuantEcon.lectures.code/' +
-                    'raw/master/ols/maketable1.dta')
+path_df1 = ('https://github.com/OpenSourceEcon/CompMethods/' +
+            'raw/main/data/basic_empirics/maketable1.dta')
+df1 = pd.read_stata(path_df1)
 ```
 
 The [`pandas.DataFrame.head`](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.head.html) method returns the first $n$ forws of a DataFrame with column headings and index numbers. The default is `n=5`.
@@ -121,24 +122,211 @@ The [`pandas.DataFrame.head`](https://pandas.pydata.org/pandas-docs/stable/refer
 df1.head()
 ```
 
-How many observations are in this dataset? What are the different countries in this dataset?
+How many observations are in this dataset? What are the different countries in this dataset? The [`pandas.DataFrame.shape`](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.shape.html) method returns a tuple in which the first element is the number of observations (rows) in the DataFrame and the second element is the number of variables (columns).
 
 ```{code-cell} ipython3
 :tags: []
 
-print("The number of observations (rows) in the dataset is:", df1.size)
+
+df1.shape
+```
+
+```{code-cell} ipython3
+:tags: []
+
+print("The number of observations (rows) and variables (columns)")
+print("in the dataset is " + str(df1.shape[0]) + "observations (rows) and")
+print(str(df1.shape[1]) + " variables (columns).")
 print("")
 print("A list of all the", len(df1["shortnam"].unique()),
       'unique countries in the "shortnam" variable is:')
+print("")
 print(df1["shortnam"].unique())
 ```
 
-Pandas DataFrames have a built-in method `.describe()` that will give the basic descriptive statistics for the numerical variables of a dataset.
+Pandas DataFrames have a built-in method [`.describe()`](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.describe.html) that will give the basic descriptive statistics for the numerical variables of a dataset.
 
 ```{code-cell} ipython3
 :tags: []
 
 df1.describe()
+```
+
+The variable `logpgp95` represents GDP per capita for each country. The variable `avexpr` represents the protection against expropriation index. So more protection is a good thing. What do we expect to see if we do a scatterplot of these two variables with `avexpr` on the `x`-axis and `logpgp95` on the `y`-axis? Draw it on a piece of paper or on a white board.
+
+Let’s use a scatterplot to see whether any obvious relationship exists between GDP per capita and the protection against expropriation index.
+
+```{code-cell} ipython3
+:tags: ["remove-output"]
+
+import matplotlib.pyplot as plt
+
+plt.scatter(x=df1["avexpr"], y=df1["logpgp95"], s=10)
+plt.xlim((3.2, 10.5))
+plt.ylim((5.9, 10.5))
+plt.title("Scatterplot of average expropriation protection and log GDP per " +
+          "capita for each country")
+plt.xlabel(r'Average Expropriation Protection 1985-95')
+plt.ylabel(r'Log GDP per capita, PPP, 1995')
+plt.grid(color='gray', linestyle=':', linewidth=1, alpha=0.5)
+plt.show()
+```
+
+```{figure} ../../../images/basic_empirics/scatter1.png
+:height: 500px
+:name: FigBasicEmpir_scatter1
+
+Scatterplot of average expropriation protection $avexpr$ and log GDP per capita $logpgp95$ for each country
+```
+
+The plot shows a fairly strong positive relationship between protection against expropriation and log GDP per capita. Specifically, if higher protection against expropriation is a measure of institutional quality, then better institutions appear to be positively correlated with better economic outcomes (higher GDP per capita).
+
+
+(SecBasicEmpDescrCross)=
+### Cross tabulated data Description
+
+Cross tabulation is a set of descriptive statics by groupings of the data. In R and Python, this is done with a powerful [`.groupby`](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.groupby.html) command. What if we thought that the relationship between protection against expropriation `avexpr` and `logpgp95` were different for countries whose abbreviation started with A-M versus countries whose abbreviation started with N-Z?
+
+```{code-cell} ipython3
+:tags: []
+
+# Create AtoM variable that = 1 if the first letter of the abbreviation is in
+# A to M and = 0 if it is in N to Z
+df1["AtoM"] = 0
+df1["AtoM"][
+    df1["shortnam"].str[0].isin([
+        'A','B','C','D','E','F','G','H','I','J','K','L','M'
+    ])
+] = 1
+
+# Describe the data
+df1.groupby("AtoM").describe()
+```
+
+Another way we could do this that is more readable that the output above is to just describe the data in two separate commands in which we restrict the data to the two separate groups.
+
+```{code-cell} ipython3
+:tags: []
+
+df1[df1["AtoM"]==1].describe()
+```
+
+```{code-cell} ipython3
+:tags: []
+
+df1[df1["AtoM"]==0].describe()
+```
+
+Let's make two scatterplots to see with our eyes if there seems to be a difference in the relationship.
+
+```{code-cell} ipython3
+:tags: ["remove-output"]
+
+# Plot the scatterplot of the relationship for the countries for which the first
+# letter of the abbreviation is between A to M
+plt.scatter(
+  x=df1[df1["AtoM"]==1]["avexpr"], y=df1[df1["AtoM"]==1]["logpgp95"], s=10
+)
+plt.xlim((3.2, 10.5))
+plt.ylim((5.9, 10.5))
+plt.title("Scatterplot of average expropriation protection and log GDP per " +
+          "capita \n for each country, first letter in A-M")
+plt.xlabel(r'Average Expropriation Protection 1985-95')
+plt.ylabel(r'Log GDP per capita, PPP, 1995')
+plt.grid(color='gray', linestyle=':', linewidth=1, alpha=0.5)
+plt.show()
+```
+
+```{figure} ../../../images/basic_empirics/scatter2.png
+:height: 500px
+:name: FigBasicEmpir_scatter2
+
+Scatterplot of average expropriation protection $avexpr$ and log GDP per capita $logpgp95$ for each country, first letter in A-M
+```
+
+```{code-cell} ipython3
+:tags: ["remove-output"]
+
+# Plot the scatterplot of the relationship for the countries for which the first
+# letter of the abbreviation is between N to Z
+plt.scatter(
+  x=df1[df1["AtoM"]==0]["avexpr"], y=df1[df1["AtoM"]==0]["logpgp95"], s=10
+)
+plt.xlim((3.2, 10.5))
+plt.ylim((5.9, 10.5))
+plt.title("Scatterplot of average expropriation protection and log GDP per " +
+          "capita \n for each country, first letter in N-Z")
+plt.xlabel(r'Average Expropriation Protection 1985-95')
+plt.ylabel(r'Log GDP per capita, PPP, 1995')
+plt.grid(color='gray', linestyle=':', linewidth=1, alpha=0.5)
+plt.show()
+```
+
+```{figure} ../../../images/basic_empirics/scatter3.png
+:height: 500px
+:name: FigBasicEmpir_scatter3
+
+Scatterplot of average expropriation protection $avexpr$ and log GDP per capita $logpgp95$ for each country, first letter in N-Z
+```
+
+
+(SecBasicEmpLinReg)=
+## Basic Understanding of Linear Regression
+
+
+(SecBasicEmpLinRegExamp)=
+### Example: Acemoglu, et al (2001)
+
+Given the plots in {numref}`Figure %s <FigBasicEmpir_scatter1>`, {numref}`Figure %s <FigBasicEmpir_scatter2>`, and {numref}`Figure %s <FigBasicEmpir_scatter3>` above, choosing a linear model to describe this relationship seems like a reasonable assumption.
+
+We can write a model as:
+
+```{math}
+    :label: EqBasicEmp_AcemogluReg
+    logpgp95_i = \beta_0 + \beta_1 avexpr_i + u_i
+```
+
+where:
+* $\beta_0$ is the intercept of the linear trend line on the $y$-axis
+* $\beta_1$ is the slope of the linear trend line, representing the marginal effect of protection against risk on log GDP per capita
+* $u_i$ is a random error term (deviations of observations from the linear trend due to factors not included in the model)
+
+Visually, this linear model involves choosing a straight line that best fits the data according to some criterion, as in the following plot (Figure 2 in {cite}`AcemogluEtAl:2001`).
+
+```{code-cell} ipython3
+:tags: []
+
+import numpy as np
+
+# Dropping NA's is required to use numpy's polyfit
+df1_subset = df1.dropna(subset=['logpgp95', 'avexpr'])
+# df1_subset.describe()
+
+# Use only 'base sample' for plotting purposes (smaller sample)
+df1_subset = df1_subset[df1_subset['baseco'] == 1]
+# df1_subset.describe()
+
+X = df1_subset['avexpr']
+y = df1_subset['logpgp95']
+labels = df1_subset['shortnam']
+
+# Replace markers with country labels
+plt.scatter(X, y, marker='')
+
+for i, label in enumerate(labels):
+    plt.annotate(label, (X.iloc[i], y.iloc[i]))
+
+# Fit a linear trend line
+plt.plot(np.unique(X),
+         np.poly1d(np.polyfit(X, y, 1))(np.unique(X)),
+         color='black')
+
+plt.xlabel('Average Expropriation Protection 1985-95')
+plt.ylabel('Log GDP per capita, PPP, 1995')
+plt.xlim((3.2, 10.5))
+plt.ylim((5.9, 10.5))
+plt.title('Figure 2: OLS relationship between expropriation risk and income')
+plt.show()
 ```
 
 
