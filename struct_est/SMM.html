@@ -19,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=c5ced968eda925caa686" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=c5ced968eda925caa686" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=c5ced968eda925caa686" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=c5ced968eda925caa686" rel="stylesheet" />
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -41,9 +41,9 @@
     <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=c5ced968eda925caa686" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686" />
-  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=c5ced968eda925caa686"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -195,13 +195,13 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../git/intro.html">Git and GitHub</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Basic Causal Inference</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Basic Empirical Methods</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../caus_inf/BasicEmpirMethods.html">Basic Empirical Methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basic_empirics/BasicEmpirMethods.html">Basic Empirical Methods</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Basic Machine Learning</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../basic_ml/intro.html">Basic Machine Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basic_ml/ml_intro.html">Basic Machine Learning</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Neural Nets and Deep Learning</span></p>
 <ul class="nav bd-sidenav">
@@ -460,7 +460,7 @@ document.write(`
 <p>This chapter describes the simulated method of moments (SMM) estimation method. All data and images from this chapter can be found in the data directory (<a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/data/smm/">./data/smm/</a>) and images directory (<a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/images/smm/">./images/smm/</a>) for the GitHub repository for this online book.</p>
 <section id="the-smm-estimator">
 <span id="secsmmestimator"></span><h2>The SMM estimator<a class="headerlink" href="#the-smm-estimator" title="Permalink to this heading">#</a></h2>
-<p>Simulated method of moments (SMM) is analogous to the generalized method of moments (GMM) estimator. SMM could really be thought of as a particular type of GMM estimator. The SMM estimator chooses a vector of model parameters <span class="math notranslate nohighlight">\(\theta\)</span> to make simulated model moments match data moments. Seminal papers developing SMM are <span id="id1">[<a class="reference internal" href="../CompMethods_references.html#id38" title="Daniel McFadden. A method of simulated moments for estimation of discrete response models without numerical integration. Econometrica, 57(5):995-1026, September 1989.">McFadden, 1989</a>]</span>, <span id="id2">[<a class="reference internal" href="../CompMethods_references.html#id37" title="Bong-Soo Lee and Beth Fisher Ingram. Simulation estimation of time series models. Journal of Econometrics, 47(2-3):197-205, February 1991.">Lee and Ingram, 1991</a>]</span>, and <span id="id3">[<a class="reference internal" href="../CompMethods_references.html#id21" title="Darrell Duffie and Kenneth J. Singleton. Simulated moment estimation of markov models of asset prices. Econometrica, 61(4):929-952, July 1993.">Duffie and Singleton, 1993</a>]</span>. Good textbook treatments of SMM are found in <span id="id4">[<a class="reference internal" href="../CompMethods_references.html#id2" title="Jérôme Adda and Russell Cooper. Dynamic Economics: Quantitative Methods and Applications. MIT Press, 2003.">Adda and Cooper, 2003</a>]</span>, (pp. 87-100) and <span id="id5">[<a class="reference internal" href="../CompMethods_references.html#id20" title="Russell Davidson and James G. MacKinnon. Econometric Theory and Methods. Oxford University Press, 2004.">Davidson and MacKinnon, 2004</a>]</span>, (pp. 383-394).</p>
+<p>Simulated method of moments (SMM) is analogous to the generalized method of moments (GMM) estimator. SMM could really be thought of as a particular type of GMM estimator. The SMM estimator chooses a vector of model parameters <span class="math notranslate nohighlight">\(\theta\)</span> to make simulated model moments match data moments. Seminal papers developing SMM are <span id="id1">[<a class="reference internal" href="../CompMethods_references.html#id40" title="Daniel McFadden. A method of simulated moments for estimation of discrete response models without numerical integration. Econometrica, 57(5):995-1026, September 1989.">McFadden, 1989</a>]</span>, <span id="id2">[<a class="reference internal" href="../CompMethods_references.html#id39" title="Bong-Soo Lee and Beth Fisher Ingram. Simulation estimation of time series models. Journal of Econometrics, 47(2-3):197-205, February 1991.">Lee and Ingram, 1991</a>]</span>, and <span id="id3">[<a class="reference internal" href="../CompMethods_references.html#id23" title="Darrell Duffie and Kenneth J. Singleton. Simulated moment estimation of markov models of asset prices. Econometrica, 61(4):929-952, July 1993.">Duffie and Singleton, 1993</a>]</span>. Good textbook treatments of SMM are found in <span id="id4">[<a class="reference internal" href="../CompMethods_references.html#id2" title="Jérôme Adda and Russell Cooper. Dynamic Economics: Quantitative Methods and Applications. MIT Press, 2003.">Adda and Cooper, 2003</a>]</span>, (pp. 87-100) and <span id="id5">[<a class="reference internal" href="../CompMethods_references.html#id22" title="Russell Davidson and James G. MacKinnon. Econometric Theory and Methods. Oxford University Press, 2004.">Davidson and MacKinnon, 2004</a>]</span>, (pp. 383-394).</p>
 <p>Let the data be represented, in general, by <span class="math notranslate nohighlight">\(x\)</span>. This could have many variables, and it could be cross-sectional or time series. We define the estimation problem as one in which we want to model the data <span class="math notranslate nohighlight">\(x\)</span> using some parameterized model <span class="math notranslate nohighlight">\(g(x|\theta)\)</span> in which <span class="math notranslate nohighlight">\(\theta\)</span> is a <span class="math notranslate nohighlight">\(K\times 1\)</span> vector of parameters.</p>
 <div class="math notranslate nohighlight" id="equation-eqsmm-thetavec">
 <span class="eqno">(7)<a class="headerlink" href="#equation-eqsmm-thetavec" title="Permalink to this equation">#</a></span>\[    \theta \equiv \left[\theta_1, \theta_2, ...\theta_K\right]^T\]</div>
@@ -480,10 +480,10 @@ document.write(`
 <p>The following difficulties can arise with GMM making it not possible or very difficult.</p>
 <ul class="simple">
 <li><p>The model moment function <span class="math notranslate nohighlight">\(m(x|\theta)\)</span> is not known analytically.</p></li>
-<li><p>The data moments you are trying to match come from another model (indirect inference, see <span id="id6">[<a class="reference internal" href="../CompMethods_references.html#id45" title="Anthony A. Jr. Smith. Indirect inference. In Matias Vernengo, Esteban Perez Caldentey, and Barkley J. Rosser Jr., editors, New Palgrave Dictionary of Economics. Palgrave MacMillan, 2020. URL: http://www.econ.yale.edu/smith/palgrave7.pdf.">Smith, 2020</a>]</span>).</p></li>
-<li><p>The model moments <span class="math notranslate nohighlight">\(m(x|\theta)\)</span> are derived from <em>latent variables</em> that are not observed by the modeler. You only have moments, not the underlying data. See <span id="id7">[<a class="reference internal" href="../CompMethods_references.html#id36" title="G. Laroque and B. Salanié. Simulation based estimation models with lagged latent variables. Journal of Applied Econometrics, 8(Supplement):119-133, December 1993.">Laroque and Salanié, 1993</a>]</span>.</p></li>
+<li><p>The data moments you are trying to match come from another model (indirect inference, see <span id="id6">[<a class="reference internal" href="../CompMethods_references.html#id49" title="Anthony A. Jr. Smith. Indirect inference. In Matias Vernengo, Esteban Perez Caldentey, and Barkley J. Rosser Jr., editors, New Palgrave Dictionary of Economics. Palgrave MacMillan, 2020. URL: http://www.econ.yale.edu/smith/palgrave7.pdf.">Smith, 2020</a>]</span>).</p></li>
+<li><p>The model moments <span class="math notranslate nohighlight">\(m(x|\theta)\)</span> are derived from <em>latent variables</em> that are not observed by the modeler. You only have moments, not the underlying data. See <span id="id7">[<a class="reference internal" href="../CompMethods_references.html#id38" title="G. Laroque and B. Salanié. Simulation based estimation models with lagged latent variables. Journal of Applied Econometrics, 8(Supplement):119-133, December 1993.">Laroque and Salanié, 1993</a>]</span>.</p></li>
 <li><p>The model moments <span class="math notranslate nohighlight">\(m(x|\theta)\)</span> are derived from <em>censored variables</em> that are only partially observed by the modeler.</p></li>
-<li><p>The model moments <span class="math notranslate nohighlight">\(m(x|\theta)\)</span> are just difficult to derive analytically. Examples include moments that include multiple integrals over nonlinear functions as in <span id="id8">[<a class="reference internal" href="../CompMethods_references.html#id38" title="Daniel McFadden. A method of simulated moments for estimation of discrete response models without numerical integration. Econometrica, 57(5):995-1026, September 1989.">McFadden, 1989</a>]</span>.</p></li>
+<li><p>The model moments <span class="math notranslate nohighlight">\(m(x|\theta)\)</span> are just difficult to derive analytically. Examples include moments that include multiple integrals over nonlinear functions as in <span id="id8">[<a class="reference internal" href="../CompMethods_references.html#id40" title="Daniel McFadden. A method of simulated moments for estimation of discrete response models without numerical integration. Econometrica, 57(5):995-1026, September 1989.">McFadden, 1989</a>]</span>.</p></li>
 </ul>
 <p>SMM estimation is simply to simulate the model data <span class="math notranslate nohighlight">\(S\)</span> times, and use the average values of the moments from the simulated data as the estimator for the model moments. Let <span class="math notranslate nohighlight">\(\tilde{x}\equiv\{\tilde{x}_1,\tilde{x}_2,...\tilde{x}_s,...\tilde{x}_S\}\)</span> be the <span class="math notranslate nohighlight">\(S\)</span> simulations of the model data. And let the maximization problem in <a class="reference internal" href="#equation-eqsmm-smmestimator">(14)</a> be characterized by <span class="math notranslate nohighlight">\(R\)</span> average moments across simulations, where <span class="math notranslate nohighlight">\(\hat{m}_r\)</span> is the average value of the <span class="math notranslate nohighlight">\(r\)</span>th moment across the <span class="math notranslate nohighlight">\(S\)</span> simulations where,</p>
 <div class="math notranslate nohighlight" id="equation-eqsmm-avgsimmoms-r">
@@ -574,7 +574,7 @@ document.write(`
 </section>
 <section id="newey-west-consistent-estimator-of-omega-and-w">
 <span id="secsmm-w-nw"></span><h3>Newey-West consistent estimator of <span class="math notranslate nohighlight">\(\Omega\)</span> and W<a class="headerlink" href="#newey-west-consistent-estimator-of-omega-and-w" title="Permalink to this heading">#</a></h3>
-<p>The Newey-West estimator of the optimal weighting matrix and variance covariance matrix is consistent in the presence of heteroskedasticity and autocorrelation in the data (See <span id="id9">[<a class="reference internal" href="../CompMethods_references.html#id40" title="Whitney K. Newey and Kenneth D. West. A simple, positive, semi-definite, heteroskedasticy and autocorrelation consistent covariance matrix. Econometrica, 55(3):703-708, May 1987.">Newey and West, 1987</a>]</span>). <span id="id10">[<a class="reference internal" href="../CompMethods_references.html#id2" title="Jérôme Adda and Russell Cooper. Dynamic Economics: Quantitative Methods and Applications. MIT Press, 2003.">Adda and Cooper, 2003</a>]</span> (p. 82) have a nice exposition of how to compute the Newey-West weighting matrix <span class="math notranslate nohighlight">\(\hat{W}_{nw}\)</span>. The asymptotic representation of the optimal weighting matrix <span class="math notranslate nohighlight">\(\hat{W}^{opt}\)</span> is the following:</p>
+<p>The Newey-West estimator of the optimal weighting matrix and variance covariance matrix is consistent in the presence of heteroskedasticity and autocorrelation in the data (See <span id="id9">[<a class="reference internal" href="../CompMethods_references.html#id42" title="Whitney K. Newey and Kenneth D. West. A simple, positive, semi-definite, heteroskedasticy and autocorrelation consistent covariance matrix. Econometrica, 55(3):703-708, May 1987.">Newey and West, 1987</a>]</span>). <span id="id10">[<a class="reference internal" href="../CompMethods_references.html#id2" title="Jérôme Adda and Russell Cooper. Dynamic Economics: Quantitative Methods and Applications. MIT Press, 2003.">Adda and Cooper, 2003</a>]</span> (p. 82) have a nice exposition of how to compute the Newey-West weighting matrix <span class="math notranslate nohighlight">\(\hat{W}_{nw}\)</span>. The asymptotic representation of the optimal weighting matrix <span class="math notranslate nohighlight">\(\hat{W}^{opt}\)</span> is the following:</p>
 <div class="math notranslate nohighlight" id="equation-eqsmm-estw-whatopt">
 <span class="eqno">(30)<a class="headerlink" href="#equation-eqsmm-estw-whatopt" title="Permalink to this equation">#</a></span>\[    \hat{W}^{opt} = \lim_{S\rightarrow\infty}\frac{1}{S}\sum_{i=1}^S \sum_{l=-\infty}^\infty E(\tilde{x}_i,x|\theta)E(\tilde{x}_{i-l},x|\theta)^T\]</div>
 <p>The Newey-West consistend estimator of <span class="math notranslate nohighlight">\(\hat{W}^{opt}\)</span> is:</p>
@@ -1288,7 +1288,7 @@ Criterion function value is: 0.4429893115777857
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>mu_SMM1_1= 612.3319048024534  sig_SMM1_1= 197.26303566149244
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>mu_SMM1_1= 612.3371352249138  sig_SMM1_1= 197.26434895262162
 </pre></div>
 </div>
 </div>
@@ -1316,18 +1316,18 @@ Criterion function value is: 0.4429893115777857
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data mean of scores = 341.90869565217395 , Data variance of scores = 7827.997292398056
 
-Model mean 1 = 341.6690130387879 , Model variance 1 = 7827.866466512297
+Model mean 1 = 341.6692110494425 , Model variance 1 = 7827.864496338213
 
-Error vector 1 = [-7.01013506e-04 -1.67125614e-05]
+Error vector 1 = [-7.00434373e-04 -1.69642445e-05]
 
 Results from scipy.opmtimize.minimize:
   message: CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_&lt;=_PGTOL
   success: True
    status: 0
-      fun: 4.916992449560748e-07
+      fun: 4.908960959342433e-07
         x: [ 6.123e+02  1.973e+02]
       nit: 17
-      jac: [-7.454e-07  2.357e-06]
+      jac: [-7.436e-07  2.350e-06]
      nfev: 72
      njev: 24
  hess_inv: &lt;2x2 LbfgsInvHessProduct with dtype=float64&gt;
@@ -1452,19 +1452,19 @@ Results from scipy.opmtimize.minimize:
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Jacobian matrix of derivatives of moment error functions is:
-[[ 0.0008975  -0.00290434]
- [-0.00114133  0.004457  ]]
+[[ 0.00089749 -0.00290433]
+ [-0.00114132  0.00445698]]
 
 Weighting matrix W is:
 [[1. 0.]
  [0. 1.]]
 
 Variance-covariance matrix of estimated parameter vector is:
-[[602499.98744184 163793.83380005]
- [163793.83380005  44881.85524372]]
+[[602535.18442996 163802.17330123]
+ [163802.17330123  44883.79092131]]
 
-Std. err. mu_hat= 776.2087267235777
-Std. err. sig_hat= 211.8533814781294
+Std. err. mu_hat= 776.23139876583
+Std. err. sig_hat= 211.85794986573154
 </pre></div>
 </div>
 </div>
@@ -1553,12 +1553,12 @@ Std. err. sig_hat= 211.8533814781294
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2nd stage est. of var-cov matrix of moment error vec across sims:
-[[ 0.00033411 -0.00142288]
- [-0.00142288  0.01592874]]
+[[ 0.00033411 -0.00142289]
+ [-0.00142289  0.01592879]]
 
 2nd state est. of optimal weighting matrix:
-[[4830.85282784  431.53075653]
- [ 431.53075653  101.32740541]]
+[[4830.88530228  431.53378728]
+ [ 431.53378728  101.32749623]]
 </pre></div>
 </div>
 </div>
@@ -1576,7 +1576,7 @@ Std. err. sig_hat= 211.8533814781294
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>mu_SMM2_1= 619.4295828414915  sig_SMM2_1= 199.0745499003818
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>mu_SMM2_1= 619.4303074248937  sig_SMM2_1= 199.0747813692372
 </pre></div>
 </div>
 </div>
@@ -1606,15 +1606,15 @@ Std. err. sig_hat= 211.8533814781294
  [-0.0011259   0.00443426]]
 
 Weighting matrix W is:
-[[4830.85282784  431.53075653]
- [ 431.53075653  101.32740541]]
+[[4830.88530228  431.53378728]
+ [ 431.53378728  101.32749623]]
 
 Variance-covariance matrix of estimated parameter vector is:
-[[2397.35566572  745.28979427]
- [ 745.28979427  232.01568064]]
+[[2397.38054356  745.29670501]
+ [ 745.29670501  232.01757158]]
 
-Std. err. mu_hat= 48.96279879380848
-Std. err. sig_hat= 15.232060945338231
+Std. err. mu_hat= 48.963052841479445
+Std. err. sig_hat= 15.232123016118733
 </pre></div>
 </div>
 </div>
@@ -1864,7 +1864,7 @@ Std. err. sig_hat= 15.232060945338231
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>mu_SMM4_1= 362.560593472098  sig_SMM4_1 46.57515195652185
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>mu_SMM4_1= 362.560593472098  sig_SMM4_1 46.5751519565219
   message: CONVERGENCE: REL_REDUCTION_OF_F_&lt;=_FACTR*EPSMCH
   success: True
    status: 0
@@ -2015,8 +2015,8 @@ Variance-covariance matrix of estimated parameter vector is:
 [[33.48770545 23.53170341]
  [23.53170341 18.13459776]]
 
-Std. err. mu_hat= 5.786856266717139
-Std. err. sig_hat= 4.258473642422251
+Std. err. mu_hat= 5.786856266717126
+Std. err. sig_hat= 4.258473642422245
 </pre></div>
 </div>
 </div>
@@ -2138,11 +2138,11 @@ Std. err. sig_hat= 4.258473642422251
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>mu_SMM4_2= 362.5605400454758  sig_SMM4_2 46.57507128065559
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>mu_SMM4_2= 362.5605400454758  sig_SMM4_2 46.57507128065564
  message: Optimization terminated successfully
  success: True
   status: 0
-     fun: 0.9984266286568925
+     fun: 0.9984266286568926
        x: [ 3.626e+02  4.658e+01]
      nit: 1
      jac: [ 5.467e-02  8.255e-02]
@@ -2187,7 +2187,7 @@ Model moments =
 
 Error vector (pct. dev.) = [-0.98        0.04678571  0.11720721 -0.075     ]
 
-Criterion func val = 0.9984266286568925
+Criterion func val = 0.9984266286568926
 </pre></div>
 </div>
 </div>
@@ -2272,8 +2272,8 @@ Variance-covariance matrix of estimated parameter vector is:
 [[3.53697411 2.47391182]
  [2.47391182 1.77184156]]
 
-Std. err. mu_hat= 1.8806844791000032
-Std. err. sig_hat= 1.3311053920876743
+Std. err. mu_hat= 1.8806844791000217
+Std. err. sig_hat= 1.3311053920876885
 </pre></div>
 </div>
 </div>
@@ -2282,7 +2282,7 @@ Std. err. sig_hat= 1.3311053920876743
 </section>
 <section id="brock-and-mirman-1972-estimation-by-smm">
 <span id="secsmm-codeexmp-bm72"></span><h3>Brock and Mirman (1972) estimation by SMM<a class="headerlink" href="#brock-and-mirman-1972-estimation-by-smm" title="Permalink to this heading">#</a></h3>
-<p>In <a class="reference internal" href="#ExercStructEst_SMM_BM72"><span class="std std-numref">Exercise 57</span></a>, you will estimate four parameters in the <span id="id12">[<a class="reference internal" href="../CompMethods_references.html#id6" title="William A. Brock and Leonard J. Mirman. Optimal economic growth and uncertainty: the discounted case. Journal of Economic Theory, 4(3):479-513, June 1972.">Brock and Mirman, 1972</a>]</span> macroeconomic model by simulating the model to get six moments.</p>
+<p>In <a class="reference internal" href="#ExercStructEst_SMM_BM72"><span class="std std-numref">Exercise 57</span></a>, you will estimate four parameters in the <span id="id12">[<a class="reference internal" href="../CompMethods_references.html#id8" title="William A. Brock and Leonard J. Mirman. Optimal economic growth and uncertainty: the discounted case. Journal of Economic Theory, 4(3):479-513, June 1972.">Brock and Mirman, 1972</a>]</span> macroeconomic model by simulating the model to get six moments.</p>
 </section>
 </section>
 <section id="secsmm-ident">
@@ -2292,7 +2292,7 @@ Std. err. sig_hat= 1.3311053920876743
 </section>
 <section id="indirect-inference">
 <span id="secsmm-indirinf"></span><h2>Indirect inference<a class="headerlink" href="#indirect-inference" title="Permalink to this heading">#</a></h2>
-<p>Indirect inference is a particular application of SMM with some specific characteristics. As moments to match it uses parameters of an auxiliary model that can be estimated both on the real-world data and on the simulated data. <span id="id13">[<a class="reference internal" href="../CompMethods_references.html#id45" title="Anthony A. Jr. Smith. Indirect inference. In Matias Vernengo, Esteban Perez Caldentey, and Barkley J. Rosser Jr., editors, New Palgrave Dictionary of Economics. Palgrave MacMillan, 2020. URL: http://www.econ.yale.edu/smith/palgrave7.pdf.">Smith, 2020</a>]</span> gives a great summary of the topic with some examples. See also <span id="id14">[<a class="reference internal" href="../CompMethods_references.html#id31" title="Christian Gourieroux and Alain Monfort. Simulation-based Econometric Methods. Oxford University Press, 1996.">Gourieroux and Monfort, 1996</a>]</span> (ch. 4) for a textbook treatment of the topic.</p>
+<p>Indirect inference is a particular application of SMM with some specific characteristics. As moments to match it uses parameters of an auxiliary model that can be estimated both on the real-world data and on the simulated data. <span id="id13">[<a class="reference internal" href="../CompMethods_references.html#id49" title="Anthony A. Jr. Smith. Indirect inference. In Matias Vernengo, Esteban Perez Caldentey, and Barkley J. Rosser Jr., editors, New Palgrave Dictionary of Economics. Palgrave MacMillan, 2020. URL: http://www.econ.yale.edu/smith/palgrave7.pdf.">Smith, 2020</a>]</span> gives a great summary of the topic with some examples. See also <span id="id14">[<a class="reference internal" href="../CompMethods_references.html#id33" title="Christian Gourieroux and Alain Monfort. Simulation-based Econometric Methods. Oxford University Press, 1996.">Gourieroux and Monfort, 1996</a>]</span> (ch. 4) for a textbook treatment of the topic.</p>
 <section id="restatement-of-the-general-smm-estimation-problem">
 <span id="secsmm-indirinf-smmprob"></span><h3>Restatement of the general SMM estimation problem<a class="headerlink" href="#restatement-of-the-general-smm-estimation-problem" title="Permalink to this heading">#</a></h3>
 <p>Define a model or data generating process (DGP) as a system of equations,</p>
@@ -2328,7 +2328,7 @@ Std. err. sig_hat= 1.3311053920876743
 
 <p class="admonition-title"><span class="caption-number">Exercise 57 </span> (Estimating the Brock and Mirman (1972) model by SMM)</p>
 <section id="exercise-content">
-<p>You can observe time series data in an economy for the following variables: <span class="math notranslate nohighlight">\((c_t, k_t, w_t, r_t, y_t)\)</span>. The data can be loaded from the file <a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/blob/main/data/smm/NewMacroSeries.txt"><code class="docutils literal notranslate"><span class="pre">NewMacroSeries.txt</span></code></a> in the online book repository data folder <code class="docutils literal notranslate"><span class="pre">data/smm/</span></code>. This file is a comma separated text file with no labels. The variables are ordered as <span class="math notranslate nohighlight">\((c_t, k_t, w_t, r_t, y_t)\)</span>. These data have 100 periods, which are quarterly (25 years). Suppose you think that the data are generated by a process similar to the <span id="id15">[<a class="reference internal" href="../CompMethods_references.html#id6" title="William A. Brock and Leonard J. Mirman. Optimal economic growth and uncertainty: the discounted case. Journal of Economic Theory, 4(3):479-513, June 1972.">Brock and Mirman, 1972</a>]</span> paper. A simplified set of characterizing equations of the Brock and Mirman model are the following six equations.</p>
+<p>You can observe time series data in an economy for the following variables: <span class="math notranslate nohighlight">\((c_t, k_t, w_t, r_t, y_t)\)</span>. The data can be loaded from the file <a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/blob/main/data/smm/NewMacroSeries.txt"><code class="docutils literal notranslate"><span class="pre">NewMacroSeries.txt</span></code></a> in the online book repository data folder <code class="docutils literal notranslate"><span class="pre">data/smm/</span></code>. This file is a comma separated text file with no labels. The variables are ordered as <span class="math notranslate nohighlight">\((c_t, k_t, w_t, r_t, y_t)\)</span>. These data have 100 periods, which are quarterly (25 years). Suppose you think that the data are generated by a process similar to the <span id="id15">[<a class="reference internal" href="../CompMethods_references.html#id8" title="William A. Brock and Leonard J. Mirman. Optimal economic growth and uncertainty: the discounted case. Journal of Economic Theory, 4(3):479-513, June 1972.">Brock and Mirman, 1972</a>]</span> paper. A simplified set of characterizing equations of the Brock and Mirman model are the following six equations.</p>
 <div class="math notranslate nohighlight" id="equation-eqsmm-bm72-eul">
 <span class="eqno">(38)<a class="headerlink" href="#equation-eqsmm-bm72-eul" title="Permalink to this equation">#</a></span>\[    (c_t)^{-1} - \beta E\left[r_{t+1}(c_{t+1})^{-1}\right] = 0\]</div>
 <div class="math notranslate nohighlight" id="equation-eqsmm-bm72-bc">
@@ -2347,10 +2347,10 @@ Std. err. sig_hat= 1.3311053920876743
 \[\begin{equation*}
   \alpha,\beta \in (0,1),\quad \mu,\sigma &gt; 0, \quad\rho\in(-1,1)
 \end{equation*}\]</div>
-<p>Assume that the first observation in the data file variables is <span class="math notranslate nohighlight">\(t=1\)</span>. Let <span class="math notranslate nohighlight">\(k_1\)</span> be the first observation in the data fil for the variable <span class="math notranslate nohighlight">\(k_t\)</span>. One nice property of the <span id="id16">[<a class="reference internal" href="../CompMethods_references.html#id6" title="William A. Brock and Leonard J. Mirman. Optimal economic growth and uncertainty: the discounted case. Journal of Economic Theory, 4(3):479-513, June 1972.">Brock and Mirman, 1972</a>]</span> model is that the household decision has a known analytical solution in which the optimal savings decision <span class="math notranslate nohighlight">\(k_{t+1}\)</span> is a function of the productivity shock today <span class="math notranslate nohighlight">\(z_t\)</span> and the amount of capital today <span class="math notranslate nohighlight">\(k_t\)</span>.</p>
+<p>Assume that the first observation in the data file variables is <span class="math notranslate nohighlight">\(t=1\)</span>. Let <span class="math notranslate nohighlight">\(k_1\)</span> be the first observation in the data fil for the variable <span class="math notranslate nohighlight">\(k_t\)</span>. One nice property of the <span id="id16">[<a class="reference internal" href="../CompMethods_references.html#id8" title="William A. Brock and Leonard J. Mirman. Optimal economic growth and uncertainty: the discounted case. Journal of Economic Theory, 4(3):479-513, June 1972.">Brock and Mirman, 1972</a>]</span> model is that the household decision has a known analytical solution in which the optimal savings decision <span class="math notranslate nohighlight">\(k_{t+1}\)</span> is a function of the productivity shock today <span class="math notranslate nohighlight">\(z_t\)</span> and the amount of capital today <span class="math notranslate nohighlight">\(k_t\)</span>.</p>
 <div class="math notranslate nohighlight" id="equation-eqsmm-bm72-pf">
 <span class="eqno">(44)<a class="headerlink" href="#equation-eqsmm-bm72-pf" title="Permalink to this equation">#</a></span>\[    k_{t+1} = \alpha\beta e^{z_t}(k_t)^\alpha\]</div>
-<p>With this solution <a class="reference internal" href="#equation-eqsmm-bm72-pf">(44)</a> and equations <a class="reference internal" href="#equation-eqsmm-bm72-bc">(39)</a> through <a class="reference internal" href="#equation-eqsmm-bm72-zt">(42)</a>, it is straightforward to simulate the data of the <span id="id17">[<a class="reference internal" href="../CompMethods_references.html#id6" title="William A. Brock and Leonard J. Mirman. Optimal economic growth and uncertainty: the discounted case. Journal of Economic Theory, 4(3):479-513, June 1972.">Brock and Mirman, 1972</a>]</span> model given parameters <span class="math notranslate nohighlight">\((\alpha, \beta, \rho, \mu, \sigma)\)</span>.</p>
+<p>With this solution <a class="reference internal" href="#equation-eqsmm-bm72-pf">(44)</a> and equations <a class="reference internal" href="#equation-eqsmm-bm72-bc">(39)</a> through <a class="reference internal" href="#equation-eqsmm-bm72-zt">(42)</a>, it is straightforward to simulate the data of the <span id="id17">[<a class="reference internal" href="../CompMethods_references.html#id8" title="William A. Brock and Leonard J. Mirman. Optimal economic growth and uncertainty: the discounted case. Journal of Economic Theory, 4(3):479-513, June 1972.">Brock and Mirman, 1972</a>]</span> model given parameters <span class="math notranslate nohighlight">\((\alpha, \beta, \rho, \mu, \sigma)\)</span>.</p>
 <p>First, assume that <span class="math notranslate nohighlight">\(z_0=\mu\)</span> and that <span class="math notranslate nohighlight">\(k_1=\text{mean}(k_t)\)</span> from the data. These are initial values that will not change across simulations. Also assume that <span class="math notranslate nohighlight">\(\beta=0.99\)</span>.</p>
 <p>Next, draw a matrix of <span class="math notranslate nohighlight">\(S=1,000\)</span> simulations (columns) of <span class="math notranslate nohighlight">\(T=100\)</span> (rows) from a uniform distribution <span class="math notranslate nohighlight">\(u_{s,t}\sim U(0,1)\)</span>. These draws will not change across this SMM estimation procedure.</p>
 <p>For each guess of the parameter vector <span class="math notranslate nohighlight">\((\alpha,\rho,\mu,\sigma)\)</span> given <span class="math notranslate nohighlight">\(\beta=0.99\)</span>, you can use <span class="math notranslate nohighlight">\(u_{s,t}\)</span> to generate normally distributed errors <span class="math notranslate nohighlight">\(\varepsilon_{s,t}\sim N(0,\sigma^2)\)</span> using the inverse cdf of the normal distribution, where <span class="math notranslate nohighlight">\(s\)</span> is the index of the simulation number (columns).</p>
@@ -2360,7 +2360,7 @@ Std. err. sig_hat= 1.3311053920876743
 <p>With <span class="math notranslate nohighlight">\(w_{s,t}\)</span>, <span class="math notranslate nohighlight">\(r_{s,t}\)</span>, and <span class="math notranslate nohighlight">\(k_{s,t}\)</span>, you can use <a class="reference internal" href="#equation-eqsmm-bm72-bc">(39)</a> to generate simulated values for <span class="math notranslate nohighlight">\(c_{s,t}\)</span>.</p>
 <p>With <span class="math notranslate nohighlight">\(\alpha\)</span>, <span class="math notranslate nohighlight">\(z_{s,t}\)</span>, and <span class="math notranslate nohighlight">\(k_{s,t}\)</span>, you can use <a class="reference internal" href="#equation-eqsmm-bm72-prod">(43)</a> to generate simulated values for <span class="math notranslate nohighlight">\(y_{s,t}\)</span>.</p>
 <ol class="arabic simple">
-<li><p>Estimate four parameters <span class="math notranslate nohighlight">\((\alpha, \rho,\mu,\sigma)\)</span> given <span class="math notranslate nohighlight">\(\beta=0.99\)</span> of the <span id="id18">[<a class="reference internal" href="../CompMethods_references.html#id6" title="William A. Brock and Leonard J. Mirman. Optimal economic growth and uncertainty: the discounted case. Journal of Economic Theory, 4(3):479-513, June 1972.">Brock and Mirman, 1972</a>]</span> model described by equations <a class="reference internal" href="#equation-eqsmm-bm72-eul">(38)</a> through <a class="reference internal" href="#equation-eqsmm-bm72-prod">(43)</a> and <a class="reference internal" href="#equation-eqsmm-bm72-pf">(44)</a> by SMM. Choose the four parameters to match the following six moments from the 100 periods of empirical data <span class="math notranslate nohighlight">\(\{c_t,k_t, w_t, r_t, y_t\}_{t=1}^{100}\)</span> in <a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/blob/main/data/smm/NewMacroSeries.txt"><code class="docutils literal notranslate"><span class="pre">NewMacroSeries.txt</span></code></a>: <span class="math notranslate nohighlight">\(\text{mean}(c_t)\)</span>, <span class="math notranslate nohighlight">\(\text{mean}(k_t)\)</span>, <span class="math notranslate nohighlight">\(\text{mean}(c_t/y_t)\)</span>, <span class="math notranslate nohighlight">\(\text{var}(y_t)\)</span>, <span class="math notranslate nohighlight">\(\text{corr}(c_t, c_{t-1})\)</span>, <span class="math notranslate nohighlight">\(\text{corr}(c_t, k_t)\)</span>. In your simulations of the model, set <span class="math notranslate nohighlight">\(T=100\)</span> and <span class="math notranslate nohighlight">\(S=1,000\)</span>. Input the bounds to be <span class="math notranslate nohighlight">\(\alpha\in[0.01,0.99]\)</span>, <span class="math notranslate nohighlight">\(\rho\in[-0.99,0.99]\)</span>, <span class="math notranslate nohighlight">\(\mu\in[5, 14]\)</span>, and <span class="math notranslate nohighlight">\(\sigma\in[0.01, 1.1]\)</span>.
+<li><p>Estimate four parameters <span class="math notranslate nohighlight">\((\alpha, \rho,\mu,\sigma)\)</span> given <span class="math notranslate nohighlight">\(\beta=0.99\)</span> of the <span id="id18">[<a class="reference internal" href="../CompMethods_references.html#id8" title="William A. Brock and Leonard J. Mirman. Optimal economic growth and uncertainty: the discounted case. Journal of Economic Theory, 4(3):479-513, June 1972.">Brock and Mirman, 1972</a>]</span> model described by equations <a class="reference internal" href="#equation-eqsmm-bm72-eul">(38)</a> through <a class="reference internal" href="#equation-eqsmm-bm72-prod">(43)</a> and <a class="reference internal" href="#equation-eqsmm-bm72-pf">(44)</a> by SMM. Choose the four parameters to match the following six moments from the 100 periods of empirical data <span class="math notranslate nohighlight">\(\{c_t,k_t, w_t, r_t, y_t\}_{t=1}^{100}\)</span> in <a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/blob/main/data/smm/NewMacroSeries.txt"><code class="docutils literal notranslate"><span class="pre">NewMacroSeries.txt</span></code></a>: <span class="math notranslate nohighlight">\(\text{mean}(c_t)\)</span>, <span class="math notranslate nohighlight">\(\text{mean}(k_t)\)</span>, <span class="math notranslate nohighlight">\(\text{mean}(c_t/y_t)\)</span>, <span class="math notranslate nohighlight">\(\text{var}(y_t)\)</span>, <span class="math notranslate nohighlight">\(\text{corr}(c_t, c_{t-1})\)</span>, <span class="math notranslate nohighlight">\(\text{corr}(c_t, k_t)\)</span>. In your simulations of the model, set <span class="math notranslate nohighlight">\(T=100\)</span> and <span class="math notranslate nohighlight">\(S=1,000\)</span>. Input the bounds to be <span class="math notranslate nohighlight">\(\alpha\in[0.01,0.99]\)</span>, <span class="math notranslate nohighlight">\(\rho\in[-0.99,0.99]\)</span>, <span class="math notranslate nohighlight">\(\mu\in[5, 14]\)</span>, and <span class="math notranslate nohighlight">\(\sigma\in[0.01, 1.1]\)</span>.
 Also, use the identity matrix as your weighting matrix <span class="math notranslate nohighlight">\(\textbf{W}=\textbf{I}\)</span> as shown in section <a class="reference internal" href="#secsmm-w-i"><span class="std std-ref">The identity matrix (W=I)</span></a>. Report your solution <span class="math notranslate nohighlight">\(\hat{\theta} = \left(\hat{\alpha},\hat{\rho},\hat{\mu},\hat{\sigma}\right)\)</span>, the vector of moment differences at the optimum, and the criterion function value. Also report your standard errors for the estimated parameter vector <span class="math notranslate nohighlight">\(\hat{\theta} = \left(\hat{\alpha},\hat{\rho},\hat{\mu},\hat{\sigma}\right)\)</span> based on the identity matrix for the optimal weighting matrix.</p></li>
 <li><p>Perform the estimation using the two-step estimator for the optimal weighting matrix <span class="math notranslate nohighlight">\(\textbf{W}_{2step}\)</span>, as shown in section <a class="reference internal" href="#secsmm-w-2step"><span class="std std-ref">Two-step variance-covariance estimator of W</span></a>. Report your solution <span class="math notranslate nohighlight">\(\hat{\theta} = \left(\hat{\alpha},\hat{\rho},\hat{\mu},\hat{\sigma}\right)\)</span>, the vector of moment differences at the optimum, and the criterion function value. Also report your standard errors for the estimated parameter vector <span class="math notranslate nohighlight">\(\hat{\theta} = \left(\hat{\alpha},\hat{\rho},\hat{\mu},\hat{\sigma}\right)\)</span> based on the two-step optimal weighting matrix <span class="math notranslate nohighlight">\(\textbf{W}_{2step}\)</span>.</p></li>
 </ol>
@@ -2517,8 +2517,8 @@ By Richard W. Evans
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=c5ced968eda925caa686"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
 
   <footer class="bd-footer">
   </footer>

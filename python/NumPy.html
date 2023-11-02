@@ -19,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=c5ced968eda925caa686" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=c5ced968eda925caa686" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=c5ced968eda925caa686" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=c5ced968eda925caa686" rel="stylesheet" />
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -41,9 +41,9 @@
     <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=c5ced968eda925caa686" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686" />
-  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=c5ced968eda925caa686"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -195,13 +195,13 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../git/intro.html">Git and GitHub</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Basic Causal Inference</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Basic Empirical Methods</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../caus_inf/BasicEmpirMethods.html">Basic Empirical Methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basic_empirics/BasicEmpirMethods.html">Basic Empirical Methods</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Basic Machine Learning</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../basic_ml/intro.html">Basic Machine Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basic_ml/ml_intro.html">Basic Machine Learning</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Neural Nets and Deep Learning</span></p>
 <ul class="nav bd-sidenav">
@@ -435,7 +435,7 @@ document.write(`
 <p>NumPy is Python’s fundamantal numerical package (the name stands for “numerical Python”), and is at the basis of most computation using Python.<a class="footnote-reference brackets" href="#id7" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> Our discussion of Python’s NumPy package starts with Travis Oliphant, who was the primary creator of the NumPy package, a founding contributor to Python’s SciPy package (covered in the <a class="reference internal" href="SciPy.html#chap-scipy"><span class="std std-ref">SciPy: Root finding, minimizing, interpolation</span></a> chapter), founder of <a class="reference external" href="https://www.anaconda.com/">Anaconda, Inc.</a> that maintains the most popular distribution of Python, and a co-founder of the <a class="reference external" href="https://numfocus.org/">NumFOCUS</a> non-profit that fiscally supports some of the primary package projects in Python.<a class="footnote-reference brackets" href="#oliphant" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a></p>
 <p>Oliphant was a mathematics and electrical engineering student who came up through his masters degree using MATLAB with a focus primarily on signal processing. While working on a PhD, he needed to create custom code that could do signal processing operations that had never been done before. These operations required combinations of mathematical operations. Oliphant liked the ideas of network and collaboration in the open source software community, and Python was a language that felt intuitive and comfortable to him. However, Python had no established numerical matrix operations libraries. Oliphant created the NumPy package to be that numerical engine based on linear algebra array operations.</p>
 <p>The fundamental object of the NumPy package is the NumPy array <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.array.html"><code class="docutils literal notranslate"><span class="pre">numpy.array</span></code></a>. Python’s native objects—such as lists, tuples, and dictionaries—can hold numbers and perform operations on those numbers. But the NumPy array allows for storing high-dimensional arrays of numbers on which linear algebra and tensor functions can be operated. These linear algebra operations are more effecient than working with lists and tuples, and they form the foundation of modern optimization and machine learning. Learning to use Python’s NumPy package is an essential skill for many numerical computations and other operations.</p>
-<p>The iframe below contains a PDF of the BYU ACME open-access lab entitled, “Introduction to NumPy”. You can either scroll through the lab on this page using the iframe window, or you can download the PDF for use on your computer. See <span id="id3">[<a class="reference internal" href="../CompMethods_references.html#id11" title="BYU ACME. Introduction to numpy. In BYU ACME 2023-2024 Incoming Junior Materials, chapter 4. 2023. URL: https://acme.byu.edu/2023-2024-materials.">BYU ACME, 2023</a>]</span>. <a class="reference internal" href="#ExerNumPy-acme1"><span class="std std-numref">Exercise 15</span></a> below has you work through the problems in this BYU ACME lab. A Python file template (<a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/code/NumPyIntro/numpy_intro.py"><code class="docutils literal notranslate"><span class="pre">numpy_intro.py</span></code></a>) and a matrix data file (<a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/code/NumPyIntro/grid.npy"><code class="docutils literal notranslate"><span class="pre">grid.npy</span></code></a>) used in the lab are stored in the <a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/code/NumPyIntro"><code class="docutils literal notranslate"><span class="pre">./code/NumPyIntro/</span></code></a> directory.</p>
+<p>The iframe below contains a PDF of the BYU ACME open-access lab entitled, “Introduction to NumPy”. You can either scroll through the lab on this page using the iframe window, or you can download the PDF for use on your computer. See <span id="id3">[<a class="reference internal" href="../CompMethods_references.html#id13" title="BYU ACME. Introduction to numpy. In BYU ACME 2023-2024 Incoming Junior Materials, chapter 4. 2023. URL: https://acme.byu.edu/2023-2024-materials.">BYU ACME, 2023</a>]</span>. <a class="reference internal" href="#ExerNumPy-acme1"><span class="std std-numref">Exercise 15</span></a> below has you work through the problems in this BYU ACME lab. A Python file template (<a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/code/NumPyIntro/numpy_intro.py"><code class="docutils literal notranslate"><span class="pre">numpy_intro.py</span></code></a>) and a matrix data file (<a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/code/NumPyIntro/grid.npy"><code class="docutils literal notranslate"><span class="pre">grid.npy</span></code></a>) used in the lab are stored in the <a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/code/NumPyIntro"><code class="docutils literal notranslate"><span class="pre">./code/NumPyIntro/</span></code></a> directory.</p>
 <div>
   <iframe id="inlineFrameExample"
       title="Inline Frame Example"
@@ -444,7 +444,7 @@ document.write(`
       src="https://drive.google.com/file/d/1Hj3ok81gJAxcUTHh_8BrxX-B4belupPN/preview?usp=sharing">
   </iframe>
 </div>
-<p>The following iframe contains a PDF of the BYU ACME open-access lab entitled, “Advanced NumPy”, which contains content and exercises that build off of the previous BYU ACME NumPy lab. You can either scroll through the lab on this page using the iframe window, or you can download the PDF for use on your computer. See <span id="id4">[<a class="reference internal" href="../CompMethods_references.html#id12" title="BYU ACME. Advanced numpy. In BYU ACME 2023-2024 Incoming Senior Materials, chapter 1. 2023. URL: https://acme.byu.edu/2023-2024-materials.">BYU ACME, 2023</a>]</span>. <a class="reference internal" href="#ExerNumPy-acme2"><span class="std std-numref">Exercise 16</span></a> below has you work through the problems in this BYU ACME lab. A Python file template (<a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/code/AdvancedNumPy/_advanced_numpy.py"><code class="docutils literal notranslate"><span class="pre">advanced_numpy.py</span></code></a>) used in the lab are stored in the <a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/code/AdvancedNumPy"><code class="docutils literal notranslate"><span class="pre">./code/AdvancedNumPy/</span></code></a> directory.</p>
+<p>The following iframe contains a PDF of the BYU ACME open-access lab entitled, “Advanced NumPy”, which contains content and exercises that build off of the previous BYU ACME NumPy lab. You can either scroll through the lab on this page using the iframe window, or you can download the PDF for use on your computer. See <span id="id4">[<a class="reference internal" href="../CompMethods_references.html#id14" title="BYU ACME. Advanced numpy. In BYU ACME 2023-2024 Incoming Senior Materials, chapter 1. 2023. URL: https://acme.byu.edu/2023-2024-materials.">BYU ACME, 2023</a>]</span>. <a class="reference internal" href="#ExerNumPy-acme2"><span class="std std-numref">Exercise 16</span></a> below has you work through the problems in this BYU ACME lab. A Python file template (<a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/code/AdvancedNumPy/_advanced_numpy.py"><code class="docutils literal notranslate"><span class="pre">advanced_numpy.py</span></code></a>) used in the lab are stored in the <a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/code/AdvancedNumPy"><code class="docutils literal notranslate"><span class="pre">./code/AdvancedNumPy/</span></code></a> directory.</p>
 <div>
   <iframe id="inlineFrameExample"
       title="Inline Frame Example"
@@ -469,14 +469,14 @@ document.write(`
 
 <p class="admonition-title"><span class="caption-number">Exercise 15 </span></p>
 <section id="exercise-content">
-<p>Read the BYU ACME “<a class="reference external" href="https://drive.google.com/file/d/1Hj3ok81gJAxcUTHh_8BrxX-B4belupPN/view?usp=sharing">Introduction to NumPy</a>” lab and complete Problems 1 through 7 in the lab. <span id="id5">[<a class="reference internal" href="../CompMethods_references.html#id11" title="BYU ACME. Introduction to numpy. In BYU ACME 2023-2024 Incoming Junior Materials, chapter 4. 2023. URL: https://acme.byu.edu/2023-2024-materials.">BYU ACME, 2023</a>]</span></p>
+<p>Read the BYU ACME “<a class="reference external" href="https://drive.google.com/file/d/1Hj3ok81gJAxcUTHh_8BrxX-B4belupPN/view?usp=sharing">Introduction to NumPy</a>” lab and complete Problems 1 through 7 in the lab. <span id="id5">[<a class="reference internal" href="../CompMethods_references.html#id13" title="BYU ACME. Introduction to numpy. In BYU ACME 2023-2024 Incoming Junior Materials, chapter 4. 2023. URL: https://acme.byu.edu/2023-2024-materials.">BYU ACME, 2023</a>]</span></p>
 </section>
 </div>
 <div class="exercise green admonition" id="ExerNumPy-acme2">
 
 <p class="admonition-title"><span class="caption-number">Exercise 16 </span></p>
 <section id="exercise-content">
-<p>Read the BYU ACME “<a class="reference external" href="https://drive.google.com/file/d/15KxliSp0C_mLf7TrLQbnC0wO4YaK7ePi/view?usp=sharing">Advanced NumPy</a>” lab and complete Problems 1 through 7 in the lab. <span id="id6">[<a class="reference internal" href="../CompMethods_references.html#id12" title="BYU ACME. Advanced numpy. In BYU ACME 2023-2024 Incoming Senior Materials, chapter 1. 2023. URL: https://acme.byu.edu/2023-2024-materials.">BYU ACME, 2023</a>]</span></p>
+<p>Read the BYU ACME “<a class="reference external" href="https://drive.google.com/file/d/15KxliSp0C_mLf7TrLQbnC0wO4YaK7ePi/view?usp=sharing">Advanced NumPy</a>” lab and complete Problems 1 through 7 in the lab. <span id="id6">[<a class="reference internal" href="../CompMethods_references.html#id14" title="BYU ACME. Advanced numpy. In BYU ACME 2023-2024 Incoming Senior Materials, chapter 1. 2023. URL: https://acme.byu.edu/2023-2024-materials.">BYU ACME, 2023</a>]</span></p>
 </section>
 </div>
 <div class="exercise green admonition" id="ExerNumpy-array">
@@ -554,7 +554,7 @@ document.write(`
 </aside>
 <aside class="footnote brackets" id="oliphant" role="note">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
-<p>Travis Oliphant has a <a class="reference external" href="https://en.wikipedia.org/wiki/Travis_Oliphant">Wikipedia page</a> <span id="id8">[<a class="reference internal" href="../CompMethods_references.html#id41" title="Wikipedia Contributors. &quot;Travis Oliphant&quot;. Wikipedia, The Free Encyclopedia, 2023. [Online; accessed 5-October-2023]. URL: https://en.wikipedia.org/wiki/Travis_Oliphant.">Wikipedia Contributors, 2023</a>]</span>. We highly recommend <a class="reference external" href="https://youtu.be/gFEE3w7F0ww?si=XKcRlcw7FXkA9oxB">Oliphant’s interview</a> on the Lex Fridman Podcast from September 22, 2021 <span id="id9">[<a class="reference internal" href="../CompMethods_references.html#id26" title="Lex Fridman. Travis oliphant: numpy, scipy, anaconda, python and scientific programming. Podcast #224, Lex Fridman Podcast, September 22 2021. URL: https://youtu.be/gFEE3w7F0ww?si=XKcRlcw7FXkA9oxB.">Fridman, 2021</a>]</span>.</p>
+<p>Travis Oliphant has a <a class="reference external" href="https://en.wikipedia.org/wiki/Travis_Oliphant">Wikipedia page</a> <span id="id8">[<a class="reference internal" href="../CompMethods_references.html#id43" title="Wikipedia Contributors. &quot;Travis Oliphant&quot;. Wikipedia, The Free Encyclopedia, 2023. [Online; accessed 5-October-2023]. URL: https://en.wikipedia.org/wiki/Travis_Oliphant.">Wikipedia Contributors, 2023</a>]</span>. We highly recommend <a class="reference external" href="https://youtu.be/gFEE3w7F0ww?si=XKcRlcw7FXkA9oxB">Oliphant’s interview</a> on the Lex Fridman Podcast from September 22, 2021 <span id="id9">[<a class="reference internal" href="../CompMethods_references.html#id28" title="Lex Fridman. Travis oliphant: numpy, scipy, anaconda, python and scientific programming. Podcast #224, Lex Fridman Podcast, September 22 2021. URL: https://youtu.be/gFEE3w7F0ww?si=XKcRlcw7FXkA9oxB.">Fridman, 2021</a>]</span>.</p>
 </aside>
 </section>
 </section>
@@ -672,8 +672,8 @@ By Richard W. Evans
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=c5ced968eda925caa686"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
 
   <footer class="bd-footer">
   </footer>

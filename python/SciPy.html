@@ -19,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=c5ced968eda925caa686" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=c5ced968eda925caa686" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=c5ced968eda925caa686" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=c5ced968eda925caa686" rel="stylesheet" />
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -41,9 +41,9 @@
     <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=c5ced968eda925caa686" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686" />
-  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=c5ced968eda925caa686"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -195,13 +195,13 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../git/intro.html">Git and GitHub</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Basic Causal Inference</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Basic Empirical Methods</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../caus_inf/BasicEmpirMethods.html">Basic Empirical Methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basic_empirics/BasicEmpirMethods.html">Basic Empirical Methods</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Basic Machine Learning</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../basic_ml/intro.html">Basic Machine Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basic_ml/ml_intro.html">Basic Machine Learning</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Neural Nets and Deep Learning</span></p>
 <ul class="nav bd-sidenav">
@@ -515,7 +515,7 @@ document.write(`
 </div><p>Many systems of equations that occur in theoretical models are <em>exactly identified</em> as defined in <a class="reference internal" href="#DefSciPy_Identif">Definition 2</a>. The easiest way to solve exactly identified systems of linear equations—systems in which each function <span class="math notranslate nohighlight">\(f_i(x)\)</span> is a linear function of the vector of <span class="math notranslate nohighlight">\(x\)</span> variables—is often matrix inversion. When the system of equations <span class="math notranslate nohighlight">\(f(x)\)</span> is nonlinear, finding the solution takes more advanced methods.<a class="footnote-reference brackets" href="#scipyjuddmethods" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a></p>
 <p>It is <em>not</em> widely recognized among researchers that even in systems of equations for which existence and uniqueness of the solution can be proven, no root finding algorithm with finite computational power exists that guarantees convergence to the solution of the system in every case. Judd states:</p>
 <blockquote>
-<div><p>Nonlinear equation solving presents problems not present with linear equations or optimization. In particular, the existence problem is much more difficult for nonlinear systems. Unless one has an existence proof in had, a programmer must keep in mind that the absence of a solutino may explain a program’s failure to converge. Ever if there exists a solution, all methods will do poorly if the problem is poorly conditioned near a solution. Transforming the problem will often improve performance.<span id="id3">[<a class="reference internal" href="../CompMethods_references.html#id34" title="Kenneth L. Judd. Numerical Methods in Economics. MIT Press, 1998.">Judd, 1998</a>]</span> (p. 192)</p>
+<div><p>Nonlinear equation solving presents problems not present with linear equations or optimization. In particular, the existence problem is much more difficult for nonlinear systems. Unless one has an existence proof in had, a programmer must keep in mind that the absence of a solutino may explain a program’s failure to converge. Ever if there exists a solution, all methods will do poorly if the problem is poorly conditioned near a solution. Transforming the problem will often improve performance.<span id="id3">[<a class="reference internal" href="../CompMethods_references.html#id36" title="Kenneth L. Judd. Numerical Methods in Economics. MIT Press, 1998.">Judd, 1998</a>]</span> (p. 192)</p>
 </div></blockquote>
 <p>Because root finding in nonlinear systems can be so difficult, much research into the best methods has accumulated over the years. And the approaches to solving nonlinear systems can be an art as much as a science. This is also true of minimization problems discussed in the next section (<a class="reference internal" href="#secscipymin"><span class="std std-ref">Minimization</span></a>). For this reason, the <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.root.html"><code class="docutils literal notranslate"><span class="pre">scipy.optimize.root</span></code></a> module has many different solution algorithms you can use to find the solution to a nonlinear system of equations (e.g., <code class="docutils literal notranslate"><span class="pre">hybr</span></code>, <code class="docutils literal notranslate"><span class="pre">lm</span></code>, <code class="docutils literal notranslate"><span class="pre">linearmixing</span></code>).</p>
 <p>All of the root finder methods in <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.root.html"><code class="docutils literal notranslate"><span class="pre">scipy.optimize.root</span></code></a> are iterative. They take an initial guess for the solution for the variable vector <span class="math notranslate nohighlight">\(x_i\)</span>, evaluate the functions <span class="math notranslate nohighlight">\(f(x_i)\)</span> in <a class="reference internal" href="#equation-eqscipy-zerofuncerr">(4)</a> at <span class="math notranslate nohighlight">\(x_i\)</span>, and guess a new value for the solution vector <span class="math notranslate nohighlight">\(x_{i+1}\)</span> until the errors on the left-hand-side of the functions in <a class="reference internal" href="#equation-eqscipy-zerofuncerr">(4)</a> get arbitrarily close to zero.</p>
@@ -677,7 +677,7 @@ document.write(`
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> message: The solution converged.
  success: True
   status: 1
-     fun: [-1.239e-13 -1.013e-13]
+     fun: [-1.235e-13 -1.017e-13]
        x: [ 8.463e-01  2.331e+00]
     nfev: 10
     fjac: [[-8.332e-01  5.529e-01]
@@ -687,7 +687,7 @@ document.write(`
 
 The solution for (x, y) is: [0.84630378 2.33101497]
 
-The error values for eq1 and eq2 at the solution are: [-1.2390089e-13 -1.0125234e-13]
+The error values for eq1 and eq2 at the solution are: [-1.23456800e-13 -1.01696429e-13]
 </pre></div>
 </div>
 </div>
@@ -703,7 +703,7 @@ The error values for eq1 and eq2 at the solution are: [-1.2390089e-13 -1.0125234
 <section id="minimization">
 <span id="secscipymin"></span><h2>Minimization<a class="headerlink" href="#minimization" title="Permalink to this heading">#</a></h2>
 <p>Minimization problems are a more general type of problem than root finding problems. Any root finding problem can be reformulated as a minimization problem. But it is not the case that any minimization problem can be reformulated as a root finding problem. Furthermore, if a minimization problem can be reformulated as a root finding problem, it is often much faster to compute the root finding problem. But the minimization problem allows for more generality and often more robustness.</p>
-<p><a class="reference internal" href="#ExerScipy-root-min"><span class="std std-numref">Exercise 46</span></a> has you compute the solution to a problem using minimization and root finding, respectively, and to compare the corresponding computation times. One of our favorite books and resources on the mathematics behind minimization problems is <span id="id5">[<a class="reference internal" href="../CompMethods_references.html#id32" title="Jeffrey Humpherys and Tyler J. Jarvis. Foundations of Applied Mathematics: Algorithms, Approximation, Optimization. Volume 2. SIAM, Society for Industrial and Applied Mathematics, 2020.">Humpherys and Jarvis, 2020</a>]</span> (section IV, pp.519-760).</p>
+<p><a class="reference internal" href="#ExerScipy-root-min"><span class="std std-numref">Exercise 46</span></a> has you compute the solution to a problem using minimization and root finding, respectively, and to compare the corresponding computation times. One of our favorite books and resources on the mathematics behind minimization problems is <span id="id5">[<a class="reference internal" href="../CompMethods_references.html#id34" title="Jeffrey Humpherys and Tyler J. Jarvis. Foundations of Applied Mathematics: Algorithms, Approximation, Optimization. Volume 2. SIAM, Society for Industrial and Applied Mathematics, 2020.">Humpherys and Jarvis, 2020</a>]</span> (section IV, pp.519-760).</p>
 </section>
 <section id="interpolation">
 <span id="secscipyinterp"></span><h2>Interpolation<a class="headerlink" href="#interpolation" title="Permalink to this heading">#</a></h2>
@@ -790,7 +790,7 @@ The error values for eq1 and eq2 at the solution are: [-1.2390089e-13 -1.0125234
 
 <p class="admonition-title"><span class="caption-number">Exercise 45 </span></p>
 <section id="exercise-content">
-<p><span id="id7">[<a class="reference internal" href="../CompMethods_references.html#id6" title="William A. Brock and Leonard J. Mirman. Optimal economic growth and uncertainty: the discounted case. Journal of Economic Theory, 4(3):479-513, June 1972.">Brock and Mirman, 1972</a>]</span> is a simple two-period-lived overlapping generations model, the stochastic equilibrium of which is characterized by six dynamic equations (equations in which the variables are changing over time). The deterministic steady-state of the model is characterized by the variables reaching constant values that do not change over time. The deterministic steady state of the <span id="id8">[<a class="reference internal" href="../CompMethods_references.html#id6" title="William A. Brock and Leonard J. Mirman. Optimal economic growth and uncertainty: the discounted case. Journal of Economic Theory, 4(3):479-513, June 1972.">Brock and Mirman, 1972</a>]</span> is characterized by the following five equations and five unknown variables <span class="math notranslate nohighlight">\((c, k, y, w, r)\)</span>,</p>
+<p><span id="id7">[<a class="reference internal" href="../CompMethods_references.html#id8" title="William A. Brock and Leonard J. Mirman. Optimal economic growth and uncertainty: the discounted case. Journal of Economic Theory, 4(3):479-513, June 1972.">Brock and Mirman, 1972</a>]</span> is a simple two-period-lived overlapping generations model, the stochastic equilibrium of which is characterized by six dynamic equations (equations in which the variables are changing over time). The deterministic steady-state of the model is characterized by the variables reaching constant values that do not change over time. The deterministic steady state of the <span id="id8">[<a class="reference internal" href="../CompMethods_references.html#id8" title="William A. Brock and Leonard J. Mirman. Optimal economic growth and uncertainty: the discounted case. Journal of Economic Theory, 4(3):479-513, June 1972.">Brock and Mirman, 1972</a>]</span> is characterized by the following five equations and five unknown variables <span class="math notranslate nohighlight">\((c, k, y, w, r)\)</span>,</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{equation*}
   \begin{split}
@@ -863,7 +863,7 @@ The error values for eq1 and eq2 at the solution are: [-1.2390089e-13 -1.0125234
 </aside>
 <aside class="footnote brackets" id="scipyjuddmethods" role="note">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
-<p>See <span id="id9">[<a class="reference internal" href="../CompMethods_references.html#id34" title="Kenneth L. Judd. Numerical Methods in Economics. MIT Press, 1998.">Judd, 1998</a>]</span> (Chap. 5) for a discussion of solution methods to nonlinear equations.</p>
+<p>See <span id="id9">[<a class="reference internal" href="../CompMethods_references.html#id36" title="Kenneth L. Judd. Numerical Methods in Economics. MIT Press, 1998.">Judd, 1998</a>]</span> (Chap. 5) for a discussion of solution methods to nonlinear equations.</p>
 </aside>
 <aside class="footnote brackets" id="og-core-indiv" role="note">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">3</a><span class="fn-bracket">]</span></span>
@@ -871,7 +871,7 @@ The error values for eq1 and eq2 at the solution are: [-1.2390089e-13 -1.0125234
 </aside>
 <aside class="footnote brackets" id="evansphillips" role="note">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id6">4</a><span class="fn-bracket">]</span></span>
-<p>This Euler equation corresponds to a simple model in which the coefficient of relative risk aversion is unity <span class="math notranslate nohighlight">\(\sigma=1\)</span> in a CRRA utility function and the disutility of labor supply is characterized by the functional form proposed in <span id="id10">[<a class="reference internal" href="../CompMethods_references.html#id25" title="Richard W. Evans and Kerk L. Phillips. Advantages of an ellipse when modeling leisure utility. Computational Economics, 51(3):513-533, March 2017.">Evans and Phillips, 2017</a>]</span>, with <span class="math notranslate nohighlight">\(b=1\)</span>, <span class="math notranslate nohighlight">\(\nu=1.5\)</span>, and maximum labor supply <span class="math notranslate nohighlight">\(l=1\)</span>.</p>
+<p>This Euler equation corresponds to a simple model in which the coefficient of relative risk aversion is unity <span class="math notranslate nohighlight">\(\sigma=1\)</span> in a CRRA utility function and the disutility of labor supply is characterized by the functional form proposed in <span id="id10">[<a class="reference internal" href="../CompMethods_references.html#id27" title="Richard W. Evans and Kerk L. Phillips. Advantages of an ellipse when modeling leisure utility. Computational Economics, 51(3):513-533, March 2017.">Evans and Phillips, 2017</a>]</span>, with <span class="math notranslate nohighlight">\(b=1\)</span>, <span class="math notranslate nohighlight">\(\nu=1.5\)</span>, and maximum labor supply <span class="math notranslate nohighlight">\(l=1\)</span>.</p>
 </aside>
 </section>
 </section>
@@ -999,8 +999,8 @@ By Richard W. Evans
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=c5ced968eda925caa686"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
 
   <footer class="bd-footer">
   </footer>
