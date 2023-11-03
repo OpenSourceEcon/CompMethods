@@ -418,9 +418,21 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-empirical-methods-in-the-literature">Basic Empirical Methods in the Literature</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#correlation-versus-causation">Correlation versus Causation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-description">Data Description</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-data-description">Basic Data Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-data-description">Basic data description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cross-tabulated-data-description">Cross tabulated data Description</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-understanding-of-linear-regression">Basic Understanding of Linear Regression</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-acemoglu-et-al-2001">Example: Acemoglu, et al (2001)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-do-coefficients-and-standard-errors-mean">What do coefficients and standard errors mean?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interpreting-results-and-output">Interpreting results and output</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis-of-variance-anova-output">Analysis of variance (ANOVA) output</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#f-test-and-log-likelihood-test">F-test and log likelihood test</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inference-on-individual-parameters">Inference on individual parameters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#predicted-values">Predicted values</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-extensions-of-linear-regression">Basic extensions of linear regression</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">Exercises</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">Footnotes</a></li>
 </ul>
@@ -436,6 +448,7 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="basic-empirical-methods">
 <span id="chap-basicempirmethods"></span><h1>Basic Empirical Methods<a class="headerlink" href="#basic-empirical-methods" title="Permalink to this heading">#</a></h1>
+<p>This chapter has an executable <a class="reference external" href="https://colab.research.google.com/drive/1sIHaDBE5fafPXYBl9cRDFQMsFNjq67t5?usp=sharing">Google Colab notebook</a> with all the same code, data references, and images. The Google Colab notebook allows you to execute the code in this chapter in the cloud so you don’t have to download Python, any of its packages, or any data to your local computer. You could manipulate and execute this notebook on any device with a browser, whether than be your computer, phone, or tablet.</p>
 <p>The focus of this chapter is to give the reader a basic introduction to the standard empirical methods in data science, policy analysis, and economics. I want each reader to come away from this chapter with the following basic skills:</p>
 <ul class="simple">
 <li><p>Difference between <strong>correlation</strong> and <strong>causation</strong></p></li>
@@ -524,14 +537,15 @@ document.write(`
 </ul>
 <p>These variables and other data used in the paper are available for download on <a class="reference external" href="https://economics.mit.edu/faculty/acemoglu/data/ajr2001">Daron Acemoglu’s webpage</a>.</p>
 <section id="basic-data-description">
-<span id="secbasicempdescrbasic"></span><h3>Basic Data Description<a class="headerlink" href="#basic-data-description" title="Permalink to this heading">#</a></h3>
+<span id="secbasicempdescrbasic"></span><h3>Basic data description<a class="headerlink" href="#basic-data-description" title="Permalink to this heading">#</a></h3>
 <p>The following cells downloads the data from <span id="id8">[<a class="reference internal" href="../CompMethods_references.html#id3" title="Daron Acemoglu, Simon Johnson, and James A. Robinson. The colonial origins of comparative development: an empirical investigation. American Economic Review, 91(5):1369-1401, December 2001. URL: https://www.aeaweb.org/articles?id=10.1257/aer.91.5.1369.">Acemoglu <em>et al.</em>, 2001</a>]</span> from the file <code class="docutils literal notranslate"><span class="pre">maketable1.dta</span></code> and displays the first five observations from the data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
-<span class="n">df1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_stata</span><span class="p">(</span><span class="s1">&#39;https://github.com/QuantEcon/QuantEcon.lectures.code/&#39;</span> <span class="o">+</span>
-                    <span class="s1">&#39;raw/master/ols/maketable1.dta&#39;</span><span class="p">)</span>
+<span class="n">path_df1</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;https://github.com/OpenSourceEcon/CompMethods/&#39;</span> <span class="o">+</span>
+            <span class="s1">&#39;raw/main/data/basic_empirics/maketable1.dta&#39;</span><span class="p">)</span>
+<span class="n">df1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_stata</span><span class="p">(</span><span class="n">path_df1</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -662,21 +676,39 @@ document.write(`
 </table>
 </div></div></div>
 </div>
-<p>How many observations are in this dataset? What are the different countries in this dataset?</p>
+<p>How many observations are in this dataset? What are the different countries in this dataset? The <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.shape.html"><code class="docutils literal notranslate"><span class="pre">pandas.DataFrame.shape</span></code></a> method returns a tuple in which the first element is the number of observations (rows) in the DataFrame and the second element is the number of variables (columns).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The number of observations (rows) in the dataset is:&quot;</span><span class="p">,</span> <span class="n">df1</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df1</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(163, 13)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The number of observations (rows) and variables (columns)&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;in the dataset is &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">df1</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot;observations (rows) and&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">df1</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot; variables (columns).&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;A list of all the&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">df1</span><span class="p">[</span><span class="s2">&quot;shortnam&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()),</span>
       <span class="s1">&#39;unique countries in the &quot;shortnam&quot; variable is:&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">df1</span><span class="p">[</span><span class="s2">&quot;shortnam&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The number of observations (rows) in the dataset is: 2119
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The number of observations (rows) and variables (columns)
+in the dataset is 163observations (rows) and
+13 variables (columns).
 
 A list of all the 163 unique countries in the &quot;shortnam&quot; variable is:
+
 [&#39;AFG&#39; &#39;AGO&#39; &#39;ARE&#39; &#39;ARG&#39; &#39;ARM&#39; &#39;AUS&#39; &#39;AUT&#39; &#39;AZE&#39; &#39;BDI&#39; &#39;BEL&#39; &#39;BEN&#39; &#39;BFA&#39;
  &#39;BGD&#39; &#39;BGR&#39; &#39;BHR&#39; &#39;BHS&#39; &#39;BIH&#39; &#39;BLR&#39; &#39;BLZ&#39; &#39;BOL&#39; &#39;BRA&#39; &#39;BRB&#39; &#39;BTN&#39; &#39;BWA&#39;
  &#39;CAF&#39; &#39;CAN&#39; &#39;CHE&#39; &#39;CHL&#39; &#39;CHN&#39; &#39;CIV&#39; &#39;CMR&#39; &#39;COG&#39; &#39;COL&#39; &#39;COM&#39; &#39;CPV&#39; &#39;CRI&#39;
@@ -695,7 +727,7 @@ A list of all the 163 unique countries in the &quot;shortnam&quot; variable is:
 </div>
 </div>
 </div>
-<p>Pandas DataFrames have a built-in method <code class="docutils literal notranslate"><span class="pre">.describe()</span></code> that will give the basic descriptive statistics for the numerical variables of a dataset.</p>
+<p>Pandas DataFrames have a built-in method <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.describe.html"><code class="docutils literal notranslate"><span class="pre">.describe()</span></code></a> that will give the basic descriptive statistics for the numerical variables of a dataset.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df1</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
@@ -860,8 +892,917 @@ A list of all the 163 unique countries in the &quot;shortnam&quot; variable is:
 </table>
 </div></div></div>
 </div>
-<!-- {numref}`ExerBasicEmpir_MultLinRegress` -->
+<p>The variable <code class="docutils literal notranslate"><span class="pre">logpgp95</span></code> represents GDP per capita for each country. The variable <code class="docutils literal notranslate"><span class="pre">avexpr</span></code> represents the protection against expropriation index. So more protection is a good thing. What do we expect to see if we do a scatterplot of these two variables with <code class="docutils literal notranslate"><span class="pre">avexpr</span></code> on the <code class="docutils literal notranslate"><span class="pre">x</span></code>-axis and <code class="docutils literal notranslate"><span class="pre">logpgp95</span></code> on the <code class="docutils literal notranslate"><span class="pre">y</span></code>-axis? Draw it on a piece of paper or on a white board.</p>
+<p>Let’s use a scatterplot to see whether any obvious relationship exists between GDP per capita and the protection against expropriation index.</p>
+<div class="cell tag_remove-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">df1</span><span class="p">[</span><span class="s2">&quot;avexpr&quot;</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">df1</span><span class="p">[</span><span class="s2">&quot;logpgp95&quot;</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">((</span><span class="mf">3.2</span><span class="p">,</span> <span class="mf">10.5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">((</span><span class="mf">5.9</span><span class="p">,</span> <span class="mf">10.5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Scatterplot of average expropriation protection and log GDP per &quot;</span> <span class="o">+</span>
+          <span class="s2">&quot;capita for each country&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Average Expropriation Protection 1985-95&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Log GDP per capita, PPP, 1995&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<figure class="align-default" id="figbasicempir-scatter1">
+<a class="reference internal image-reference" href="../_images/scatter1.png"><img alt="../_images/scatter1.png" src="../_images/scatter1.png" style="height: 500px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 3 </span><span class="caption-text">Scatterplot of average expropriation protection <span class="math notranslate nohighlight">\(avexpr\)</span> and log GDP per capita <span class="math notranslate nohighlight">\(logpgp95\)</span> for each country</span><a class="headerlink" href="#figbasicempir-scatter1" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>The plot shows a fairly strong positive relationship between protection against expropriation and log GDP per capita. Specifically, if higher protection against expropriation is a measure of institutional quality, then better institutions appear to be positively correlated with better economic outcomes (higher GDP per capita).</p>
 </section>
+<section id="cross-tabulated-data-description">
+<span id="secbasicempdescrcross"></span><h3>Cross tabulated data Description<a class="headerlink" href="#cross-tabulated-data-description" title="Permalink to this heading">#</a></h3>
+<p>Cross tabulation is a set of descriptive statics by groupings of the data. In R and Python, this is done with a powerful <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.groupby.html"><code class="docutils literal notranslate"><span class="pre">.groupby</span></code></a> command. What if we thought that the relationship between protection against expropriation <code class="docutils literal notranslate"><span class="pre">avexpr</span></code> and <code class="docutils literal notranslate"><span class="pre">logpgp95</span></code> were different for countries whose abbreviation started with A-M versus countries whose abbreviation started with N-Z?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create AtoM variable that = 1 if the first letter of the abbreviation is in</span>
+<span class="c1"># A to M and = 0 if it is in N to Z</span>
+<span class="n">df1</span><span class="p">[</span><span class="s2">&quot;AtoM&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">df1</span><span class="p">[</span><span class="s2">&quot;AtoM&quot;</span><span class="p">][</span>
+    <span class="n">df1</span><span class="p">[</span><span class="s2">&quot;shortnam&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span>
+        <span class="s1">&#39;A&#39;</span><span class="p">,</span><span class="s1">&#39;B&#39;</span><span class="p">,</span><span class="s1">&#39;C&#39;</span><span class="p">,</span><span class="s1">&#39;D&#39;</span><span class="p">,</span><span class="s1">&#39;E&#39;</span><span class="p">,</span><span class="s1">&#39;F&#39;</span><span class="p">,</span><span class="s1">&#39;G&#39;</span><span class="p">,</span><span class="s1">&#39;H&#39;</span><span class="p">,</span><span class="s1">&#39;I&#39;</span><span class="p">,</span><span class="s1">&#39;J&#39;</span><span class="p">,</span><span class="s1">&#39;K&#39;</span><span class="p">,</span><span class="s1">&#39;L&#39;</span><span class="p">,</span><span class="s1">&#39;M&#39;</span>
+    <span class="p">])</span>
+<span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="c1"># Describe the data</span>
+<span class="n">df1</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;AtoM&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_2907/3993614049.py:4: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  df1[&quot;AtoM&quot;][
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+
+    .dataframe thead tr:last-of-type th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th colspan="8" halign="left">euro1900</th>
+      <th colspan="2" halign="left">excolony</th>
+      <th>...</th>
+      <th colspan="2" halign="left">loghjypl</th>
+      <th colspan="8" halign="left">baseco</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>count</th>
+      <th>mean</th>
+      <th>std</th>
+      <th>min</th>
+      <th>25%</th>
+      <th>50%</th>
+      <th>75%</th>
+      <th>max</th>
+      <th>count</th>
+      <th>mean</th>
+      <th>...</th>
+      <th>75%</th>
+      <th>max</th>
+      <th>count</th>
+      <th>mean</th>
+      <th>std</th>
+      <th>min</th>
+      <th>25%</th>
+      <th>50%</th>
+      <th>75%</th>
+      <th>max</th>
+    </tr>
+    <tr>
+      <th>AtoM</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>55.0</td>
+      <td>28.449091</td>
+      <td>40.994987</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>50.0</td>
+      <td>100.0</td>
+      <td>58.0</td>
+      <td>0.689655</td>
+      <td>...</td>
+      <td>-0.870507</td>
+      <td>0.000000</td>
+      <td>24.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>99.0</td>
+      <td>31.586870</td>
+      <td>43.310207</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>2.0</td>
+      <td>99.5</td>
+      <td>100.0</td>
+      <td>104.0</td>
+      <td>0.653846</td>
+      <td>...</td>
+      <td>-0.763590</td>
+      <td>-0.014099</td>
+      <td>40.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>2 rows × 96 columns</p>
+</div></div></div>
+</div>
+<p>Another way we could do this that is more readable that the output above is to just describe the data in two separate commands in which we restrict the data to the two separate groups.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df1</span><span class="p">[</span><span class="n">df1</span><span class="p">[</span><span class="s2">&quot;AtoM&quot;</span><span class="p">]</span><span class="o">==</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>euro1900</th>
+      <th>excolony</th>
+      <th>avexpr</th>
+      <th>logpgp95</th>
+      <th>cons1</th>
+      <th>cons90</th>
+      <th>democ00a</th>
+      <th>cons00a</th>
+      <th>extmort4</th>
+      <th>logem4</th>
+      <th>loghjypl</th>
+      <th>baseco</th>
+      <th>AtoM</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>99.000000</td>
+      <td>104.000000</td>
+      <td>74.000000</td>
+      <td>95.000000</td>
+      <td>55.000000</td>
+      <td>55.000000</td>
+      <td>55.000000</td>
+      <td>57.000000</td>
+      <td>58.000000</td>
+      <td>58.000000</td>
+      <td>75.000000</td>
+      <td>40.0</td>
+      <td>104.0</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>31.586870</td>
+      <td>0.653846</td>
+      <td>7.204545</td>
+      <td>8.381995</td>
+      <td>3.672727</td>
+      <td>3.654546</td>
+      <td>1.236364</td>
+      <td>2.000000</td>
+      <td>220.015854</td>
+      <td>4.534877</td>
+      <td>-1.701214</td>
+      <td>1.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>43.310207</td>
+      <td>0.478047</td>
+      <td>1.854914</td>
+      <td>1.104331</td>
+      <td>2.373110</td>
+      <td>2.374386</td>
+      <td>2.624413</td>
+      <td>1.982062</td>
+      <td>431.900574</td>
+      <td>1.347500</td>
+      <td>1.119577</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>1.636364</td>
+      <td>6.109248</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>0.000000</td>
+      <td>1.000000</td>
+      <td>2.550000</td>
+      <td>0.936093</td>
+      <td>-3.540459</td>
+      <td>1.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>6.045455</td>
+      <td>7.417576</td>
+      <td>1.000000</td>
+      <td>2.000000</td>
+      <td>0.000000</td>
+      <td>1.000000</td>
+      <td>68.075005</td>
+      <td>4.220586</td>
+      <td>-2.789016</td>
+      <td>1.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>2.000000</td>
+      <td>1.000000</td>
+      <td>7.204545</td>
+      <td>8.301521</td>
+      <td>3.000000</td>
+      <td>3.000000</td>
+      <td>0.000000</td>
+      <td>1.000000</td>
+      <td>81.599998</td>
+      <td>4.400960</td>
+      <td>-1.560648</td>
+      <td>1.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>99.500000</td>
+      <td>1.000000</td>
+      <td>8.613637</td>
+      <td>9.366871</td>
+      <td>7.000000</td>
+      <td>6.500000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>259.889984</td>
+      <td>5.559247</td>
+      <td>-0.763590</td>
+      <td>1.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>100.000000</td>
+      <td>1.000000</td>
+      <td>10.000000</td>
+      <td>10.288750</td>
+      <td>7.000000</td>
+      <td>7.000000</td>
+      <td>10.000000</td>
+      <td>7.000000</td>
+      <td>2940.000000</td>
+      <td>7.986165</td>
+      <td>-0.014099</td>
+      <td>1.0</td>
+      <td>1.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df1</span><span class="p">[</span><span class="n">df1</span><span class="p">[</span><span class="s2">&quot;AtoM&quot;</span><span class="p">]</span><span class="o">==</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>euro1900</th>
+      <th>excolony</th>
+      <th>avexpr</th>
+      <th>logpgp95</th>
+      <th>cons1</th>
+      <th>cons90</th>
+      <th>democ00a</th>
+      <th>cons00a</th>
+      <th>extmort4</th>
+      <th>logem4</th>
+      <th>loghjypl</th>
+      <th>baseco</th>
+      <th>AtoM</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>55.000000</td>
+      <td>58.000000</td>
+      <td>47.000000</td>
+      <td>53.000000</td>
+      <td>33.000000</td>
+      <td>33.000000</td>
+      <td>32.000000</td>
+      <td>34.000000</td>
+      <td>29.000000</td>
+      <td>29.000000</td>
+      <td>48.000000</td>
+      <td>24.0</td>
+      <td>59.0</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>28.449091</td>
+      <td>0.689655</td>
+      <td>6.849130</td>
+      <td>8.160035</td>
+      <td>3.454545</td>
+      <td>3.606061</td>
+      <td>1.000000</td>
+      <td>1.617647</td>
+      <td>222.747574</td>
+      <td>4.718197</td>
+      <td>-1.777811</td>
+      <td>1.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>40.994987</td>
+      <td>0.466675</td>
+      <td>1.718516</td>
+      <td>1.103215</td>
+      <td>2.513599</td>
+      <td>2.317588</td>
+      <td>2.527271</td>
+      <td>1.517867</td>
+      <td>374.625153</td>
+      <td>1.223847</td>
+      <td>1.035098</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>3.000000</td>
+      <td>6.253829</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>0.000000</td>
+      <td>1.000000</td>
+      <td>8.550000</td>
+      <td>2.145931</td>
+      <td>-3.540459</td>
+      <td>1.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>5.818182</td>
+      <td>7.279319</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>0.000000</td>
+      <td>1.000000</td>
+      <td>71.000000</td>
+      <td>4.262680</td>
+      <td>-2.710639</td>
+      <td>1.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>6.863636</td>
+      <td>8.107720</td>
+      <td>3.000000</td>
+      <td>3.000000</td>
+      <td>0.000000</td>
+      <td>1.000000</td>
+      <td>140.000000</td>
+      <td>4.941642</td>
+      <td>-1.595533</td>
+      <td>1.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>50.000000</td>
+      <td>1.000000</td>
+      <td>7.659091</td>
+      <td>8.885994</td>
+      <td>7.000000</td>
+      <td>7.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>240.000000</td>
+      <td>5.634789</td>
+      <td>-0.870507</td>
+      <td>1.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>100.000000</td>
+      <td>1.000000</td>
+      <td>10.000000</td>
+      <td>10.215740</td>
+      <td>7.000000</td>
+      <td>7.000000</td>
+      <td>10.000000</td>
+      <td>7.000000</td>
+      <td>2004.000000</td>
+      <td>7.602901</td>
+      <td>0.000000</td>
+      <td>1.0</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Let’s make two scatterplots to see with our eyes if there seems to be a difference in the relationship.</p>
+<div class="cell tag_remove-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot the scatterplot of the relationship for the countries for which the first</span>
+<span class="c1"># letter of the abbreviation is between A to M</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+  <span class="n">x</span><span class="o">=</span><span class="n">df1</span><span class="p">[</span><span class="n">df1</span><span class="p">[</span><span class="s2">&quot;AtoM&quot;</span><span class="p">]</span><span class="o">==</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;avexpr&quot;</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">df1</span><span class="p">[</span><span class="n">df1</span><span class="p">[</span><span class="s2">&quot;AtoM&quot;</span><span class="p">]</span><span class="o">==</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;logpgp95&quot;</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">10</span>
+<span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">((</span><span class="mf">3.2</span><span class="p">,</span> <span class="mf">10.5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">((</span><span class="mf">5.9</span><span class="p">,</span> <span class="mf">10.5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Scatterplot of average expropriation protection and log GDP per &quot;</span> <span class="o">+</span>
+          <span class="s2">&quot;capita </span><span class="se">\n</span><span class="s2"> for each country, first letter in A-M&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Average Expropriation Protection 1985-95&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Log GDP per capita, PPP, 1995&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<figure class="align-default" id="figbasicempir-scatter2">
+<a class="reference internal image-reference" href="../_images/scatter2.png"><img alt="../_images/scatter2.png" src="../_images/scatter2.png" style="height: 500px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 4 </span><span class="caption-text">Scatterplot of average expropriation protection <span class="math notranslate nohighlight">\(avexpr\)</span> and log GDP per capita <span class="math notranslate nohighlight">\(logpgp95\)</span> for each country, first letter in A-M</span><a class="headerlink" href="#figbasicempir-scatter2" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="cell tag_remove-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot the scatterplot of the relationship for the countries for which the first</span>
+<span class="c1"># letter of the abbreviation is between N to Z</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+  <span class="n">x</span><span class="o">=</span><span class="n">df1</span><span class="p">[</span><span class="n">df1</span><span class="p">[</span><span class="s2">&quot;AtoM&quot;</span><span class="p">]</span><span class="o">==</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;avexpr&quot;</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">df1</span><span class="p">[</span><span class="n">df1</span><span class="p">[</span><span class="s2">&quot;AtoM&quot;</span><span class="p">]</span><span class="o">==</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;logpgp95&quot;</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">10</span>
+<span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">((</span><span class="mf">3.2</span><span class="p">,</span> <span class="mf">10.5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">((</span><span class="mf">5.9</span><span class="p">,</span> <span class="mf">10.5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Scatterplot of average expropriation protection and log GDP per &quot;</span> <span class="o">+</span>
+          <span class="s2">&quot;capita </span><span class="se">\n</span><span class="s2"> for each country, first letter in N-Z&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Average Expropriation Protection 1985-95&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Log GDP per capita, PPP, 1995&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<figure class="align-default" id="figbasicempir-scatter3">
+<a class="reference internal image-reference" href="../_images/scatter3.png"><img alt="../_images/scatter3.png" src="../_images/scatter3.png" style="height: 500px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 5 </span><span class="caption-text">Scatterplot of average expropriation protection <span class="math notranslate nohighlight">\(avexpr\)</span> and log GDP per capita <span class="math notranslate nohighlight">\(logpgp95\)</span> for each country, first letter in N-Z</span><a class="headerlink" href="#figbasicempir-scatter3" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+<section id="basic-understanding-of-linear-regression">
+<span id="secbasicemplinreg"></span><h2>Basic Understanding of Linear Regression<a class="headerlink" href="#basic-understanding-of-linear-regression" title="Permalink to this heading">#</a></h2>
+<section id="example-acemoglu-et-al-2001">
+<span id="secbasicemplinregexamp"></span><h3>Example: Acemoglu, et al (2001)<a class="headerlink" href="#example-acemoglu-et-al-2001" title="Permalink to this heading">#</a></h3>
+<p>Given the plots in <a class="reference internal" href="#figbasicempir-scatter1"><span class="std std-numref">Figure 3</span></a>, <a class="reference internal" href="#figbasicempir-scatter2"><span class="std std-numref">Figure 4</span></a>, and <a class="reference internal" href="#figbasicempir-scatter3"><span class="std std-numref">Figure 5</span></a> above, choosing a linear model to describe this relationship seems like a reasonable assumption.</p>
+<p>We can write a model as:</p>
+<div class="math notranslate nohighlight" id="equation-eqbasicemp-acemoglureg">
+<span class="eqno">(7)<a class="headerlink" href="#equation-eqbasicemp-acemoglureg" title="Permalink to this equation">#</a></span>\[    logpgp95_i = \beta_0 + \beta_1 avexpr_i + u_i\]</div>
+<p>where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\beta_0\)</span> is the intercept of the linear trend line on the <span class="math notranslate nohighlight">\(y\)</span>-axis</p></li>
+<li><p><span class="math notranslate nohighlight">\(\beta_1\)</span> is the slope of the linear trend line, representing the marginal effect of protection against risk on log GDP per capita</p></li>
+<li><p><span class="math notranslate nohighlight">\(u_i\)</span> is a random error term (deviations of observations from the linear trend due to factors not included in the model)</p></li>
+</ul>
+<p>Visually, this linear model involves choosing a straight line that best fits the data according to some criterion, as in the following plot (Figure 2 in <span id="id9">[<a class="reference internal" href="../CompMethods_references.html#id3" title="Daron Acemoglu, Simon Johnson, and James A. Robinson. The colonial origins of comparative development: an empirical investigation. American Economic Review, 91(5):1369-1401, December 2001. URL: https://www.aeaweb.org/articles?id=10.1257/aer.91.5.1369.">Acemoglu <em>et al.</em>, 2001</a>]</span>).</p>
+<div class="cell tag_remove-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># Dropping NA&#39;s is required to use numpy&#39;s polyfit</span>
+<span class="n">df1_subset</span> <span class="o">=</span> <span class="n">df1</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;logpgp95&#39;</span><span class="p">,</span> <span class="s1">&#39;avexpr&#39;</span><span class="p">])</span>
+<span class="c1"># df1_subset.describe()</span>
+
+<span class="c1"># Use only &#39;base sample&#39; for plotting purposes (smaller sample)</span>
+<span class="n">df1_subset</span> <span class="o">=</span> <span class="n">df1_subset</span><span class="p">[</span><span class="n">df1_subset</span><span class="p">[</span><span class="s1">&#39;baseco&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span>
+<span class="c1"># df1_subset.describe()</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">df1_subset</span><span class="p">[</span><span class="s1">&#39;avexpr&#39;</span><span class="p">]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">df1_subset</span><span class="p">[</span><span class="s1">&#39;logpgp95&#39;</span><span class="p">]</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="n">df1_subset</span><span class="p">[</span><span class="s1">&#39;shortnam&#39;</span><span class="p">]</span>
+
+<span class="c1"># Replace markers with country labels</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">labels</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">y</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+
+<span class="c1"># Fit a linear trend line</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">X</span><span class="p">),</span>
+         <span class="n">np</span><span class="o">.</span><span class="n">poly1d</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">polyfit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="mi">1</span><span class="p">))(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">X</span><span class="p">)),</span>
+         <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Average Expropriation Protection 1985-95&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Log GDP per capita, PPP, 1995&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">((</span><span class="mf">3.2</span><span class="p">,</span> <span class="mf">10.5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">((</span><span class="mf">5.9</span><span class="p">,</span> <span class="mf">10.5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;OLS relationship between expropriation risk and income (Fig. 2 from Acemoglu, et al 2001)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<figure class="align-default" id="figbasicempir-acemfig2">
+<a class="reference internal image-reference" href="../_images/AcemogluEtAl_fig2.png"><img alt="../_images/AcemogluEtAl_fig2.png" src="../_images/AcemogluEtAl_fig2.png" style="height: 500px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 6 </span><span class="caption-text">OLS relationship between expropropriation risk and income (Fig. 2 from Acemoglu, et al, 2001)</span><a class="headerlink" href="#figbasicempir-acemfig2" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>The most common technique to estimate the parameters (<span class="math notranslate nohighlight">\(\beta\)</span>‘s) of the linear model is Ordinary Least Squares (OLS). As the name implies, an OLS model is solved by finding the parameters that minimize the sum of squared residuals.</p>
+<div class="math notranslate nohighlight" id="equation-eqbasicemp-olscrit">
+<span class="eqno">(8)<a class="headerlink" href="#equation-eqbasicemp-olscrit" title="Permalink to this equation">#</a></span>\[    \hat{\beta}_{OLS} = \beta : \quad \min_{\beta}\: u(X|\beta_0,\beta_1)^T \: u(X|\beta_0,\beta_1)\]</div>
+<p>where <span class="math notranslate nohighlight">\(\hat{u}_i\)</span> is the difference between the dependent variable observation <span class="math notranslate nohighlight">\(logpgp95_i\)</span> and the predicted value of the dependent variable <span class="math notranslate nohighlight">\(\beta_0 + \beta_1 avexpr_i\)</span>. To estimate the constant term <span class="math notranslate nohighlight">\(\beta_0\)</span>, we need to add a column of 1’s to our dataset (consider the equation if <span class="math notranslate nohighlight">\(\beta_0\)</span> was replaced with <span class="math notranslate nohighlight">\(\beta_0 x_i\)</span> where <span class="math notranslate nohighlight">\(x_i=1\)</span>).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df1</span><span class="p">[</span><span class="s1">&#39;const&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we can construct our model using the <a class="reference external" href="https://www.statsmodels.org/stable/index.html"><code class="docutils literal notranslate"><span class="pre">statsmodels</span></code></a> module and the <a class="reference external" href="https://www.statsmodels.org/dev/examples/notebooks/generated/ols.html"><code class="docutils literal notranslate"><span class="pre">OLS</span></code></a> method. We will use <code class="docutils literal notranslate"><span class="pre">pandas</span></code> DataFrames with <code class="docutils literal notranslate"><span class="pre">statsmodels</span></code>. However, standard arrays can also be used as arguments.</p>
+<div class="cell tag_remove-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>statsmodels
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
+
+<span class="n">reg1</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">OLS</span><span class="p">(</span><span class="n">endog</span><span class="o">=</span><span class="n">df1</span><span class="p">[</span><span class="s1">&#39;logpgp95&#39;</span><span class="p">],</span> <span class="n">exog</span><span class="o">=</span><span class="n">df1</span><span class="p">[[</span><span class="s1">&#39;const&#39;</span><span class="p">,</span> <span class="s1">&#39;avexpr&#39;</span><span class="p">]],</span> <span class="n">missing</span><span class="o">=</span><span class="s1">&#39;drop&#39;</span><span class="p">)</span>
+<span class="nb">type</span><span class="p">(</span><span class="n">reg1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>statsmodels.regression.linear_model.OLS
+</pre></div>
+</div>
+</div>
+</div>
+<p>So far we have simply constructed our model. The <code class="docutils literal notranslate"><span class="pre">statsmodels.regression.linear_model.OLS</span></code> is simply an object specifying dependent and independent variables, as well as instructions about what to do with missing data. We need to use the <code class="docutils literal notranslate"><span class="pre">.fit()</span></code> method to obtain OLS parameter estimates <span class="math notranslate nohighlight">\(\hat{\beta}_0\)</span> and <span class="math notranslate nohighlight">\(\hat{\beta}_1\)</span>. This method calculates the OLS coefficients according to the minimization problem in <a class="reference internal" href="#equation-eqbasicemp-olscrit">(8)</a>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">reg1</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="nb">type</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>statsmodels.regression.linear_model.RegressionResultsWrapper
+</pre></div>
+</div>
+</div>
+</div>
+<p>We now have the fitted regression model stored in <code class="docutils literal notranslate"><span class="pre">results</span></code> (see <a class="reference external" href="http://www.statsmodels.org/dev/generated/statsmodels.regression.linear_model.RegressionResults.html">statsmodels.regression.linear_model.RegressionResultsWrapper</a>). The <code class="docutils literal notranslate"><span class="pre">results</span></code> from the <code class="docutils literal notranslate"><span class="pre">reg1.fit()</span></code> command is a regression results object with a lot of information, similar to the results object of the <code class="docutils literal notranslate"><span class="pre">scipy.optimize.minimize()</span></code> function we worked with in the <a class="reference internal" href="../struct_est/MaxLikelihood.html#chap-maxlikeli"><span class="std std-ref">Maximum Likelihood Estimation</span></a> and <a class="reference internal" href="../struct_est/GMM.html#chap-gmm"><span class="std std-ref">Generalized Method of Moments Estimation</span></a> chapters.</p>
+<p>To view the OLS regression results, we can call the <code class="docutils literal notranslate"><span class="pre">.summary()</span></code> method.</p>
+<p>[Note that an observation was mistakenly dropped from the results in the original paper (see the note located in <a class="reference external" href="http://maketable2.do">maketable2.do</a> from Acemoglu’s webpage), and thus the coefficients differ slightly.]</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:               logpgp95   R-squared:                       0.611
+Model:                            OLS   Adj. R-squared:                  0.608
+Method:                 Least Squares   F-statistic:                     171.4
+Date:                Fri, 03 Nov 2023   Prob (F-statistic):           4.16e-24
+Time:                        06:41:19   Log-Likelihood:                -119.71
+No. Observations:                 111   AIC:                             243.4
+Df Residuals:                     109   BIC:                             248.8
+Df Model:                           1                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P&gt;|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+const          4.6261      0.301     15.391      0.000       4.030       5.222
+avexpr         0.5319      0.041     13.093      0.000       0.451       0.612
+==============================================================================
+Omnibus:                        9.251   Durbin-Watson:                   1.689
+Prob(Omnibus):                  0.010   Jarque-Bera (JB):                9.170
+Skew:                          -0.680   Prob(JB):                       0.0102
+Kurtosis:                       3.362   Cond. No.                         33.2
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can get individual items from the results, which are saved as attributes.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="nb">dir</span><span class="p">(</span><span class="n">results</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Degrees of freedom residuals:&quot;</span><span class="p">,</span> <span class="n">results</span><span class="o">.</span><span class="n">df_resid</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Estimated coefficients:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">params</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Standard errors of estimated coefficients:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">bse</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;HC0_se&#39;, &#39;HC1_se&#39;, &#39;HC2_se&#39;, &#39;HC3_se&#39;, &#39;_HCCM&#39;, &#39;__class__&#39;, &#39;__delattr__&#39;, &#39;__dict__&#39;, &#39;__dir__&#39;, &#39;__doc__&#39;, &#39;__eq__&#39;, &#39;__format__&#39;, &#39;__ge__&#39;, &#39;__getattribute__&#39;, &#39;__gt__&#39;, &#39;__hash__&#39;, &#39;__init__&#39;, &#39;__init_subclass__&#39;, &#39;__le__&#39;, &#39;__lt__&#39;, &#39;__module__&#39;, &#39;__ne__&#39;, &#39;__new__&#39;, &#39;__reduce__&#39;, &#39;__reduce_ex__&#39;, &#39;__repr__&#39;, &#39;__setattr__&#39;, &#39;__sizeof__&#39;, &#39;__str__&#39;, &#39;__subclasshook__&#39;, &#39;__weakref__&#39;, &#39;_abat_diagonal&#39;, &#39;_cache&#39;, &#39;_data_attr&#39;, &#39;_data_in_cache&#39;, &#39;_get_robustcov_results&#39;, &#39;_get_wald_nonlinear&#39;, &#39;_is_nested&#39;, &#39;_transform_predict_exog&#39;, &#39;_use_t&#39;, &#39;_wexog_singular_values&#39;, &#39;aic&#39;, &#39;bic&#39;, &#39;bse&#39;, &#39;centered_tss&#39;, &#39;compare_f_test&#39;, &#39;compare_lm_test&#39;, &#39;compare_lr_test&#39;, &#39;condition_number&#39;, &#39;conf_int&#39;, &#39;conf_int_el&#39;, &#39;cov_HC0&#39;, &#39;cov_HC1&#39;, &#39;cov_HC2&#39;, &#39;cov_HC3&#39;, &#39;cov_kwds&#39;, &#39;cov_params&#39;, &#39;cov_type&#39;, &#39;df_model&#39;, &#39;df_resid&#39;, &#39;diagn&#39;, &#39;eigenvals&#39;, &#39;el_test&#39;, &#39;ess&#39;, &#39;f_pvalue&#39;, &#39;f_test&#39;, &#39;fittedvalues&#39;, &#39;fvalue&#39;, &#39;get_influence&#39;, &#39;get_prediction&#39;, &#39;get_robustcov_results&#39;, &#39;info_criteria&#39;, &#39;initialize&#39;, &#39;k_constant&#39;, &#39;llf&#39;, &#39;load&#39;, &#39;model&#39;, &#39;mse_model&#39;, &#39;mse_resid&#39;, &#39;mse_total&#39;, &#39;nobs&#39;, &#39;normalized_cov_params&#39;, &#39;outlier_test&#39;, &#39;params&#39;, &#39;predict&#39;, &#39;pvalues&#39;, &#39;remove_data&#39;, &#39;resid&#39;, &#39;resid_pearson&#39;, &#39;rsquared&#39;, &#39;rsquared_adj&#39;, &#39;save&#39;, &#39;scale&#39;, &#39;ssr&#39;, &#39;summary&#39;, &#39;summary2&#39;, &#39;t_test&#39;, &#39;t_test_pairwise&#39;, &#39;tvalues&#39;, &#39;uncentered_tss&#39;, &#39;use_t&#39;, &#39;wald_test&#39;, &#39;wald_test_terms&#39;, &#39;wresid&#39;]
+
+Degrees of freedom residuals: 109.0
+
+Estimated coefficients:
+const     4.626089
+avexpr    0.531871
+dtype: float64
+
+Standard errors of estimated coefficients:
+const     0.300575
+avexpr    0.040621
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>The powerful machine learning python package scikit-learn also has a linear regression function <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LinearRegression.html">sklearn.linear_model.LinearRegression</a>. It is very good at prediction, but it is harder to get things like standard errors that are valuable for inference.</p>
+</section>
+<section id="what-do-coefficients-and-standard-errors-mean">
+<span id="secbasicemplinregcoefse"></span><h3>What do coefficients and standard errors mean?<a class="headerlink" href="#what-do-coefficients-and-standard-errors-mean" title="Permalink to this heading">#</a></h3>
+<p>Go through cross terms and quadratic terms and difference-in-difference.</p>
+</section>
+<section id="interpreting-results-and-output">
+<span id="secbasicemplinreginterpres"></span><h3>Interpreting results and output<a class="headerlink" href="#interpreting-results-and-output" title="Permalink to this heading">#</a></h3>
+<p>From our results, we see that:</p>
+<ul class="simple">
+<li><p>the intercept <span class="math notranslate nohighlight">\(\hat{\beta}_0=4.63\)</span> (interpretation?)</p></li>
+<li><p>the slope <span class="math notranslate nohighlight">\(\hat{\beta}_1=0.53\)</span> (interpretation?)</p></li>
+<li><p>the positive <span class="math notranslate nohighlight">\(\hat{\beta}_1&gt;0\)</span> parameter estimate implies that protection from expropriation has a positive effect on economic outcomes, as we saw in the figure.</p></li>
+<li><p>How would you quantitatively interpret the <span class="math notranslate nohighlight">\(\hat{\beta}_1\)</span> coefficient?</p></li>
+<li><p>What do the standard errors on the coefficients tell you?</p></li>
+<li><p>The p-value of 0.000 for <span class="math notranslate nohighlight">\(\hat{\beta}_1\)</span> implies that the effect of institutions on GDP is statistically significant (using <span class="math notranslate nohighlight">\(p &lt; 0.05\)</span> as a rejection rule)</p></li>
+<li><p>The R-squared value of 0.611 indicates that around 61% of variation in log GDP per capita is explained by protection against expropriation</p></li>
+</ul>
+<p>Using our parameter estimates, we can now write our estimated relationship as:</p>
+<div class="math notranslate nohighlight" id="equation-eqbasicemp-acemogluregest">
+<span class="eqno">(9)<a class="headerlink" href="#equation-eqbasicemp-acemogluregest" title="Permalink to this equation">#</a></span>\[    \hat{logpgp95}_i = 4.63 + 0.53 avexpr_i\]</div>
+<p>This equation describes the line that best fits our data, as shown in <a class="reference internal" href="#figbasicempir-acemfig2"><span class="std std-numref">Figure 6</span></a>. We can use this equation to predict the level of log GDP per capita for a value of the index of expropriation protection (see Section <a class="reference internal" href="#secbasicemplinregpredvals"><span class="std std-ref">Predicted values</span></a> below).</p>
+</section>
+<section id="analysis-of-variance-anova-output">
+<span id="secbasicemplinreganova"></span><h3>Analysis of variance (ANOVA) output<a class="headerlink" href="#analysis-of-variance-anova-output" title="Permalink to this heading">#</a></h3>
+<p>The results <code class="docutils literal notranslate"><span class="pre">.summary()</span></code> method provides a lot of regression output. And the <code class="docutils literal notranslate"><span class="pre">.RegressionResults</span></code> object has much more as evidenced in the help page <a class="reference external" href="http://www.statsmodels.org/dev/generated/statsmodels.regression.linear_model.RegressionResults.html">statsmodels.regression.linear_model.RegressionResults</a>.</p>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">Df</span> <span class="pre">Residuals:</span> <span class="pre">109</span></code> displays the degrees of freedom from the residual variance calculation. This equals the number of observations minus the number of regression coefficients, <code class="docutils literal notranslate"><span class="pre">N-p=111-2</span></code>. This is accessed with <code class="docutils literal notranslate"><span class="pre">results.df_resid</span></code>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">Df</span> <span class="pre">Model:</span> <span class="pre">1</span></code> displays the degrees of freedom from the model variance calculation or from the regressors. This equals the number of regression coefficients minus one, <code class="docutils literal notranslate"><span class="pre">p-1=2-1</span></code>. This is accessed with <code class="docutils literal notranslate"><span class="pre">results.df_model</span></code>.</p></li>
+<li><p>One can specify robust standard errors in their regression. The robust option is specified in the <code class="docutils literal notranslate"><span class="pre">.fit()</span></code> command. You can specify three different types of robust standard errors using the <code class="docutils literal notranslate"><span class="pre">.fit(cov_type='HC1')</span></code>, <code class="docutils literal notranslate"><span class="pre">.fit(cov_type='HC2')</span></code>, or <code class="docutils literal notranslate"><span class="pre">.fit(cov_type='HC3')</span></code> options.</p></li>
+<li><p>You can do clustered standard errors if you have groups labeled in a variable called <code class="docutils literal notranslate"><span class="pre">mygroups</span></code> by using the <code class="docutils literal notranslate"><span class="pre">.fit(cov_type='cluster',</span> <span class="pre">cov_kwds={'groups':</span> <span class="pre">mygroups})</span></code>.</p></li>
+<li><p>R-squared is a measure of fit of the overall model. It is <span class="math notranslate nohighlight">\(R^2=1 - SSR/SST\)</span> where <span class="math notranslate nohighlight">\(SST\)</span> is the total variance of the dependent variable (total sum of squares), and <span class="math notranslate nohighlight">\(SSR\)</span> is the sum of squared residuals (variance of the residuals). Another expresion is the sum of squared predicted values over the total sum of squares <span class="math notranslate nohighlight">\(R^2= SSM/SST\)</span>, where <span class="math notranslate nohighlight">\(SSM\)</span> is the sum of squared predicted values. This is accessed with <code class="docutils literal notranslate"><span class="pre">results.rsquared</span></code>.</p></li>
+<li><p>Adjusted R-squared is a measure of fit of the overall model that penalizes extra regressors. A property of the R-squared in the previous bullet is that it always increases as you add more explanatory variables. This is accessed with <code class="docutils literal notranslate"><span class="pre">results.rsquared_adj</span></code>.</p></li>
+</ul>
+</section>
+<section id="f-test-and-log-likelihood-test">
+<span id="secbasicemplinregftest"></span><h3>F-test and log likelihood test<a class="headerlink" href="#f-test-and-log-likelihood-test" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>The F-statistic is the statistic from an F-test of the joint hypothesis that all the coefficients are equal to zero. The value of the F-statistic is distributed according to the F-distribution <span class="math notranslate nohighlight">\(F(d1,d2)\)</span>, where <span class="math notranslate nohighlight">\(d1=p-1\)</span> and <span class="math notranslate nohighlight">\(d2=N-p\)</span>.</p></li>
+<li><p>The Prob (F-statistic) is the probability that the null hypothesis of all the coefficients being zero is true. In this case, it is really small.</p></li>
+<li><p>Log-likelihood is the sum of the log pdf values of the errors given their being normally distributed with mean 0 and standard deviation implied by the OLS estimates.</p></li>
+</ul>
+</section>
+<section id="inference-on-individual-parameters">
+<span id="secbasicemplinreginfer"></span><h3>Inference on individual parameters<a class="headerlink" href="#inference-on-individual-parameters" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>The estimated coefficients of the linear regression are reported in the <code class="docutils literal notranslate"><span class="pre">results.params</span></code> vector object (pandas Series).</p></li>
+<li><p>The standard error on each estimated coefficient is reported in the summary results column entitled <code class="docutils literal notranslate"><span class="pre">std</span> <span class="pre">err</span></code>. These standard errors are reported in the <code class="docutils literal notranslate"><span class="pre">results.bse</span></code> vector object (pandas Series).</p></li>
+<li><p>The “t” column is the <span class="math notranslate nohighlight">\(t\)</span> test statistic. It is the value in the support of the students-T distribution that is equivalent to the estimated coefficient if the null-hypothesis were true that the estimated coefficient were 0.</p></li>
+<li><p>The reported p-value is the probability of a two-sided t-test that gives the probability that the estimated coefficient is greater than its estimated value if the true value were 0. A more intuitive interpretation is the probability of seeing that estimated value if the null hypothesis were true. We usually reject the null hypothesis if the p-value is lower than 0.05.</p></li>
+<li><p>The summary results report the 95% two-sided confidence interval for the estimated value.</p></li>
+</ul>
+</section>
+<section id="predicted-values">
+<span id="secbasicemplinregpredvals"></span><h3>Predicted values<a class="headerlink" href="#predicted-values" title="Permalink to this heading">#</a></h3>
+<p>We can obtain an array of predicted <span class="math notranslate nohighlight">\(logpgp95_i\)</span> for every value of <span class="math notranslate nohighlight">\(avexpr_i\)</span> in our dataset by calling <code class="docutils literal notranslate"><span class="pre">.predict()</span></code> on our results. Let’s first get the predicted value for the average country in the dataset.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mean_expr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">df1</span><span class="p">[</span><span class="s1">&#39;avexpr&#39;</span><span class="p">])</span>
+<span class="n">mean_expr</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>7.066491
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">params</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>const     4.626089
+avexpr    0.531871
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">predicted_logpdp95</span> <span class="o">=</span> <span class="mf">4.63</span> <span class="o">+</span> <span class="mf">0.53</span> <span class="o">*</span> <span class="n">mean_expr</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">predicted_logpdp95</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>8.375240297317506
+</pre></div>
+</div>
+</div>
+</div>
+<p>An easier (and more accurate) way to obtain this result is to use <code class="docutils literal notranslate"><span class="pre">.predict()</span></code> and set <span class="math notranslate nohighlight">\(constant=1\)</span> and <span class="math notranslate nohighlight">\(avexpr_i=\)</span> <code class="docutils literal notranslate"><span class="pre">mean_expr</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">exog</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">mean_expr</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([8.38455358])
+</pre></div>
+</div>
+</div>
+</div>
+<p>Plotting the predicted values against <span class="math notranslate nohighlight">\(avexpr_i\)</span> shows that the predicted values lie along the linear line that we fitted below in <a class="reference internal" href="#figbasicempir-acempredvals"><span class="std std-numref">Figure 7</span></a>. The observed values of <span class="math notranslate nohighlight">\(logpgp95_i\)</span> are also plotted for comparison purposes.</p>
+<div class="cell tag_remove-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Drop missing observations from whole sample</span>
+<span class="n">df1_plot</span> <span class="o">=</span> <span class="n">df1</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;logpgp95&#39;</span><span class="p">,</span> <span class="s1">&#39;avexpr&#39;</span><span class="p">])</span>
+
+<span class="c1"># Plot predicted values. alpha is a blending value between 0 (transparent) and 1 (opaque)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">df1_plot</span><span class="p">[</span><span class="s1">&#39;avexpr&#39;</span><span class="p">],</span> <span class="n">results</span><span class="o">.</span><span class="n">predict</span><span class="p">(),</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;predicted&#39;</span><span class="p">)</span>
+
+<span class="c1"># Plot observed values</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">df1_plot</span><span class="p">[</span><span class="s1">&#39;avexpr&#39;</span><span class="p">],</span> <span class="n">df1_plot</span><span class="p">[</span><span class="s1">&#39;logpgp95&#39;</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;observed&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;OLS predicted values&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Average Expropriation Protection 1985-95&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Log GDP per capita, PPP, 1995&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<figure class="align-default" id="figbasicempir-acempredvals">
+<a class="reference internal image-reference" href="../_images/AcemogluEtAl_predvals.png"><img alt="../_images/AcemogluEtAl_predvals.png" src="../_images/AcemogluEtAl_predvals.png" style="height: 500px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 7 </span><span class="caption-text">OLS predicted values for Acemoglu, et al, 2001 data</span><a class="headerlink" href="#figbasicempir-acempredvals" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+<section id="basic-extensions-of-linear-regression">
+<span id="secbasicemplinregext"></span><h2>Basic extensions of linear regression<a class="headerlink" href="#basic-extensions-of-linear-regression" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Instrumental variables (omitted variable bias)</p></li>
+<li><p>Logistic regression</p></li>
+<li><p>Multiple equation models</p></li>
+<li><p>Panel data</p></li>
+<li><p>Time series data</p></li>
+<li><p>Vector autoregression</p></li>
+</ul>
 </section>
 <section id="exercises">
 <span id="secbasicempirexercises"></span><h2>Exercises<a class="headerlink" href="#exercises" title="Permalink to this heading">#</a></h2>
@@ -869,7 +1810,7 @@ A list of all the 163 unique countries in the &quot;shortnam&quot; variable is:
 
 <p class="admonition-title"><span class="caption-number">Exercise 55 </span> (Multiple linear regression)</p>
 <section id="exercise-content">
-<p>For this problem, you will use the 397 observations from the <a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/data/basic_empirics/Auto.csv"><code class="docutils literal notranslate"><span class="pre">Auto.csv</span></code></a> dataset in the <a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/data/basic_empirics"><code class="docutils literal notranslate"><span class="pre">/data/basic_empirics/</span></code></a> folder of the repository for this book.<a class="footnote-reference brackets" href="#auto" id="id9" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a> This dataset includes 397 observations on miles per gallon (<code class="docutils literal notranslate"><span class="pre">mpg</span></code>), number of cylinders (<code class="docutils literal notranslate"><span class="pre">cylinders</span></code>), engine displacement (<code class="docutils literal notranslate"><span class="pre">displacement</span></code>), horsepower (<code class="docutils literal notranslate"><span class="pre">horsepower</span></code>), vehicle weight (<code class="docutils literal notranslate"><span class="pre">weight</span></code>), acceleration (<code class="docutils literal notranslate"><span class="pre">acceleration</span></code>), vehicle year (<code class="docutils literal notranslate"><span class="pre">year</span></code>), vehicle origin (<code class="docutils literal notranslate"><span class="pre">origin</span></code>), and vehicle name (<code class="docutils literal notranslate"><span class="pre">name</span></code>).</p>
+<p>For this problem, you will use the 397 observations from the <a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/data/basic_empirics/Auto.csv"><code class="docutils literal notranslate"><span class="pre">Auto.csv</span></code></a> dataset in the <a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/data/basic_empirics"><code class="docutils literal notranslate"><span class="pre">/data/basic_empirics/</span></code></a> folder of the repository for this book.<a class="footnote-reference brackets" href="#auto" id="id10" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a> This dataset includes 397 observations on miles per gallon (<code class="docutils literal notranslate"><span class="pre">mpg</span></code>), number of cylinders (<code class="docutils literal notranslate"><span class="pre">cylinders</span></code>), engine displacement (<code class="docutils literal notranslate"><span class="pre">displacement</span></code>), horsepower (<code class="docutils literal notranslate"><span class="pre">horsepower</span></code>), vehicle weight (<code class="docutils literal notranslate"><span class="pre">weight</span></code>), acceleration (<code class="docutils literal notranslate"><span class="pre">acceleration</span></code>), vehicle year (<code class="docutils literal notranslate"><span class="pre">year</span></code>), vehicle origin (<code class="docutils literal notranslate"><span class="pre">origin</span></code>), and vehicle name (<code class="docutils literal notranslate"><span class="pre">name</span></code>).</p>
 <ol class="arabic simple">
 <li><p>Import the data using the <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html"><code class="docutils literal notranslate"><span class="pre">pandas.read_csv()</span></code></a> function. Look for characters that seem out of place that might indicate missing values. Replace them with missing values using the <code class="docutils literal notranslate"><span class="pre">na_values=...</span></code> option.</p></li>
 <li><p>Produce a scatterplot matrix which includes all of the quantitative variables <code class="docutils literal notranslate"><span class="pre">mpg</span></code>, <code class="docutils literal notranslate"><span class="pre">cylinders</span></code>, <code class="docutils literal notranslate"><span class="pre">displacement</span></code>, <code class="docutils literal notranslate"><span class="pre">horsepower</span></code>, <code class="docutils literal notranslate"><span class="pre">weight</span></code>, <code class="docutils literal notranslate"><span class="pre">acceleration</span></code>, <code class="docutils literal notranslate"><span class="pre">year</span></code>, <code class="docutils literal notranslate"><span class="pre">origin</span></code>. Call your DataFrame of quantitative variables <code class="docutils literal notranslate"><span class="pre">df_quant</span></code>. [Use the pandas scatterplot function in the code block below.]</p></li>
@@ -917,8 +1858,8 @@ A list of all the 163 unique countries in the &quot;shortnam&quot; variable is:
 <p>For a tutorial on using Python’s Pandas package, see the <a class="reference internal" href="../python/Pandas.html#chap-pandas"><span class="std std-ref">Pandas</span></a> chapter of this online book.</p>
 </aside>
 <aside class="footnote brackets" id="auto" role="note">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id9">2</a><span class="fn-bracket">]</span></span>
-<p>The <a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/data/basic_empirics/Auto.csv"><code class="docutils literal notranslate"><span class="pre">Auto.csv</span></code></a> dataset comes from <span id="id10">[<a class="reference internal" href="../CompMethods_references.html#id35" title="Gareth James, Daniela Witten, Trevor Hastie, and Robert Tibshirani. An Introduction to Statistical Learning with Applications in R. Springer Texts in Statistics. Springer, 2017.">James <em>et al.</em>, 2017</a>]</span> (ch. 3) and is also available at <a class="reference external" href="http://www-bcf.usc.edu/~gareth/ISL/data.html">http://www-bcf.usc.edu/~gareth/ISL/data.html</a>.</p>
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id10">2</a><span class="fn-bracket">]</span></span>
+<p>The <a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/data/basic_empirics/Auto.csv"><code class="docutils literal notranslate"><span class="pre">Auto.csv</span></code></a> dataset comes from <span id="id11">[<a class="reference internal" href="../CompMethods_references.html#id35" title="Gareth James, Daniela Witten, Trevor Hastie, and Robert Tibshirani. An Introduction to Statistical Learning with Applications in R. Springer Texts in Statistics. Springer, 2017.">James <em>et al.</em>, 2017</a>]</span> (ch. 3) and is also available at <a class="reference external" href="http://www-bcf.usc.edu/~gareth/ISL/data.html">http://www-bcf.usc.edu/~gareth/ISL/data.html</a>.</p>
 </aside>
 </section>
 </section>
@@ -989,9 +1930,21 @@ A list of all the 163 unique countries in the &quot;shortnam&quot; variable is:
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-empirical-methods-in-the-literature">Basic Empirical Methods in the Literature</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#correlation-versus-causation">Correlation versus Causation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-description">Data Description</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-data-description">Basic Data Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-data-description">Basic data description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cross-tabulated-data-description">Cross tabulated data Description</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-understanding-of-linear-regression">Basic Understanding of Linear Regression</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-acemoglu-et-al-2001">Example: Acemoglu, et al (2001)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-do-coefficients-and-standard-errors-mean">What do coefficients and standard errors mean?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interpreting-results-and-output">Interpreting results and output</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis-of-variance-anova-output">Analysis of variance (ANOVA) output</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#f-test-and-log-likelihood-test">F-test and log likelihood test</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inference-on-individual-parameters">Inference on individual parameters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#predicted-values">Predicted values</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-extensions-of-linear-regression">Basic extensions of linear regression</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">Exercises</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">Footnotes</a></li>
 </ul>
