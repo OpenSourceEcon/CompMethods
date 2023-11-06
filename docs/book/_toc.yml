@@ -5,6 +5,7 @@ parts:
     chapters:
     - file: contrib/contributing
   - caption: Coding in Python
+    numbered: True
     chapters:
     - file: python/intro
     - file: python/StandardLibrary
@@ -17,18 +18,23 @@ parts:
     - file: python/DocStrings
     - file: python/UnitTesting
   - caption: Git and GitHub
+    numbered: True
     chapters:
     - file: git/intro
   - caption: Basic Empirical Methods
+    numbered: True
     chapters:
     - file: basic_empirics/BasicEmpirMethods
   - caption: Basic Machine Learning
+    numbered: True
     chapters:
     - file: basic_ml/ml_intro
   - caption: Neural Nets and Deep Learning
+    numbered: True
     chapters:
     - file: deep_learn/intro
   - caption: Structural Estimation
+    numbered: True
     chapters:
     - file: struct_est/intro
     - file: struct_est/MaxLikelihood
