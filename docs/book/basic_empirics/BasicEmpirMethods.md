@@ -548,31 +548,49 @@ OLS predicted values for Acemoglu, et al, 2001 data
 :label: ExerBasicEmpir_MultLinRegress
 :class: green
 ```
-For this problem, you will use the 397 observations from the [`Auto.csv`](https://github.com/OpenSourceEcon/CompMethods/tree/main/data/basic_empirics/Auto.csv) dataset in the [`/data/basic_empirics/`](https://github.com/OpenSourceEcon/CompMethods/tree/main/data/basic_empirics) folder of the repository for this book.[^Auto] This dataset includes 397 observations on miles per gallon (`mpg`), number of cylinders (`cylinders`), engine displacement (`displacement`), horsepower (`horsepower`), vehicle weight (`weight`), acceleration (`acceleration`), vehicle year (`year`), vehicle origin (`origin`), and vehicle name (`name`).
+For this problem, you will use the 397 observations from the [`Auto.csv`](https://github.com/OpenSourceEcon/CompMethods/tree/main/data/basic_empirics/Auto.csv) dataset in the [`/data/basic_empirics/`](https://github.com/OpenSourceEcon/CompMethods/tree/main/data/basic_empirics) folder of the repository for this book.[^Auto] This dataset includes 397 observations on the following variables:
+* `mpg`: miles per gallon
+* `cylinders`: number of cylinders
+* `displacement`: engine displacement (cubic inches)
+* `horsepower`: engine horsepower
+* `weight`: vehicle weight (lbs.)
+* `acceleration`: time to accelerate from 0 to 60 mph (sec.)
+* `year`: vehicle year
+* `origin`: origin of car (1=American, 2=European, 3=Japanese)
+* `name`: vehicle name
 1. Import the data using the [`pandas.read_csv()`](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html) function. Look for characters that seem out of place that might indicate missing values. Replace them with missing values using the `na_values=...` option.
-2. Produce a scatterplot matrix which includes all of the quantitative variables `mpg`, `cylinders`, `displacement`, `horsepower`, `weight`, `acceleration`, `year`, `origin`. Call your DataFrame of quantitative variables `df_quant`. [Use the pandas scatterplot function in the code block below.]
+2. Create descriptive statistics for each of the numerical variables (count, mean, standard deviation, min, 25%, 50%, 75%, max). How do you interpret the descriptive statistics on the `origin` variable? What might be a better way to report descriptive statistics for this categorical variable?
+3. Produce a scatterplot matrix which includes all of the numerical variables `mpg`, `cylinders`, `displacement`, `horsepower`, `weight`, `acceleration`, `year`, `origin`. Call your DataFrame of numerical variables `df_numer`. [Use the pandas scatterplot function in the code block below.]
 ```python
 from pandas.plotting import scatter_matrix
 
-scatter_matrix(df_quant, alpha=0.3, figsize=(6, 6), diagonal='kde')
+scatter_matrix(df_numer, alpha=0.3, figsize=(6, 6), diagonal='kde')
 ```
-3. Compute the correlation matrix for the quantitative variables ($8\times 8$) using the [`pandas.DataFrame.corr()`](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.corr.html) method.
-4. Estimate the following multiple linear regression model of $mpg_i$ on all other quantitative variables, where $u_i$ is an error term for each observation, using Python's `statsmodels.api.OLS()` function.
+4. Compute the correlation matrix for the numerical variables ($8\times 8$) using the [`pandas.DataFrame.corr()`](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.corr.html) method.
+5. What is wrong with estimating the following linear regression model? How would you fix this problem? (Hint: There is an issue with one of the variables)
     \begin{equation*}
       \begin{split}
         mpg_i &= \beta_0 + \beta_1 cylinders_i + \beta_2 displacement_i + \beta_3 horsepower_i + ... \\
         &\qquad \beta_4 weight_i + \beta_5 acceleration_i + \beta_6 year_i + \beta_7 origin_i + u_i
       \end{split}
     \end{equation*}
+6. Estimate the following multiple linear regression model of $mpg_i$ on all other numerical variables, where $u_i$ is an error term for each observation, using Python's `statsmodels.api.OLS()` function, with indicator variables created for two out of the three `origin` categories (2=European, 3=Japanese).
+    \begin{equation*}
+      \begin{split}
+        mpg_i &= \beta_0 + \beta_1 cylinders_i + \beta_2 displacement_i + \beta_3 horsepower_i + ... \\
+        &\qquad \beta_4 weight_i + \beta_5 acceleration_i + \beta_6 year_i + ...\\
+        &\qquad \beta_7 european_i + \beta_8 japanese_i + u_i
+      \end{split}
+    \end{equation*}
     * Which of the coefficients is statistically significant at the 1\% level?
     * Which of the coefficients is NOT statistically significant at the 10\% level?
     * Give an interpretation in words of the estimated coefficient $\hat{\beta}_6$ on $year_i$ using the estimated value of $\hat{\beta}_6$.
-5. Looking at your scatterplot matrix from part (2), what are the three variables that look most likely to have a nonlinear relationship with $mpg_i$?
+7. Looking at your scatterplot matrix from part (2), what are the three variables that look most likely to have a nonlinear relationship with $mpg_i$?
     * Estimate a new multiple regression model by OLS in which you include squared terms on the three variables you identified as having a nonlinear relationship to $mpg_i$ as well as a squared term on $acceleration_i$.
     * Report your adjusted R-squared statistic. Is it better or worse than the adjusted R-squared from part (4)?
     * What happened to the statistical significance of the $displacement_i$ variable coefficient and the coefficient on its squared term?
     * What happened to the statistical significance of the cylinders variable?
-6. Using the regression model from part (5) and the `.predict()` function, what would be the predicted miles per gallon $mpg$ of a car with 6 cylinders, displacement of 200, horsepower of 100, a weight of 3,100, acceleration of 15.1, model year of 1999, and origin of 1?
+8. Using the regression model from part (6) and the `.predict()` function, what would be the predicted miles per gallon $mpg$ of a car with 6 cylinders, displacement of 200, horsepower of 100, a weight of 3,100, acceleration of 15.1, model year of 1999, and origin of 1 (American)?
 ```{exercise-end}
 ```
 
