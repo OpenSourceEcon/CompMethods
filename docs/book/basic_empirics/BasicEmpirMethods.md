@@ -567,7 +567,7 @@ from pandas.plotting import scatter_matrix
 scatter_matrix(df_numer, alpha=0.3, figsize=(6, 6), diagonal='kde')
 ```
 4. Compute the correlation matrix for the numerical variables ($8\times 8$) using the [`pandas.DataFrame.corr()`](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.corr.html) method.
-5. What is wrong with estimating the following linear regression model? How would you fix this problem? (Hint: There is an issue with one of the variables)
+5. What is wrong with estimating the following linear regression model? How would you fix this problem? (Hint: There is an issue with one of the variables.)
     \begin{equation*}
       \begin{split}
         mpg_i &= \beta_0 + \beta_1 cylinders_i + \beta_2 displacement_i + \beta_3 horsepower_i + ... \\
