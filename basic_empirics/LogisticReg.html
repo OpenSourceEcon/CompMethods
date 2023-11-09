@@ -1,0 +1,867 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>13. Logistic Regression Model &#8212; Computational Methods for Economists using Python</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/exercise.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'basic_empirics/LogisticReg';</script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="14. Basic Machine Learning" href="../basic_ml/ml_intro.html" />
+    <link rel="prev" title="12. Basic Empirical Methods" href="BasicEmpirMethods.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/CompMethodsLogo.png" class="logo__image only-light" alt="Computational Methods for Economists using Python - Home"/>
+    <script>document.write(`<img src="../_static/CompMethodsLogo.png" class="logo__image only-dark" alt="Computational Methods for Economists using Python - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    Computational Methods for Economists using Python
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contributor Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../contrib/contributing.html">Contributor Guide</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Coding in Python</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../python/intro.html">1. Introduction to Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python/StandardLibrary.html">2. Python Standard Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python/ExceptionsIO.html">3. Exception Handling and File Input/Output</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python/OOP.html">4. Object Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python/NumPy.html">5. NumPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python/Pandas.html">6. Pandas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python/Matplotlib.html">7. Matplotlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python/SciPy.html">8. SciPy: Root finding, minimizing, interpolation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python/DocStrings.html">9. Docstrings and Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python/UnitTesting.html">10. Unit Testing</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Git and GitHub</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../git/intro.html">11. Git and GitHub</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Basic Empirical Methods</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="BasicEmpirMethods.html">12. Basic Empirical Methods</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">13. Logistic Regression Model</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Basic Machine Learning</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../basic_ml/ml_intro.html">14. Basic Machine Learning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Neural Nets and Deep Learning</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../deep_learn/intro.html">15. Neural Nets and Deep Learning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Structural Estimation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../struct_est/intro.html">16. Introduction to Structural Estimation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../struct_est/MaxLikelihood.html">17. Maximum Likelihood Estimation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../struct_est/GMM.html">18. Generalized Method of Moments Estimation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../struct_est/SMM.html">19. Simulated Method of Moments Estimation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Appendix</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../appendix/glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../appendix/appendix.html">Appendix</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">References</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../CompMethods_references.html">References</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/OpenSourceEcon/CompMethods" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/OpenSourceEcon/CompMethods/issues/new?title=Issue%20on%20page%20%2Fbasic_empirics/LogisticReg.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/basic_empirics/LogisticReg.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Logistic Regression Model</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantitative-versus-qualitative-data">13.1. Quantitative versus Qualitative Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-classification-setting">13.1.1. The classification setting</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#logistic-regression-classifier">13.2. Logistic Regression Classifier</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-linear-probability-lp-model">13.2.1. The linear probability (LP) model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-logistic-logit-regression-classifier">13.2.2. The logistic (logit) regression classifier</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nonlinear-least-squares-estimation">13.2.2.1. Nonlinear least squares estimation</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#maximum-likelihood-estimation">13.2.2.2. Maximum likelihood estimation</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#titanic-example">13.2.2.3. Titanic example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">13.3. Footnotes</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="logistic-regression-model">
+<span id="chap-logintro"></span><h1><span class="section-number">13. </span>Logistic Regression Model<a class="headerlink" href="#logistic-regression-model" title="Permalink to this heading">#</a></h1>
+<p>This chapter has an executable <a class="reference external" href="https://colab.research.google.com/drive/1kNMOMvoKzuzNq_rw1yz86B3N98hgTaZ8?usp=sharing">Google Colab notebook</a> with all the same code, data references, and images. The Google Colab notebook allows you to execute the code in this chapter in the cloud so you don’t have to download Python, any of its packages, or any data to your local computer. You could manipulate and execute this notebook on any device with a browser, whether than be your computer, phone, or tablet.</p>
+<p>The focus of this chapter is to give the reader a basic introduction to the logistic regression model, where it comes from, and how it can be interpreted.</p>
+<section id="quantitative-versus-qualitative-data">
+<span id="sec-logquantqual"></span><h2><span class="section-number">13.1. </span>Quantitative versus Qualitative Data<a class="headerlink" href="#quantitative-versus-qualitative-data" title="Permalink to this heading">#</a></h2>
+<p>The linear regression models of chapter <a class="reference internal" href="BasicEmpirMethods.html#chap-basicempirmethods"><span class="std std-ref">Basic Empirical Methods</span></a> have continuous quantitative variables as dependent variables. That is, the <span class="math notranslate nohighlight">\(y_i\)</span> variable takes on a continuum of values. We use a different class of models to estimate the relationship of exogenous variables to <em>qualitative</em> or <em>categorical</em>  or <em>discrete</em> endogenous or dependent variables.</p>
+<p>Examples of qualitative or categorical variables include:</p>
+<ul class="simple">
+<li><p>Binary variables take on two values (<span class="math notranslate nohighlight">\(J=2\)</span>), most often 0 or 1. Examples: Male or female, dead or alive, accept or reject.</p></li>
+<li><p>General categorical variables can take on more than two values (<span class="math notranslate nohighlight">\(J\geq 2\)</span>). Examples: red, blue, or green; teenager, young adult, middle aged, senior.</p></li>
+</ul>
+<p>Note with general categorical variables that order and numerical distance do not matter. As an example let <span class="math notranslate nohighlight">\(FlowerColor_i=\{red=1, blue=2,green=3\}\)</span> be a function of <span class="math notranslate nohighlight">\(neighborhood_i\)</span>, <span class="math notranslate nohighlight">\(season_i\)</span>, and <span class="math notranslate nohighlight">\(income_i\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[ FlowerColor_i = \beta_0 + \beta_1 neighborhood_i + \beta_2 season_i + \beta_3 income_i + u_i \]</div>
+<p>We could mathematically estimate this regression model, but would that make sense? What would be wrong with a regression model?</p>
+<section id="the-classification-setting">
+<span id="sec-logquantqualclassset"></span><h3><span class="section-number">13.1.1. </span>The classification setting<a class="headerlink" href="#the-classification-setting" title="Permalink to this heading">#</a></h3>
+<p>Let <span class="math notranslate nohighlight">\(y_i\)</span> be a qualitative dependent variable on <span class="math notranslate nohighlight">\(N\)</span> observations with <span class="math notranslate nohighlight">\(i\)</span> being the index of the observation. Each observation <span class="math notranslate nohighlight">\(y_i\)</span> can take on one of <span class="math notranslate nohighlight">\(J\)</span> discrete values <span class="math notranslate nohighlight">\(j\in\{1,2,...J\}\)</span>. Let <span class="math notranslate nohighlight">\(x_{p,i}\)</span> be the <span class="math notranslate nohighlight">\(i\)</span>th observation of the <span class="math notranslate nohighlight">\(p\)</span>th explanatory variable (independent variable) such that <span class="math notranslate nohighlight">\(X_i=\{x_{1,i}, x_{2,i}, ... x_{P,i}\}\)</span>. Then the general formulation of a classifier comes in the following two forms,</p>
+<div class="math notranslate nohighlight" id="equation-eqlog-genclassmodel">
+<span class="eqno">(13.1)<a class="headerlink" href="#equation-eqlog-genclassmodel" title="Permalink to this equation">#</a></span>\[    Pr(y_i=j|X_i,\theta) = f(X_i|\theta) \quad\forall i, j \quad\text{or}\quad \sum_{j=1}^J I_j(y_i=j) = f(X_i|\theta) \quad\forall i, j\]</div>
+<p>where <span class="math notranslate nohighlight">\(I_j\)</span> in the second formulation is an indicator function that equals 1 when <span class="math notranslate nohighlight">\(y_i=j\)</span> and equals 0 otherwise.</p>
+</section>
+</section>
+<section id="logistic-regression-classifier">
+<span id="sec-logregclass"></span><h2><span class="section-number">13.2. </span>Logistic Regression Classifier<a class="headerlink" href="#logistic-regression-classifier" title="Permalink to this heading">#</a></h2>
+<p>In this section, we will look at two models for binary (0 or 1) categorical dependent variables. We describe the first model–the linear probability (LP) model–for purely illustrative purposes. This is because the LP model has some serious shortcomings that make it almost strictly dominated by our second model in this section.</p>
+<p>The second model–the logistic regression (logit, binary classifier) model–will be the focus of this section. There is another variant of this model, the probit model. But the logistic model is the more flexible, more easily interpretable, and more commonly used of the two.</p>
+<section id="the-linear-probability-lp-model">
+<span id="sec-loglpm"></span><h3><span class="section-number">13.2.1. </span>The linear probability (LP) model<a class="headerlink" href="#the-linear-probability-lp-model" title="Permalink to this heading">#</a></h3>
+<p>One option in which a regression is barely acceptable for modeling a binary (categorical) dependent variable is the linear probability (LP) model. When the dependent variable has only two categories, it can be modeled as <span class="math notranslate nohighlight">\(y_i\in\{0,1\}\)</span> without loss of generality. Let the variable <span class="math notranslate nohighlight">\(z_i\)</span> be interpreted as the probability that <span class="math notranslate nohighlight">\(y_i=1\)</span> given the data <span class="math notranslate nohighlight">\(X_i\)</span> and parameter values <span class="math notranslate nohighlight">\(\theta=\{\beta_0,\beta_1,...\beta_P\}\)</span>.</p>
+<div class="math notranslate nohighlight" id="equation-eqlog-lpm">
+<span class="eqno">(13.2)<a class="headerlink" href="#equation-eqlog-lpm" title="Permalink to this equation">#</a></span>\[    z_i = Pr(y_i=1|X_i,\theta) = \beta_0 + \beta_1 x_{1,i} + \beta_2 x_{2,i} + ... \beta_P x_{P,i} + u_i\]</div>
+<p>The LP model can be a nice, easy, computationally convenient way to estimate the probability of outcome <span class="math notranslate nohighlight">\(y_i=1\)</span>. This could also be reinterpreted, without loss of generality, as the probability that <span class="math notranslate nohighlight">\(y_i=0\)</span>. This is equivalent to a redefinition of which outcome is defined as <span class="math notranslate nohighlight">\(y_i=1\)</span>.</p>
+<p>The main drawback of the LP model is that the predicted values of the probability that <span class="math notranslate nohighlight">\(y_i=1\)</span> or <span class="math notranslate nohighlight">\(Pr(y_i=1|X_i,\theta)\)</span> can be greater than 1 and can be less than 0. It is for this reason that it is very difficult to publish any research based on an LP model.</p>
+</section>
+<section id="the-logistic-logit-regression-classifier">
+<span id="sec-loglogit"></span><h3><span class="section-number">13.2.2. </span>The logistic (logit) regression classifier<a class="headerlink" href="#the-logistic-logit-regression-classifier" title="Permalink to this heading">#</a></h3>
+<p>In contrast to the linear probability model, a good classifier tranforms numerical values from explanatory variables or feature variables into a probability that is strictly between 0 and 1. More specifically this function must take any numer on the real line between <span class="math notranslate nohighlight">\(-\infty\)</span> and <span class="math notranslate nohighlight">\(\infty\)</span> and map it to the <span class="math notranslate nohighlight">\([0,1]\)</span> interval. In addition, we want a monotonically increasing relationship between <span class="math notranslate nohighlight">\(x\)</span> and the function <span class="math notranslate nohighlight">\(f(x)\)</span>. What are some functions with this property? Candidates include the following functions.</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(f(x)=\text{max}\Bigl(0, \,\text{min}\bigl(1, x\bigr)\Bigr)\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(f(x)=\frac{e^x}{1 + e^x}\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(f(x) = \arctan(x)\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(f(x) = \text{cdf}(x)\)</span></p></li>
+</ul>
+<p>Why don’t functions like <span class="math notranslate nohighlight">\(\sin(x)\)</span>, <span class="math notranslate nohighlight">\(\cos(x)\)</span>, and <span class="math notranslate nohighlight">\(\frac{|x|}{1+|x|}\)</span> fit these criteria?</p>
+<p>The second function in the bulletted list above is the logistic function. The logistic regression model is a binary dependent variable classifier that constrains its predicted values to be stricly between 0 and 1. The logistic function is the following,</p>
+<div class="math notranslate nohighlight" id="equation-eqlog-logistic">
+<span class="eqno">(13.3)<a class="headerlink" href="#equation-eqlog-logistic" title="Permalink to this equation">#</a></span>\[    f(x) = \frac{e^x}{1 + e^x} \quad\forall x\]</div>
+<p>and has the following general shape.</p>
+<div class="cell tag_hide-input tag_remove_output docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">x_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
+<span class="n">y_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">x_vals</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">x_vals</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_vals</span><span class="p">,</span> <span class="n">y_vals</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;Logistic function for $x\in[-6,6]$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$x$ values&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$f(x)$ values&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<figure class="align-default" id="figlogit-logit-gen">
+<a class="reference internal image-reference" href="../_images/logit_gen.png"><img alt="../_images/logit_gen.png" src="../_images/logit_gen.png" style="height: 500px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 13.1 </span><span class="caption-text">Logistic function for <span class="math notranslate nohighlight">\(x\in[-6,6]\)</span></span><a class="headerlink" href="#figlogit-logit-gen" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>The logistic regression function is the specific case of the logistic function where the value of <span class="math notranslate nohighlight">\(x\)</span> in the general logistic function <a class="reference internal" href="#equation-eqlog-logistic">(13.3)</a> is replaced by a linear combination of variables <span class="math notranslate nohighlight">\(\beta_0 + \beta_1 x_{1,i} + ...\beta_P x_{P,i}\)</span> similar to a linear regression model.</p>
+<div class="math notranslate nohighlight" id="equation-eqlog-logit-std">
+<span class="eqno">(13.4)<a class="headerlink" href="#equation-eqlog-logit-std" title="Permalink to this equation">#</a></span>\[    Pr(y_i=1|X_i,\theta) = \frac{e^{X_i\beta}}{1 + e^{X_i\beta}} = \frac{e^{\beta_0 + \beta_1 x_{1,i} + ...\beta_P x_{P,i}}}{1 + e^{\beta_0 + \beta_1 x_{1,i} + ...\beta_P x_{P,i}}}\]</div>
+<p>or equivalently</p>
+<div class="math notranslate nohighlight" id="equation-eqlog-logit-neg">
+<span class="eqno">(13.5)<a class="headerlink" href="#equation-eqlog-logit-neg" title="Permalink to this equation">#</a></span>\[    Pr(y_i=1|X_i,\theta) = \frac{1}{1 + e^{-X_i\beta}} = \frac{1}{1 + e^{-(\beta_0 + \beta_1 x_{1,i} + ...\beta_P x_{P,i})}}\]</div>
+<p>We could estimate the paramters <span class="math notranslate nohighlight">\(\theta=\{\beta_0,\beta_1,...\beta_P\}\)</span> by generalized method of moments (GMM) using nonlinear least squares or a more general set of moments to match.<a class="footnote-reference brackets" href="#gmm" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> But maximum likelihood estimation is the most common method for estimating the parameters <span class="math notranslate nohighlight">\(\theta\)</span> because of its more robust statistical properties.<a class="footnote-reference brackets" href="#maxlikeli" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a> Also, the distributional assumptions are built into the model, so they are not overly strong.</p>
+<section id="nonlinear-least-squares-estimation">
+<span id="sec-loglogitnlls"></span><h4><span class="section-number">13.2.2.1. </span>Nonlinear least squares estimation<a class="headerlink" href="#nonlinear-least-squares-estimation" title="Permalink to this heading">#</a></h4>
+<p>If we define <span class="math notranslate nohighlight">\(z_i = Pr(y_i=1|X_i,\theta)\)</span>, then the error in the logistic regression is the following.</p>
+<div class="math notranslate nohighlight" id="equation-eqlog-logitnlls-err">
+<span class="eqno">(13.6)<a class="headerlink" href="#equation-eqlog-logitnlls-err" title="Permalink to this equation">#</a></span>\[    \varepsilon_i = y_i - z_i\]</div>
+<p>The GMM specification of the nonlinear least squares method of estimating the parameter vector <span class="math notranslate nohighlight">\(\theta\)</span> would then be the following.<a class="footnote-reference brackets" href="#gmm" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a></p>
+<div class="math notranslate nohighlight" id="equation-eqlog-logitnlls-gmm">
+<span class="eqno">(13.7)<a class="headerlink" href="#equation-eqlog-logitnlls-gmm" title="Permalink to this equation">#</a></span>\[\begin{split}    \begin{split}
+      \hat{\theta}_{nlls} = \theta:\quad &amp;\min_{\theta} \sum_{i=1}^N\varepsilon_i^2 \quad = \quad \min_{\theta}\sum_{i=1}^N\bigl(y_i - z_i \bigr)^2 \quad \\
+      &amp;= \quad \min_{\theta} \sum_{i=1}^N\Bigl[y_i - Pr(y_i=1|X_i,\theta)\Bigr]^2
+    \end{split}\end{split}\]</div>
+</section>
+<section id="maximum-likelihood-estimation">
+<span id="sec-loglogitmle"></span><h4><span class="section-number">13.2.2.2. </span>Maximum likelihood estimation<a class="headerlink" href="#maximum-likelihood-estimation" title="Permalink to this heading">#</a></h4>
+<p>We characterized the general likelihood function for a sample of data as the probability that the given sample <span class="math notranslate nohighlight">\((y_i,X_i)\)</span> came from the assumed distribution given parameter values <span class="math notranslate nohighlight">\(Pr(y_i=1|X_i,\theta)\)</span>.</p>
+<div class="math notranslate nohighlight" id="equation-eqlog-logitmle-like">
+<span class="eqno">(13.8)<a class="headerlink" href="#equation-eqlog-logitmle-like" title="Permalink to this equation">#</a></span>\[    \mathcal{L}(y_i,X_i|\theta) = \prod_{i=1}^N Pr(y_i=1|X_i,\theta)^{y_i}\bigl[1 - Pr(y_i=1|X_i,\theta)\bigr]^{1 - y_i}\]</div>
+<p>The intuition of this likelihood function is that you want the probability of the observations for which <span class="math notranslate nohighlight">\(y_i=1\)</span> to be close to one <span class="math notranslate nohighlight">\(Pr(X)\)</span>, and you want the probability of the observations for which <span class="math notranslate nohighlight">\(y_i=0\)</span> to also be close to one <span class="math notranslate nohighlight">\(1 - Pr(X)\)</span>.</p>
+<p>The log-likelihood function, which the MLE problem maximizes is the following.</p>
+<div class="math notranslate nohighlight" id="equation-eqlog-logitmle-loglike">
+<span class="eqno">(13.9)<a class="headerlink" href="#equation-eqlog-logitmle-loglike" title="Permalink to this equation">#</a></span>\[    \ln\bigl[\mathcal{L}(y_i,X_i|\theta)\bigr] = \sum_{i=1}^N\Bigl(y_i\ln\bigl[Pr(y_i=1|X_i,\theta)\bigr] + (1 - y_i)\ln\bigl[1 - Pr(y_i=1|X_i,\theta)\bigr]\Bigr)\]</div>
+<p>The MLE problem for estimating <span class="math notranslate nohighlight">\(\theta\)</span> of the logistic regression model is, therefore, the following.<a class="footnote-reference brackets" href="#maxlikeli" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a></p>
+<div class="math notranslate nohighlight" id="equation-eqlog-logitmle-maxprob">
+<span class="eqno">(13.10)<a class="headerlink" href="#equation-eqlog-logitmle-maxprob" title="Permalink to this equation">#</a></span>\[    \hat{\theta}_{mle} = \theta:\quad \max_{\theta} \ln\bigl[\mathcal{L}(y_i,X_i|\theta)\bigr]\]</div>
+</section>
+<section id="titanic-example">
+<span id="sec-loglogittitanic"></span><h4><span class="section-number">13.2.2.3. </span>Titanic example<a class="headerlink" href="#titanic-example" title="Permalink to this heading">#</a></h4>
+<p>A good example of logistic regression comes from a number of sources. But I am adapting some code and commentary from <a class="reference external" href="http://www.data-mania.com/blog/logistic-regression-example-in-python/">http://www.data-mania.com/blog/logistic-regression-example-in-python/</a>. The research question is to use a famous Titanic passenger dataset to try to identify the characteristics that most predict whether you survived <span class="math notranslate nohighlight">\(y_i=1\)</span> or died <span class="math notranslate nohighlight">\(y_i=0\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/OpenSourceEcon/CompMethods/&#39;</span> <span class="o">+</span>
+      <span class="s1">&#39;main/data/basic_empirics/logit/titanic-train.csv&#39;</span><span class="p">)</span>
+<span class="n">titanic</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+<span class="n">titanic</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;PassengerId&#39;</span><span class="p">,</span> <span class="s1">&#39;Survived&#39;</span><span class="p">,</span> <span class="s1">&#39;Pclass&#39;</span><span class="p">,</span> <span class="s1">&#39;Name&#39;</span><span class="p">,</span> <span class="s1">&#39;Sex&#39;</span><span class="p">,</span> <span class="s1">&#39;Age&#39;</span><span class="p">,</span>
+                   <span class="s1">&#39;SibSp&#39;</span><span class="p">,</span> <span class="s1">&#39;Parch&#39;</span><span class="p">,</span> <span class="s1">&#39;Ticket&#39;</span><span class="p">,</span> <span class="s1">&#39;Fare&#39;</span><span class="p">,</span> <span class="s1">&#39;Cabin&#39;</span><span class="p">,</span> <span class="s1">&#39;Embarked&#39;</span><span class="p">]</span>
+<span class="n">titanic</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>PassengerId</th>
+      <th>Survived</th>
+      <th>Pclass</th>
+      <th>Age</th>
+      <th>SibSp</th>
+      <th>Parch</th>
+      <th>Fare</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>891.000000</td>
+      <td>891.000000</td>
+      <td>891.000000</td>
+      <td>714.000000</td>
+      <td>891.000000</td>
+      <td>891.000000</td>
+      <td>891.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>446.000000</td>
+      <td>0.383838</td>
+      <td>2.308642</td>
+      <td>29.699118</td>
+      <td>0.523008</td>
+      <td>0.381594</td>
+      <td>32.204208</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>257.353842</td>
+      <td>0.486592</td>
+      <td>0.836071</td>
+      <td>14.526497</td>
+      <td>1.102743</td>
+      <td>0.806057</td>
+      <td>49.693429</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>1.000000</td>
+      <td>0.000000</td>
+      <td>1.000000</td>
+      <td>0.420000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>223.500000</td>
+      <td>0.000000</td>
+      <td>2.000000</td>
+      <td>20.125000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>7.910400</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>446.000000</td>
+      <td>0.000000</td>
+      <td>3.000000</td>
+      <td>28.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>14.454200</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>668.500000</td>
+      <td>1.000000</td>
+      <td>3.000000</td>
+      <td>38.000000</td>
+      <td>1.000000</td>
+      <td>0.000000</td>
+      <td>31.000000</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>891.000000</td>
+      <td>1.000000</td>
+      <td>3.000000</td>
+      <td>80.000000</td>
+      <td>8.000000</td>
+      <td>6.000000</td>
+      <td>512.329200</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>The variable descriptions are the following:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Survived</span></code>: Survival (0 = No; 1 = Yes)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Pclass</span></code>: Passenger class (1 = 1st; 2 = 2nd; 3 = 3rd)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Name</span></code>: Name</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Sex</span></code>: Gender</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Age</span></code>: Age</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SibSp</span></code>: Number of siblings/spouses aboard</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Parch</span></code>: Number of parents/children aboard</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Ticket</span></code>: Ticket number</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Fare</span></code>: Passenger fare (British pound)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Cabin</span></code>: Cabin</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Embarked</span></code>: Port of embarkation (C = Cherbourg; Q = Queenstown; S = Southampton)</p></li>
+</ul>
+<p>Let’s first check that our target variable, <code class="docutils literal notranslate"><span class="pre">Survived</span></code>, is binary. Since we are building a model to predict survival of passangers from the Titanic, our target is going to be the <code class="docutils literal notranslate"><span class="pre">Survived</span></code> variable from the titanic dataframe. To make sure that it is a binary variable, let’s use Seaborn’s <code class="docutils literal notranslate"><span class="pre">countplot()</span></code> function.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">titanic</span><span class="p">[</span><span class="s1">&#39;Survived&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Survived
+0    549
+1    342
+Name: count, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="footnotes">
+<span id="seclogfootnotes"></span><h2><span class="section-number">13.3. </span>Footnotes<a class="headerlink" href="#footnotes" title="Permalink to this heading">#</a></h2>
+<p>The footnotes from this chapter.</p>
+<hr class="footnotes docutils" />
+<aside class="footnote brackets" id="gmm" role="note">
+<span class="label"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id1">1</a>,<a role="doc-backlink" href="#id3">2</a>)</span>
+<p>See the <a class="reference internal" href="../struct_est/GMM.html#chap-gmm"><span class="std std-ref">Generalized Method of Moments Estimation</span></a> chapter of this book.</p>
+</aside>
+<aside class="footnote brackets" id="maxlikeli" role="note">
+<span class="label"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id2">1</a>,<a role="doc-backlink" href="#id4">2</a>)</span>
+<p>See the <a class="reference internal" href="../struct_est/MaxLikelihood.html#chap-maxlikeli"><span class="std std-ref">Maximum Likelihood Estimation</span></a> chapter of this book.</p>
+</aside>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./basic_empirics"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="BasicEmpirMethods.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">12. </span>Basic Empirical Methods</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../basic_ml/ml_intro.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">14. </span>Basic Machine Learning</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantitative-versus-qualitative-data">13.1. Quantitative versus Qualitative Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-classification-setting">13.1.1. The classification setting</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#logistic-regression-classifier">13.2. Logistic Regression Classifier</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-linear-probability-lp-model">13.2.1. The linear probability (LP) model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-logistic-logit-regression-classifier">13.2.2. The logistic (logit) regression classifier</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nonlinear-least-squares-estimation">13.2.2.1. Nonlinear least squares estimation</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#maximum-likelihood-estimation">13.2.2.2. Maximum likelihood estimation</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#titanic-example">13.2.2.3. Titanic example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">13.3. Footnotes</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Richard W. Evans
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

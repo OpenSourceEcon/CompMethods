@@ -1,6 +1,12 @@
 # Computational Methods for Economists using Python
 
-This site contains open access tutorial materials and exercises for learning and using modern computational methods used by economists and data scientists. These materials have been developed by [Richard W. Evans](https://sites.google.com/site/rickecon) since 2008 primarily through the following endeavors:
+| | |
+| --- | --- |
+| Org | [![OSE Lab cataloged](https://img.shields.io/badge/OSE%20Lab-catalogued-critical)](https://github.com/OpenSourceEcon) [![OS License: AGPL-3.0](https://img.shields.io/badge/OS%20License-AGPL%203.0-yellow)](https://github.com/OpenSourceEcon/CompMethods/blob/main/LICENSE) [![Jupyter Book Badge](https://jupyterbook.org/badge.svg)](https://opensourceecon.github.io/CompMethods/) |
+| Package | [![Python 3.10](https://img.shields.io/badge/python-3.10-blue.svg)](https://www.python.org/downloads/release/python-31013/) [![Python 3.11](https://img.shields.io/badge/python-3.11-blue.svg)](https://www.python.org/downloads/release/python-3115/) |
+| Testing | ![example event parameter](https://github.com/OpenSourceEcon/CompMethods/actions/workflows/build_and_test.yml/badge.svg?branch=main) ![example event parameter](https://github.com/OpenSourceEcon/CompMethods/actions/workflows/deploy_docs.yml/badge.svg?branch=main) ![example event parameter](https://github.com/OpenSourceEcon/CompMethods/actions/workflows/check_format.yml/badge.svg?branch=main) [![Codecov](https://codecov.io/gh/OpenSourceEcon/CompMethods/branch/main/graph/badge.svg)](https://codecov.io/gh/OpenSourceEcon/compmethods) |
+
+This online book site contains open access tutorial materials and exercises for learning and using modern computational methods used by economists and data scientists. These materials have been developed by [Richard W. Evans](https://sites.google.com/site/rickecon) since 2008 primarily through the following endeavors:
 * (2008-2016) Assistant Professor, Department of Economics, Brigham Young University. Taught undergraduate courses in macroeconomics, international finance, advanced macroeconomics, computational methods.
 * (2012-2016) Co-founder and co-director of the BYU Macroeconomics and Computational Laboratory.
 * (2013-2016) Co-PI, National Science Foundation Grant for original development of Applied and Computational Math Emphasis (ACME) curriculum at Brigham Young University.

@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>15. Introduction to Structural Estimation &#8212; Computational Methods for Economists using Python</title>
+    <title>16. Introduction to Structural Estimation &#8212; Computational Methods for Economists using Python</title>
   
   
   
@@ -72,8 +72,8 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="16. Maximum Likelihood Estimation" href="MaxLikelihood.html" />
-    <link rel="prev" title="14. Neural Nets and Deep Learning" href="../deep_learn/intro.html" />
+    <link rel="next" title="17. Maximum Likelihood Estimation" href="MaxLikelihood.html" />
+    <link rel="prev" title="15. Neural Nets and Deep Learning" href="../deep_learn/intro.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -198,21 +198,22 @@ const thebe_selector_output = ".output, .cell_output"
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Basic Empirical Methods</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../basic_empirics/BasicEmpirMethods.html">12. Basic Empirical Methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basic_empirics/LogisticReg.html">13. Logistic Regression Model</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Basic Machine Learning</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../basic_ml/ml_intro.html">13. Basic Machine Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basic_ml/ml_intro.html">14. Basic Machine Learning</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Neural Nets and Deep Learning</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../deep_learn/intro.html">14. Neural Nets and Deep Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deep_learn/intro.html">15. Neural Nets and Deep Learning</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Structural Estimation</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">15. Introduction to Structural Estimation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="MaxLikelihood.html">16. Maximum Likelihood Estimation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="GMM.html">17. Generalized Method of Moments Estimation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="SMM.html">18. Simulated Method of Moments Estimation</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">16. Introduction to Structural Estimation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MaxLikelihood.html">17. Maximum Likelihood Estimation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GMM.html">18. Generalized Method of Moments Estimation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SMM.html">19. Simulated Method of Moments Estimation</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Appendix</span></p>
 <ul class="nav bd-sidenav">
@@ -415,9 +416,9 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#different-types-of-models">15.1. Different types of models</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">15.2. Exercises</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">15.3. Footnotes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#different-types-of-models">16.1. Different types of models</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">16.2. Exercises</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">16.3. Footnotes</a></li>
 </ul>
             </nav>
         </div>
@@ -430,11 +431,11 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="introduction-to-structural-estimation">
-<span id="chap-structestintro"></span><h1><span class="section-number">15. </span>Introduction to Structural Estimation<a class="headerlink" href="#introduction-to-structural-estimation" title="Permalink to this heading">#</a></h1>
+<span id="chap-structestintro"></span><h1><span class="section-number">16. </span>Introduction to Structural Estimation<a class="headerlink" href="#introduction-to-structural-estimation" title="Permalink to this heading">#</a></h1>
 <p>The material for the chapters in this Structural Estimation section was initially developed in the Structural Estimation course I taught in the Masters in Computational Social Science program at the University of Chicago from 2017 to 2020.<a class="footnote-reference brackets" href="#macsscourses" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a></p>
 <p>A good place to start in describing structural estimation is the definition of a <a class="reference internal" href="../appendix/glossary.html#term-model"><span class="xref std std-term">model</span></a>.</p>
 <div class="proof definition admonition" id="DefStructEst_Model">
-<p class="admonition-title"><span class="caption-number">Definition 15.1 </span> (Model)</p>
+<p class="admonition-title"><span class="caption-number">Definition 16.1 </span> (Model)</p>
 <section class="definition-content" id="proof-content">
 <p>A <strong>model</strong> is a set of cause and effect mathematical relationships, often specified with parameters <span class="math notranslate nohighlight">\(\theta\)</span>, among data <span class="math notranslate nohighlight">\(x\)</span> or <span class="math notranslate nohighlight">\((x,y)\)</span> used to understand, explain, and predict phenomena. A model might be specified as,</p>
 <div class="amsmath math notranslate nohighlight">
@@ -444,50 +445,50 @@ document.write(`
 <p>where <span class="math notranslate nohighlight">\(g\)</span> is a function or vector of functions that represents the mathematical relationships between variables and parameters.</p>
 </section>
 </div><div class="proof definition admonition" id="DefStructEst_ExogVar">
-<p class="admonition-title"><span class="caption-number">Definition 15.2 </span> (Exogenous variables)</p>
+<p class="admonition-title"><span class="caption-number">Definition 16.2 </span> (Exogenous variables)</p>
 <section class="definition-content" id="proof-content">
 <p><strong>Exogenous variables</strong> are inputs to the model, taken as given, or from outside the model. These can include both data <span class="math notranslate nohighlight">\(x\)</span> and parameters <span class="math notranslate nohighlight">\(\theta\)</span>.</p>
 </section>
 </div><div class="proof definition admonition" id="DefStructEst_EndogVar">
-<p class="admonition-title"><span class="caption-number">Definition 15.3 </span> (Endogenous variables)</p>
+<p class="admonition-title"><span class="caption-number">Definition 16.3 </span> (Endogenous variables)</p>
 <section class="definition-content" id="proof-content">
 <ul class="simple">
 <li><p><strong>Endogenous variables</strong> are outputs of the model or dependent on exogenous variables. These can include portions of the data <span class="math notranslate nohighlight">\(x\)</span>, sometimes designated as <span class="math notranslate nohighlight">\(y\)</span> as in <span class="math notranslate nohighlight">\(y = g(x,\theta)\)</span>.</p></li>
 </ul>
 </section>
 </div><div class="proof definition admonition" id="DefStructEst_DGP">
-<p class="admonition-title"><span class="caption-number">Definition 15.4 </span> (Data generating process (DGP))</p>
+<p class="admonition-title"><span class="caption-number">Definition 16.4 </span> (Data generating process (DGP))</p>
 <section class="definition-content" id="proof-content">
-<p>The broadest definition of a <strong>data generating process</strong> (DGP) is a complete description of the mechanism that causes some observed phenomenon with all its dependencies. Unfortunately, in most realistic systems, this definition is too complex. A more practical definition of a <strong>data generating process</strong> is a simplified version of the process that causes some observed phenomenon with its key dependencies. The concept of a DGP is very similar to the concept of a <a class="reference internal" href="../appendix/glossary.html#term-model"><span class="xref std std-term">model</span></a> from <a class="reference internal" href="#DefStructEst_Model">Definition 15.1</a>. A key characteristic of a DGP is that it must be specified in such as way that it could be used to simulate data.</p>
+<p>The broadest definition of a <strong>data generating process</strong> (DGP) is a complete description of the mechanism that causes some observed phenomenon with all its dependencies. Unfortunately, in most realistic systems, this definition is too complex. A more practical definition of a <strong>data generating process</strong> is a simplified version of the process that causes some observed phenomenon with its key dependencies. The concept of a DGP is very similar to the concept of a <a class="reference internal" href="../appendix/glossary.html#term-model"><span class="xref std std-term">model</span></a> from <a class="reference internal" href="#DefStructEst_Model">Definition 16.1</a>. A key characteristic of a DGP is that it must be specified in such as way that it could be used to simulate data.</p>
 </section>
 </div><div class="proof definition admonition" id="DefStructEst_StructMod">
-<p class="admonition-title"><span class="caption-number">Definition 15.5 </span> (Structural model)</p>
+<p class="admonition-title"><span class="caption-number">Definition 16.5 </span> (Structural model)</p>
 <section class="definition-content" id="proof-content">
 <p>A <strong>structural model</strong> in economics is a model in which the mathematical relationships among variables and parameters are derived from individuals’, firms’, or other organizations’ optimization. These are often referred to as behavioral equations. <strong>Structural models</strong> can include linear models and linear approximations. But most often, <strong>structural models</strong> are nonlinear and dynamic.</p>
 </section>
 </div><div class="proof definition admonition" id="DefStructEst_ReducedMod">
-<p class="admonition-title"><span class="caption-number">Definition 15.6 </span> (Reduced form model)</p>
+<p class="admonition-title"><span class="caption-number">Definition 16.6 </span> (Reduced form model)</p>
 <section class="definition-content" id="proof-content">
 <p>A <strong>reduced form model</strong> in economics is a model in which the equations are either not derived from behavioral equations or are only implicitly a linear approximation of some more complicated model. However, because they are atheoretical and often nonparametric, machine learning models can be categorized as reduced form. <strong>Reduced form models</strong> are most often static, although time series econometric models are categorized as reduced form.</p>
 </section>
 </div><div class="proof definition admonition" id="DefStructEst_StructEst">
-<p class="admonition-title"><span class="caption-number">Definition 15.7 </span> (Structural estimation)</p>
+<p class="admonition-title"><span class="caption-number">Definition 16.7 </span> (Structural estimation)</p>
 <section class="definition-content" id="proof-content">
 <p>Put definition of <strong>structural estimation</strong> here.</p>
 </section>
 </div><div class="proof definition admonition" id="DefStructEst_Calib">
-<p class="admonition-title"><span class="caption-number">Definition 15.8 </span> (Calibration)</p>
+<p class="admonition-title"><span class="caption-number">Definition 16.8 </span> (Calibration)</p>
 <section class="definition-content" id="proof-content">
 <p>Put definition of <strong>calibration</strong> here.</p>
 </section>
 </div><div class="proof definition admonition" id="DefStructEst_ReducedEst">
-<p class="admonition-title"><span class="caption-number">Definition 15.9 </span> (Reduced form estimation)</p>
+<p class="admonition-title"><span class="caption-number">Definition 16.9 </span> (Reduced form estimation)</p>
 <section class="definition-content" id="proof-content">
 <p>Put definition of <strong>reduced form estimation</strong> here.</p>
 </section>
 </div><section id="different-types-of-models">
-<span id="secstructestintrotypes"></span><h2><span class="section-number">15.1. </span>Different types of models<a class="headerlink" href="#different-types-of-models" title="Permalink to this heading">#</a></h2>
-<p>A good introduction to structural estimation is to compare it to other types of research designs. <a class="reference internal" href="#ExercStructEst_CompPaper"><span class="std std-numref">Exercise 15.1</span></a> asks you to compare the structural approach to the reduced form approach. The following are some prominent research designs in economics, only some of which are structural estimations.</p>
+<span id="secstructestintrotypes"></span><h2><span class="section-number">16.1. </span>Different types of models<a class="headerlink" href="#different-types-of-models" title="Permalink to this heading">#</a></h2>
+<p>A good introduction to structural estimation is to compare it to other types of research designs. <a class="reference internal" href="#ExercStructEst_CompPaper"><span class="std std-numref">Exercise 16.1</span></a> asks you to compare the structural approach to the reduced form approach. The following are some prominent research designs in economics, only some of which are structural estimations.</p>
 <p><strong>Structural estimation papers</strong></p>
 <ul class="simple">
 <li><p>(Classic structural estimation) <span id="id2">[<a class="reference internal" href="../CompMethods_references.html#id45" title="John Rust. Optimal replacement of gmc bus engines: an empirical model of harold zurcher. Econometrica, 55(5):999-1033, September 1987. URL: https://www.jstor.org/stable/1911259.">Rust, 1987</a>]</span></p></li>
@@ -504,10 +505,10 @@ document.write(`
 </ul>
 </section>
 <section id="exercises">
-<span id="secstructestintroexerc"></span><h2><span class="section-number">15.2. </span>Exercises<a class="headerlink" href="#exercises" title="Permalink to this heading">#</a></h2>
+<span id="secstructestintroexerc"></span><h2><span class="section-number">16.2. </span>Exercises<a class="headerlink" href="#exercises" title="Permalink to this heading">#</a></h2>
 <div class="exercise green admonition" id="ExercStructEst_CompPaper">
 
-<p class="admonition-title"><span class="caption-number">Exercise 15.1 </span> (Persuasive short paper on structural estimation)</p>
+<p class="admonition-title"><span class="caption-number">Exercise 16.1 </span> (Persuasive short paper on structural estimation)</p>
 <section id="exercise-content">
 <p><strong>Persuasive short paper supporting either structural estimation or reduced form estimation or both.</strong></p>
 <ul class="simple">
@@ -520,7 +521,7 @@ document.write(`
 </div>
 </section>
 <section id="footnotes">
-<span id="secstructestintrofootnotes"></span><h2><span class="section-number">15.3. </span>Footnotes<a class="headerlink" href="#footnotes" title="Permalink to this heading">#</a></h2>
+<span id="secstructestintrofootnotes"></span><h2><span class="section-number">16.3. </span>Footnotes<a class="headerlink" href="#footnotes" title="Permalink to this heading">#</a></h2>
 <p>The footnotes from this chapter.</p>
 <hr class="footnotes docutils" />
 <aside class="footnote brackets" id="macsscourses" role="note">
@@ -566,7 +567,7 @@ document.write(`
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title"><span class="section-number">14. </span>Neural Nets and Deep Learning</p>
+        <p class="prev-next-title"><span class="section-number">15. </span>Neural Nets and Deep Learning</p>
       </div>
     </a>
     <a class="right-next"
@@ -574,7 +575,7 @@ document.write(`
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">16. </span>Maximum Likelihood Estimation</p>
+        <p class="prev-next-title"><span class="section-number">17. </span>Maximum Likelihood Estimation</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -593,9 +594,9 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#different-types-of-models">15.1. Different types of models</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">15.2. Exercises</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">15.3. Footnotes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#different-types-of-models">16.1. Different types of models</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">16.2. Exercises</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">16.3. Footnotes</a></li>
 </ul>
   </nav></div>
 
