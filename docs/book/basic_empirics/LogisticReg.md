@@ -184,8 +184,8 @@ A good example of logistic regression comes from a number of sources. But I am a
 
 import pandas as pd
 
-url = ('https://raw.githubusercontent.com/BigDataGal/Python-for-Data-Science/' +
-      'master/titanic-train.csv')
+url = ('https://raw.githubusercontent.com/OpenSourceEcon/CompMethods/' +
+      'main/data/basic_empirics/logit/titanic-train.csv')
 titanic = pd.read_csv(url)
 titanic.columns = ['PassengerId', 'Survived', 'Pclass', 'Name', 'Sex', 'Age',
                    'SibSp', 'Parch', 'Ticket', 'Fare', 'Cabin', 'Embarked']
