@@ -25,6 +25,7 @@ parts:
     numbered: True
     chapters:
     - file: basic_empirics/BasicEmpirMethods
+    - file: basic_empirics/LogisticReg
   - caption: Basic Machine Learning
     numbered: True
     chapters:
