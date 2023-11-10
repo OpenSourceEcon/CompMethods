@@ -426,11 +426,14 @@ document.write(`
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nonlinear-least-squares-estimation">13.2.2.1. Nonlinear least squares estimation</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#maximum-likelihood-estimation">13.2.2.2. Maximum likelihood estimation</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#titanic-example">13.2.2.3. Titanic example</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#interpreting-coefficients-log-odds-ratio">13.2.2.4. Interpreting coefficients (log odds ratio)</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">13.3. Footnotes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multinomial-logit">13.3. Multinomial Logit</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">13.4. Exercises</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">13.5. Footnotes</a></li>
 </ul>
             </nav>
         </div>
@@ -697,7 +700,7 @@ document.write(`
 <li><p><code class="docutils literal notranslate"><span class="pre">Cabin</span></code>: Cabin</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Embarked</span></code>: Port of embarkation (C = Cherbourg; Q = Queenstown; S = Southampton)</p></li>
 </ul>
-<p>Let’s first check that our target variable, <code class="docutils literal notranslate"><span class="pre">Survived</span></code>, is binary. Since we are building a model to predict survival of passangers from the Titanic, our target is going to be the <code class="docutils literal notranslate"><span class="pre">Survived</span></code> variable from the titanic dataframe. To make sure that it is a binary variable, let’s use Seaborn’s <code class="docutils literal notranslate"><span class="pre">countplot()</span></code> function.</p>
+<p>Let’s first check that our target variable, <code class="docutils literal notranslate"><span class="pre">Survived</span></code>, is binary. Since we are building a model to predict survival of passangers from the Titanic, our target is going to be the <code class="docutils literal notranslate"><span class="pre">Survived</span></code> variable from the titanic dataframe. To make sure that it is a binary variable, let’s use Panda’s <code class="docutils literal notranslate"><span class="pre">.value_counts()</span></code> method and plot the counts in a <code class="docutils literal notranslate"><span class="pre">matplotlib.pyplot</span></code> bar chart.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">titanic</span><span class="p">[</span><span class="s1">&#39;Survived&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
@@ -713,11 +716,488 @@ Name: count, dtype: int64
 </div>
 </div>
 </div>
+<div class="cell tag_remove-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">categories</span> <span class="o">=</span> <span class="n">titanic</span><span class="p">[</span><span class="s2">&quot;Survived&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">index</span>
+<span class="n">counts</span> <span class="o">=</span> <span class="n">titanic</span><span class="p">[</span><span class="s2">&quot;Survived&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">values</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">vbars</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span>
+    <span class="p">[</span><span class="s2">&quot;0: Did not survive&quot;</span><span class="p">,</span> <span class="s2">&quot;1: Survived&quot;</span><span class="p">],</span> <span class="n">counts</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="s2">&quot;green&quot;</span><span class="p">],</span>
+    <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar_label</span><span class="p">(</span><span class="n">vbars</span><span class="p">,</span> <span class="n">label_type</span><span class="o">=</span><span class="s2">&quot;edge&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;Counts for 0 and 1 for Survived variable&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Survived&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Count&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<figure class="align-default" id="figlogit-survived-count">
+<a class="reference internal image-reference" href="../_images/survived_count.png"><img alt="../_images/survived_count.png" src="../_images/survived_count.png" style="height: 500px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 13.2 </span><span class="caption-text">Counts for 0 and 1 for Survived variable</span><a class="headerlink" href="#figlogit-survived-count" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>We can check for missing values in the DataFrame. It is easy to check for missing values by calling the <code class="docutils literal notranslate"><span class="pre">isnull()</span></code> method, and the <code class="docutils literal notranslate"><span class="pre">sum()</span></code> method off of the DataFrame to return a tally of all the <code class="docutils literal notranslate"><span class="pre">True</span></code> values that are returned by the <code class="docutils literal notranslate"><span class="pre">isnull()</span></code> method.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">titanic</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PassengerId      0
+Survived         0
+Pclass           0
+Name             0
+Sex              0
+Age            177
+SibSp            0
+Parch            0
+Ticket           0
+Fare             0
+Cabin          687
+Embarked         2
+dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<p>How many observations are there in the DataFrame?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">titanic</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 891 entries, 0 to 890
+Data columns (total 12 columns):
+ #   Column       Non-Null Count  Dtype  
+---  ------       --------------  -----  
+ 0   PassengerId  891 non-null    int64  
+ 1   Survived     891 non-null    int64  
+ 2   Pclass       891 non-null    int64  
+ 3   Name         891 non-null    object 
+ 4   Sex          891 non-null    object 
+ 5   Age          714 non-null    float64
+ 6   SibSp        891 non-null    int64  
+ 7   Parch        891 non-null    int64  
+ 8   Ticket       891 non-null    object 
+ 9   Fare         891 non-null    float64
+ 10  Cabin        204 non-null    object 
+ 11  Embarked     889 non-null    object 
+dtypes: float64(2), int64(5), object(5)
+memory usage: 83.7+ KB
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Model selection and missing values</strong></p>
+<p>The variable <code class="docutils literal notranslate"><span class="pre">Cabin</span></code> is missing data in the majority of its observations, so we should not include that in our analysis (although that would be an interesting variable to have). We can also probably exclude <code class="docutils literal notranslate"><span class="pre">Name</span></code>, <code class="docutils literal notranslate"><span class="pre">Ticket</span></code> (ticket number). But we will include all the other variables.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Survived</span></code>: This variable is obviously relevant.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Pclass</span></code>: Does a passenger’s class on the boat affect their survivability?</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Sex</span></code>: Could a passenger’s gender impact their survival rate?</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Age</span></code>: Does a person’s age impact their survival rate?</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SibSp</span></code>: Does the number of relatives on the boat (that are siblings or a spouse) affect a person survivability? Probably.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Parch</span></code>: Does the number of relatives on the boat (that are children or parents) affect a person survivability? Probably.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Fare</span></code>: Does the fare a person paid effect his survivability? Maybe.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Embarked</span></code>: Does a person’s point of embarkation matter? It depends on how the boat was filled.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">titanic_data</span> <span class="o">=</span> <span class="n">titanic</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;PassengerId&#39;</span><span class="p">,</span><span class="s1">&#39;Name&#39;</span><span class="p">,</span><span class="s1">&#39;Ticket&#39;</span><span class="p">,</span><span class="s1">&#39;Cabin&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">titanic_data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Survived</th>
+      <th>Pclass</th>
+      <th>Sex</th>
+      <th>Age</th>
+      <th>SibSp</th>
+      <th>Parch</th>
+      <th>Fare</th>
+      <th>Embarked</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0</td>
+      <td>3</td>
+      <td>male</td>
+      <td>22.0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>7.2500</td>
+      <td>S</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>1</td>
+      <td>female</td>
+      <td>38.0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>71.2833</td>
+      <td>C</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1</td>
+      <td>3</td>
+      <td>female</td>
+      <td>26.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>7.9250</td>
+      <td>S</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1</td>
+      <td>1</td>
+      <td>female</td>
+      <td>35.0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>53.1000</td>
+      <td>S</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0</td>
+      <td>3</td>
+      <td>male</td>
+      <td>35.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>8.0500</td>
+      <td>S</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Now we have the dataframe reduced down to only relevant variables, but now we need to deal with the missing values in the age variable.</p>
+<p><strong>Imputing missing values</strong></p>
+<p>Let’s look at how passenger age is related to their class as a passenger on the boat.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">titanic_data</span><span class="p">[</span><span class="s1">&#39;Pclass&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Pclass
+3    491
+1    216
+2    184
+Name: count, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_remove-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a list of three NumPy arrays of Age data by Pclass</span>
+<span class="n">age_by_pclass_dtalst</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">pclass_val</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">):</span>
+    <span class="n">age_by_pclass_vec</span> <span class="o">=</span> <span class="n">titanic_data</span><span class="p">[</span><span class="s2">&quot;Age&quot;</span><span class="p">][</span>
+        <span class="n">titanic_data</span><span class="p">[</span><span class="s2">&quot;Pclass&quot;</span><span class="p">]</span><span class="o">==</span><span class="n">pclass_val</span>
+    <span class="p">]</span><span class="o">.</span><span class="n">values</span>
+    <span class="c1"># Have to remove nan values for the boxplot to work</span>
+    <span class="n">age_by_pclass_vec_nonan</span> <span class="o">=</span> <span class="n">age_by_pclass_vec</span><span class="p">[</span>
+        <span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">age_by_pclass_vec</span><span class="p">)</span>
+    <span class="p">]</span>
+    <span class="n">age_by_pclass_dtalst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">age_by_pclass_vec_nonan</span><span class="p">)</span>
+
+<span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;1: First class&quot;</span><span class="p">,</span> <span class="s2">&quot;2: Second class&quot;</span><span class="p">,</span> <span class="s2">&quot;3: Third class&quot;</span><span class="p">]</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">boxplot1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span>
+    <span class="n">age_by_pclass_dtalst</span><span class="p">,</span>
+    <span class="n">notch</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># Notch shape</span>
+    <span class="n">vert</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># Vertical box alignment</span>
+    <span class="n">patch_artist</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># Fill boxes with color</span>
+    <span class="n">showmeans</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># Show the mean value as a scatter point in each box</span>
+    <span class="n">labels</span><span class="o">=</span><span class="n">labels</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;Box and whisker plots for age by passenger class&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Passenger class ($Pclass$)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Age&#39;</span><span class="p">)</span>
+
+<span class="c1"># fill boxes with colors</span>
+<span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;pink&#39;</span><span class="p">,</span> <span class="s1">&#39;lightblue&#39;</span><span class="p">,</span> <span class="s1">&#39;lightgreen&#39;</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">patch</span><span class="p">,</span> <span class="n">color</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">boxplot1</span><span class="p">[</span><span class="s1">&#39;boxes&#39;</span><span class="p">],</span> <span class="n">colors</span><span class="p">):</span>
+    <span class="n">patch</span><span class="o">.</span><span class="n">set_facecolor</span><span class="p">(</span><span class="n">color</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<figure class="align-default" id="figlogit-age-boxplot">
+<a class="reference internal image-reference" href="../_images/age_boxplot.png"><img alt="../_images/age_boxplot.png" src="../_images/age_boxplot.png" style="height: 500px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 13.3 </span><span class="caption-text">Box and whisker plots for age by passenger class</span><a class="headerlink" href="#figlogit-age-boxplot" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>The box and whisker plots in <a class="reference internal" href="#figlogit-age-boxplot"><span class="std std-numref">Figure 13.3</span></a> are a nice way to visualize where the data live. The two ends of the colored box show the first quartile (25th percentil) to the third quartile (75th percentile), with the notched line representing the median (50th percentile). A scatter point great triangle shows the mean. The whiskers extend to 1.5x the inter-quartile range (IQR) of ages, with outliers beyond the whiskers shown as scatter points. An alternative would be to show a histogram.</p>
+<p>Roughly speaking, we could say that the younger a passenger is, the more likely they are to be in 3rd class. The older a passenger is, the more likely they are to be in 1st class. So there is a loose relationship between these variables. So let’s write a function that approximates a passengers age, based on their class. From the box plot, it looks like the average age of 1st class passengers is about 37, 2nd class passengers is 29, and 3rd class pasengers is 24.</p>
+<p>So let’s write a function that finds each null value in the <code class="docutils literal notranslate"><span class="pre">Age</span></code> variable, and for each null, checks the value of the Pclass and assigns an age value according to the average age of passengers in that class.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">median_ages</span> <span class="o">=</span> <span class="n">titanic_data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;Pclass&quot;</span><span class="p">)[</span><span class="s2">&quot;Age&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">()</span><span class="o">.</span><span class="n">values</span>
+
+<span class="c1"># Create new variable Age_imputed and impute the median ages for missing values</span>
+<span class="n">titanic_data</span><span class="p">[</span><span class="s2">&quot;Age_imputed&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">titanic_data</span><span class="p">[</span><span class="s2">&quot;Age&quot;</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">pclass_val</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">):</span>
+    <span class="n">row_indexer</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">titanic_data</span><span class="p">[</span><span class="s2">&quot;Age&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span> <span class="o">*</span> <span class="n">titanic_data</span><span class="p">[</span><span class="s2">&quot;Pclass&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">pclass_val</span>
+    <span class="p">)</span>
+    <span class="n">titanic_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">row_indexer</span><span class="p">,</span> <span class="s2">&quot;Age_imputed&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">median_ages</span><span class="p">[</span><span class="n">pclass_val</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="n">imputed_obs</span> <span class="o">=</span> <span class="n">row_indexer</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Imputed&quot;</span><span class="p">,</span> <span class="n">imputed_obs</span><span class="p">,</span> <span class="s2">&quot;Age values with Pclass=&quot;</span><span class="p">,</span> <span class="n">pclass_val</span><span class="p">)</span>
+
+<span class="n">titanic_data</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Imputed 30 Age values with Pclass= 1
+Imputed 11 Age values with Pclass= 2
+Imputed 136 Age values with Pclass= 3
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Survived         0
+Pclass           0
+Sex              0
+Age            177
+SibSp            0
+Parch            0
+Fare             0
+Embarked         2
+Age_imputed      0
+dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<p>There are 2 null values in the <code class="docutils literal notranslate"><span class="pre">Embarked</span></code> variable. We can drop those 2 records without loosing too much important information from our dataset, so we will do that.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">titanic_data</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">titanic_data</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Survived       0
+Pclass         0
+Sex            0
+Age            0
+SibSp          0
+Parch          0
+Fare           0
+Embarked       0
+Age_imputed    0
+dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">titanic_data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Survived</th>
+      <th>Pclass</th>
+      <th>Sex</th>
+      <th>Age</th>
+      <th>SibSp</th>
+      <th>Parch</th>
+      <th>Fare</th>
+      <th>Embarked</th>
+      <th>Age_imputed</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0</td>
+      <td>3</td>
+      <td>male</td>
+      <td>22.0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>7.2500</td>
+      <td>S</td>
+      <td>22.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>1</td>
+      <td>female</td>
+      <td>38.0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>71.2833</td>
+      <td>C</td>
+      <td>38.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1</td>
+      <td>3</td>
+      <td>female</td>
+      <td>26.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>7.9250</td>
+      <td>S</td>
+      <td>26.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1</td>
+      <td>1</td>
+      <td>female</td>
+      <td>35.0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>53.1000</td>
+      <td>S</td>
+      <td>35.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0</td>
+      <td>3</td>
+      <td>male</td>
+      <td>35.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>8.0500</td>
+      <td>S</td>
+      <td>35.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p><strong>Converting categorical variables to a dummy indicators</strong></p>
+<p>The next thing we need to do is reformat our variables so that they work with the model. Specifically, we need to reformat the <code class="docutils literal notranslate"><span class="pre">Sex</span></code> and <code class="docutils literal notranslate"><span class="pre">Embarked</span></code> variables into numeric categorical variables.</p>
+</section>
+<section id="interpreting-coefficients-log-odds-ratio">
+<span id="sec-loglogitinterpret"></span><h4><span class="section-number">13.2.2.4. </span>Interpreting coefficients (log odds ratio)<a class="headerlink" href="#interpreting-coefficients-log-odds-ratio" title="Permalink to this heading">#</a></h4>
+<p>The odds ratio in the logistic model is provides a nice way to interpret logit model coefficients. Let <span class="math notranslate nohighlight">\(z\equiv X^T\beta = \beta_0 + \beta_1 x_{1,i} + ...\beta_K x_{K,i}\)</span>. The logistic model is stated by the probability that the binary categorical dependent variable equals one <span class="math notranslate nohighlight">\(y_i=1\)</span>.</p>
+<div class="amsmath math notranslate nohighlight" id="equation-ee860652-3193-48f7-a1bd-372ccd95f10b">
+<span class="eqno">(13.11)<a class="headerlink" href="#equation-ee860652-3193-48f7-a1bd-372ccd95f10b" title="Permalink to this equation">#</a></span>\[\begin{equation}
+  P(y_i=1|X,\theta) = \frac{e^z}{1 + e^z}
+\end{equation}\]</div>
+<p>Given this equation, we know that the probability of the dependent variable being zero <span class="math notranslate nohighlight">\(y_i=0\)</span> is just one minus the probability above.</p>
+<div class="amsmath math notranslate nohighlight" id="equation-dc5c7f4a-5b93-4c95-97c6-1b1dbbe9cb58">
+<span class="eqno">(13.12)<a class="headerlink" href="#equation-dc5c7f4a-5b93-4c95-97c6-1b1dbbe9cb58" title="Permalink to this equation">#</a></span>\[\begin{equation}
+  P(y_i=0|X,\theta) = 1 - P(y_i=1|X,\theta) = 1 - \frac{e^z}{1 + e^z} = \frac{1}{1 + e^z}
+\end{equation}\]</div>
+<p>The odds ratio is a common way of expressing the probability of an event versus all other events. For example, if the probability of your favorite team winning a game is <span class="math notranslate nohighlight">\(P(win)=0.8\)</span>, then we know that the probability of your favorite team losing that game is <span class="math notranslate nohighlight">\(P(lose)=1-P(win)=0.2\)</span>. The odds ratio is the ratio of these two probabilities.</p>
+<div class="amsmath math notranslate nohighlight" id="equation-6d572d03-9c4e-49e6-95f1-42e3f372fea1">
+<span class="eqno">(13.13)<a class="headerlink" href="#equation-6d572d03-9c4e-49e6-95f1-42e3f372fea1" title="Permalink to this equation">#</a></span>\[\begin{equation}
+  \frac{P(win)}{P(lose)} = \frac{P(win)}{1 - P(win)} = \frac{0.8}{0.2} = \frac{4}{1} \quad\text{or}\quad 4
+\end{equation}\]</div>
+<p>The odds ratio tells you that the probability of your team winning is four times as likely as your team losing. A gambler would say that your odds are 4-to-1. Another way of saying it is that your team will win four out of five times and will lose 1 out of five times.</p>
+<p>In the logistic model, the odds ratio reduces the problem nicely.</p>
+<div class="amsmath math notranslate nohighlight" id="equation-08682f55-fc6d-4e3c-bdb6-daf92ae6d8dd">
+<span class="eqno">(13.14)<a class="headerlink" href="#equation-08682f55-fc6d-4e3c-bdb6-daf92ae6d8dd" title="Permalink to this equation">#</a></span>\[\begin{equation}
+  \frac{P(y_i=1|X,\theta)}{1 - P(y_i=1|X,\theta)} = \frac{\frac{e^z}{1 + e^z}}{\frac{1}{1 + e^z}} = e^z
+\end{equation}\]</div>
+<p>If we take the log of both sides, we see that the log odds ratio is equal to the linear predictor <span class="math notranslate nohighlight">\(z\equiv X^T\beta = \beta_0 + \beta_1 x_{1,i} + ...\beta_K x_{K,i}\)</span>.</p>
+<div class="amsmath math notranslate nohighlight" id="equation-a6785f3d-6ae0-46d3-abb0-543b6ffde234">
+<span class="eqno">(13.15)<a class="headerlink" href="#equation-a6785f3d-6ae0-46d3-abb0-543b6ffde234" title="Permalink to this equation">#</a></span>\[\begin{equation}
+  \ln\left(\frac{P(y_i=1|X,\theta)}{1 - P(y_i=1|X,\theta)}\right) = z = \beta_0 + \beta_1 x_{1,i} + ...\beta_K x_{K,i}
+\end{equation}\]</div>
+<p>So the interpretation of the coeficients <span class="math notranslate nohighlight">\(\beta_k\)</span> is that a one-unit increase of the variable <span class="math notranslate nohighlight">\(x_{k,i}\)</span> increases the odds ratio or the odds of <span class="math notranslate nohighlight">\(y_i=1\)</span> by <span class="math notranslate nohighlight">\(\beta_{k,i}\)</span> percent.</p>
 </section>
 </section>
+</section>
+<section id="multinomial-logit">
+<span id="sec-logmultinomlogit"></span><h2><span class="section-number">13.3. </span>Multinomial Logit<a class="headerlink" href="#multinomial-logit" title="Permalink to this heading">#</a></h2>
+<p>The multinomial logit model is a natural extension of the logit model. In contrast to the logit model in which the dependent variable has only two categories, the multinomial logit model accomodates <span class="math notranslate nohighlight">\(J\geq2\)</span> categories in the dependent variable. Let <span class="math notranslate nohighlight">\(\eta_j\)</span> be the linear predictor for the <span class="math notranslate nohighlight">\(j\)</span>th category.
+$<span class="math notranslate nohighlight">\( \eta_j\equiv \beta_{j,0} + \beta_{j,1}x_{1,i} + ...\beta_{j,K}x_{K,i} \quad\forall y_i = j \)</span>$</p>
+<p>The multinomial logit model gives the probability of <span class="math notranslate nohighlight">\(y_i=j\)</span> relative to some reference category <span class="math notranslate nohighlight">\(J\)</span> that is left out.</p>
+<div class="amsmath math notranslate nohighlight" id="equation-3aa96cd6-eac7-4892-a370-66b758debda0">
+<span class="eqno">(13.16)<a class="headerlink" href="#equation-3aa96cd6-eac7-4892-a370-66b758debda0" title="Permalink to this equation">#</a></span>\[\begin{equation}
+  Pr(y_i=j|X,\theta) = \frac{e^{\eta_j}}{1 + \sum_v^{J-1}e^{\eta_v}} \quad\text{for}\quad 1\leq j\leq J-1
+\end{equation}\]</div>
+<p>Once the <span class="math notranslate nohighlight">\(J-1\)</span> sets of coefficients are estimated, the final <span class="math notranslate nohighlight">\(J\)</span>th set of coefficients are a residual based on the following expression.</p>
+<div class="amsmath math notranslate nohighlight" id="equation-aaff249d-6d36-4f61-8fc4-c9121c77f20d">
+<span class="eqno">(13.17)<a class="headerlink" href="#equation-aaff249d-6d36-4f61-8fc4-c9121c77f20d" title="Permalink to this equation">#</a></span>\[\begin{equation}
+  Pr(y_i=J|X,\theta) = \frac{1}{1 + \sum_v^{J-1}e^{\eta_v}}
+\end{equation}\]</div>
+<p>The analogous log odds ratio interpretation applies to the multinomial logit model.</p>
+<div class="amsmath math notranslate nohighlight" id="equation-e49ab23e-2478-4263-bd3d-c5b0d6b42fe5">
+<span class="eqno">(13.18)<a class="headerlink" href="#equation-e49ab23e-2478-4263-bd3d-c5b0d6b42fe5" title="Permalink to this equation">#</a></span>\[\begin{equation}
+  \ln\left(\frac{Pr(y_i=j|X,\theta)}{Pr(y_i=J|X,\theta)}\right) = \eta_j = \beta_{j,0} + \beta_{j,1}x_{1,i} + ...\beta_{j,K}x_{K,i} \quad\text{for}\quad 1\leq j \leq J-1
+\end{equation}\]</div>
+<p>This is the odds ratio of <span class="math notranslate nohighlight">\(y_i=j\)</span> relative to <span class="math notranslate nohighlight">\(y_i=J\)</span>. The interpretation of the <span class="math notranslate nohighlight">\(\beta_{j,k}\)</span> coefficient is the predicted percentage change in the log odds ratio of <span class="math notranslate nohighlight">\(y_i=j\)</span> to <span class="math notranslate nohighlight">\(y_i=J\)</span> from a one-unit increase in variable <span class="math notranslate nohighlight">\(x_{k,i}\)</span>.</p>
+<p>TODO: list code for Iris example</p>
+</section>
+<section id="exercises">
+<span id="sec-logexercises"></span><h2><span class="section-number">13.4. </span>Exercises<a class="headerlink" href="#exercises" title="Permalink to this heading">#</a></h2>
+<p>Put exercises here.</p>
 </section>
 <section id="footnotes">
-<span id="seclogfootnotes"></span><h2><span class="section-number">13.3. </span>Footnotes<a class="headerlink" href="#footnotes" title="Permalink to this heading">#</a></h2>
+<span id="seclogfootnotes"></span><h2><span class="section-number">13.5. </span>Footnotes<a class="headerlink" href="#footnotes" title="Permalink to this heading">#</a></h2>
 <p>The footnotes from this chapter.</p>
 <hr class="footnotes docutils" />
 <aside class="footnote brackets" id="gmm" role="note">
@@ -806,11 +1286,14 @@ Name: count, dtype: int64
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nonlinear-least-squares-estimation">13.2.2.1. Nonlinear least squares estimation</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#maximum-likelihood-estimation">13.2.2.2. Maximum likelihood estimation</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#titanic-example">13.2.2.3. Titanic example</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#interpreting-coefficients-log-odds-ratio">13.2.2.4. Interpreting coefficients (log odds ratio)</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">13.3. Footnotes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multinomial-logit">13.3. Multinomial Logit</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">13.4. Exercises</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">13.5. Footnotes</a></li>
 </ul>
   </nav></div>
 
