@@ -66,6 +66,13 @@ The iframe below contains a PDF of {cite}`AllenEtAl:2023` "The Economic Origins 
 (SecBasicEmpCorrCaus)=
 ## Correlation versus Causation
 
+```{figure} ../../../images/basic_empirics/basic_empirics/CorrVsCaus.png
+:height: 500px
+:name: FigBasicEmpir_CorrVsCaus
+
+Correlation versus causation comic by {cite}`Elliott:2023`.
+```
+
 What is the difference between correlation and causation?
 * What are some examples of things that are correlated but do not "cause" each other?
 
@@ -174,7 +181,7 @@ plt.grid(color='gray', linestyle=':', linewidth=1, alpha=0.5)
 plt.show()
 ```
 
-```{figure} ../../../images/basic_empirics/scatter1.png
+```{figure} ../../../images/basic_empirics/basic_empirics/scatter1.png
 :height: 500px
 :name: FigBasicEmpir_scatter1
 
@@ -239,7 +246,7 @@ plt.grid(color='gray', linestyle=':', linewidth=1, alpha=0.5)
 plt.show()
 ```
 
-```{figure} ../../../images/basic_empirics/scatter2.png
+```{figure} ../../../images/basic_empirics/basic_empirics/scatter2.png
 :height: 500px
 :name: FigBasicEmpir_scatter2
 
@@ -264,7 +271,7 @@ plt.grid(color='gray', linestyle=':', linewidth=1, alpha=0.5)
 plt.show()
 ```
 
-```{figure} ../../../images/basic_empirics/scatter3.png
+```{figure} ../../../images/basic_empirics/basic_empirics/scatter3.png
 :height: 500px
 :name: FigBasicEmpir_scatter3
 
@@ -331,7 +338,7 @@ plt.title('OLS relationship between expropriation risk and income (Fig. 2 from A
 plt.show()
 ```
 
-```{figure} ../../../images/basic_empirics/AcemogluEtAl_fig2.png
+```{figure} ../../../images/basic_empirics/basic_empirics/AcemogluEtAl_fig2.png
 :height: 500px
 :name: FigBasicEmpir_AcemFig2
 
@@ -522,7 +529,7 @@ plt.ylabel('Log GDP per capita, PPP, 1995')
 plt.show()
 ```
 
-```{figure} ../../../images/basic_empirics/AcemogluEtAl_predvals.png
+```{figure} ../../../images/basic_empirics/basic_empirics/AcemogluEtAl_predvals.png
 :height: 500px
 :name: FigBasicEmpir_AcemPredVals
 
