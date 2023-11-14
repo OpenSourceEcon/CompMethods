@@ -474,7 +474,7 @@ document.write(`
 </li>
 </ul>
 <p>In the next chapter <a class="reference internal" href="../basic_ml/ml_intro.html#chap-basicmlintro"><span class="std std-ref">Basic Machine Learning</span></a>, I give a more detailed treatment of logistic regression as a bridge to learning the basics of machine learning.</p>
-<p>Some other good resources on the topic of learning the basics of linear regression in Python include the <a class="reference external" href="https://quantecon.org/">QuantEcon.org</a> lectures “<a class="reference external" href="https://intro.quantecon.org/simple_linear_regression.html">Simple Linear Regression Model</a>” <span id="id1">[<a class="reference internal" href="../CompMethods_references.html#id47" title="Thomas J. Sargent and John Stachurski. Simple linear regression. In QuantEcon Python Lectures: A First Course in Quantitative Economics With Python, chapter 36. 2023. URL: https://intro.quantecon.org/simple_linear_regression.html.">Sargent and Stachurski, 2023</a>]</span>, and “<a class="reference external" href="https://python.quantecon.org/ols.html">Linear Regression in Python</a>” <span id="id2">[<a class="reference internal" href="../CompMethods_references.html#id48" title="Thomas J. Sargent and John Stachurski. Https://python.quantecon.org/ols.html. In QuantEcon Python Lectures: Intermediate Quantitative Economics with Python, chapter 79. 2023. URL: https://python.quantecon.org/ols.html.">Sargent and Stachurski, 2023</a>]</span>.</p>
+<p>Some other good resources on the topic of learning the basics of linear regression in Python include the <a class="reference external" href="https://quantecon.org/">QuantEcon.org</a> lectures “<a class="reference external" href="https://intro.quantecon.org/simple_linear_regression.html">Simple Linear Regression Model</a>” <span id="id1">[<a class="reference internal" href="../CompMethods_references.html#id48" title="Thomas J. Sargent and John Stachurski. Simple linear regression. In QuantEcon Python Lectures: A First Course in Quantitative Economics With Python, chapter 36. 2023. URL: https://intro.quantecon.org/simple_linear_regression.html.">Sargent and Stachurski, 2023</a>]</span>, and “<a class="reference external" href="https://python.quantecon.org/ols.html">Linear Regression in Python</a>” <span id="id2">[<a class="reference internal" href="../CompMethods_references.html#id49" title="Thomas J. Sargent and John Stachurski. Https://python.quantecon.org/ols.html. In QuantEcon Python Lectures: Intermediate Quantitative Economics with Python, chapter 79. 2023. URL: https://python.quantecon.org/ols.html.">Sargent and Stachurski, 2023</a>]</span>.</p>
 <section id="basic-empirical-methods-in-the-literature">
 <span id="secbasicemplit"></span><h2><span class="section-number">12.1. </span>Basic Empirical Methods in the Literature<a class="headerlink" href="#basic-empirical-methods-in-the-literature" title="Permalink to this heading">#</a></h2>
 <p>What are the standard empirical methods in the current version of the <em>American Economic Review</em> (<a class="reference external" href="https://www.aeaweb.org/issues/736">Vol. 113, No. 10, October 2023</a>)?</p>
@@ -502,6 +502,12 @@ document.write(`
 </section>
 <section id="correlation-versus-causation">
 <span id="secbasicempcorrcaus"></span><h2><span class="section-number">12.2. </span>Correlation versus Causation<a class="headerlink" href="#correlation-versus-causation" title="Permalink to this heading">#</a></h2>
+<figure class="align-default" id="figbasicempir-corrvscaus">
+<a class="reference internal image-reference" href="../_images/CorrVsCaus.png"><img alt="../_images/CorrVsCaus.png" src="../_images/CorrVsCaus.png" style="height: 500px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 12.1 </span><span class="caption-text">Correlation versus causation comic by <span id="id5">[<a class="reference internal" href="../CompMethods_references.html#id27" title="Timo Elliott. Every single person who confuses correlation and causation ends up dying. Cartoon, TimoElliott.com, October 2023. URL: https://i0.wp.com/timoelliott.com/blog/wp-content/uploads/2023/10/every-single-person-who-confuses-correlation-and-causation-ends-up-dying.jpg.">Elliott, 2023</a>]</span>.</span><a class="headerlink" href="#figbasicempir-corrvscaus" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <p>What is the difference between correlation and causation?</p>
 <ul class="simple">
 <li><p>What are some examples of things that are correlated but do not “cause” each other?</p></li>
@@ -530,8 +536,8 @@ document.write(`
 <li><p>max</p></li>
 <li><p>min</p></li>
 </ul>
-<p>Let’s download some data, and read it in using the Pandas library for Python.<a class="footnote-reference brackets" href="#pandasref" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> The following example is adapted from QuantEcon’s “<a class="reference external" href="https://python.quantecon.org/ols.html">Linear Regression in Python</a>” lecture <span id="id6">[<a class="reference internal" href="../CompMethods_references.html#id48" title="Thomas J. Sargent and John Stachurski. Https://python.quantecon.org/ols.html. In QuantEcon Python Lectures: Intermediate Quantitative Economics with Python, chapter 79. 2023. URL: https://python.quantecon.org/ols.html.">Sargent and Stachurski, 2023</a>]</span>.</p>
-<p>The research question of the paper “The Colonial Origins of Comparative Development: An Empirical Investigation” <span id="id7">[<a class="reference internal" href="../CompMethods_references.html#id3" title="Daron Acemoglu, Simon Johnson, and James A. Robinson. The colonial origins of comparative development: an empirical investigation. American Economic Review, 91(5):1369-1401, December 2001. URL: https://www.aeaweb.org/articles?id=10.1257/aer.91.5.1369.">Acemoglu <em>et al.</em>, 2001</a>]</span> is to determine whether or not differences in institutions can help to explain observed economic outcomes. How do we measure institutional differences and economic outcomes? In this paper:</p>
+<p>Let’s download some data, and read it in using the Pandas library for Python.<a class="footnote-reference brackets" href="#pandasref" id="id6" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> The following example is adapted from QuantEcon’s “<a class="reference external" href="https://python.quantecon.org/ols.html">Linear Regression in Python</a>” lecture <span id="id7">[<a class="reference internal" href="../CompMethods_references.html#id49" title="Thomas J. Sargent and John Stachurski. Https://python.quantecon.org/ols.html. In QuantEcon Python Lectures: Intermediate Quantitative Economics with Python, chapter 79. 2023. URL: https://python.quantecon.org/ols.html.">Sargent and Stachurski, 2023</a>]</span>.</p>
+<p>The research question of the paper “The Colonial Origins of Comparative Development: An Empirical Investigation” <span id="id8">[<a class="reference internal" href="../CompMethods_references.html#id3" title="Daron Acemoglu, Simon Johnson, and James A. Robinson. The colonial origins of comparative development: an empirical investigation. American Economic Review, 91(5):1369-1401, December 2001. URL: https://www.aeaweb.org/articles?id=10.1257/aer.91.5.1369.">Acemoglu <em>et al.</em>, 2001</a>]</span> is to determine whether or not differences in institutions can help to explain observed economic outcomes. How do we measure institutional differences and economic outcomes? In this paper:</p>
 <ul class="simple">
 <li><p>economic outcomes are proxied by log GDP per capita in 1995, adjusted for exchange rates,</p></li>
 <li><p>institutional differences are proxied by an index of protection against expropriation on average over 1985-95, constructed by the <a class="reference external" href="https://www.prsgroup.com/">Political Risk Serivces Group</a>.</p></li>
@@ -539,7 +545,7 @@ document.write(`
 <p>These variables and other data used in the paper are available for download on <a class="reference external" href="https://economics.mit.edu/faculty/acemoglu/data/ajr2001">Daron Acemoglu’s webpage</a>.</p>
 <section id="basic-data-description">
 <span id="secbasicempdescrbasic"></span><h3><span class="section-number">12.3.1. </span>Basic data description<a class="headerlink" href="#basic-data-description" title="Permalink to this heading">#</a></h3>
-<p>The following cells downloads the data from <span id="id8">[<a class="reference internal" href="../CompMethods_references.html#id3" title="Daron Acemoglu, Simon Johnson, and James A. Robinson. The colonial origins of comparative development: an empirical investigation. American Economic Review, 91(5):1369-1401, December 2001. URL: https://www.aeaweb.org/articles?id=10.1257/aer.91.5.1369.">Acemoglu <em>et al.</em>, 2001</a>]</span> from the file <code class="docutils literal notranslate"><span class="pre">maketable1.dta</span></code> and displays the first five observations from the data.</p>
+<p>The following cells downloads the data from <span id="id9">[<a class="reference internal" href="../CompMethods_references.html#id3" title="Daron Acemoglu, Simon Johnson, and James A. Robinson. The colonial origins of comparative development: an empirical investigation. American Economic Review, 91(5):1369-1401, December 2001. URL: https://www.aeaweb.org/articles?id=10.1257/aer.91.5.1369.">Acemoglu <em>et al.</em>, 2001</a>]</span> from the file <code class="docutils literal notranslate"><span class="pre">maketable1.dta</span></code> and displays the first five observations from the data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -915,7 +921,7 @@ A list of all the 163 unique countries in the &quot;shortnam&quot; variable is:
 <figure class="align-default" id="figbasicempir-scatter1">
 <a class="reference internal image-reference" href="../_images/scatter1.png"><img alt="../_images/scatter1.png" src="../_images/scatter1.png" style="height: 500px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 12.1 </span><span class="caption-text">Scatterplot of average expropriation protection <span class="math notranslate nohighlight">\(avexpr\)</span> and log GDP per capita <span class="math notranslate nohighlight">\(logpgp95\)</span> for each country</span><a class="headerlink" href="#figbasicempir-scatter1" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 12.2 </span><span class="caption-text">Scatterplot of average expropriation protection <span class="math notranslate nohighlight">\(avexpr\)</span> and log GDP per capita <span class="math notranslate nohighlight">\(logpgp95\)</span> for each country</span><a class="headerlink" href="#figbasicempir-scatter1" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>The plot shows a fairly strong positive relationship between protection against expropriation and log GDP per capita. Specifically, if higher protection against expropriation is a measure of institutional quality, then better institutions appear to be positively correlated with better economic outcomes (higher GDP per capita).</p>
@@ -940,7 +946,7 @@ A list of all the 163 unique countries in the &quot;shortnam&quot; variable is:
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_2739/3993614049.py:4: SettingWithCopyWarning: 
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_2674/3993614049.py:4: SettingWithCopyWarning: 
 A value is trying to be set on a copy of a slice from a DataFrame
 
 See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
@@ -1448,7 +1454,7 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 <figure class="align-default" id="figbasicempir-scatter2">
 <a class="reference internal image-reference" href="../_images/scatter2.png"><img alt="../_images/scatter2.png" src="../_images/scatter2.png" style="height: 500px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 12.2 </span><span class="caption-text">Scatterplot of average expropriation protection <span class="math notranslate nohighlight">\(avexpr\)</span> and log GDP per capita <span class="math notranslate nohighlight">\(logpgp95\)</span> for each country, first letter in A-M</span><a class="headerlink" href="#figbasicempir-scatter2" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 12.3 </span><span class="caption-text">Scatterplot of average expropriation protection <span class="math notranslate nohighlight">\(avexpr\)</span> and log GDP per capita <span class="math notranslate nohighlight">\(logpgp95\)</span> for each country, first letter in A-M</span><a class="headerlink" href="#figbasicempir-scatter2" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="cell tag_remove-output docutils container">
@@ -1473,7 +1479,7 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 <figure class="align-default" id="figbasicempir-scatter3">
 <a class="reference internal image-reference" href="../_images/scatter3.png"><img alt="../_images/scatter3.png" src="../_images/scatter3.png" style="height: 500px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 12.3 </span><span class="caption-text">Scatterplot of average expropriation protection <span class="math notranslate nohighlight">\(avexpr\)</span> and log GDP per capita <span class="math notranslate nohighlight">\(logpgp95\)</span> for each country, first letter in N-Z</span><a class="headerlink" href="#figbasicempir-scatter3" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 12.4 </span><span class="caption-text">Scatterplot of average expropriation protection <span class="math notranslate nohighlight">\(avexpr\)</span> and log GDP per capita <span class="math notranslate nohighlight">\(logpgp95\)</span> for each country, first letter in N-Z</span><a class="headerlink" href="#figbasicempir-scatter3" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -1482,7 +1488,7 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 <span id="secbasicemplinreg"></span><h2><span class="section-number">12.4. </span>Basic Understanding of Linear Regression<a class="headerlink" href="#basic-understanding-of-linear-regression" title="Permalink to this heading">#</a></h2>
 <section id="example-acemoglu-et-al-2001">
 <span id="secbasicemplinregexamp"></span><h3><span class="section-number">12.4.1. </span>Example: Acemoglu, et al (2001)<a class="headerlink" href="#example-acemoglu-et-al-2001" title="Permalink to this heading">#</a></h3>
-<p>Given the plots in <a class="reference internal" href="#figbasicempir-scatter1"><span class="std std-numref">Figure 12.1</span></a>, <a class="reference internal" href="#figbasicempir-scatter2"><span class="std std-numref">Figure 12.2</span></a>, and <a class="reference internal" href="#figbasicempir-scatter3"><span class="std std-numref">Figure 12.3</span></a> above, choosing a linear model to describe this relationship seems like a reasonable assumption.</p>
+<p>Given the plots in <a class="reference internal" href="#figbasicempir-scatter1"><span class="std std-numref">Figure 12.2</span></a>, <a class="reference internal" href="#figbasicempir-scatter2"><span class="std std-numref">Figure 12.3</span></a>, and <a class="reference internal" href="#figbasicempir-scatter3"><span class="std std-numref">Figure 12.4</span></a> above, choosing a linear model to describe this relationship seems like a reasonable assumption.</p>
 <p>We can write a model as:</p>
 <div class="math notranslate nohighlight" id="equation-eqbasicemp-acemoglureg">
 <span class="eqno">(12.1)<a class="headerlink" href="#equation-eqbasicemp-acemoglureg" title="Permalink to this equation">#</a></span>\[    logpgp95_i = \beta_0 + \beta_1 avexpr_i + u_i\]</div>
@@ -1492,7 +1498,7 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 <li><p><span class="math notranslate nohighlight">\(\beta_1\)</span> is the slope of the linear trend line, representing the marginal effect of protection against risk on log GDP per capita</p></li>
 <li><p><span class="math notranslate nohighlight">\(u_i\)</span> is a random error term (deviations of observations from the linear trend due to factors not included in the model)</p></li>
 </ul>
-<p>Visually, this linear model involves choosing a straight line that best fits the data according to some criterion, as in the following plot (Figure 2 in <span id="id9">[<a class="reference internal" href="../CompMethods_references.html#id3" title="Daron Acemoglu, Simon Johnson, and James A. Robinson. The colonial origins of comparative development: an empirical investigation. American Economic Review, 91(5):1369-1401, December 2001. URL: https://www.aeaweb.org/articles?id=10.1257/aer.91.5.1369.">Acemoglu <em>et al.</em>, 2001</a>]</span>).</p>
+<p>Visually, this linear model involves choosing a straight line that best fits the data according to some criterion, as in the following plot (Figure 2 in <span id="id10">[<a class="reference internal" href="../CompMethods_references.html#id3" title="Daron Acemoglu, Simon Johnson, and James A. Robinson. The colonial origins of comparative development: an empirical investigation. American Economic Review, 91(5):1369-1401, December 2001. URL: https://www.aeaweb.org/articles?id=10.1257/aer.91.5.1369.">Acemoglu <em>et al.</em>, 2001</a>]</span>).</p>
 <div class="cell tag_remove-output docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -1533,7 +1539,7 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 <figure class="align-default" id="figbasicempir-acemfig2">
 <a class="reference internal image-reference" href="../_images/AcemogluEtAl_fig2.png"><img alt="../_images/AcemogluEtAl_fig2.png" src="../_images/AcemogluEtAl_fig2.png" style="height: 500px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 12.4 </span><span class="caption-text">OLS relationship between expropropriation risk and income (Fig. 2 from Acemoglu, et al, 2001)</span><a class="headerlink" href="#figbasicempir-acemfig2" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 12.5 </span><span class="caption-text">OLS relationship between expropropriation risk and income (Fig. 2 from Acemoglu, et al, 2001)</span><a class="headerlink" href="#figbasicempir-acemfig2" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>The most common technique to estimate the parameters (<span class="math notranslate nohighlight">\(\beta\)</span>‘s) of the linear model is Ordinary Least Squares (OLS). As the name implies, an OLS model is solved by finding the parameters that minimize the sum of squared residuals.</p>
@@ -1599,8 +1605,8 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 Dep. Variable:               logpgp95   R-squared:                       0.611
 Model:                            OLS   Adj. R-squared:                  0.608
 Method:                 Least Squares   F-statistic:                     171.4
-Date:                Fri, 10 Nov 2023   Prob (F-statistic):           4.16e-24
-Time:                        09:12:57   Log-Likelihood:                -119.71
+Date:                Tue, 14 Nov 2023   Prob (F-statistic):           4.16e-24
+Time:                        02:01:49   Log-Likelihood:                -119.71
 No. Observations:                 111   AIC:                             243.4
 Df Residuals:                     109   BIC:                             248.8
 Df Model:                           1                                         
@@ -1677,7 +1683,7 @@ dtype: float64
 <p>Using our parameter estimates, we can now write our estimated relationship as:</p>
 <div class="math notranslate nohighlight" id="equation-eqbasicemp-acemogluregest">
 <span class="eqno">(12.3)<a class="headerlink" href="#equation-eqbasicemp-acemogluregest" title="Permalink to this equation">#</a></span>\[    \hat{logpgp95}_i = 4.63 + 0.53 avexpr_i\]</div>
-<p>This equation describes the line that best fits our data, as shown in <a class="reference internal" href="#figbasicempir-acemfig2"><span class="std std-numref">Figure 12.4</span></a>. We can use this equation to predict the level of log GDP per capita for a value of the index of expropriation protection (see Section <a class="reference internal" href="#secbasicemplinregpredvals"><span class="std std-ref">Predicted values</span></a> below).</p>
+<p>This equation describes the line that best fits our data, as shown in <a class="reference internal" href="#figbasicempir-acemfig2"><span class="std std-numref">Figure 12.5</span></a>. We can use this equation to predict the level of log GDP per capita for a value of the index of expropriation protection (see Section <a class="reference internal" href="#secbasicemplinregpredvals"><span class="std std-ref">Predicted values</span></a> below).</p>
 </section>
 <section id="analysis-of-variance-anova-output">
 <span id="secbasicemplinreganova"></span><h3><span class="section-number">12.4.4. </span>Analysis of variance (ANOVA) output<a class="headerlink" href="#analysis-of-variance-anova-output" title="Permalink to this heading">#</a></h3>
@@ -1765,7 +1771,7 @@ dtype: float64
 </div>
 </div>
 </div>
-<p>Plotting the predicted values against <span class="math notranslate nohighlight">\(avexpr_i\)</span> shows that the predicted values lie along the linear line that we fitted below in <a class="reference internal" href="#figbasicempir-acempredvals"><span class="std std-numref">Figure 12.5</span></a>. The observed values of <span class="math notranslate nohighlight">\(logpgp95_i\)</span> are also plotted for comparison purposes.</p>
+<p>Plotting the predicted values against <span class="math notranslate nohighlight">\(avexpr_i\)</span> shows that the predicted values lie along the linear line that we fitted below in <a class="reference internal" href="#figbasicempir-acempredvals"><span class="std std-numref">Figure 12.6</span></a>. The observed values of <span class="math notranslate nohighlight">\(logpgp95_i\)</span> are also plotted for comparison purposes.</p>
 <div class="cell tag_remove-output docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Drop missing observations from whole sample</span>
@@ -1789,7 +1795,7 @@ dtype: float64
 <figure class="align-default" id="figbasicempir-acempredvals">
 <a class="reference internal image-reference" href="../_images/AcemogluEtAl_predvals.png"><img alt="../_images/AcemogluEtAl_predvals.png" src="../_images/AcemogluEtAl_predvals.png" style="height: 500px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 12.5 </span><span class="caption-text">OLS predicted values for Acemoglu, et al, 2001 data</span><a class="headerlink" href="#figbasicempir-acempredvals" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 12.6 </span><span class="caption-text">OLS predicted values for Acemoglu, et al, 2001 data</span><a class="headerlink" href="#figbasicempir-acempredvals" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -1811,7 +1817,7 @@ dtype: float64
 
 <p class="admonition-title"><span class="caption-number">Exercise 12.1 </span> (Multiple linear regression)</p>
 <section id="exercise-content">
-<p>For this problem, you will use the 397 observations from the <a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/data/basic_empirics/Auto.csv"><code class="docutils literal notranslate"><span class="pre">Auto.csv</span></code></a> dataset in the <a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/data/basic_empirics"><code class="docutils literal notranslate"><span class="pre">/data/basic_empirics/</span></code></a> folder of the repository for this book.<a class="footnote-reference brackets" href="#auto" id="id10" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a> This dataset includes 397 observations on the following variables:</p>
+<p>For this problem, you will use the 397 observations from the <a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/data/basic_empirics/Auto.csv"><code class="docutils literal notranslate"><span class="pre">Auto.csv</span></code></a> dataset in the <a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/data/basic_empirics"><code class="docutils literal notranslate"><span class="pre">/data/basic_empirics/</span></code></a> folder of the repository for this book.<a class="footnote-reference brackets" href="#auto" id="id11" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a> This dataset includes 397 observations on the following variables:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">mpg</span></code>: miles per gallon</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">cylinders</span></code>: number of cylinders</p></li>
@@ -1877,12 +1883,12 @@ dtype: float64
 <p>The footnotes from this chapter.</p>
 <hr class="footnotes docutils" />
 <aside class="footnote brackets" id="pandasref" role="note">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id5">1</a><span class="fn-bracket">]</span></span>
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id6">1</a><span class="fn-bracket">]</span></span>
 <p>For a tutorial on using Python’s Pandas package, see the <a class="reference internal" href="../python/Pandas.html#chap-pandas"><span class="std std-ref">Pandas</span></a> chapter of this online book.</p>
 </aside>
 <aside class="footnote brackets" id="auto" role="note">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id10">2</a><span class="fn-bracket">]</span></span>
-<p>The <a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/data/basic_empirics/Auto.csv"><code class="docutils literal notranslate"><span class="pre">Auto.csv</span></code></a> dataset comes from <span id="id11">[<a class="reference internal" href="../CompMethods_references.html#id35" title="Gareth James, Daniela Witten, Trevor Hastie, and Robert Tibshirani. An Introduction to Statistical Learning with Applications in R. Springer Texts in Statistics. Springer, 2017.">James <em>et al.</em>, 2017</a>]</span> (ch. 3) and is also available at <a class="reference external" href="http://www-bcf.usc.edu/~gareth/ISL/data.html">http://www-bcf.usc.edu/~gareth/ISL/data.html</a>.</p>
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id11">2</a><span class="fn-bracket">]</span></span>
+<p>The <a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/data/basic_empirics/Auto.csv"><code class="docutils literal notranslate"><span class="pre">Auto.csv</span></code></a> dataset comes from <span id="id12">[<a class="reference internal" href="../CompMethods_references.html#id36" title="Gareth James, Daniela Witten, Trevor Hastie, and Robert Tibshirani. An Introduction to Statistical Learning with Applications in R. Springer Texts in Statistics. Springer, 2017.">James <em>et al.</em>, 2017</a>]</span> (ch. 3) and is also available at <a class="reference external" href="http://www-bcf.usc.edu/~gareth/ISL/data.html">http://www-bcf.usc.edu/~gareth/ISL/data.html</a>.</p>
 </aside>
 </section>
 </section>
