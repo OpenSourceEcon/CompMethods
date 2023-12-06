@@ -476,8 +476,7 @@ import scipy.optimize as opt
 import matplotlib
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
-from matplotlib import cm
-cmap1 = matplotlib.cm.get_cmap('summer')
+cmap1 = matplotlib.colormaps.get_cmap('summer')
 
 # Download and save the data file Econ381totpts.txt
 url = ('https://raw.githubusercontent.com/OpenSourceEcon/CompMethods/' +
