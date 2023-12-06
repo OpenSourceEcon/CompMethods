@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="" >
 
   <head>
     <meta charset="utf-8" />
@@ -19,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -41,9 +41,9 @@
     <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
-  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -66,6 +66,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'struct_est/MaxLikelihood';</script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -144,6 +146,7 @@ const thebe_selector_output = ".output, .cell_output"
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
   
 
 <a class="navbar-brand logo" href="../index.html">
@@ -267,6 +270,37 @@ const thebe_selector_output = ".output, .cell_output"
 
 
 
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/OpenSourceEcon/CompMethods/blob/main/docs/book/struct_est/MaxLikelihood.md" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onColab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="../_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
 <div class="dropdown dropdown-source-buttons">
   <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
     <i class="fab fa-github"></i>
@@ -322,6 +356,23 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
+      <li><a href="../_sources/struct_est/MaxLikelihood.ipynb" target="_blank"
+   class="btn btn-sm btn-download-notebook-button dropdown-item"
+   title="Download notebook file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-code"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
       <li><a href="../_sources/struct_est/MaxLikelihood.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
@@ -374,6 +425,7 @@ const thebe_selector_output = ".output, .cell_output"
 </button>
 
 
+
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
@@ -383,6 +435,7 @@ document.write(`
   </button>
 `);
 </script>
+
 
 <script>
 document.write(`
@@ -414,7 +467,14 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">17.1. Footnotes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#general-characterization-of-a-model-and-data-generating-process">17.1. General characterization of a model and data generating process</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#simple-distribution-example">17.1.1. Simple distribution example</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#economic-example">17.1.2. Economic example</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparisons-of-distributions-and-data">17.2. Comparisons of distributions and data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">17.3. Exercises</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">17.4. Footnotes</a></li>
 </ul>
             </nav>
         </div>
@@ -428,10 +488,131 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="maximum-likelihood-estimation">
 <span id="chap-maxlikeli"></span><h1><span class="section-number">17. </span>Maximum Likelihood Estimation<a class="headerlink" href="#maximum-likelihood-estimation" title="Permalink to this heading">#</a></h1>
-<p>The most recent version of the <a class="reference external" href="https://github.com/rickecon/StructEst_W20/blob/master/Notebooks/MLE/MLest.ipynb"><code class="docutils literal notranslate"><span class="pre">MLest.ipynb</span></code></a> notebook is currently in the <a class="reference external" href="https://github.com/rickecon/StructEst_W20">StructEst_W20</a> repository in the <a class="reference external" href="https://github.com/rickecon/StructEst_W20/tree/master/Notebooks/MLE"><code class="docutils literal notranslate"><span class="pre">/Notebooks/MLE</span></code></a> directory. All the accompanying data and images are also in that directory. I will be updating this chapter to include all the content from the <a class="reference external" href="https://github.com/rickecon/StructEst_W20/blob/master/Notebooks/MLE/MLest.ipynb"><code class="docutils literal notranslate"><span class="pre">MLest.ipynb</span></code></a> notebook along with exercises and lecture content from the maximum likelihood estimation section of that course.</p>
+<p>This chapter describes the maximum likelihood estimation (MLE) method. All data and images from this chapter can be found in the data directory (<a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/data/maxlikeli/">./data/maxlikeli/</a>) and images directory (<a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/images/maxlikeli/">./images/maxlikeli/</a>) for the GitHub repository for this online book.</p>
+<section id="general-characterization-of-a-model-and-data-generating-process">
+<span id="secmaxlikeli-genmodel"></span><h2><span class="section-number">17.1. </span>General characterization of a model and data generating process<a class="headerlink" href="#general-characterization-of-a-model-and-data-generating-process" title="Permalink to this heading">#</a></h2>
+<p>Each of the model estimation approaches that we will discuss in this section on Maximum Likelihood estimation (MLE) and in subsequent sections on generalized method of moments (GMM) and simulated method of moments (SMM) involves choosing values of the parameters of a model to make the model match some number of properties of the data. Define a model or a data generating process (DGP) as,</p>
+<div class="math notranslate nohighlight" id="equation-eqmaxlikeli-genmod">
+<span class="eqno">(17.1)<a class="headerlink" href="#equation-eqmaxlikeli-genmod" title="Permalink to this equation">#</a></span>\[    F(x_t, z_t|\theta) = 0\]</div>
+<p>where <span class="math notranslate nohighlight">\(x_t\)</span> and <span class="math notranslate nohighlight">\(z_t\)</span> are variables, <span class="math notranslate nohighlight">\(\theta\)</span> is a vector of parameters, and <span class="math notranslate nohighlight">\(F()\)</span> is the function expressing the relationship between the variables and parameters.</p>
+<p>In richer examples, a model could also include inequalities representing constraints. But this is sufficient for our discussion. The goal of maximum likelihood estimation (MLE) is to choose the parameter vector of the model <span class="math notranslate nohighlight">\(\theta\)</span> to maximize the likelihood of seeing the data produced by the model <span class="math notranslate nohighlight">\((x_t, z_t)\)</span>.</p>
+<section id="simple-distribution-example">
+<span id="secmaxlikeli-genmodel-simpdist"></span><h3><span class="section-number">17.1.1. </span>Simple distribution example<a class="headerlink" href="#simple-distribution-example" title="Permalink to this heading">#</a></h3>
+<p>A simple example of a model is a statistical distribution [e.g., the normal distribution <span class="math notranslate nohighlight">\(N(\mu, \sigma)\)</span>].</p>
+<div class="math notranslate nohighlight" id="equation-eqmaxlikeli-genmod-normdistpdf">
+<span class="eqno">(17.2)<a class="headerlink" href="#equation-eqmaxlikeli-genmod-normdistpdf" title="Permalink to this equation">#</a></span>\[    Pr(x|\theta) = \frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{(x - \mu)^2}{2\sigma^2}}\]</div>
+<p>The probability of drawing value <span class="math notranslate nohighlight">\(x_i\)</span> from the distribution <span class="math notranslate nohighlight">\(f(x|\theta)\)</span> is <span class="math notranslate nohighlight">\(f(x_i|\theta)\)</span>. The probability of drawing the following vector of two observations <span class="math notranslate nohighlight">\((x_1,x_2)\)</span> from the distribution <span class="math notranslate nohighlight">\(f(x|\theta)\)</span> is <span class="math notranslate nohighlight">\(f(x_1|\theta)\times f(x_2|\theta)\)</span>. We define the likelihood function of <span class="math notranslate nohighlight">\(N\)</span> draws <span class="math notranslate nohighlight">\((x_1,x_2,...x_N)\)</span> from a model or distribution <span class="math notranslate nohighlight">\(f(x|\theta)\)</span> as <span class="math notranslate nohighlight">\(\mathcal{L}\)</span>.</p>
+<div class="math notranslate nohighlight" id="equation-eqmaxlikeli-genmod-normdistlike">
+<span class="eqno">(17.3)<a class="headerlink" href="#equation-eqmaxlikeli-genmod-normdistlike" title="Permalink to this equation">#</a></span>\[    \mathcal{L}(x_1,x_2,...x_N|\theta) \equiv \prod_{i=1}^N f(x_i|\theta)\]</div>
+<p>Because it can be numerically difficult to maximize a product of percentages (one small value can make dominate the entire product), it is almost always easier to use the log likelihood function <span class="math notranslate nohighlight">\(\ln(\mathcal{L})\)</span>.</p>
+<div class="math notranslate nohighlight" id="equation-eqmaxlikeli-genmod-normdistlnlike">
+<span class="eqno">(17.4)<a class="headerlink" href="#equation-eqmaxlikeli-genmod-normdistlnlike" title="Permalink to this equation">#</a></span>\[    \ln\Bigl(\mathcal{L}(x_1,x_2,...x_N|\theta)\Bigr) \equiv \sum_{i=1}^N \ln\Bigl(f(x_i|\theta)\Bigr)\]</div>
+<p>The maximum likelihood estimate <span class="math notranslate nohighlight">\(\hat{\theta}_{MLE}\)</span> is the following:</p>
+<div class="math notranslate nohighlight" id="equation-eqmaxlikeli-genmod-normdistmle">
+<span class="eqno">(17.5)<a class="headerlink" href="#equation-eqmaxlikeli-genmod-normdistmle" title="Permalink to this equation">#</a></span>\[    \hat{\theta}_{MLE} = \theta:\quad \max_\theta \: \ln\mathcal{L} = \sum_{i=1}^N\ln\Bigl(f(x_i|\theta)\Bigr)\]</div>
+</section>
+<section id="economic-example">
+<span id="secmaxlikeli-genmodel-econ"></span><h3><span class="section-number">17.1.2. </span>Economic example<a class="headerlink" href="#economic-example" title="Permalink to this heading">#</a></h3>
+<p>An example of an economic model that follows the more general definition of <span class="math notranslate nohighlight">\(F(x_t, z_t|\theta) = 0\)</span> is <span id="id1">[<a class="reference internal" href="../CompMethods_references.html#id8" title="William A. Brock and Leonard J. Mirman. Optimal economic growth and uncertainty: the discounted case. Journal of Economic Theory, 4(3):479-513, June 1972.">Brock and Mirman, 1972</a>]</span>. This model has multiple nonlinear dynamic equations, 7 parameters, 1 exogenous time series of variables, and about 5 endogenous time series of variables. Let’s look at a simplified piece of that model–the production function–which is commonly used in total factor productivity estimations.</p>
+<div class="math notranslate nohighlight" id="equation-eqmaxlikeli-genmod-econprodfunc">
+<span class="eqno">(17.6)<a class="headerlink" href="#equation-eqmaxlikeli-genmod-econprodfunc" title="Permalink to this equation">#</a></span>\[    Y_t = e^{z_t}(K_t)^\alpha(L_t)^{1-\alpha} \quad\text{where}\quad z_t = \rho z_{t-1} + (1 - \rho)\mu + \varepsilon_t \quad\text{and}\quad \varepsilon_t\sim N(0,\sigma^2)\]</div>
+<p>What are the parameters of this model and what are the endogenous variables? If we had data on output <span class="math notranslate nohighlight">\(Y_t\)</span>, capital <span class="math notranslate nohighlight">\(K_t\)</span>, and <span class="math notranslate nohighlight">\(L_t\)</span>, how would we estimate the parameters <span class="math notranslate nohighlight">\(\rho\)</span>, <span class="math notranslate nohighlight">\(\mu\)</span>, and <span class="math notranslate nohighlight">\(\sigma\)</span>? The simplest way I can write this model is <span class="math notranslate nohighlight">\(f(Y_t,K_t,L_t|z_0,\rho,\mu,\sigma)=0\)</span>.</p>
+<p>A maximum likelihood estimation of the parameters <span class="math notranslate nohighlight">\(\rho\)</span>, <span class="math notranslate nohighlight">\(\mu\)</span>, and <span class="math notranslate nohighlight">\(\sigma\)</span> would either take as data or simulate the total factor productivity series <span class="math notranslate nohighlight">\(e^{z_t}\)</span> for all <span class="math notranslate nohighlight">\(t\)</span> given the data <span class="math notranslate nohighlight">\(Y_t\)</span>, <span class="math notranslate nohighlight">\(K_t\)</span>, and <span class="math notranslate nohighlight">\(L_t\)</span>, then estimate parameters <span class="math notranslate nohighlight">\(\rho\)</span>, <span class="math notranslate nohighlight">\(\mu\)</span>, and <span class="math notranslate nohighlight">\(\sigma\)</span> that maximize the likelikhood of those data.</p>
+<p>The likelihood of a given data point is determined by <span class="math notranslate nohighlight">\(\varepsilon_t = z_t - \rho z_{t-1} - (1 - \rho)\mu \sim N(0,\sigma^2)\)</span>. Or in other words the probability of data point <span class="math notranslate nohighlight">\(\varepsilon_t\)</span> is <span class="math notranslate nohighlight">\(f(z_t - \rho z_{t-1} - (1 - \rho)\mu,\sigma^2\)</span>, where <span class="math notranslate nohighlight">\(f\)</span> is the normal distribution with mean <span class="math notranslate nohighlight">\(z_t - \rho z_{t-1} - (1 - \rho)\mu\)</span> and standard devation <span class="math notranslate nohighlight">\(\sigma\)</span>.</p>
+<p>The likelihood function of all the data is:</p>
+<div class="math notranslate nohighlight" id="equation-eqmaxlikeli-genmod-econprodfunclike">
+<span class="eqno">(17.7)<a class="headerlink" href="#equation-eqmaxlikeli-genmod-econprodfunclike" title="Permalink to this equation">#</a></span>\[    \mathcal{L}\left(z_1,z_2,...z_T|\rho,\mu,\sigma\right) = \prod_{t=2}^T f(z_{t+1},z_t|\rho,\mu,\sigma)\]</div>
+<p>The log likelihood function of all the data is:</p>
+<div class="math notranslate nohighlight" id="equation-eqmaxlikeli-genmod-econprodfunclnlike">
+<span class="eqno">(17.8)<a class="headerlink" href="#equation-eqmaxlikeli-genmod-econprodfunclnlike" title="Permalink to this equation">#</a></span>\[    \ln\Bigl(\mathcal{L}\bigl(z_1,z_2,...z_T|\rho,\mu,\sigma\bigr)\Bigr) = \sum_{t=2}^T \ln\Bigl(f(z_{t+1},z_t|\rho,\mu,\sigma)\Bigr)\]</div>
+<p>The maximum likelihood estimate of <span class="math notranslate nohighlight">\(\rho\)</span>, <span class="math notranslate nohighlight">\(\mu\)</span>, and <span class="math notranslate nohighlight">\(\sigma\)</span> is given by the following maximization problem.</p>
+<div class="math notranslate nohighlight" id="equation-eqmaxlikeli-genmod-econprodfuncmle">
+<span class="eqno">(17.9)<a class="headerlink" href="#equation-eqmaxlikeli-genmod-econprodfuncmle" title="Permalink to this equation">#</a></span>\[    (\hat{\rho}_{MLE},\hat{\mu}_{MLE},\hat{\sigma}_{MLE})=(\rho,\mu,\sigma):\quad \max_{\rho,\mu,\sigma}\ln\mathcal{L} = \sum_{t=2}^T \ln\Bigl(f(z_{t+1},z_t|\rho,\mu,\sigma)\Bigr)\]</div>
+</section>
+</section>
+<section id="comparisons-of-distributions-and-data">
+<span id="secmaxlikeli-distdata"></span><h2><span class="section-number">17.2. </span>Comparisons of distributions and data<a class="headerlink" href="#comparisons-of-distributions-and-data" title="Permalink to this heading">#</a></h2>
+<p>Import some data from the total points earned by all the students in two sections of an intermediate macroeconomics class for undergraduates at an unnamed University in a certain year (two semesters).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import the necessary libraries</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">sts</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="c1"># Download and save the data file Econ381totpts.txt</span>
+<span class="n">url</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/OpenSourceEcon/CompMethods/&#39;</span> <span class="o">+</span>
+       <span class="s1">&#39;main/data/maxlikeli/Econ381totpts.txt&#39;</span><span class="p">)</span>
+<span class="n">data_file</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">allow_redirects</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">open</span><span class="p">(</span><span class="s1">&#39;../../../data/maxlikeli/Econ381totpts.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">data_file</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+
+<span class="c1"># Load the data as a NumPy array</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s1">&#39;../../../data/maxlikeli/Econ381totpts.txt&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">13</span>
+<span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;../../../data/maxlikeli/Econ381totpts.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">data_file</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">12</span> <span class="c1"># Load the data as a NumPy array</span>
+<span class="ne">---&gt; </span><span class="mi">13</span> <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s1">&#39;../../../data/maxlikeli/Econ381totpts.txt&#39;</span><span class="p">)</span>
+
+<span class="nn">File /usr/share/miniconda3/envs/compmethods-dev/lib/python3.10/site-packages/numpy/lib/npyio.py:1373,</span> in <span class="ni">loadtxt</span><span class="nt">(fname, dtype, comments, delimiter, converters, skiprows, usecols, unpack, ndmin, encoding, max_rows, quotechar, like)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1370</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">delimiter</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">):</span>
+<span class="g g-Whitespace">   </span><span class="mi">1371</span>     <span class="n">delimiter</span> <span class="o">=</span> <span class="n">delimiter</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;latin1&#39;</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">1373</span> <span class="n">arr</span> <span class="o">=</span> <span class="n">_read</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="n">comment</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="n">delimiter</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1374</span>             <span class="n">converters</span><span class="o">=</span><span class="n">converters</span><span class="p">,</span> <span class="n">skiplines</span><span class="o">=</span><span class="n">skiprows</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="n">usecols</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1375</span>             <span class="n">unpack</span><span class="o">=</span><span class="n">unpack</span><span class="p">,</span> <span class="n">ndmin</span><span class="o">=</span><span class="n">ndmin</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="n">encoding</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1376</span>             <span class="n">max_rows</span><span class="o">=</span><span class="n">max_rows</span><span class="p">,</span> <span class="n">quote</span><span class="o">=</span><span class="n">quotechar</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1378</span> <span class="k">return</span> <span class="n">arr</span>
+
+<span class="nn">File /usr/share/miniconda3/envs/compmethods-dev/lib/python3.10/site-packages/numpy/lib/npyio.py:1016,</span> in <span class="ni">_read</span><span class="nt">(fname, delimiter, comment, quote, imaginary_unit, usecols, skiplines, max_rows, converters, ndmin, unpack, dtype, encoding)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1013</span>     <span class="n">data</span> <span class="o">=</span> <span class="n">_preprocess_comments</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">comments</span><span class="p">,</span> <span class="n">encoding</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1015</span> <span class="k">if</span> <span class="n">read_dtype_via_object_chunks</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">1016</span>     <span class="n">arr</span> <span class="o">=</span> <span class="n">_load_from_filelike</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1017</span>         <span class="n">data</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="n">delimiter</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="n">comment</span><span class="p">,</span> <span class="n">quote</span><span class="o">=</span><span class="n">quote</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1018</span>         <span class="n">imaginary_unit</span><span class="o">=</span><span class="n">imaginary_unit</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1019</span>         <span class="n">usecols</span><span class="o">=</span><span class="n">usecols</span><span class="p">,</span> <span class="n">skiplines</span><span class="o">=</span><span class="n">skiplines</span><span class="p">,</span> <span class="n">max_rows</span><span class="o">=</span><span class="n">max_rows</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1020</span>         <span class="n">converters</span><span class="o">=</span><span class="n">converters</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1021</span>         <span class="n">encoding</span><span class="o">=</span><span class="n">encoding</span><span class="p">,</span> <span class="n">filelike</span><span class="o">=</span><span class="n">filelike</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1022</span>         <span class="n">byte_converters</span><span class="o">=</span><span class="n">byte_converters</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1024</span> <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1025</span>     <span class="c1"># This branch reads the file into chunks of object arrays and then</span>
+<span class="g g-Whitespace">   </span><span class="mi">1026</span>     <span class="c1"># casts them to the desired actual dtype.  This ensures correct</span>
+<span class="g g-Whitespace">   </span><span class="mi">1027</span>     <span class="c1"># string-length and datetime-unit discovery (like `arr.astype()`).</span>
+<span class="g g-Whitespace">   </span><span class="mi">1028</span>     <span class="c1"># Due to chunking, certain error reports are less clear, currently.</span>
+<span class="g g-Whitespace">   </span><span class="mi">1029</span>     <span class="k">if</span> <span class="n">filelike</span><span class="p">:</span>
+
+<span class="ne">ValueError</span>: could not convert string &#39;404:&#39; to float64 at row 0, column 1.
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s create a histogram of the data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">num_bins</span> <span class="o">=</span> <span class="mi">30</span>
+<span class="n">count</span><span class="p">,</span> <span class="n">bins</span><span class="p">,</span> <span class="n">ignored</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">pts</span><span class="p">,</span> <span class="n">num_bins</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Econ 381 scores: 2011-2012&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Total points&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Percent of scores&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">550</span><span class="p">])</span>  <span class="c1"># This gives the xmin and xmax to be plotted&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="exercises">
+<span id="secmaxlikeli-exerc"></span><h2><span class="section-number">17.3. </span>Exercises<a class="headerlink" href="#exercises" title="Permalink to this heading">#</a></h2>
+</section>
 <section id="footnotes">
-<span id="secmaxlikelifootnotes"></span><h2><span class="section-number">17.1. </span>Footnotes<a class="headerlink" href="#footnotes" title="Permalink to this heading">#</a></h2>
-<!-- [^citation_note]: See {cite}`AuerbachEtAl:1981,AuerbachEtAl:1983`, {cite}`AuerbachKotlikoff:1983a,AuerbachKotlikoff:1983b,AuerbachKotlikoff:1983c`, and {cite}`AuerbachKotlikoff:1985`. -->
+<span id="secmaxlikelifootnotes"></span><h2><span class="section-number">17.4. </span>Footnotes<a class="headerlink" href="#footnotes" title="Permalink to this heading">#</a></h2>
+<p>The footnotes from this chapter.</p>
 </section>
 </section>
 
@@ -463,7 +644,7 @@ document.write(`
               
               
                 <footer class="prev-next-footer">
-                  <!-- Previous / next buttons -->
+                  
 <div class="prev-next-area">
     <a class="left-prev"
        href="intro.html"
@@ -498,7 +679,14 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">17.1. Footnotes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#general-characterization-of-a-model-and-data-generating-process">17.1. General characterization of a model and data generating process</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#simple-distribution-example">17.1.1. Simple distribution example</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#economic-example">17.1.2. Economic example</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparisons-of-distributions-and-data">17.2. Comparisons of distributions and data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">17.3. Exercises</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">17.4. Footnotes</a></li>
 </ul>
   </nav></div>
 
@@ -520,6 +708,7 @@ By Richard W. Evans
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
       © Copyright 2023.
@@ -546,8 +735,8 @@ By Richard W. Evans
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
 
   <footer class="bd-footer">
   </footer>

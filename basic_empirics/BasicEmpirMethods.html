@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="" >
 
   <head>
     <meta charset="utf-8" />
@@ -19,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -41,9 +41,9 @@
     <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
-  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -146,6 +146,7 @@ const thebe_selector_output = ".output, .cell_output"
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
   
 
 <a class="navbar-brand logo" href="../index.html">
@@ -269,6 +270,37 @@ const thebe_selector_output = ".output, .cell_output"
 
 
 
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/OpenSourceEcon/CompMethods/blob/main/docs/book/basic_empirics/BasicEmpirMethods.md" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onColab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="../_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
 <div class="dropdown dropdown-source-buttons">
   <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
     <i class="fab fa-github"></i>
@@ -324,6 +356,23 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
+      <li><a href="../_sources/basic_empirics/BasicEmpirMethods.ipynb" target="_blank"
+   class="btn btn-sm btn-download-notebook-button dropdown-item"
+   title="Download notebook file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-code"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
       <li><a href="../_sources/basic_empirics/BasicEmpirMethods.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
@@ -376,6 +425,7 @@ const thebe_selector_output = ".output, .cell_output"
 </button>
 
 
+
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
@@ -385,6 +435,7 @@ document.write(`
   </button>
 `);
 </script>
+
 
 <script>
 document.write(`
@@ -474,7 +525,7 @@ document.write(`
 </li>
 </ul>
 <p>In the next chapter <a class="reference internal" href="../basic_ml/ml_intro.html#chap-basicmlintro"><span class="std std-ref">Basic Machine Learning</span></a>, I give a more detailed treatment of logistic regression as a bridge to learning the basics of machine learning.</p>
-<p>Some other good resources on the topic of learning the basics of linear regression in Python include the <a class="reference external" href="https://quantecon.org/">QuantEcon.org</a> lectures “<a class="reference external" href="https://intro.quantecon.org/simple_linear_regression.html">Simple Linear Regression Model</a>” <span id="id1">[<a class="reference internal" href="../CompMethods_references.html#id48" title="Thomas J. Sargent and John Stachurski. Simple linear regression. In QuantEcon Python Lectures: A First Course in Quantitative Economics With Python, chapter 36. 2023. URL: https://intro.quantecon.org/simple_linear_regression.html.">Sargent and Stachurski, 2023</a>]</span>, and “<a class="reference external" href="https://python.quantecon.org/ols.html">Linear Regression in Python</a>” <span id="id2">[<a class="reference internal" href="../CompMethods_references.html#id49" title="Thomas J. Sargent and John Stachurski. Https://python.quantecon.org/ols.html. In QuantEcon Python Lectures: Intermediate Quantitative Economics with Python, chapter 79. 2023. URL: https://python.quantecon.org/ols.html.">Sargent and Stachurski, 2023</a>]</span>.</p>
+<p>Some other good resources on the topic of learning the basics of linear regression in Python include the <a class="reference external" href="https://quantecon.org/">QuantEcon.org</a> lectures “<a class="reference external" href="https://intro.quantecon.org/simple_linear_regression.html">Simple Linear Regression Model</a>” <span id="id1">[<a class="reference internal" href="../CompMethods_references.html#id51" title="Thomas J. Sargent and John Stachurski. Simple linear regression. In QuantEcon Python Lectures: A First Course in Quantitative Economics With Python, chapter 36. 2023. URL: https://intro.quantecon.org/simple_linear_regression.html.">Sargent and Stachurski, 2023</a>]</span>, and “<a class="reference external" href="https://python.quantecon.org/ols.html">Linear Regression in Python</a>” <span id="id2">[<a class="reference internal" href="../CompMethods_references.html#id52" title="Thomas J. Sargent and John Stachurski. Https://python.quantecon.org/ols.html. In QuantEcon Python Lectures: Intermediate Quantitative Economics with Python, chapter 79. 2023. URL: https://python.quantecon.org/ols.html.">Sargent and Stachurski, 2023</a>]</span>.</p>
 <section id="basic-empirical-methods-in-the-literature">
 <span id="secbasicemplit"></span><h2><span class="section-number">12.1. </span>Basic Empirical Methods in the Literature<a class="headerlink" href="#basic-empirical-methods-in-the-literature" title="Permalink to this heading">#</a></h2>
 <p>What are the standard empirical methods in the current version of the <em>American Economic Review</em> (<a class="reference external" href="https://www.aeaweb.org/issues/736">Vol. 113, No. 10, October 2023</a>)?</p>
@@ -536,7 +587,7 @@ document.write(`
 <li><p>max</p></li>
 <li><p>min</p></li>
 </ul>
-<p>Let’s download some data, and read it in using the Pandas library for Python.<a class="footnote-reference brackets" href="#pandasref" id="id6" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> The following example is adapted from QuantEcon’s “<a class="reference external" href="https://python.quantecon.org/ols.html">Linear Regression in Python</a>” lecture <span id="id7">[<a class="reference internal" href="../CompMethods_references.html#id49" title="Thomas J. Sargent and John Stachurski. Https://python.quantecon.org/ols.html. In QuantEcon Python Lectures: Intermediate Quantitative Economics with Python, chapter 79. 2023. URL: https://python.quantecon.org/ols.html.">Sargent and Stachurski, 2023</a>]</span>.</p>
+<p>Let’s download some data, and read it in using the Pandas library for Python.<a class="footnote-reference brackets" href="#pandasref" id="id6" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> The following example is adapted from QuantEcon’s “<a class="reference external" href="https://python.quantecon.org/ols.html">Linear Regression in Python</a>” lecture <span id="id7">[<a class="reference internal" href="../CompMethods_references.html#id52" title="Thomas J. Sargent and John Stachurski. Https://python.quantecon.org/ols.html. In QuantEcon Python Lectures: Intermediate Quantitative Economics with Python, chapter 79. 2023. URL: https://python.quantecon.org/ols.html.">Sargent and Stachurski, 2023</a>]</span>.</p>
 <p>The research question of the paper “The Colonial Origins of Comparative Development: An Empirical Investigation” <span id="id8">[<a class="reference internal" href="../CompMethods_references.html#id3" title="Daron Acemoglu, Simon Johnson, and James A. Robinson. The colonial origins of comparative development: an empirical investigation. American Economic Review, 91(5):1369-1401, December 2001. URL: https://www.aeaweb.org/articles?id=10.1257/aer.91.5.1369.">Acemoglu <em>et al.</em>, 2001</a>]</span> is to determine whether or not differences in institutions can help to explain observed economic outcomes. How do we measure institutional differences and economic outcomes? In this paper:</p>
 <ul class="simple">
 <li><p>economic outcomes are proxied by log GDP per capita in 1995, adjusted for exchange rates,</p></li>
@@ -946,7 +997,7 @@ A list of all the 163 unique countries in the &quot;shortnam&quot; variable is:
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_2674/3993614049.py:4: SettingWithCopyWarning: 
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_2906/3993614049.py:4: SettingWithCopyWarning: 
 A value is trying to be set on a copy of a slice from a DataFrame
 
 See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
@@ -1605,8 +1656,8 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 Dep. Variable:               logpgp95   R-squared:                       0.611
 Model:                            OLS   Adj. R-squared:                  0.608
 Method:                 Least Squares   F-statistic:                     171.4
-Date:                Tue, 14 Nov 2023   Prob (F-statistic):           4.16e-24
-Time:                        02:01:49   Log-Likelihood:                -119.71
+Date:                Wed, 06 Dec 2023   Prob (F-statistic):           4.16e-24
+Time:                        00:10:59   Log-Likelihood:                -119.71
 No. Observations:                 111   AIC:                             243.4
 Df Residuals:                     109   BIC:                             248.8
 Df Model:                           1                                         
@@ -1921,7 +1972,7 @@ dtype: float64
               
               
                 <footer class="prev-next-footer">
-                  <!-- Previous / next buttons -->
+                  
 <div class="prev-next-area">
     <a class="left-prev"
        href="../git/intro.html"
@@ -1997,6 +2048,7 @@ By Richard W. Evans
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
       © Copyright 2023.
@@ -2023,8 +2075,8 @@ By Richard W. Evans
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
 
   <footer class="bd-footer">
   </footer>

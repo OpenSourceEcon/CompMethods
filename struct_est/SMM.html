@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="" >
 
   <head>
     <meta charset="utf-8" />
@@ -19,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -41,9 +41,9 @@
     <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
-  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -146,6 +146,7 @@ const thebe_selector_output = ".output, .cell_output"
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
   
 
 <a class="navbar-brand logo" href="../index.html">
@@ -269,6 +270,37 @@ const thebe_selector_output = ".output, .cell_output"
 
 
 
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/OpenSourceEcon/CompMethods/blob/main/docs/book/struct_est/SMM.md" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onColab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="../_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
 <div class="dropdown dropdown-source-buttons">
   <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
     <i class="fab fa-github"></i>
@@ -324,6 +356,23 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
+      <li><a href="../_sources/struct_est/SMM.ipynb" target="_blank"
+   class="btn btn-sm btn-download-notebook-button dropdown-item"
+   title="Download notebook file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-code"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
       <li><a href="../_sources/struct_est/SMM.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
@@ -376,6 +425,7 @@ const thebe_selector_output = ".output, .cell_output"
 </button>
 
 
+
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
@@ -385,6 +435,7 @@ document.write(`
   </button>
 `);
 </script>
+
 
 <script>
 document.write(`
@@ -461,7 +512,7 @@ document.write(`
 <p>This chapter describes the simulated method of moments (SMM) estimation method. All data and images from this chapter can be found in the data directory (<a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/data/smm/">./data/smm/</a>) and images directory (<a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/images/smm/">./images/smm/</a>) for the GitHub repository for this online book.</p>
 <section id="the-smm-estimator">
 <span id="secsmmestimator"></span><h2><span class="section-number">19.1. </span>The SMM estimator<a class="headerlink" href="#the-smm-estimator" title="Permalink to this heading">#</a></h2>
-<p>Simulated method of moments (SMM) is analogous to the generalized method of moments (GMM) estimator. SMM could really be thought of as a particular type of GMM estimator. The SMM estimator chooses a vector of model parameters <span class="math notranslate nohighlight">\(\theta\)</span> to make simulated model moments match data moments. Seminal papers developing SMM are <span id="id1">[<a class="reference internal" href="../CompMethods_references.html#id41" title="Daniel McFadden. A method of simulated moments for estimation of discrete response models without numerical integration. Econometrica, 57(5):995-1026, September 1989.">McFadden, 1989</a>]</span>, <span id="id2">[<a class="reference internal" href="../CompMethods_references.html#id40" title="Bong-Soo Lee and Beth Fisher Ingram. Simulation estimation of time series models. Journal of Econometrics, 47(2-3):197-205, February 1991.">Lee and Ingram, 1991</a>]</span>, and <span id="id3">[<a class="reference internal" href="../CompMethods_references.html#id23" title="Darrell Duffie and Kenneth J. Singleton. Simulated moment estimation of markov models of asset prices. Econometrica, 61(4):929-952, July 1993.">Duffie and Singleton, 1993</a>]</span>. Good textbook treatments of SMM are found in <span id="id4">[<a class="reference internal" href="../CompMethods_references.html#id2" title="Jérôme Adda and Russell Cooper. Dynamic Economics: Quantitative Methods and Applications. MIT Press, 2003.">Adda and Cooper, 2003</a>]</span>, (pp. 87-100) and <span id="id5">[<a class="reference internal" href="../CompMethods_references.html#id22" title="Russell Davidson and James G. MacKinnon. Econometric Theory and Methods. Oxford University Press, 2004.">Davidson and MacKinnon, 2004</a>]</span>, (pp. 383-394).</p>
+<p>Simulated method of moments (SMM) is analogous to the generalized method of moments (GMM) estimator. SMM could really be thought of as a particular type of GMM estimator. The SMM estimator chooses a vector of model parameters <span class="math notranslate nohighlight">\(\theta\)</span> to make simulated model moments match data moments. Seminal papers developing SMM are <span id="id1">[<a class="reference internal" href="../CompMethods_references.html#id44" title="Daniel McFadden. A method of simulated moments for estimation of discrete response models without numerical integration. Econometrica, 57(5):995-1026, September 1989.">McFadden, 1989</a>]</span>, <span id="id2">[<a class="reference internal" href="../CompMethods_references.html#id40" title="Bong-Soo Lee and Beth Fisher Ingram. Simulation estimation of time series models. Journal of Econometrics, 47(2-3):197-205, February 1991.">Lee and Ingram, 1991</a>]</span>, and <span id="id3">[<a class="reference internal" href="../CompMethods_references.html#id23" title="Darrell Duffie and Kenneth J. Singleton. Simulated moment estimation of markov models of asset prices. Econometrica, 61(4):929-952, July 1993.">Duffie and Singleton, 1993</a>]</span>. Good textbook treatments of SMM are found in <span id="id4">[<a class="reference internal" href="../CompMethods_references.html#id2" title="Jérôme Adda and Russell Cooper. Dynamic Economics: Quantitative Methods and Applications. MIT Press, 2003.">Adda and Cooper, 2003</a>]</span>, (pp. 87-100) and <span id="id5">[<a class="reference internal" href="../CompMethods_references.html#id22" title="Russell Davidson and James G. MacKinnon. Econometric Theory and Methods. Oxford University Press, 2004.">Davidson and MacKinnon, 2004</a>]</span>, (pp. 383-394).</p>
 <p>Let the data be represented, in general, by <span class="math notranslate nohighlight">\(x\)</span>. This could have many variables, and it could be cross-sectional or time series. We define the estimation problem as one in which we want to model the data <span class="math notranslate nohighlight">\(x\)</span> using some parameterized model <span class="math notranslate nohighlight">\(g(x|\theta)\)</span> in which <span class="math notranslate nohighlight">\(\theta\)</span> is a <span class="math notranslate nohighlight">\(K\times 1\)</span> vector of parameters.</p>
 <div class="math notranslate nohighlight" id="equation-eqsmm-thetavec">
 <span class="eqno">(19.1)<a class="headerlink" href="#equation-eqsmm-thetavec" title="Permalink to this equation">#</a></span>\[    \theta \equiv \left[\theta_1, \theta_2, ...\theta_K\right]^T\]</div>
@@ -481,10 +532,10 @@ document.write(`
 <p>The following difficulties can arise with GMM making it not possible or very difficult.</p>
 <ul class="simple">
 <li><p>The model moment function <span class="math notranslate nohighlight">\(m(x|\theta)\)</span> is not known analytically.</p></li>
-<li><p>The data moments you are trying to match come from another model (indirect inference, see <span id="id6">[<a class="reference internal" href="../CompMethods_references.html#id50" title="Anthony A. Jr. Smith. Indirect inference. In Matias Vernengo, Esteban Perez Caldentey, and Barkley J. Rosser Jr., editors, New Palgrave Dictionary of Economics. Palgrave MacMillan, 2020. URL: http://www.econ.yale.edu/smith/palgrave7.pdf.">Smith, 2020</a>]</span>).</p></li>
+<li><p>The data moments you are trying to match come from another model (indirect inference, see <span id="id6">[<a class="reference internal" href="../CompMethods_references.html#id53" title="Anthony A. Jr. Smith. Indirect inference. In Matias Vernengo, Esteban Perez Caldentey, and Barkley J. Rosser Jr., editors, New Palgrave Dictionary of Economics. Palgrave MacMillan, 2020. URL: http://www.econ.yale.edu/smith/palgrave7.pdf.">Smith, 2020</a>]</span>).</p></li>
 <li><p>The model moments <span class="math notranslate nohighlight">\(m(x|\theta)\)</span> are derived from <em>latent variables</em> that are not observed by the modeler. You only have moments, not the underlying data. See <span id="id7">[<a class="reference internal" href="../CompMethods_references.html#id39" title="G. Laroque and B. Salanié. Simulation based estimation models with lagged latent variables. Journal of Applied Econometrics, 8(Supplement):119-133, December 1993.">Laroque and Salanié, 1993</a>]</span>.</p></li>
 <li><p>The model moments <span class="math notranslate nohighlight">\(m(x|\theta)\)</span> are derived from <em>censored variables</em> that are only partially observed by the modeler.</p></li>
-<li><p>The model moments <span class="math notranslate nohighlight">\(m(x|\theta)\)</span> are just difficult to derive analytically. Examples include moments that include multiple integrals over nonlinear functions as in <span id="id8">[<a class="reference internal" href="../CompMethods_references.html#id41" title="Daniel McFadden. A method of simulated moments for estimation of discrete response models without numerical integration. Econometrica, 57(5):995-1026, September 1989.">McFadden, 1989</a>]</span>.</p></li>
+<li><p>The model moments <span class="math notranslate nohighlight">\(m(x|\theta)\)</span> are just difficult to derive analytically. Examples include moments that include multiple integrals over nonlinear functions as in <span id="id8">[<a class="reference internal" href="../CompMethods_references.html#id44" title="Daniel McFadden. A method of simulated moments for estimation of discrete response models without numerical integration. Econometrica, 57(5):995-1026, September 1989.">McFadden, 1989</a>]</span>.</p></li>
 </ul>
 <p>SMM estimation is simply to simulate the model data <span class="math notranslate nohighlight">\(S\)</span> times, and use the average values of the moments from the simulated data as the estimator for the model moments. Let <span class="math notranslate nohighlight">\(\tilde{x}\equiv\{\tilde{x}_1,\tilde{x}_2,...\tilde{x}_s,...\tilde{x}_S\}\)</span> be the <span class="math notranslate nohighlight">\(S\)</span> simulations of the model data. And let the maximization problem in <a class="reference internal" href="#equation-eqsmm-smmestimator">(19.8)</a> be characterized by <span class="math notranslate nohighlight">\(R\)</span> average moments across simulations, where <span class="math notranslate nohighlight">\(\hat{m}_r\)</span> is the average value of the <span class="math notranslate nohighlight">\(r\)</span>th moment across the <span class="math notranslate nohighlight">\(S\)</span> simulations where,</p>
 <div class="math notranslate nohighlight" id="equation-eqsmm-avgsimmoms-r">
@@ -575,7 +626,7 @@ document.write(`
 </section>
 <section id="newey-west-consistent-estimator-of-omega-and-w">
 <span id="secsmm-w-nw"></span><h3><span class="section-number">19.2.4. </span>Newey-West consistent estimator of <span class="math notranslate nohighlight">\(\Omega\)</span> and W<a class="headerlink" href="#newey-west-consistent-estimator-of-omega-and-w" title="Permalink to this heading">#</a></h3>
-<p>The Newey-West estimator of the optimal weighting matrix and variance covariance matrix is consistent in the presence of heteroskedasticity and autocorrelation in the data (See <span id="id9">[<a class="reference internal" href="../CompMethods_references.html#id43" title="Whitney K. Newey and Kenneth D. West. A simple, positive, semi-definite, heteroskedasticy and autocorrelation consistent covariance matrix. Econometrica, 55(3):703-708, May 1987.">Newey and West, 1987</a>]</span>). <span id="id10">[<a class="reference internal" href="../CompMethods_references.html#id2" title="Jérôme Adda and Russell Cooper. Dynamic Economics: Quantitative Methods and Applications. MIT Press, 2003.">Adda and Cooper, 2003</a>]</span> (p. 82) have a nice exposition of how to compute the Newey-West weighting matrix <span class="math notranslate nohighlight">\(\hat{W}_{nw}\)</span>. The asymptotic representation of the optimal weighting matrix <span class="math notranslate nohighlight">\(\hat{W}^{opt}\)</span> is the following:</p>
+<p>The Newey-West estimator of the optimal weighting matrix and variance covariance matrix is consistent in the presence of heteroskedasticity and autocorrelation in the data (See <span id="id9">[<a class="reference internal" href="../CompMethods_references.html#id46" title="Whitney K. Newey and Kenneth D. West. A simple, positive, semi-definite, heteroskedasticy and autocorrelation consistent covariance matrix. Econometrica, 55(3):703-708, May 1987.">Newey and West, 1987</a>]</span>). <span id="id10">[<a class="reference internal" href="../CompMethods_references.html#id2" title="Jérôme Adda and Russell Cooper. Dynamic Economics: Quantitative Methods and Applications. MIT Press, 2003.">Adda and Cooper, 2003</a>]</span> (p. 82) have a nice exposition of how to compute the Newey-West weighting matrix <span class="math notranslate nohighlight">\(\hat{W}_{nw}\)</span>. The asymptotic representation of the optimal weighting matrix <span class="math notranslate nohighlight">\(\hat{W}^{opt}\)</span> is the following:</p>
 <div class="math notranslate nohighlight" id="equation-eqsmm-estw-whatopt">
 <span class="eqno">(19.24)<a class="headerlink" href="#equation-eqsmm-estw-whatopt" title="Permalink to this equation">#</a></span>\[    \hat{W}^{opt} = \lim_{S\rightarrow\infty}\frac{1}{S}\sum_{i=1}^S \sum_{l=-\infty}^\infty E(\tilde{x}_i,x|\theta)E(\tilde{x}_{i-l},x|\theta)^T\]</div>
 <p>The Newey-West consistend estimator of <span class="math notranslate nohighlight">\(\hat{W}^{opt}\)</span> is:</p>
@@ -1289,7 +1340,7 @@ Criterion function value is: 0.4429893115777857
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>mu_SMM1_1= 612.3319048024534  sig_SMM1_1= 197.26303566149244
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>mu_SMM1_1= 612.3371352249138  sig_SMM1_1= 197.26434895262162
 </pre></div>
 </div>
 </div>
@@ -1317,18 +1368,18 @@ Criterion function value is: 0.4429893115777857
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data mean of scores = 341.90869565217395 , Data variance of scores = 7827.997292398056
 
-Model mean 1 = 341.6690130387879 , Model variance 1 = 7827.866466512297
+Model mean 1 = 341.6692110494425 , Model variance 1 = 7827.864496338213
 
-Error vector 1 = [-7.01013506e-04 -1.67125614e-05]
+Error vector 1 = [-7.00434373e-04 -1.69642445e-05]
 
 Results from scipy.opmtimize.minimize:
   message: CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_&lt;=_PGTOL
   success: True
    status: 0
-      fun: 4.916992449560748e-07
+      fun: 4.908960959342433e-07
         x: [ 6.123e+02  1.973e+02]
       nit: 17
-      jac: [-7.454e-07  2.357e-06]
+      jac: [-7.436e-07  2.350e-06]
      nfev: 72
      njev: 24
  hess_inv: &lt;2x2 LbfgsInvHessProduct with dtype=float64&gt;
@@ -1453,19 +1504,19 @@ Results from scipy.opmtimize.minimize:
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Jacobian matrix of derivatives of moment error functions is:
-[[ 0.0008975  -0.00290434]
- [-0.00114133  0.004457  ]]
+[[ 0.00089749 -0.00290433]
+ [-0.00114132  0.00445698]]
 
 Weighting matrix W is:
 [[1. 0.]
  [0. 1.]]
 
 Variance-covariance matrix of estimated parameter vector is:
-[[602499.98744184 163793.83380005]
- [163793.83380005  44881.85524372]]
+[[602535.18442996 163802.17330123]
+ [163802.17330123  44883.79092131]]
 
-Std. err. mu_hat= 776.2087267235777
-Std. err. sig_hat= 211.8533814781294
+Std. err. mu_hat= 776.23139876583
+Std. err. sig_hat= 211.85794986573154
 </pre></div>
 </div>
 </div>
@@ -1554,12 +1605,12 @@ Std. err. sig_hat= 211.8533814781294
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2nd stage est. of var-cov matrix of moment error vec across sims:
-[[ 0.00033411 -0.00142288]
- [-0.00142288  0.01592874]]
+[[ 0.00033411 -0.00142289]
+ [-0.00142289  0.01592879]]
 
 2nd state est. of optimal weighting matrix:
-[[4830.85282784  431.53075653]
- [ 431.53075653  101.32740541]]
+[[4830.88530228  431.53378728]
+ [ 431.53378728  101.32749623]]
 </pre></div>
 </div>
 </div>
@@ -1577,7 +1628,7 @@ Std. err. sig_hat= 211.8533814781294
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>mu_SMM2_1= 619.4295828414915  sig_SMM2_1= 199.0745499003818
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>mu_SMM2_1= 619.4303074248937  sig_SMM2_1= 199.0747813692372
 </pre></div>
 </div>
 </div>
@@ -1607,15 +1658,15 @@ Std. err. sig_hat= 211.8533814781294
  [-0.0011259   0.00443426]]
 
 Weighting matrix W is:
-[[4830.85282784  431.53075653]
- [ 431.53075653  101.32740541]]
+[[4830.88530228  431.53378728]
+ [ 431.53378728  101.32749623]]
 
 Variance-covariance matrix of estimated parameter vector is:
-[[2397.35566572  745.28979427]
- [ 745.28979427  232.01568064]]
+[[2397.38054356  745.29670501]
+ [ 745.29670501  232.01757158]]
 
-Std. err. mu_hat= 48.96279879380848
-Std. err. sig_hat= 15.232060945338231
+Std. err. mu_hat= 48.963052841479445
+Std. err. sig_hat= 15.232123016118733
 </pre></div>
 </div>
 </div>
@@ -1865,7 +1916,7 @@ Std. err. sig_hat= 15.232060945338231
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>mu_SMM4_1= 362.560593472098  sig_SMM4_1 46.57515195652185
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>mu_SMM4_1= 362.560593472098  sig_SMM4_1 46.5751519565219
   message: CONVERGENCE: REL_REDUCTION_OF_F_&lt;=_FACTR*EPSMCH
   success: True
    status: 0
@@ -2016,8 +2067,8 @@ Variance-covariance matrix of estimated parameter vector is:
 [[33.48770545 23.53170341]
  [23.53170341 18.13459776]]
 
-Std. err. mu_hat= 5.786856266717139
-Std. err. sig_hat= 4.258473642422251
+Std. err. mu_hat= 5.786856266717126
+Std. err. sig_hat= 4.258473642422245
 </pre></div>
 </div>
 </div>
@@ -2107,14 +2158,13 @@ Std. err. sig_hat= 4.258473642422251
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2nd stage est. of var-cov matrix of moment error vec across sims (4 x 4):
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[ 9.61938776e-01 -4.52040816e-02 -1.15173745e-01  7.28571429e-02]
+[[ 9.61938776e-01 -4.52040816e-02 -1.15173745e-01  7.28571429e-02]
  [-4.52040816e-02  2.66198980e-02 -5.27670528e-04 -6.74107143e-03]
  [-1.15173745e-01 -5.27670528e-04  1.57738820e-02 -1.54617117e-02]
  [ 7.28571429e-02 -6.74107143e-03 -1.54617117e-02  1.10625000e-01]]
-
-2nd state est. of optimal weighting matrix (4 x 4):
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2nd state est. of optimal weighting matrix (4 x 4):
 [[ 1.08330385  0.5343057  -0.21471629 -0.78666313]
  [ 0.5343057  36.19111144 -9.22640243  0.41240869]
  [-0.21471629 -9.22640243  2.40386307 -0.68543805]
@@ -2141,11 +2191,11 @@ Std. err. sig_hat= 4.258473642422251
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>mu_SMM4_2= 362.5605400454758  sig_SMM4_2 46.57507128065559
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>mu_SMM4_2= 362.5605400454758  sig_SMM4_2 46.57507128065564
  message: Optimization terminated successfully
  success: True
   status: 0
-     fun: 0.9984266286568925
+     fun: 0.9984266286568926
        x: [ 3.626e+02  4.658e+01]
      nit: 1
      jac: [ 5.467e-02  8.255e-02]
@@ -2190,7 +2240,7 @@ Model moments =
 
 Error vector (pct. dev.) = [-0.98        0.04678571  0.11720721 -0.075     ]
 
-Criterion func val = 0.9984266286568925
+Criterion func val = 0.9984266286568926
 </pre></div>
 </div>
 </div>
@@ -2275,8 +2325,8 @@ Variance-covariance matrix of estimated parameter vector is:
 [[3.53697411 2.47391182]
  [2.47391182 1.77184156]]
 
-Std. err. mu_hat= 1.8806844791000032
-Std. err. sig_hat= 1.3311053920876743
+Std. err. mu_hat= 1.8806844791000217
+Std. err. sig_hat= 1.3311053920876885
 </pre></div>
 </div>
 </div>
@@ -2295,7 +2345,7 @@ Std. err. sig_hat= 1.3311053920876743
 </section>
 <section id="indirect-inference">
 <span id="secsmm-indirinf"></span><h2><span class="section-number">19.6. </span>Indirect inference<a class="headerlink" href="#indirect-inference" title="Permalink to this heading">#</a></h2>
-<p>Indirect inference is a particular application of SMM with some specific characteristics. As moments to match it uses parameters of an auxiliary model that can be estimated both on the real-world data and on the simulated data. <span id="id13">[<a class="reference internal" href="../CompMethods_references.html#id50" title="Anthony A. Jr. Smith. Indirect inference. In Matias Vernengo, Esteban Perez Caldentey, and Barkley J. Rosser Jr., editors, New Palgrave Dictionary of Economics. Palgrave MacMillan, 2020. URL: http://www.econ.yale.edu/smith/palgrave7.pdf.">Smith, 2020</a>]</span> gives a great summary of the topic with some examples. See also <span id="id14">[<a class="reference internal" href="../CompMethods_references.html#id34" title="Christian Gourieroux and Alain Monfort. Simulation-based Econometric Methods. Oxford University Press, 1996.">Gourieroux and Monfort, 1996</a>]</span> (ch. 4) for a textbook treatment of the topic.</p>
+<p>Indirect inference is a particular application of SMM with some specific characteristics. As moments to match it uses parameters of an auxiliary model that can be estimated both on the real-world data and on the simulated data. <span id="id13">[<a class="reference internal" href="../CompMethods_references.html#id53" title="Anthony A. Jr. Smith. Indirect inference. In Matias Vernengo, Esteban Perez Caldentey, and Barkley J. Rosser Jr., editors, New Palgrave Dictionary of Economics. Palgrave MacMillan, 2020. URL: http://www.econ.yale.edu/smith/palgrave7.pdf.">Smith, 2020</a>]</span> gives a great summary of the topic with some examples. See also <span id="id14">[<a class="reference internal" href="../CompMethods_references.html#id34" title="Christian Gourieroux and Alain Monfort. Simulation-based Econometric Methods. Oxford University Press, 1996.">Gourieroux and Monfort, 1996</a>]</span> (ch. 4) for a textbook treatment of the topic.</p>
 <section id="restatement-of-the-general-smm-estimation-problem">
 <span id="secsmm-indirinf-smmprob"></span><h3><span class="section-number">19.6.1. </span>Restatement of the general SMM estimation problem<a class="headerlink" href="#restatement-of-the-general-smm-estimation-problem" title="Permalink to this heading">#</a></h3>
 <p>Define a model or data generating process (DGP) as a system of equations,</p>
@@ -2409,7 +2459,7 @@ Also, use the identity matrix as your weighting matrix <span class="math notrans
               
               
                 <footer class="prev-next-footer">
-                  <!-- Previous / next buttons -->
+                  
 <div class="prev-next-area">
     <a class="left-prev"
        href="GMM.html"
@@ -2494,6 +2544,7 @@ By Richard W. Evans
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
       © Copyright 2023.
@@ -2520,8 +2571,8 @@ By Richard W. Evans
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
 
   <footer class="bd-footer">
   </footer>
