@@ -212,7 +212,7 @@ const thebe_selector_output = ".output, .cell_output"
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Structural Estimation</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../struct_est/intro.html">16. Introduction to Structural Estimation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../struct_est/MaxLikelihood.html">17. Maximum Likelihood Estimation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../struct_est/MLE.html">17. Maximum Likelihood Estimation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../struct_est/GMM.html">18. Generalized Method of Moments Estimation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../struct_est/SMM.html">19. Simulated Method of Moments Estimation</a></li>
 </ul>
@@ -997,7 +997,7 @@ A list of all the 163 unique countries in the &quot;shortnam&quot; variable is:
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_2970/3993614049.py:4: SettingWithCopyWarning: 
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_2749/3993614049.py:4: SettingWithCopyWarning: 
 A value is trying to be set on a copy of a slice from a DataFrame
 
 See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
@@ -1641,7 +1641,7 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 </div>
 </div>
 </div>
-<p>We now have the fitted regression model stored in <code class="docutils literal notranslate"><span class="pre">results</span></code> (see <a class="reference external" href="http://www.statsmodels.org/dev/generated/statsmodels.regression.linear_model.RegressionResults.html">statsmodels.regression.linear_model.RegressionResultsWrapper</a>). The <code class="docutils literal notranslate"><span class="pre">results</span></code> from the <code class="docutils literal notranslate"><span class="pre">reg1.fit()</span></code> command is a regression results object with a lot of information, similar to the results object of the <code class="docutils literal notranslate"><span class="pre">scipy.optimize.minimize()</span></code> function we worked with in the <a class="reference internal" href="../struct_est/MaxLikelihood.html#chap-maxlikeli"><span class="std std-ref">Maximum Likelihood Estimation</span></a> and <a class="reference internal" href="../struct_est/GMM.html#chap-gmm"><span class="std std-ref">Generalized Method of Moments Estimation</span></a> chapters.</p>
+<p>We now have the fitted regression model stored in <code class="docutils literal notranslate"><span class="pre">results</span></code> (see <a class="reference external" href="http://www.statsmodels.org/dev/generated/statsmodels.regression.linear_model.RegressionResults.html">statsmodels.regression.linear_model.RegressionResultsWrapper</a>). The <code class="docutils literal notranslate"><span class="pre">results</span></code> from the <code class="docutils literal notranslate"><span class="pre">reg1.fit()</span></code> command is a regression results object with a lot of information, similar to the results object of the <code class="docutils literal notranslate"><span class="pre">scipy.optimize.minimize()</span></code> function we worked with in the <a class="reference internal" href="../struct_est/MLE.html#chap-mle"><span class="std std-ref">Maximum Likelihood Estimation</span></a> and <a class="reference internal" href="../struct_est/GMM.html#chap-gmm"><span class="std std-ref">Generalized Method of Moments Estimation</span></a> chapters.</p>
 <p>To view the OLS regression results, we can call the <code class="docutils literal notranslate"><span class="pre">.summary()</span></code> method.</p>
 <p>[Note that an observation was mistakenly dropped from the results in the original paper (see the note located in <a class="reference external" href="http://maketable2.do">maketable2.do</a> from Acemoglu’s webpage), and thus the coefficients differ slightly.]</p>
 <div class="cell docutils container">
@@ -1657,7 +1657,7 @@ Dep. Variable:               logpgp95   R-squared:                       0.611
 Model:                            OLS   Adj. R-squared:                  0.608
 Method:                 Least Squares   F-statistic:                     171.4
 Date:                Wed, 06 Dec 2023   Prob (F-statistic):           4.16e-24
-Time:                        06:42:57   Log-Likelihood:                -119.71
+Time:                        07:25:45   Log-Likelihood:                -119.71
 No. Observations:                 111   AIC:                             243.4
 Df Residuals:                     109   BIC:                             248.8
 Df Model:                           1                                         
