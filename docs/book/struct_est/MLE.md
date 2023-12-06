@@ -104,26 +104,25 @@ The maximum likelihood estimate of $\rho$, $\mu$, and $\sigma$ is given by the f
 (SecMLE_DistData)=
 ## Comparisons of distributions and data
 
-Import some data from the total points earned by all the students in two sections of an intermediate macroeconomics class for undergraduates at an unnamed University in a certain year (two semesters).
-
-```{code-cell} ipython3
-:tags: ["remove-output"]
-
-# Import the necessary libraries
-import numpy as np
-
-# Download and save the data file Econ381totpts.txt as NumPy array
-url = ('https://raw.githubusercontent.com/OpenSourceEcon/CompMethods/' +
-       'main/data/mle/Econ381totpts.txt')
-data = np.loadtxt(url)
-```
-
-Let's create a histogram of the data.
+Import some data from the total points earned by all the students in two sections of an intermediate macroeconomics class for undergraduates at an unnamed University in a certain year (two semesters). Let's create a histogram of the data.
 
 ```{code-cell} ipython3
 :tags: []
 
+# Import the necessary libraries
+import numpy as np
 import matplotlib.pyplot as plt
+import requests
+
+# Download and save the data file Econ381totpts.txt as NumPy array
+url = ('https://raw.githubusercontent.com/OpenSourceEcon/CompMethods/' +
+       'main/data/mle/Econ381totpts.txt')
+data_file = requests.get(url)
+if data_file.status_code == 200:
+    # Load the downloaded data into a NumPy array
+    data = np.loadtxt(data_file.content)
+else:
+    print('Error downloading the file')
 
 num_bins = 30
 count, bins, ignored = plt.hist(data, num_bins, density=True,
@@ -135,13 +134,13 @@ plt.xlim([0, 550])  # This gives the xmin and xmax to be plotted"
 
 plt.show()
 ```
-```{figure} ../../../images/mle/Econ381scores_hist.png
+<!-- ```{figure} ../../../images/mle/Econ381scores_hist.png
 ---
 height: 500px
 name: FigMLE_EconScoreHist
 ---
 Intermediate macroeconomics midterm scores over two semesters
-```
+``` -->
 
 
 (SecMLE_Exerc)=
