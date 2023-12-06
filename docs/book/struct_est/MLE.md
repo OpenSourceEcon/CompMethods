@@ -208,7 +208,7 @@ def trunc_norm_pdf(xvals, mu, sigma, cut_lb=None, cut_ub=None):
 (SecMLE_LinReg)=
 ## Linear regression with MLE
 
-Although linear regression is most often performed using the ordinary least squares (OLS) estimator, which is a particular type of generalized method of moments (GMM) estimator, this can also be done using MLE. A simple regression specification in which the dependent variable $y_i$ is a linear function of two independent variables $x_{1,i}$ and $x_{2,i}$ is the following:
+Although linear regression is most often performed using the ordinary least squares (OLS) estimator (see the {ref}`SecBasicEmpLinReg` section of the {ref}`Chap_BasicEmpirMethods` chapter), which is a particular type of generalized method of moments (GMM) estimator (see {ref}`Chap_GMM` chapter), these parameters can also be estimated using maximum likelihood estimation (MLE). A simple regression specification in which the dependent variable $y_i$ is a linear function of two independent variables $x_{1,i}$ and $x_{2,i}$ is the following:
 
 ```{math}
     :label: EqMLE_LinReg_eqn
@@ -230,12 +230,145 @@ Note that estimating a linear regression model using MLE has the flexible proper
 (SecMLE_GBfam)=
 ## Generalized beta family of distributions
 
+For {numref}`ExercStructEst_MLE_claims`, you will need to know the functional forms of four continuous univariate probability density functions (PDF's), each of which are part of the generalized beta family of distributions. {numref}`Figure %s <FigMLE_GBtree>` below is the generalized beta family of distributions, taken from Figure 2 of {cite}`McDonaldXu:1995`.
 
+```{figure} ../../../images/mle/GBtree.png
+---
+height: 500px
+name: FigMLE_GBtree
+---
+Generalized beta family of distributions, taken from Fig. 2 of {cite}`McDonaldXu:1995`
+```
+
+(SecMLE_GBfam_LN)=
+### Lognormal distribution (LN, 2 parameters)
+
+The lognormal distribution (LN) is the distribution of the exponential of a normally distributed variable with mean $\mu$ and standard deviation $\sigma$. If the variable $x_i$ is lognormally distributed $x_i\sim LN(\mu,\sigma)$, then the log of $x_i$ is normally distributed $\ln(x_i)\sim N(\mu,\sigma)$. The PDF of the lognormal distribution is the following.
+
+```{math}
+    :label: EqMLE_GBfam_LN
+    \text{(LN):}\quad f(x;\mu,\sigma) = \frac{1}{x\sigma\sqrt{2\pi}}e^{-\frac{[\ln(x)-\mu]^2}{2\sigma^2}},\quad x\in(0,\infty), \:\mu\in(-\infty,\infty),\: \sigma>0
+```
+
+Note that the lognormal distribution has a support that is strictly positive. This is one reason why it is commonly used to approximate income distributions. A household's total income is rarely negative. The lognormal distribution also has a lot of the nice properties of the normal distribution.
+
+(SecMLE_GBfam_GA)=
+### Gamma distribution (GA, 2 parameters)
+
+Another two-parameter distribution with strictly positive support is the gamma (GA) distribution. The pdf of the gamma distribution is the following.
+
+```{math}
+    :label: EqMLE_GBfam_GA
+    \text{(GA):}\quad f(x;\alpha,\beta) = \frac{1}{\beta^\alpha \Gamma(\alpha)}x^{\alpha-1}e^{-\frac{x}{\beta}},\quad x\in[0,\infty), \:\alpha,\beta>0 \\
+    \text{where}\quad \Gamma(z)\equiv\int_0^\infty t^{z-1}e^{-t}dt
+```
+
+The gamma function $\Gamma(\cdot)$ within the gamma (GA) distribution is a common mathematical function that has a preprogrammed function in most programming languages.
+
+(SecMLE_GBfam_GG)=
+### Generalized Gamma distribution (GG, 3 parameters)
+
+The lognormal (LN) and gamma (GA) distributions are both two-parameter distributions and are both special cases of the three-parameter generalized gamma (GG) distribution. The pdf of the generalized gamma distribution is the following.
+
+```{math}
+    :label: EqMLE_GBfam_GG
+    \text{(GG):}\quad f(x;\alpha,\beta,m) = \frac{m}{\beta^\alpha \Gamma\left(\frac{\alpha}{m}\right)}x^{\alpha-1}e^{-\left(\frac{x}{\beta}\right)^m},\quad x\in[0,\infty), \:\alpha,\beta,m>0 \\
+    \text{where}\quad \Gamma(z)\equiv\int_0^\infty t^{z-1}e^{-t}dt
+```
+
+The relationship between the generalized gamma (GG) distribution and the gamma (GA) distribution is straightforward. The GA distribution equals the GG distribution at $m=1$.
+
+```{math}
+    :label: EqMLE_GBfam_GAtoGG
+    GA(\alpha,\beta) = GG(\alpha,\beta,m=1)
+```
+
+The relationship between the generalized gamma (GG) distribution and the lognormal (LN) distribution is less straightforward. The LN distribution equals the GG distribution as $\alpha$ goes to zero, $\beta = (\alpha\sigma)^{\frac{2}{\alpha}}$, and $m = \frac{\alpha\mu+1}{\alpha^2\sigma^2}$. See {cite}`McDonaldEtAl:2013` for derivation.
+
+```{math}
+    :label: EqMLE_GBfam_LNtoGG
+    LN(\mu,\sigma) = \lim_{\alpha\rightarrow 0}GG\left(\alpha,\beta=(\alpha\sigma)^{\frac{2}{\alpha}},m=\frac{\alpha\mu+1}{\alpha^2\sigma^2}\right)
+```
+
+
+(SecMLE_GBfam_GB2)=
+### Generalized beta 2 distribution (GB2, 4 parameters)
+
+The last distribution we describe is the generalized beta 2 (GB2) distribution. Like the GG, GA, and LN distributions, it also has a strictly positive support. The PDF of the generalized beta 2 distribution is the following.
+
+```{math}
+    :label: EqMLE_GBfam_GB2
+    \text{(GB2):}\quad f(x;a,b,p,q) = \frac{a x^{ap-1}}{b^{ap}B(p,q)\left(1 + \left(\frac{x}{b}\right)^a\right)^{p+q}},\quad x\in[0,\infty), \:a,b,p,q>0 \\
+    \quad\text{where}\quad B(v,w)\equiv\int_0^1 t^{v-1}(1-t)^{w-1}dt
+```
+
+The beta function $B(\cdot,\cdot)$ within the GB2 distribution is a common function that has a preprogrammed function in most programming languages. The three-parameter generalized gamma (GG) distribution is a nested case of the four-parameter generalized beta 2 (GB2) distribution as $q$ goes to $\infty$ and for $a=m$, $b=q^{1/m}\beta$, and $p=\frac{\alpha}{m}$. See {cite}`McDonald:1984`, p. 662 for a derivation.
+
+```{math}
+    :label: EqMLE_GBfam_GGtoGB2
+    GG(\alpha,\beta,m) = \lim_{q\rightarrow\infty}GB2\left(a=m,b=q^{1/m}\beta,p=\frac{\alpha}{m},q\right)
+```
+
+The statistical family tree figure above shows the all the relationships between the various PDF's in the generalized beta family of distributions.
 
 
 (SecMLE_Exerc)=
 ## Exercises
 
+```{exercise-start} Health claim amounts and the GB family of distributions
+:label: ExercStructEst_MLE_claims
+:class: green
+```
+For this problem, you will use 10,619 health claims amounts from a fictitious sample of households. These data are in a single column of the text file [`claims.txt`](https://github.com/OpenSourceEcon/CompMethods/blob/main/data/mle/claims.txt) in the online book repository data folder `data/mle/`. This file is a comma separated text file with no labels. Health claim amounts are reported in US dollars. For this exercise, you will need to use the generalized beta family of distributions shown in {numref}`Figure %s <FigMLE_GBtree>` of Section {ref}`SecMLE_GBfam`.
+
+1. Calculate and report the mean, median, maximum, minimum, and standard deviation of monthly health expenditures for these data. Plot two histograms of the data in which the $y$-axis gives the percent of observations in the particular bin of health expenditures and the $x$-axis gives the value of monthly health expenditures. Use percentage histograms in which the height of each bar is the percent of observations in that bin. In the first histogram, use 1,000 bins to plot the frequency of all the data. In the second histogram, use 100 bins to plot the frequency of only monthly health expenditures less-than-or-equal-to \$800 ($x_i\leq 800$). Adjust the frequencies of this second histogram to account for the observations that you have not displayed ($x_i>800$). That is, the heights of the histogram bars in the second histogram should not sum to 1 because you are only displaying a fraction of the data. Comparing the two histograms, why might you prefer the second one?
+2. Using MLE, fit the gamma $GA(x;\alpha,\beta)$ distribution to the individual observation data. Use $\beta_0=Var(x)/E(x)$ and $\alpha_0=E(x)/\beta_0$ as your initial guess. These initial guesses come from the property of the gamma (GA) distribution that $E(x)=\alpha\beta$ and $Var(x)=\alpha\beta^2$. Report your estimated values for $\hat{\alpha}$ and $\hat{\beta}$, as well as the value of the maximized log likelihood function $\ln\mathcal{L}(\hat{\theta})$. Plot the second histogram from part (1) overlayed with a line representing the implied histogram from your estimated gamma (GA) distribution.
+3. Using MLE, fit the generalized gamma $GG(x;\alpha,\beta,m)$ distribution to the individual observation data. Use your estimates for $\alpha$ and $\beta$ from part(2), as well as $m=1$, as your initial guess. Report your estimated values for $\hat{\alpha}$, $\hat{\beta}$, and $\hat{m}$, as well as the value of the maximized log likelihood function $\ln\mathcal{L}$. Plot the second histogram from part (1) overlayed with a line representing the implied histogram from your estimated generalized gamma (GG) distribution.
+4. Using MLE, fit the generalized beta 2 $GB2(x;a,b,p,q)$ distribution to the individual observation data. Use your estimates for $\alpha$, $\beta$, and $m$ from part (3), as well as $q=10,000$, as your initial guess. Report your estimated values for $\hat{a}$, $\hat{b}$, $\hat{p}$, and $\hat{q}$, as well as the value of the maximized log likelihood function $\ln\mathcal{L}$. Plot the second histogram from part(1) overlayed with a line representing the implied histogram from your estimated generalized beta 2 (GB2) distribution.
+5. Perform a likelihood ratio test for each of the estimated in parts (2) and (3), respectively, against the GB2 specification in part (4). This is feasible because each distribution is a nested version of the GB2. The degrees of freedom in the $\chi^2(p)$ is 4, consistent with the GB2. Report the $\chi^2(4)$ values from the likelihood ratio test for the estimated GA and the estimated GG distributions.
+6. Using the estimated GB2 distribution from part (4), how likely am I to have a monthly health care claim of more than \$1,000? How does this amount change if I use the estimated GA distribution from part (2)?
+```{exercise-end}
+```
+
+```{exercise-start} MLE estimation of simple macroeconomic model
+:label: ExercStructEst_MLE_BM72
+:class: green
+```
+You can observe time series data in an economy for the following variables: $(c_t, k_t, w_t, r_t)$. Data on $(c_t, k_t, w_t, r_t)$ can be loaded from the file [`MacroSeries.txt`](https://github.com/OpenSourceEcon/CompMethods/blob/main/data/mle/MacroSeries.txt) in the online book repository data folder `data/mle/`. This file is a comma separated text file with no labels. The variables are ordered as $(c_t, k_t, w_t, r_t)$. These data have 100 periods, which are quarterly (25 years). Suppose you think that the data are generated by a process similar to the {cite}`BrockMirman:1972` paper. A simplified set of characterizing equations of the Brock and Mirman model are the following six equations.
+```{math}
+    :label: EqMLE_BM72_eul
+    (c_t)^{-1} - \beta E\left[r_{t+1}(c_{t+1})^{-1}\right] = 0
+```
+```{math}
+    :label: EqMLE_BM72_bc
+    c_t + k_{t+1} - w_t - r_t k_t = 0
+```
+```{math}
+    :label: EqMLE_BM72_focl
+    w_t - (1-\alpha)e^{z_t}(k_t)^\alpha = 0
+```
+```{math}
+    :label: EqMLE_BM72_fock
+    r_t - \alpha e^{z_t}(k_t)^{\alpha-1} = 0
+```
+```{math}
+    :label: EqMLE_BM72_zt
+    z_t = \rho z_{t-1} + (1-\rho)\mu + \varepsilon_t \quad\text{where}\quad \varepsilon_t\sim N(0,\sigma^2)
+```
+```{math}
+    :label: EqMLE_BM72_prod
+    y_t = e^{z_t}(k_t)^\alpha
+```
+The variable $c_t$ is aggregate consumption in period $t$, $k_{t+1}$ is total household savings and investment in period $t$ for which they receive a return in the next period (this model assumes full depreciation of capital). The wage per unit of labor in period $t$ is $w_t$ and the interest rate or rate of return on investment is $r_t$. Total factor productivity is $z_t$, which follows an AR(1) process given in {eq}`EqMLE_BM72_zt`. The rest of the symbols in the equations are parameters that must be estimated $(\alpha,\beta,\rho,\mu,\sigma)$. The constraints on these parameters are the following.
+\begin{equation*}
+  \alpha,\beta \in (0,1),\quad \mu,\sigma > 0, \quad\rho\in(-1,1)
+\end{equation*}
+Assume that the first observation in the data file variables is $t=1$. Let $k_1$ be the first observation in the data file for the variable $k_t$. Assume that $z_0 = \mu$ so that $z_1= \mu$. Assume that the discount factor is known to be $\beta=0.99$.
+1. Use the data $(w_t, k_t)$ and equations {eq}`EqMLE_BM72_focl` and {eq}`EqMLE_BM72_zt` to estimate the four parameters $(\alpha,\rho,\mu,\sigma)$ by maximum likelihood. Given a guess for the parameters $(\alpha,\rho,\mu,\sigma)$, you can use the two variables from the data $(w_t, k_t)$ and {eq}`EqMLE_BM72_focl` to back out a series for $z_t$. You can then use equation {eq}`EqMLE_BM72_zt` to compute the probability of each $z_t\sim N\Bigl(\rho z_{t-1} + (1-\rho)\mu,\sigma^2\Bigr)$. The maximum likelihood estimate $(\hat{\alpha},\hat{\rho},\hat{\mu},\hat{\sigma})$ maximizes the likelihood function of that normal distribution of $z_t$'s. Report your estimates and the inverse hessian variance-covariance matrix of your estimates.
+2. Now we will estimate the parameters another way. Use the data $(r_t, k_t)$ and equations {eq}`EqMLE_BM72_fock` and {eq}`EqMLE_BM72_zt` to estimate the four parameters $(\alpha,\rho,\mu,\sigma)$ by maximum likelihood. Given a guess for the parameters $(\alpha,\rho,\mu,\sigma)$, you can use the two variables from the data $(r_t, k_t)$ and {eq}`EqMLE_BM72_fock` to back out a series for $z_t$. You can then use equation {eq}`EqMLE_BM72_zt` to compute the probability of each $z_t\sim N\Bigl(\rho z_{t-1} + (1-\rho)\mu,\sigma^2\Bigr)$. The maximum likelihood estimate $(\hat{\alpha},\hat{\rho},\hat{\mu},\hat{\sigma})$ maximizes the likelihood function of that normal distribution of $z_t$'s. Report your estimates and the inverse hessian variance-covariance matrix of your estimates.
+3. According to your estimates from part (1), if investment/savings in the current period is $k_t=7,500,000$ and the productivity shock in the previous period was $z_{t-1} = 10$, what is the probability that the interest rate this period will be greater than $r_t=1$. That is, solve for $Pr(r_t>1|\hat{\theta},k_t,z_{t-1})$. [HINT: Use equation {eq}`EqMLE_BM72_fock` to solve for the $z_t=z^*$ such that $r_t = 1$. Then use {eq}`EqMLE_BM72_zt` to solve for the probability that $z_t > z^*$.]
+```{exercise-end}
+```
 
 
 (SecMLEfootnotes)=
