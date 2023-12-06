@@ -692,8 +692,7 @@ document.write(`
 <span class="kn">from</span> <span class="nn">mpl_toolkits.mplot3d</span> <span class="kn">import</span> <span class="n">Axes3D</span>
 
 
-<span class="c1"># Define function that generates values of a normal pdf</span>
-<span class="k">def</span> <span class="nf">trunc_norm_pdf</span><span class="p">(</span><span class="n">xvals</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">cut_lb</span><span class="p">,</span> <span class="n">cut_ub</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">trunc_norm_pdf</span><span class="p">(</span><span class="n">xvals</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">cut_lb</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cut_ub</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    --------------------------------------------------------------------</span>
 <span class="sd">    Generate pdf values from the normal pdf with mean mu and standard</span>
@@ -747,7 +746,13 @@ document.write(`
 <span class="c1"># Download and save the data file Econ381totpts.txt as NumPy array</span>
 <span class="n">url</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/OpenSourceEcon/CompMethods/&#39;</span> <span class="o">+</span>
        <span class="s1">&#39;main/data/smm/Econ381totpts.txt&#39;</span><span class="p">)</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+<span class="n">data_file</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">allow_redirects</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">open</span><span class="p">(</span><span class="s1">&#39;../../../data/smm/Econ381totpts.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">data_file</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">data_file</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+    <span class="c1"># Load the downloaded data into a NumPy array</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s1">&#39;../../../data/smm/Econ381totpts.txt&#39;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Error downloading the file&#39;</span><span class="p">)</span>
 
 <span class="n">num_bins</span> <span class="o">=</span> <span class="mi">30</span>
 <span class="n">count</span><span class="p">,</span> <span class="n">bins</span><span class="p">,</span> <span class="n">ignored</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span>
@@ -816,8 +821,7 @@ document.write(`
 <span class="kn">import</span> <span class="nn">matplotlib</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">from</span> <span class="nn">mpl_toolkits.mplot3d</span> <span class="kn">import</span> <span class="n">Axes3D</span>
-<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">cm</span>
-<span class="n">cmap1</span> <span class="o">=</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s1">&#39;summer&#39;</span><span class="p">)</span>
+<span class="n">cmap1</span> <span class="o">=</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">colormaps</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s1">&#39;summer&#39;</span><span class="p">)</span>
 
 <span class="c1"># Download and save the data file Econ381totpts.txt</span>
 <span class="n">url</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/OpenSourceEcon/CompMethods/&#39;</span> <span class="o">+</span>
@@ -2229,9 +2233,8 @@ Std. err. sig_hat= 4.258473642422245
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data moments =
 0.08695652173913043 0.17391304347826086 0.6894409937888198 0.049689440993788817
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model moments =
+
+Model moments =
 0.0017391304347826085 0.1820496894409938 0.7702484472049688 0.04596273291925465
 
 Error vector (pct. dev.) = [-0.98        0.04678571  0.11720721 -0.075     ]

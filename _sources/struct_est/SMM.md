@@ -342,8 +342,7 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 
 
-# Define function that generates values of a normal pdf
-def trunc_norm_pdf(xvals, mu, sigma, cut_lb, cut_ub):
+def trunc_norm_pdf(xvals, mu, sigma, cut_lb=None, cut_ub=None):
     '''
     --------------------------------------------------------------------
     Generate pdf values from the normal pdf with mean mu and standard
@@ -397,7 +396,13 @@ def trunc_norm_pdf(xvals, mu, sigma, cut_lb, cut_ub):
 # Download and save the data file Econ381totpts.txt as NumPy array
 url = ('https://raw.githubusercontent.com/OpenSourceEcon/CompMethods/' +
        'main/data/smm/Econ381totpts.txt')
-data = np.loadtxt(url)
+data_file = requests.get(url, allow_redirects=True)
+open('../../../data/smm/Econ381totpts.txt', 'wb').write(data_file.content)
+if data_file.status_code == 200:
+    # Load the downloaded data into a NumPy array
+    data = np.loadtxt('../../../data/smm/Econ381totpts.txt')
+else:
+    print('Error downloading the file')
 
 num_bins = 30
 count, bins, ignored = plt.hist(
@@ -471,8 +476,7 @@ import scipy.optimize as opt
 import matplotlib
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
-from matplotlib import cm
-cmap1 = matplotlib.cm.get_cmap('summer')
+cmap1 = matplotlib.colormaps.get_cmap('summer')
 
 # Download and save the data file Econ381totpts.txt
 url = ('https://raw.githubusercontent.com/OpenSourceEcon/CompMethods/' +

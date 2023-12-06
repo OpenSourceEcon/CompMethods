@@ -472,9 +472,31 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#economic-example">17.1.2. Economic example</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparisons-of-distributions-and-data">17.2. Comparisons of distributions and data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">17.3. Exercises</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">17.4. Footnotes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#application-comparisons-of-distributions-and-data">17.2. Application: Comparisons of distributions and data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-set-up-mle-maximization-minimization-problem">17.2.1. How to set up MLE maximization (minimization) problem</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#the-criterion-function">17.2.1.1. The criterion function</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#the-minimize-function">17.2.1.2. The minimize() function</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#constrained-minimization">17.2.1.3. Constrained minimization</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-variance-covariance-matrix-of-mle">17.3. The variance-covariance matrix of MLE</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hypothesis-testing">17.4. Hypothesis testing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#back-of-the-envelope-two-standard-errors-assuming-normality">17.4.1. Back of the envelope, two standard errors (assuming normality)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#likelihood-ratio-test">17.4.2. Likelihood ratio test</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-regression-with-mle">17.5. Linear regression with MLE</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generalized-beta-family-of-distributions">17.6. Generalized beta family of distributions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lognormal-distribution-ln-2-parameters">17.6.1. Lognormal distribution (LN, 2 parameters)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gamma-distribution-ga-2-parameters">17.6.2. Gamma distribution (GA, 2 parameters)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generalized-gamma-distribution-gg-3-parameters">17.6.3. Generalized Gamma distribution (GG, 3 parameters)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generalized-beta-2-distribution-gb2-4-parameters">17.6.4. Generalized beta 2 distribution (GB2, 4 parameters)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">17.7. Exercises</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">17.8. Footnotes</a></li>
 </ul>
             </nav>
         </div>
@@ -491,7 +513,7 @@ document.write(`
 <p>This chapter describes the maximum likelihood estimation (MLE) method. All data and images from this chapter can be found in the data directory (<a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/data/mle/">./data/mle/</a>) and images directory (<a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/images/mle/">./images/mle/</a>) for the GitHub repository for this online book.</p>
 <section id="general-characterization-of-a-model-and-data-generating-process">
 <span id="secmle-genmodel"></span><h2><span class="section-number">17.1. </span>General characterization of a model and data generating process<a class="headerlink" href="#general-characterization-of-a-model-and-data-generating-process" title="Permalink to this heading">#</a></h2>
-<p>Each of the model estimation approaches that we will discuss in this section on Maximum Likelihood estimation (MLE) and in subsequent sections on generalized method of moments (GMM) and simulated method of moments (SMM) involves choosing values of the parameters of a model to make the model match some number of properties of the data. Define a model or a data generating process (DGP) as,</p>
+<p>Each of the model estimation approaches that we will discuss in this section on Maximum Likelihood estimation (MLE) and in subsequent sections on <a class="reference internal" href="GMM.html#chap-gmm"><span class="std std-ref">Generalized Method of Moments Estimation</span></a> (GMM) and <a class="reference internal" href="SMM.html#chap-smm"><span class="std std-ref">Simulated Method of Moments Estimation</span></a> (SMM) involves choosing values of the parameters of a model to make the model match some number of properties of the data. Define a model or a data generating process (DGP) as,</p>
 <div class="math notranslate nohighlight" id="equation-eqmle-genmod">
 <span class="eqno">(17.1)<a class="headerlink" href="#equation-eqmle-genmod" title="Permalink to this equation">#</a></span>\[    F(x_t, z_t|\theta) = 0\]</div>
 <p>where <span class="math notranslate nohighlight">\(x_t\)</span> and <span class="math notranslate nohighlight">\(z_t\)</span> are variables, <span class="math notranslate nohighlight">\(\theta\)</span> is a vector of parameters, and <span class="math notranslate nohighlight">\(F()\)</span> is the function expressing the relationship between the variables and parameters.</p>
@@ -530,10 +552,10 @@ document.write(`
 <span class="eqno">(17.9)<a class="headerlink" href="#equation-eqmle-genmod-econprodfuncmle" title="Permalink to this equation">#</a></span>\[    (\hat{\rho}_{MLE},\hat{\mu}_{MLE},\hat{\sigma}_{MLE})=(\rho,\mu,\sigma):\quad \max_{\rho,\mu,\sigma}\ln\mathcal{L} = \sum_{t=2}^T \ln\Bigl(f(z_{t+1},z_t|\rho,\mu,\sigma)\Bigr)\]</div>
 </section>
 </section>
-<section id="comparisons-of-distributions-and-data">
-<span id="secmle-distdata"></span><h2><span class="section-number">17.2. </span>Comparisons of distributions and data<a class="headerlink" href="#comparisons-of-distributions-and-data" title="Permalink to this heading">#</a></h2>
-<p>Import some data from the total points earned by all the students in two sections of an intermediate macroeconomics class for undergraduates at an unnamed University in a certain year (two semesters). Let’s create a histogram of the data.</p>
-<div class="cell docutils container">
+<section id="application-comparisons-of-distributions-and-data">
+<span id="secmle-distdata"></span><h2><span class="section-number">17.2. </span>Application: Comparisons of distributions and data<a class="headerlink" href="#application-comparisons-of-distributions-and-data" title="Permalink to this heading">#</a></h2>
+<p>In this section and in the next two chapters on <a class="reference internal" href="GMM.html#chap-gmm"><span class="std std-ref">Generalized Method of Moments Estimation</span></a> and <a class="reference internal" href="SMM.html#chap-smm"><span class="std std-ref">Simulated Method of Moments Estimation</span></a>, we will use an application of fitting a truncated normal distribution to test scores data. We first import some data from the total points earned by all the students in two sections of an intermediate macroeconomics class for undergraduates at an unnamed University in a certain year (two semesters). Let’s create a histogram of the data.</p>
+<div class="cell tag_remove-output docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import the necessary libraries</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -543,13 +565,15 @@ document.write(`
 <span class="c1"># Download and save the data file Econ381totpts.txt as NumPy array</span>
 <span class="n">url</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/OpenSourceEcon/CompMethods/&#39;</span> <span class="o">+</span>
        <span class="s1">&#39;main/data/mle/Econ381totpts.txt&#39;</span><span class="p">)</span>
-<span class="n">data_file</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+<span class="n">data_file</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">allow_redirects</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">open</span><span class="p">(</span><span class="s1">&#39;../../../data/mle/Econ381totpts.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">data_file</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
 <span class="k">if</span> <span class="n">data_file</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
     <span class="c1"># Load the downloaded data into a NumPy array</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">data_file</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s1">&#39;../../../data/mle/Econ381totpts.txt&#39;</span><span class="p">)</span>
 <span class="k">else</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Error downloading the file&#39;</span><span class="p">)</span>
 
+<span class="c1"># Create a histogram of the data</span>
 <span class="n">num_bins</span> <span class="o">=</span> <span class="mi">30</span>
 <span class="n">count</span><span class="p">,</span> <span class="n">bins</span><span class="p">,</span> <span class="n">ignored</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">num_bins</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                                 <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
@@ -562,62 +586,758 @@ document.write(`
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">12</span>
-<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="n">data_file</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="k">if</span> <span class="n">data_file</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
-<span class="g g-Whitespace">     </span><span class="mi">11</span>     <span class="c1"># Load the downloaded data into a NumPy array</span>
-<span class="ne">---&gt; </span><span class="mi">12</span>     <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">data_file</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">13</span> <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">     </span><span class="mi">14</span>     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Error downloading the file&#39;</span><span class="p">)</span>
+</div>
+<figure class="align-default" id="figmle-econscorehist">
+<a class="reference internal image-reference" href="../_images/Econ381scores_hist.png"><img alt="../_images/Econ381scores_hist.png" src="../_images/Econ381scores_hist.png" style="height: 500px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 17.1 </span><span class="caption-text">Intermediate macroeconomics midterm scores over two semesters</span><a class="headerlink" href="#figmle-econscorehist" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Now lets code up a parametric distribution that is flexible enough to fit lots of different distributions of test scores, has the properties we would expect from a distribution of test scores, and is characterized by a minimal number of parameters. In this case, we will use a truncated normal distribution.<a class="footnote-reference brackets" href="#truncnorm" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">sts</span>
 
-<span class="nn">File /usr/share/miniconda3/envs/compmethods-dev/lib/python3.10/site-packages/numpy/lib/npyio.py:1373,</span> in <span class="ni">loadtxt</span><span class="nt">(fname, dtype, comments, delimiter, converters, skiprows, usecols, unpack, ndmin, encoding, max_rows, quotechar, like)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1370</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">delimiter</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">):</span>
-<span class="g g-Whitespace">   </span><span class="mi">1371</span>     <span class="n">delimiter</span> <span class="o">=</span> <span class="n">delimiter</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;latin1&#39;</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">1373</span> <span class="n">arr</span> <span class="o">=</span> <span class="n">_read</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="n">comment</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="n">delimiter</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1374</span>             <span class="n">converters</span><span class="o">=</span><span class="n">converters</span><span class="p">,</span> <span class="n">skiplines</span><span class="o">=</span><span class="n">skiprows</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="n">usecols</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1375</span>             <span class="n">unpack</span><span class="o">=</span><span class="n">unpack</span><span class="p">,</span> <span class="n">ndmin</span><span class="o">=</span><span class="n">ndmin</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="n">encoding</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1376</span>             <span class="n">max_rows</span><span class="o">=</span><span class="n">max_rows</span><span class="p">,</span> <span class="n">quote</span><span class="o">=</span><span class="n">quotechar</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1378</span> <span class="k">return</span> <span class="n">arr</span>
 
-<span class="nn">File /usr/share/miniconda3/envs/compmethods-dev/lib/python3.10/site-packages/numpy/lib/npyio.py:1016,</span> in <span class="ni">_read</span><span class="nt">(fname, delimiter, comment, quote, imaginary_unit, usecols, skiplines, max_rows, converters, ndmin, unpack, dtype, encoding)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1013</span>     <span class="n">data</span> <span class="o">=</span> <span class="n">_preprocess_comments</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">comments</span><span class="p">,</span> <span class="n">encoding</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1015</span> <span class="k">if</span> <span class="n">read_dtype_via_object_chunks</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-<span class="ne">-&gt; </span><span class="mi">1016</span>     <span class="n">arr</span> <span class="o">=</span> <span class="n">_load_from_filelike</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">1017</span>         <span class="n">data</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="n">delimiter</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="n">comment</span><span class="p">,</span> <span class="n">quote</span><span class="o">=</span><span class="n">quote</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1018</span>         <span class="n">imaginary_unit</span><span class="o">=</span><span class="n">imaginary_unit</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1019</span>         <span class="n">usecols</span><span class="o">=</span><span class="n">usecols</span><span class="p">,</span> <span class="n">skiplines</span><span class="o">=</span><span class="n">skiplines</span><span class="p">,</span> <span class="n">max_rows</span><span class="o">=</span><span class="n">max_rows</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1020</span>         <span class="n">converters</span><span class="o">=</span><span class="n">converters</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1021</span>         <span class="n">encoding</span><span class="o">=</span><span class="n">encoding</span><span class="p">,</span> <span class="n">filelike</span><span class="o">=</span><span class="n">filelike</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1022</span>         <span class="n">byte_converters</span><span class="o">=</span><span class="n">byte_converters</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1024</span> <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1025</span>     <span class="c1"># This branch reads the file into chunks of object arrays and then</span>
-<span class="g g-Whitespace">   </span><span class="mi">1026</span>     <span class="c1"># casts them to the desired actual dtype.  This ensures correct</span>
-<span class="g g-Whitespace">   </span><span class="mi">1027</span>     <span class="c1"># string-length and datetime-unit discovery (like `arr.astype()`).</span>
-<span class="g g-Whitespace">   </span><span class="mi">1028</span>     <span class="c1"># Due to chunking, certain error reports are less clear, currently.</span>
-<span class="g g-Whitespace">   </span><span class="mi">1029</span>     <span class="k">if</span> <span class="n">filelike</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">trunc_norm_pdf</span><span class="p">(</span><span class="n">xvals</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">cut_lb</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cut_ub</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    --------------------------------------------------------------------</span>
+<span class="sd">    Generate pdf values from the truncated normal pdf with mean mu and</span>
+<span class="sd">    standard deviation sigma. If the cutoff is given, then the PDF</span>
+<span class="sd">    values are inflated upward to reflect the zero probability on values</span>
+<span class="sd">    above the cutoff. If there is no cutoff given, this function does</span>
+<span class="sd">    the same thing as sp.stats.norm.pdf(x, loc=mu, scale=sigma).</span>
+<span class="sd">    --------------------------------------------------------------------</span>
+<span class="sd">    INPUTS:</span>
+<span class="sd">    xvals  = (N,) vector, values of the normally distributed random</span>
+<span class="sd">             variable</span>
+<span class="sd">    mu     = scalar, mean of the normally distributed random variable</span>
+<span class="sd">    sigma  = scalar &gt; 0, standard deviation of the normally distributed</span>
+<span class="sd">             random variable</span>
+<span class="sd">    cut_lb = scalar or string, =&#39;None&#39; if no cutoff is given, otherwise</span>
+<span class="sd">             is scalar lower bound value of distribution. Values below</span>
+<span class="sd">             this value have zero probability</span>
+<span class="sd">    cut_ub = scalar or string, =&#39;None&#39; if no cutoff is given, otherwise</span>
+<span class="sd">             is scalar upper bound value of distribution. Values above</span>
+<span class="sd">             this value have zero probability</span>
 
-<span class="ne">TypeError</span>: non-string returned while reading data
+<span class="sd">    OTHER FUNCTIONS AND FILES CALLED BY THIS FUNCTION: None</span>
+
+<span class="sd">    OBJECTS CREATED WITHIN FUNCTION:</span>
+<span class="sd">    prob_notcut = scalar</span>
+<span class="sd">    pdf_vals = (N,) vector, normal PDF values for mu and sigma</span>
+<span class="sd">               corresponding to xvals data</span>
+
+<span class="sd">    FILES CREATED BY THIS FUNCTION: None</span>
+
+<span class="sd">    RETURNS: pdf_vals</span>
+<span class="sd">    --------------------------------------------------------------------</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="n">cut_ub</span> <span class="o">==</span> <span class="s1">&#39;None&#39;</span> <span class="ow">and</span> <span class="n">cut_lb</span> <span class="o">==</span> <span class="s1">&#39;None&#39;</span><span class="p">:</span>
+        <span class="n">prob_notcut</span> <span class="o">=</span> <span class="mf">1.0</span>
+    <span class="k">elif</span> <span class="n">cut_ub</span> <span class="o">==</span> <span class="s1">&#39;None&#39;</span> <span class="ow">and</span> <span class="n">cut_lb</span> <span class="o">!=</span> <span class="s1">&#39;None&#39;</span><span class="p">:</span>
+        <span class="n">prob_notcut</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="n">sts</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">cut_lb</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">mu</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">sigma</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">cut_ub</span> <span class="o">!=</span> <span class="s1">&#39;None&#39;</span> <span class="ow">and</span> <span class="n">cut_lb</span> <span class="o">==</span> <span class="s1">&#39;None&#39;</span><span class="p">:</span>
+        <span class="n">prob_notcut</span> <span class="o">=</span> <span class="n">sts</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">cut_ub</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">mu</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">sigma</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">cut_ub</span> <span class="o">!=</span> <span class="s1">&#39;None&#39;</span> <span class="ow">and</span> <span class="n">cut_lb</span> <span class="o">!=</span> <span class="s1">&#39;None&#39;</span><span class="p">:</span>
+        <span class="n">prob_notcut</span> <span class="o">=</span> <span class="p">(</span><span class="n">sts</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">cut_ub</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">mu</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">sigma</span><span class="p">)</span> <span class="o">-</span>
+                       <span class="n">sts</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">cut_lb</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">mu</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">sigma</span><span class="p">))</span>
+
+    <span class="n">pdf_vals</span>    <span class="o">=</span> <span class="p">((</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">sigma</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">))</span> <span class="o">*</span>
+                    <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span> <span class="o">-</span> <span class="p">(</span><span class="n">xvals</span> <span class="o">-</span> <span class="n">mu</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">sigma</span><span class="o">**</span><span class="mi">2</span><span class="p">)))</span> <span class="o">/</span>
+                    <span class="n">prob_notcut</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">pdf_vals</span>
 </pre></div>
 </div>
 </div>
 </div>
-<!-- ```{figure} ../../../images/mle/Econ381scores_hist.png
----
-height: 500px
-name: FigMLE_EconScoreHist
----
-Intermediate macroeconomics midterm scores over two semesters
-``` -->
+<p>Let’s plot the histogram of the intermediate macroeconomics test scores overlayed by two different truncated nameal distributions, each of which with different arbitrary properties. We want to examine what types of properties make the distribution look more or less like the underlying data.</p>
+<div class="cell tag_remove-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot histogram</span>
+<span class="n">num_bins</span> <span class="o">=</span> <span class="mi">30</span>
+<span class="n">count</span><span class="p">,</span> <span class="n">bins</span><span class="p">,</span> <span class="n">ignored</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">num_bins</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Intermediate macro scores: 2011-2012&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Total points&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Percent of scores&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">550</span><span class="p">])</span>  <span class="c1"># This gives the xmin and xmax to be plotted&quot;</span>
+
+<span class="c1"># Plot smooth line with distribution 1</span>
+<span class="n">dist_pts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">450</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
+<span class="n">mu_1</span> <span class="o">=</span> <span class="mi">380</span>
+<span class="n">sig_1</span> <span class="o">=</span> <span class="mi">150</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">dist_pts</span><span class="p">,</span> <span class="n">trunc_norm_pdf</span><span class="p">(</span><span class="n">dist_pts</span><span class="p">,</span> <span class="n">mu_1</span><span class="p">,</span> <span class="n">sig_1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">450</span><span class="p">),</span>
+         <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;1: $\mu$=380,$\sigma$=150&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper left&#39;</span><span class="p">)</span>
+
+<span class="c1"># Plot smooth line with distribution 2</span>
+<span class="n">mu_2</span> <span class="o">=</span> <span class="mi">360</span>
+<span class="n">sig_2</span> <span class="o">=</span> <span class="mi">60</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">dist_pts</span><span class="p">,</span> <span class="n">trunc_norm_pdf</span><span class="p">(</span><span class="n">dist_pts</span><span class="p">,</span> <span class="n">mu_2</span><span class="p">,</span> <span class="n">sig_2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">450</span><span class="p">),</span>
+         <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;2: $\mu$=360,$\sigma$=60&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper left&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<figure class="align-default" id="figmle-econscores2truncs">
+<a class="reference internal image-reference" href="../_images/Econ381scores_2truncs.png"><img alt="../_images/Econ381scores_2truncs.png" src="../_images/Econ381scores_2truncs.png" style="height: 500px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 17.2 </span><span class="caption-text">Intermediate macroeconomics midterm scores over two semesters with two arbitrary truncated normal distributions</span><a class="headerlink" href="#figmle-econscores2truncs" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Which distribution will have the biggest log likelihood function? Why?</p>
+<p>Let’s compute the log likelihood function for this data for both of these distributions.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define log likelihood function for the truncated normal distribution</span>
+<span class="k">def</span> <span class="nf">log_lik_truncnorm</span><span class="p">(</span><span class="n">xvals</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">cut_lb</span><span class="p">,</span> <span class="n">cut_ub</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    --------------------------------------------------------------------</span>
+<span class="sd">    Compute the log likelihood function for data xvals given truncated</span>
+<span class="sd">    normal distribution parameters mu, sigma, cut_lb, cut_ub.</span>
+<span class="sd">    --------------------------------------------------------------------</span>
+<span class="sd">    INPUTS:</span>
+<span class="sd">    xvals  = (N,) vector, values of the normally distributed random</span>
+<span class="sd">             variable</span>
+<span class="sd">    mu     = scalar, mean of the normally distributed random variable</span>
+<span class="sd">    sigma  = scalar &gt; 0, standard deviation of the normally distributed</span>
+<span class="sd">             random variable</span>
+<span class="sd">    cut_lb = scalar or string, =&#39;None&#39; if no cutoff is given, otherwise</span>
+<span class="sd">             is scalar lower bound value of distribution. Values below</span>
+<span class="sd">             this value have zero probability</span>
+<span class="sd">    cut_ub = scalar or string, =&#39;None&#39; if no cutoff is given, otherwise</span>
+<span class="sd">             is scalar upper bound value of distribution. Values above</span>
+<span class="sd">             this value have zero probability</span>
+
+<span class="sd">    OTHER FUNCTIONS AND FILES CALLED BY THIS FUNCTION:</span>
+<span class="sd">        trunc_norm_pdf()</span>
+
+<span class="sd">    OBJECTS CREATED WITHIN FUNCTION:</span>
+<span class="sd">    pdf_vals    = (N,) vector, normal PDF values for mu and sigma</span>
+<span class="sd">                  corresponding to xvals data</span>
+<span class="sd">    ln_pdf_vals = (N,) vector, natural logarithm of normal PDF values</span>
+<span class="sd">                  for mu and sigma corresponding to xvals data</span>
+<span class="sd">    log_lik_val = scalar, value of the log likelihood function</span>
+
+<span class="sd">    FILES CREATED BY THIS FUNCTION: None</span>
+
+<span class="sd">    RETURNS: log_lik_val</span>
+<span class="sd">    --------------------------------------------------------------------</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">pdf_vals</span> <span class="o">=</span> <span class="n">trunc_norm_pdf</span><span class="p">(</span><span class="n">xvals</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">cut_lb</span><span class="p">,</span> <span class="n">cut_ub</span><span class="p">)</span>
+    <span class="n">ln_pdf_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">pdf_vals</span><span class="p">)</span>
+    <span class="n">log_lik_val</span> <span class="o">=</span> <span class="n">ln_pdf_vals</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">log_lik_val</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Log-likelihood 1: &#39;</span><span class="p">,</span> <span class="n">log_lik_truncnorm</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">mu_1</span><span class="p">,</span> <span class="n">sig_1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">450</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Log-likelihood 2: &#39;</span><span class="p">,</span> <span class="n">log_lik_truncnorm</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">mu_2</span><span class="p">,</span> <span class="n">sig_2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">450</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Log-likelihood 1:  -924.3364498667136
+Log-likelihood 2:  -978.3678854857621
+</pre></div>
+</div>
+</div>
+</div>
+<p>Why is the log likelihood value negative? Which distribution is a better fit according to the Log-likelihood value?</p>
+<p>How do we estimate <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span> by maximum likelihood? What values of <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span> will maximize the likelihood function?</p>
+<div class="math notranslate nohighlight" id="equation-eqmle-distdata-maxprob">
+<span class="eqno">(17.10)<a class="headerlink" href="#equation-eqmle-distdata-maxprob" title="Permalink to this equation">#</a></span>\[    (\hat{\mu},\hat{\sigma})_{MLE} = (\mu, \sigma):\quad \max_{\mu,\sigma}\:\ln\,\mathcal{L}=\sum_{i=1}^N\ln\Bigl(f(x_i|\mu,\sigma)\Bigr)\]</div>
+<section id="how-to-set-up-mle-maximization-minimization-problem">
+<span id="secmle-distdata-maxprob"></span><h3><span class="section-number">17.2.1. </span>How to set up MLE maximization (minimization) problem<a class="headerlink" href="#how-to-set-up-mle-maximization-minimization-problem" title="Permalink to this heading">#</a></h3>
+<p>A minimizer is a function that chooses a single value or a vector of values to minimize the result of a scalar-valued function of that vector. Any maximization problem can be restated as a minimization problem. Because minimization problems are more numerically stable and well defined, most numerical optimizers are stated as minimizers. The <a class="reference external" href="https://docs.scipy.org/doc/scipy/tutorial/optimize.html">scipy.optimize</a> library has many types of root-finders and minimizers (see chapter <a class="reference internal" href="../python/SciPy.html#chap-scipy"><span class="std std-ref">SciPy: Root finding, minimizing, interpolation</span></a>). For our maximum likelihood estimation problems, we will use the <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.minimize.html">scipy.optimize.minimize()</a> function.</p>
+<section id="the-criterion-function">
+<span id="secmle-distdata-crit"></span><h4><span class="section-number">17.2.1.1. </span>The criterion function<a class="headerlink" href="#the-criterion-function" title="Permalink to this heading">#</a></h4>
+<p>The first step is to write a function that takes two inputs and returns a scalar value.</p>
+<ol class="arabic simple">
+<li><p>The first input is either a scalar or a vector of values (the object <code class="docutils literal notranslate"><span class="pre">params</span></code> in the function <code class="docutils literal notranslate"><span class="pre">crit()</span></code> below). This object is the value or values being chosen to minimize the criterion function.</p></li>
+<li><p>The second object is Python’s variable length input objects <code class="docutils literal notranslate"><span class="pre">*args</span></code>, which is a tuple of variable length positional arguments. As you will see in the <code class="docutils literal notranslate"><span class="pre">minimize()</span></code> function, all the arguments must be passed into the criterion function in one tuple.</p></li>
+<li><p>Lastly, you must make sure that the scalar criterion value that the function returns is the value of the problem stated as a minimization problem and not a maximization problem. In this case of maximum likelihood estimation, you want the negative of the log likelihood function.</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">crit</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    --------------------------------------------------------------------</span>
+<span class="sd">    This function computes the negative of the log likelihood function</span>
+<span class="sd">    given parameters and data. This is the minimization problem version</span>
+<span class="sd">    of the maximum likelihood optimization problem</span>
+<span class="sd">    --------------------------------------------------------------------</span>
+<span class="sd">    INPUTS:</span>
+<span class="sd">    params = (2,) vector, ([mu, sigma])</span>
+<span class="sd">    mu     = scalar, mean of the normally distributed random variable</span>
+<span class="sd">    sigma  = scalar &gt; 0, standard deviation of the normally distributed</span>
+<span class="sd">             random variable</span>
+<span class="sd">    args   = length 2 tuple, (xvals, cutoff)</span>
+<span class="sd">    xvals  = (N,) vector, values of the normally distributed random</span>
+<span class="sd">             variable</span>
+<span class="sd">    cutoff = scalar or string, =&#39;None&#39; if no cutoff is given, otherwise</span>
+<span class="sd">             is scalar upper bound value of distribution. Values above</span>
+<span class="sd">             this value have zero probability</span>
+
+<span class="sd">    OTHER FUNCTIONS AND FILES CALLED BY THIS FUNCTION:</span>
+<span class="sd">        log_lik_truncnorm()</span>
+
+<span class="sd">    OBJECTS CREATED WITHIN FUNCTION:</span>
+<span class="sd">    log_lik_val = scalar, value of the log likelihood function</span>
+<span class="sd">    neg_log_lik_val = scalar, negative of log_lik_val</span>
+
+<span class="sd">    FILES CREATED BY THIS FUNCTION: None</span>
+
+<span class="sd">    RETURNS: neg_log_lik_val</span>
+<span class="sd">    --------------------------------------------------------------------</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span> <span class="o">=</span> <span class="n">params</span>
+    <span class="n">xvals</span><span class="p">,</span> <span class="n">cut_lb</span><span class="p">,</span> <span class="n">cut_ub</span> <span class="o">=</span> <span class="n">args</span>
+    <span class="n">log_lik_val</span> <span class="o">=</span> <span class="n">log_lik_truncnorm</span><span class="p">(</span><span class="n">xvals</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">cut_lb</span><span class="p">,</span> <span class="n">cut_ub</span><span class="p">)</span>
+    <span class="n">neg_log_lik_val</span> <span class="o">=</span> <span class="o">-</span><span class="n">log_lik_val</span>
+
+    <span class="k">return</span> <span class="n">neg_log_lik_val</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="the-minimize-function">
+<span id="secmle-distdata-min"></span><h4><span class="section-number">17.2.1.2. </span>The minimize() function<a class="headerlink" href="#the-minimize-function" title="Permalink to this heading">#</a></h4>
+<p>The <code class="docutils literal notranslate"><span class="pre">minimize()</span></code> function is shorthand for <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.minimize.html"><code class="docutils literal notranslate"><span class="pre">scipy.optimize.minimize()</span></code></a>. This function returns a dictionary of objects including the solution to the optimization problem and whether the problem actually solved. The <code class="docutils literal notranslate"><span class="pre">minimize</span></code> function has three mandatory arguments, plus a lot of options. You can experiment with the options on the <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.minimize.html"><code class="docutils literal notranslate"><span class="pre">minimize()</span></code> documentation page</a>.</p>
+<ol class="arabic simple">
+<li><p>The first argument of the minimize function is the criterion function (<code class="docutils literal notranslate"><span class="pre">crit()</span></code> in this example) from which the <code class="docutils literal notranslate"><span class="pre">minimize()</span></code> function will test values of the parameters in searching for the minimum value.</p></li>
+<li><p>The second argument is an initial guess for the values of the parameters that minimize the criterion function <code class="docutils literal notranslate"><span class="pre">crit()</span></code>.</p></li>
+<li><p>The third argument is the tuple of all the objects needed to solve the criterion function in <code class="docutils literal notranslate"><span class="pre">crit()</span></code>.</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scipy.optimize</span> <span class="k">as</span> <span class="nn">opt</span>
+
+<span class="n">mu_init</span> <span class="o">=</span> <span class="mi">385</span>  <span class="c1"># mu_2</span>
+<span class="n">sig_init</span> <span class="o">=</span> <span class="mi">120</span>  <span class="c1"># sig_2</span>
+<span class="n">params_init</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">mu_init</span><span class="p">,</span> <span class="n">sig_init</span><span class="p">])</span>
+<span class="n">mle_args</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">450.0</span><span class="p">)</span>
+<span class="n">results_uncstr</span> <span class="o">=</span> <span class="n">opt</span><span class="o">.</span><span class="n">minimize</span><span class="p">(</span><span class="n">crit</span><span class="p">,</span> <span class="n">params_init</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">mle_args</span><span class="p">))</span>
+<span class="n">mu_MLE</span><span class="p">,</span> <span class="n">sig_MLE</span> <span class="o">=</span> <span class="n">results_uncstr</span><span class="o">.</span><span class="n">x</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;mu_MLE=&#39;</span><span class="p">,</span> <span class="n">mu_MLE</span><span class="p">,</span> <span class="s1">&#39; sig_MLE=&#39;</span><span class="p">,</span> <span class="n">sig_MLE</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>mu_MLE= 622.0568242669326  sig_MLE= 198.72391752520062
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">results_uncstr</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  message: Optimization terminated successfully.
+  success: True
+   status: 0
+      fun: 910.5500677658221
+        x: [ 6.221e+02  1.987e+02]
+      nit: 26
+      jac: [ 0.000e+00 -7.629e-06]
+ hess_inv: [[ 6.553e+02  2.913e+02]
+            [ 2.913e+02  2.068e+02]]
+     nfev: 132
+     njev: 44
+</pre></div>
+</div>
+</div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">print(results_uncstr)</span></code> command above shows the contents of the full output of the <code class="docutils literal notranslate"><span class="pre">minimize</span></code> function. These include whether the numerical minimization was successful (<code class="docutils literal notranslate"><span class="pre">success:</span> <span class="pre">True</span></code>), the criterion function value at the optimum (<code class="docutils literal notranslate"><span class="pre">fun</span></code>), the optimal values of the parameters being chosen to minimize the function (<code class="docutils literal notranslate"><span class="pre">x</span></code>), the Jacobian (<code class="docutils literal notranslate"><span class="pre">jac</span></code>, first derivative) of the criterion function with respect to each parameter at the optimum, the inverse Hessian (<code class="docutils literal notranslate"><span class="pre">hess_inv</span></code>, matrix of second derivatives, measure of variance) of the criterian function at the optimum, and measures of how many tries the minimizer used to arrive at the solution (<code class="docutils literal notranslate"><span class="pre">nit</span></code>, <code class="docutils literal notranslate"><span class="pre">nfev</span></code>, <code class="docutils literal notranslate"><span class="pre">njev</span></code>).</p>
+<p>Note that we used initial guesses for <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span> of 385 and 120 and the resulting estimates that minimize the function are surprisingly different from the arbitrarily chose values shown in <a class="reference internal" href="#figmle-econscores2truncs"><span class="std std-numref">Figure 17.2</span></a>. The maximum likelihood estimation problem that we set up arrived at MLE estimates of <span class="math notranslate nohighlight">\(\mu_{MLE}=622.16\)</span> and <span class="math notranslate nohighlight">\(\sigma_{MLE}=198.76\)</span>.</p>
+<p><a class="reference internal" href="#figmle-econscoresmle"><span class="std std-numref">Figure 17.3</span></a> below shows the distribution implied by the maximum likelihood estimates of <span class="math notranslate nohighlight">\(\mu_{MLE}=622.16\)</span> and <span class="math notranslate nohighlight">\(\sigma_{MLE}=198.76\)</span>, along with the other two arbitrarily chosen distributions from <a class="reference internal" href="#figmle-econscores2truncs"><span class="std std-numref">Figure 17.2</span></a> and how they fit the test score data shown in the histogram.</p>
+<div class="cell tag_remove-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot the histogram of the data</span>
+<span class="n">count</span><span class="p">,</span> <span class="n">bins</span><span class="p">,</span> <span class="n">ignored</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">num_bins</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Intermediate macro scores: 2011-2012&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Total points&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Percent of scores&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">550</span><span class="p">])</span>  <span class="c1"># This gives the xmin and xmax to be plotted&quot;</span>
+
+<span class="c1"># Plot the two test distributions from before</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">dist_pts</span><span class="p">,</span> <span class="n">trunc_norm_pdf</span><span class="p">(</span><span class="n">dist_pts</span><span class="p">,</span> <span class="n">mu_1</span><span class="p">,</span> <span class="n">sig_1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">450</span><span class="p">),</span>
+         <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;1: $\mu$=380,$\sigma$=150&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">dist_pts</span><span class="p">,</span> <span class="n">trunc_norm_pdf</span><span class="p">(</span><span class="n">dist_pts</span><span class="p">,</span> <span class="n">mu_2</span><span class="p">,</span> <span class="n">sig_2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">450</span><span class="p">),</span>
+         <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;2: $\mu$=360, $\sigma$=60&#39;</span><span class="p">)</span>
+
+<span class="c1"># Plot the MLE estimated distribution</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">dist_pts</span><span class="p">,</span> <span class="n">trunc_norm_pdf</span><span class="p">(</span><span class="n">dist_pts</span><span class="p">,</span> <span class="n">mu_MLE</span><span class="p">,</span> <span class="n">sig_MLE</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">450</span><span class="p">),</span>
+         <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span>
+         <span class="n">label</span><span class="o">=</span><span class="s1">&#39;3: $\hat{\mu}_</span><span class="si">{MLE}</span><span class="s1">$=622,$\hat{\sigma}_</span><span class="si">{MLE}</span><span class="s1">$=199&#39;</span>
+<span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper left&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<figure class="align-default" id="figmle-econscoresmle">
+<a class="reference internal image-reference" href="../_images/Econ381scores_MLE.png"><img alt="../_images/Econ381scores_MLE.png" src="../_images/Econ381scores_MLE.png" style="height: 500px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 17.3 </span><span class="caption-text">Maximum likelihood estimate of truncated normal distribution to fit intermediate macroeconomics midterm scores over two semesters along with two arbitrary truncated normal distributions</span><a class="headerlink" href="#figmle-econscoresmle" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Why does the black line MLE estimate fit the data better than the other two parameterizations of the truncated normal distribution? How can we verify this? One way to verify that the MLE estimate is better than the other two estimates is to print the log-likelihood values associated with each distribution. As shown below, the log-likelihood value of the MLE estimate is higher than those of the other two arbitrarily chosen distributions.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lnlik_1</span> <span class="o">=</span> <span class="n">log_lik_truncnorm</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">mu_1</span><span class="p">,</span> <span class="n">sig_1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">450</span><span class="p">)</span>
+<span class="n">lnlik_2</span> <span class="o">=</span> <span class="n">log_lik_truncnorm</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">mu_2</span><span class="p">,</span> <span class="n">sig_2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">450</span><span class="p">)</span>
+<span class="n">lnlik_MLE</span> <span class="o">=</span> <span class="n">log_lik_truncnorm</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">mu_MLE</span><span class="p">,</span> <span class="n">sig_MLE</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">450</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Log-likelihood 1: &#39;</span><span class="p">,</span> <span class="n">lnlik_1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Log-likelihood 2: &#39;</span><span class="p">,</span> <span class="n">lnlik_2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;MLE log-likelihood 3: &#39;</span><span class="p">,</span> <span class="n">lnlik_MLE</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Log-likelihood 1:  -924.3364498667136
+Log-likelihood 2:  -978.3678854857621
+MLE log-likelihood 3:  -910.5500677658221
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can also look at a 3D image of the log-likelihood function in the neighborhood of the MLE estimate to see if that looks like a global maximum.</p>
+<div class="cell tag_remove-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mpl_toolkits.mplot3d</span> <span class="kn">import</span> <span class="n">Axes3D</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span>
+<span class="n">cmap1</span> <span class="o">=</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">colormaps</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s1">&#39;summer&#39;</span><span class="p">)</span>
+
+<span class="n">mu_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">350</span><span class="p">,</span> <span class="mi">650</span><span class="p">,</span> <span class="mi">90</span><span class="p">)</span>
+<span class="n">sig_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">210</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">lnlik_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">90</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">mu_ind</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">90</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">sig_ind</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
+        <span class="n">lnlik_vals</span><span class="p">[</span><span class="n">mu_ind</span><span class="p">,</span> <span class="n">sig_ind</span><span class="p">]</span> <span class="o">=</span> \
+            <span class="n">log_lik_truncnorm</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">mu_vals</span><span class="p">[</span><span class="n">mu_ind</span><span class="p">],</span>
+                              <span class="n">sig_vals</span><span class="p">[</span><span class="n">sig_ind</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">450</span><span class="p">)</span>
+
+<span class="n">mu_mesh</span><span class="p">,</span> <span class="n">sig_mesh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">mu_vals</span><span class="p">,</span> <span class="n">sig_vals</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">subplot_kw</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;projection&quot;</span><span class="p">:</span> <span class="s2">&quot;3d&quot;</span><span class="p">})</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">mu_mesh</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">sig_mesh</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">lnlik_vals</span><span class="p">,</span> <span class="n">rstride</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+                <span class="n">cstride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap1</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">mu_MLE</span><span class="p">,</span> <span class="n">sig_MLE</span><span class="p">,</span> <span class="n">lnlik_MLE</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span>
+           <span class="n">s</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;MLE estimate&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">mu_1</span><span class="p">,</span> <span class="n">sig_1</span><span class="p">,</span> <span class="n">lnlik_1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span>
+           <span class="n">s</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Arbitrary dist&#39;n 1&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">mu_2</span><span class="p">,</span> <span class="n">sig_2</span><span class="p">,</span> <span class="n">lnlik_2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span>
+           <span class="n">s</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Arbitrary dist&#39;n 2&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">view_init</span><span class="p">(</span><span class="n">elev</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">azim</span><span class="o">=-</span><span class="mi">20</span><span class="p">,</span> <span class="n">roll</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Log-likelihood function for values of mu and sigma&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\mu$&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\sigma$&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Log-likelihood func.&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<figure class="align-default" id="figmle-surfloglike">
+<a class="reference internal image-reference" href="../_images/Econ381scores_SurfaceLogLike.png"><img alt="../_images/Econ381scores_SurfaceLogLike.png" src="../_images/Econ381scores_SurfaceLogLike.png" style="height: 500px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 17.4 </span><span class="caption-text">Surface of the log-likelihood function for values of <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span> in the neighborhood of the maximum likelihood estimate. The three scatter points represent the log-likelihood values for the two arbitrary parameterizations of the truncated normal distribution and the maximum likelihood estimate.</span><a class="headerlink" href="#figmle-surfloglike" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>From the log-likelihood values printed in the output of the code two cells above, we can see that the far-right scatter point in <a class="reference internal" href="#figmle-surfloglike"><span class="std std-numref">Figure 17.4</span></a> is higher than those of the two arbitrary distributions represented by the other two scatter points. But it is hard to eyeball this from <a class="reference internal" href="#figmle-surfloglike"><span class="std std-numref">Figure 17.4</span></a>. It is informative to note that you get similar log likelihood values for many combinations of <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span> on that flat section of the space.</p>
+<p>If we zoom in on the area around the maximum likelihood estimate, we can see that our MLE values of <span class="math notranslate nohighlight">\(\hat{\mu}_{MLE}=622\)</span> and <span class="math notranslate nohighlight">\(\hat{\sigma}_{MLE}=199\)</span> are in fact optimal.</p>
+<div class="cell tag_remove-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mu_buffer</span> <span class="o">=</span> <span class="mf">0.1</span>
+<span class="n">mu_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span>
+    <span class="n">mu_MLE</span> <span class="o">-</span> <span class="n">mu_buffer</span> <span class="o">*</span> <span class="n">mu_MLE</span><span class="p">,</span> <span class="n">mu_MLE</span> <span class="o">+</span> <span class="n">mu_buffer</span> <span class="o">*</span> <span class="n">mu_MLE</span><span class="p">,</span> <span class="mi">90</span>
+<span class="p">)</span>
+<span class="n">sig_buffer</span> <span class="o">=</span> <span class="mf">0.1</span>
+<span class="n">sig_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span>
+    <span class="n">sig_MLE</span> <span class="o">-</span> <span class="n">sig_buffer</span> <span class="o">*</span> <span class="n">sig_MLE</span><span class="p">,</span> <span class="n">sig_MLE</span> <span class="o">+</span> <span class="n">sig_buffer</span> <span class="o">*</span> <span class="n">sig_MLE</span><span class="p">,</span> <span class="mi">100</span>
+<span class="p">)</span>
+<span class="n">lnlik_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">90</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">mu_ind</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">90</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">sig_ind</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
+        <span class="n">lnlik_vals</span><span class="p">[</span><span class="n">mu_ind</span><span class="p">,</span> <span class="n">sig_ind</span><span class="p">]</span> <span class="o">=</span> \
+            <span class="n">log_lik_truncnorm</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">mu_vals</span><span class="p">[</span><span class="n">mu_ind</span><span class="p">],</span>
+                              <span class="n">sig_vals</span><span class="p">[</span><span class="n">sig_ind</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">450</span><span class="p">)</span>
+
+<span class="n">mu_mesh</span><span class="p">,</span> <span class="n">sig_mesh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">mu_vals</span><span class="p">,</span> <span class="n">sig_vals</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">subplot_kw</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;projection&quot;</span><span class="p">:</span> <span class="s2">&quot;3d&quot;</span><span class="p">})</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">mu_mesh</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">sig_mesh</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">lnlik_vals</span><span class="p">,</span> <span class="n">rstride</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+                <span class="n">cstride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap1</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">mu_MLE</span><span class="p">,</span> <span class="n">sig_MLE</span><span class="p">,</span> <span class="n">lnlik_MLE</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span>
+           <span class="n">s</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;MLE estimate&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">view_init</span><span class="p">(</span><span class="n">elev</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">azim</span><span class="o">=-</span><span class="mi">15</span><span class="p">,</span> <span class="n">roll</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Log-likelihood function for values of mu and sigma&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\mu$&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\sigma$&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Log-likelihood func.&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<figure class="align-default" id="figmle-surfloglikezoom">
+<a class="reference internal image-reference" href="../_images/Econ381scores_SurfaceLogLikeZoom.png"><img alt="../_images/Econ381scores_SurfaceLogLikeZoom.png" src="../_images/Econ381scores_SurfaceLogLikeZoom.png" style="height: 500px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 17.5 </span><span class="caption-text">Zoomed in surface of the log-likelihood function for values of <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span> in the neighborhood of the maximum likelihood estimate. The scatter point in the middle of the ridge represents the maximum likelihood estimate.</span><a class="headerlink" href="#figmle-surfloglikezoom" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>In the zoomed in <a class="reference internal" href="#figmle-surfloglike"><span class="std std-numref">Figure 17.4</span></a>, it looks like there is a ridge cutting diagonally through <span class="math notranslate nohighlight">\((\mu,\sigma)\)</span>-space that gives approximately the same log-likelihood. That is, if you decrease both <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span>, you get about the same log-likelihood. How do you interpret this with respect to the underlying test score data and the distributions we are fitting to it?</p>
+</section>
+<section id="constrained-minimization">
+<span id="secmle-distdata-conmin"></span><h4><span class="section-number">17.2.1.3. </span>Constrained minimization<a class="headerlink" href="#constrained-minimization" title="Permalink to this heading">#</a></h4>
+<p>Because our unconstrained MLE from the previous section gave us an estimate of the truncated normal distribution that was monotonically increasing throughout the range of feasible scores and did not have a decrease in probabilities at the top end of the score distribution (<span class="math notranslate nohighlight">\(\mu&gt;450\)</span>, see <a class="reference internal" href="#figmle-econscoresmle"><span class="std std-numref">Figure 17.3</span></a>), we might want to run our maximization (minimization) problem with some constraints. For example, we might want to constrain the maximum of the truncated normal distribution <span class="math notranslate nohighlight">\(\mu\)</span> to be between 350 and 420, corresponding to the largest mass of the data. And, although we didn’t have any problems with this in our unconstrained estimation, we know that the parameter <span class="math notranslate nohighlight">\(\sigma\)</span> represents the standard deviation of the underlying normal distribution and, therefore, must be strictly positive.</p>
+<p>We can modify our original maximization problem to be a constrained maximization problem.</p>
+<div class="math notranslate nohighlight" id="equation-eqmle-distdata-conmaxprob">
+<span class="eqno">(17.11)<a class="headerlink" href="#equation-eqmle-distdata-conmaxprob" title="Permalink to this equation">#</a></span>\[\begin{split}    (\hat{\mu},\hat{\sigma})_{MLE} = (\mu, \sigma):\quad \max_{\mu,\sigma}\:\ln\,\mathcal{L}=\sum_{i=1}^N\ln\Bigl(f(x_i|\mu,\sigma)\Bigr) \\
+    \text{s.t.}\quad \mu\in[350,420], \quad \sigma&gt;0\end{split}\]</div>
+<p>The <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.minimize.html"><code class="docutils literal notranslate"><span class="pre">minimize()</span></code></a> function has many methods that can be used to find the parameter values that minimize some criterion function. These methods are called using the <code class="docutils literal notranslate"><span class="pre">method='MethodName'</span></code> optional input argument to the minimize function. Three of those methods allow for constrained minimization by providing upper and lower bounds for the parameters being chosen. These three methods are <code class="docutils literal notranslate"><span class="pre">'L-BFGS-B'</span></code>, <code class="docutils literal notranslate"><span class="pre">'TNC'</span></code>, <code class="docutils literal notranslate"><span class="pre">'SLSQP'</span></code>, and <code class="docutils literal notranslate"><span class="pre">'trust-constr'</span></code>.</p>
+<p>Let’s try the constrained maximum likelihood estimation of the maximization problem in <a class="reference internal" href="#equation-eqmle-distdata-conmaxprob">(17.11)</a>. This problem constrains <span class="math notranslate nohighlight">\(\mu\in[350,420]\)</span> and <span class="math notranslate nohighlight">\(\sigma\in(0,\infty)\)</span>. You could include these bounds in a constrained minimization by using the following code.</p>
+<p>Note that you must set the lower bound of <span class="math notranslate nohighlight">\(\sigma\)</span> equal to some small positive number close to zero. You cannot set it to zero itself because the bounds are inclusive. That is, the minimizer might try a value of <span class="math notranslate nohighlight">\(\sigma=0\)</span> is the lower bound includes zero.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">params_init</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">400</span><span class="p">,</span> <span class="mi">80</span><span class="p">])</span>
+<span class="n">results_cstr</span> <span class="o">=</span> <span class="n">opt</span><span class="o">.</span><span class="n">minimize</span><span class="p">(</span><span class="n">crit</span><span class="p">,</span> <span class="n">params_init</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">mle_args</span><span class="p">),</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;L-BFGS-B&#39;</span><span class="p">,</span>
+                            <span class="n">bounds</span><span class="o">=</span><span class="p">((</span><span class="mi">350</span><span class="p">,</span> <span class="mi">420</span><span class="p">),</span> <span class="p">(</span><span class="mf">1e-10</span><span class="p">,</span> <span class="kc">None</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">results_cstr</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  message: CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_&lt;=_PGTOL
+  success: True
+   status: 0
+      fun: 913.1743336878026
+        x: [ 4.200e+02  1.290e+02]
+      nit: 12
+      jac: [-6.000e-02  0.000e+00]
+     nfev: 42
+     njev: 14
+ hess_inv: &lt;2x2 LbfgsInvHessProduct with dtype=float64&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mu_MLE_constr</span><span class="p">,</span> <span class="n">sig_MLE_constr</span> <span class="o">=</span> <span class="n">results_cstr</span><span class="o">.</span><span class="n">x</span>
+<span class="nb">print</span><span class="p">(</span>
+    <span class="s1">&#39;Constrained mu_MLE:&#39;</span><span class="p">,</span> <span class="n">mu_MLE_constr</span><span class="p">,</span>
+    <span class="s1">&#39; ,Constrained sig_MLE:&#39;</span><span class="p">,</span> <span class="n">sig_MLE_constr</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Constrained mu_MLE: 420.0  ,Constrained sig_MLE: 129.04049403351485
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Inverse Hessian:&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">results_cstr</span><span class="o">.</span><span class="n">hess_inv</span><span class="o">.</span><span class="n">todense</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Inverse Hessian:
+[[230.45927366  90.3562791 ]
+ [ 90.3562791   96.12020176]]
+</pre></div>
+</div>
+</div>
+</div>
+<p>The results are interesting. The minimizer chooses a <span class="math notranslate nohighlight">\(\mu\)</span> value that goes right up to the upper bound constraint of <span class="math notranslate nohighlight">\(\mu=420\)</span>. We can see from the Jacobian that this is not likely a global maximum because the derivative of the likelihood function with respect to <span class="math notranslate nohighlight">\(\mu\)</span> is significantly different from 0. We can also see that the log-likelihood function value at the constrained maximum is -913.17 (the negative of the value in <code class="docutils literal notranslate"><span class="pre">fun</span></code>). This is less than the log-likelihood value of the MLE estimate in the unconstrained problem.</p>
+<p>The constrained minimizer is trying to get up to the unconstrained solution but is blocked by the constraints we imposed in the <code class="docutils literal notranslate"><span class="pre">minimize()</span></code> function. <a class="reference internal" href="#figmle-econscoresmleconstr"><span class="std std-numref">Figure 17.6</span></a> shows the constrained MLE truncated normal versus the unconstrained MLE truncated normal versus the data.</p>
+<div class="cell tag_remove-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot the histogram of the data</span>
+<span class="n">count</span><span class="p">,</span> <span class="n">bins</span><span class="p">,</span> <span class="n">ignored</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">num_bins</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Intermediate macro scores: 2011-2012&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Total points&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Percent of scores&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">550</span><span class="p">])</span>  <span class="c1"># This gives the xmin and xmax to be plotted&quot;</span>
+
+<span class="c1"># Plot the constrained MLD estimated distribution</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">dist_pts</span><span class="p">,</span>
+    <span class="n">trunc_norm_pdf</span><span class="p">(</span><span class="n">dist_pts</span><span class="p">,</span> <span class="n">mu_MLE_constr</span><span class="p">,</span> <span class="n">sig_MLE_constr</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">450</span><span class="p">),</span>
+    <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Constr: $\hat{\mu}_</span><span class="si">{MLE}</span><span class="s1">$=420,$\hat{\sigma}_</span><span class="si">{MLE}</span><span class="s1">$=129&#39;</span>
+<span class="p">)</span>
+
+<span class="c1"># Plot the unconstrained MLE estimated distribution</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">dist_pts</span><span class="p">,</span>
+    <span class="n">trunc_norm_pdf</span><span class="p">(</span><span class="n">dist_pts</span><span class="p">,</span> <span class="n">mu_MLE</span><span class="p">,</span> <span class="n">sig_MLE</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">450</span><span class="p">),</span>
+    <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Unconstr: $\hat{\mu}_</span><span class="si">{MLE}</span><span class="s1">$=622,$\hat{\sigma}_</span><span class="si">{MLE}</span><span class="s1">$=199&#39;</span>
+<span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper left&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<figure class="align-default" id="figmle-econscoresmleconstr">
+<a class="reference internal image-reference" href="../_images/Econ381scores_MLEconstr.png"><img alt="../_images/Econ381scores_MLEconstr.png" src="../_images/Econ381scores_MLEconstr.png" style="height: 500px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 17.6 </span><span class="caption-text">Constrained maximum likelihood estimate of truncated normal distribution to fit intermediate macroeconomics midterm scores over two semesters along with unconstrained MLE estimate.</span><a class="headerlink" href="#figmle-econscoresmleconstr" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+</section>
+<section id="the-variance-covariance-matrix-of-mle">
+<span id="secmle-varcov"></span><h2><span class="section-number">17.3. </span>The variance-covariance matrix of MLE<a class="headerlink" href="#the-variance-covariance-matrix-of-mle" title="Permalink to this heading">#</a></h2>
+<p><span id="id3">[<a class="reference internal" href="../CompMethods_references.html#id22" title="Russell Davidson and James G. MacKinnon. Econometric Theory and Methods. Oxford University Press, 2004.">Davidson and MacKinnon, 2004</a>]</span>, section 10.4 has a great discussion four different estimators for the variance-covariance matrix of the maximum likelihood estimates. That is, we want to know what is the variance or uncertainty of our estimates for <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span>, and how are those two estimates correlated. The four most common estimators for the VCV matrix of a maximum likelihood estimate are:</p>
+<ol class="arabic simple">
+<li><p>Empirical Hessian estimator (H)</p></li>
+<li><p>Information matrix estimator (I)</p></li>
+<li><p>Outer-product-of-the-gradient estimator (OPG)</p></li>
+<li><p>Sandwich estimator (S)</p></li>
+</ol>
+<p>All of these estimators of the VCV matrix intuitively measure how flat the likelihood function is at the estimated parameter values in the dimension of each estimated parameter. The Hessian is a matrix of second derivatives of the log-likelihood function with respect to the parameters being chosen. The Hessian matrix therefore captures information about how the slope of the log-likelihood function is changing in each direction. The empirical Hessian estimator is the most commonly used. One really nice property of Python’s <code class="docutils literal notranslate"><span class="pre">minimize()</span></code> function is that one of the result objects is the inverse Hessian, which is one of our estimates of the variance-covariance matrix of our estimated parameters.</p>
+<div class="math notranslate nohighlight" id="equation-eqmle-varcov-invh">
+<span class="eqno">(17.12)<a class="headerlink" href="#equation-eqmle-varcov-invh" title="Permalink to this equation">#</a></span>\[    \hat{VAR}_H(\hat{\theta}) =-H^{-1}(\hat{\theta})\]</div>
+<p>Going back to our unconstrained MLE estimates of <span class="math notranslate nohighlight">\(\hat{\mu}_{MLE}=622\)</span> and <span class="math notranslate nohighlight">\(\hat{\sigma}_{MLE}=199\)</span> stored in the <code class="docutils literal notranslate"><span class="pre">results_uncstr</span></code> object, our estimate of the variance-covariance matrix of our MLE estimates is the inverse Hessian. Because the diagonal elements of the variance-covariance matrix of the MLE estimates represents the variance of each parameter, the standard errors for each parameter are just the respective square roots of each of the diagonal elements of the matrix.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">vcv_mle</span> <span class="o">=</span> <span class="n">results_uncstr</span><span class="o">.</span><span class="n">hess_inv</span>
+
+<span class="n">stderr_mu_mle</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">vcv_mle</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">stderr_sig_mle</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">vcv_mle</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;VCV(MLE) = &#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">vcv_mle</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Standard error for mu estimate = &#39;</span><span class="p">,</span> <span class="n">stderr_mu_mle</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Standard error for sigma estimate = &#39;</span><span class="p">,</span> <span class="n">stderr_sig_mle</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>VCV(MLE) = 
+[[655.32159868 291.29484286]
+ [291.29484286 206.8165135 ]]
+Standard error for mu estimate =  25.599249963134753
+Standard error for sigma estimate =  14.381116559729868
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="hypothesis-testing">
+<span id="secmle-hypoth"></span><h2><span class="section-number">17.4. </span>Hypothesis testing<a class="headerlink" href="#hypothesis-testing" title="Permalink to this heading">#</a></h2>
+<p>Can we reject the hypothesis that <span class="math notranslate nohighlight">\(\mu_1=380\)</span> and <span class="math notranslate nohighlight">\(\sigma_1=150\)</span> with 95% confidence? How do you answer that question? What does the figure tell us about this answer? In this section, we will discuss four ways to perform hypothesis testing.</p>
+<ol class="arabic simple">
+<li><p>Two standard errors (back of the envelope, approximation)</p></li>
+<li><p>Likelihood ratio test</p></li>
+<li><p>Wald test</p></li>
+<li><p>Lagrange multiplier test</p></li>
+</ol>
+<p><span id="id4">[<a class="reference internal" href="../CompMethods_references.html#id22" title="Russell Davidson and James G. MacKinnon. Econometric Theory and Methods. Oxford University Press, 2004.">Davidson and MacKinnon, 2004</a>]</span>, section 10.5 has a more detailed discussion of methods 2, 3, and 4.</p>
+<section id="back-of-the-envelope-two-standard-errors-assuming-normality">
+<span id="secmle-hypoth-2se"></span><h3><span class="section-number">17.4.1. </span>Back of the envelope, two standard errors (assuming normality)<a class="headerlink" href="#back-of-the-envelope-two-standard-errors-assuming-normality" title="Permalink to this heading">#</a></h3>
+<p>A really quick approach to hypothesis testing is to see if your hypothesized values are within two standard errors of the estimated values. This approach is not completely correct because estimates in the log likelihood function are not symmetrically distributed. But it is at least a first approximation.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lb_mu_95pctci</span> <span class="o">=</span> <span class="n">mu_MLE</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">stderr_mu_mle</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;mu_1=&#39;</span><span class="p">,</span> <span class="n">mu_1</span><span class="p">,</span> <span class="s1">&#39;, lower bound 95</span><span class="si">% c</span><span class="s1">onf. int.=&#39;</span><span class="p">,</span> <span class="n">lb_mu_95pctci</span><span class="p">)</span>
+
+<span class="n">lb_sig_95pctci</span> <span class="o">=</span> <span class="n">sig_MLE</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">stderr_sig_mle</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;sig_1=&#39;</span><span class="p">,</span> <span class="n">sig_1</span><span class="p">,</span> <span class="s1">&#39;, lower bound 95</span><span class="si">% c</span><span class="s1">onf. int.=&#39;</span><span class="p">,</span> <span class="n">lb_sig_95pctci</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>mu_1= 380 , lower bound 95% conf. int.= 570.8583243406631
+sig_1= 150 , lower bound 95% conf. int.= 169.96168440574087
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="likelihood-ratio-test">
+<span id="secmle-hypoth-lr"></span><h3><span class="section-number">17.4.2. </span>Likelihood ratio test<a class="headerlink" href="#likelihood-ratio-test" title="Permalink to this heading">#</a></h3>
+<p>The likelihood ratio test is a joint test of all the parameters. It is the simplest and, therefore, the most common of the three more precise methods (2, 3, and 4). Let your maximum likelihood estimation have <span class="math notranslate nohighlight">\(p\)</span> parameters (the vector <span class="math notranslate nohighlight">\(\theta\)</span> has <span class="math notranslate nohighlight">\(p\)</span> elements), let <span class="math notranslate nohighlight">\(\hat{\theta}_{MLE}\)</span> be the maximum likelihood estimate, and let <span class="math notranslate nohighlight">\(\tilde{\theta}\)</span> be your hypothesized values of the parameters. The likelihood ratio test statistic is the following.</p>
+<div class="math notranslate nohighlight" id="equation-eqmle-hypoth-lr">
+<span class="eqno">(17.13)<a class="headerlink" href="#equation-eqmle-hypoth-lr" title="Permalink to this equation">#</a></span>\[    LR(\tilde{\theta}|\hat{\theta}_{MLE}) = 2\Bigl(\ln\ell(\hat{\theta}_{MLE}) - \ln\ell(\tilde{\theta})\Bigr) \sim \chi^2(p)\]</div>
+<p>Note that this is a joint test of the likelihood of <span class="math notranslate nohighlight">\(H_0: \mu_0, \sigma_0\)</span>. The value of the <span class="math notranslate nohighlight">\(\chi^2(p)\)</span> has the following interpretation. The area under the <span class="math notranslate nohighlight">\(\chi^2(p)\)</span> pdf from <span class="math notranslate nohighlight">\(LR\)</span> and above is the significance level or <span class="math notranslate nohighlight">\(p\)</span>-value. It represents the probability that the null hypothesis <span class="math notranslate nohighlight">\(\tilde{\theta}\)</span> is true given the MLE estimate <span class="math notranslate nohighlight">\(\hat{\theta}_{MLE}\)</span>. More precisely, it represents the probability of null hypotheses with LR test statistics greater than or equal to (worse) the LR statistic from the null hypothese <span class="math notranslate nohighlight">\(\tilde{\theta}\)</span>. When this <span class="math notranslate nohighlight">\(p\)</span>-value is small, it it highly unlikely that the null hypothesis is true. You can calculate the <span class="math notranslate nohighlight">\(\chi^2(p)\)</span> significance level by taking one minus the cdf of <span class="math notranslate nohighlight">\(\chi^2(p)\)</span> at the <span class="math notranslate nohighlight">\(LR\)</span> value.</p>
+<p>Let’s test the likelihood that the constrained MLE parameters from the previous section (<span class="math notranslate nohighlight">\(\hat{\mu}_{cstr}=420\)</span>, <span class="math notranslate nohighlight">\(\hat{\sigma}_{cstr}=129\)</span>) are from the true distribution given that the unconstrained MLE parameters (<span class="math notranslate nohighlight">\(\hat{\mu}_{uncstr}=622\)</span>, <span class="math notranslate nohighlight">\(\hat{\sigma}_{cstr}=199\)</span>) represent the truth.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Constrained mu_MLE:&#39;</span><span class="p">,</span> <span class="n">mu_MLE_constr</span><span class="p">,</span>
+      <span class="s1">&#39;, Constrained sigma_MLE:&#39;</span><span class="p">,</span> <span class="n">sig_MLE_constr</span><span class="p">)</span>
+<span class="n">log_lik_h0</span> <span class="o">=</span> <span class="n">log_lik_truncnorm</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">mu_MLE_constr</span><span class="p">,</span> <span class="n">sig_MLE_constr</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">450</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;hypothesis value log likelihood&#39;</span><span class="p">,</span> <span class="n">log_lik_h0</span><span class="p">)</span>
+<span class="n">log_lik_mle</span> <span class="o">=</span> <span class="n">log_lik_truncnorm</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">mu_MLE</span><span class="p">,</span> <span class="n">sig_MLE</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">450</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;MLE log likelihood&#39;</span><span class="p">,</span> <span class="n">log_lik_mle</span><span class="p">)</span>
+<span class="n">LR_val</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">log_lik_mle</span> <span class="o">-</span> <span class="n">log_lik_h0</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;likelihood ratio value&#39;</span><span class="p">,</span> <span class="n">LR_val</span><span class="p">)</span>
+<span class="n">pval_h0</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="n">sts</span><span class="o">.</span><span class="n">chi2</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">LR_val</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;chi squared of H0 with 2 degrees of freedom p-value = &#39;</span><span class="p">,</span> <span class="n">pval_h0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Constrained mu_MLE: 420.0 , Constrained sigma_MLE: 129.04049403351485
+hypothesis value log likelihood -913.1743336878026
+MLE log likelihood -910.5500677658221
+likelihood ratio value 5.248531843961018
+chi squared of H0 with 2 degrees of freedom p-value =  0.07249295299022973
+</pre></div>
+</div>
+</div>
+</div>
+<p>That <span class="math notranslate nohighlight">\(p\)</span>-value of 0.072 actually represents a higher significance than the back-of-the-envelope method from the previous section would suggest. This is because the constrained solution lies along that ridge of high log-likelihood shown in <a class="reference internal" href="#figmle-surfloglikezoom"><span class="std std-numref">Figure 17.5</span></a>.</p>
+</section>
+</section>
+<section id="linear-regression-with-mle">
+<span id="secmle-linreg"></span><h2><span class="section-number">17.5. </span>Linear regression with MLE<a class="headerlink" href="#linear-regression-with-mle" title="Permalink to this heading">#</a></h2>
+<p>Although linear regression is most often performed using the ordinary least squares (OLS) estimator (see the <a class="reference internal" href="../basic_empirics/BasicEmpirMethods.html#secbasicemplinreg"><span class="std std-ref">Basic Understanding of Linear Regression</span></a> section of the <a class="reference internal" href="../basic_empirics/BasicEmpirMethods.html#chap-basicempirmethods"><span class="std std-ref">Basic Empirical Methods</span></a> chapter), which is a particular type of generalized method of moments (GMM) estimator (see <a class="reference internal" href="GMM.html#chap-gmm"><span class="std std-ref">Generalized Method of Moments Estimation</span></a> chapter), these parameters can also be estimated using maximum likelihood estimation (MLE). A simple regression specification in which the dependent variable <span class="math notranslate nohighlight">\(y_i\)</span> is a linear function of two independent variables <span class="math notranslate nohighlight">\(x_{1,i}\)</span> and <span class="math notranslate nohighlight">\(x_{2,i}\)</span> is the following:</p>
+<div class="math notranslate nohighlight" id="equation-eqmle-linreg-eqn">
+<span class="eqno">(17.14)<a class="headerlink" href="#equation-eqmle-linreg-eqn" title="Permalink to this equation">#</a></span>\[    y_i = \beta_0 + \beta_1 x_{1,i} + \beta_2 x_{2,i} + \varepsilon_i \quad\text{where}\quad \varepsilon_i\sim N\left(0,\sigma^2\right)\]</div>
+<p>If we solve this regression equation for the error term <span class="math notranslate nohighlight">\(\varepsilon_i\)</span>, we can start to see how we might estimate the parameters of the model by maximum likelihood.</p>
+<div class="math notranslate nohighlight" id="equation-eqmle-linreg-eps">
+<span class="eqno">(17.15)<a class="headerlink" href="#equation-eqmle-linreg-eps" title="Permalink to this equation">#</a></span>\[    \varepsilon_i = y_i - \beta_0 - \beta_1 x_{1,i} - \beta_2 x_{2,i} \sim N\left(0,\sigma^2\right)\]</div>
+<p>The parameters of the regression model are <span class="math notranslate nohighlight">\((\beta_0, \beta_1, \beta_2, \sigma)\)</span>. Given some data <span class="math notranslate nohighlight">\((y_i, x_{1,i}, x_{2,i})\)</span> and given some parameter values <span class="math notranslate nohighlight">\((\beta_0, \beta_1, \beta_2, \sigma)\)</span>, we could plot a histogram of the distribution of those error terms. And we could compare that empirical histogram to the assumed histogram of the distribution of the errors <span class="math notranslate nohighlight">\(N(0,\sigma^2)\)</span>. ML estimation of this regression equation is to choose the paramters <span class="math notranslate nohighlight">\((\beta_0, \beta_1, \beta_2, \sigma)\)</span> to make that empirical distribution of errors <span class="math notranslate nohighlight">\(\varepsilon_i\)</span> most closely match the assumed distribution of errors <span class="math notranslate nohighlight">\(N(0,\sigma^2)\)</span>.</p>
+<p>Note that estimating a linear regression model using MLE has the flexible property of being able to accomodate any distribution of the error terms, and not just normally distributed errors.</p>
+</section>
+<section id="generalized-beta-family-of-distributions">
+<span id="secmle-gbfam"></span><h2><span class="section-number">17.6. </span>Generalized beta family of distributions<a class="headerlink" href="#generalized-beta-family-of-distributions" title="Permalink to this heading">#</a></h2>
+<p>For <a class="reference internal" href="#ExercStructEst_MLE_claims"><span class="std std-numref">Exercise 17.1</span></a>, you will need to know the functional forms of four continuous univariate probability density functions (PDF’s), each of which are part of the generalized beta family of distributions. <a class="reference internal" href="#figmle-gbtree"><span class="std std-numref">Figure 17.7</span></a> below is the generalized beta family of distributions, taken from Figure 2 of <span id="id5">[<a class="reference internal" href="../CompMethods_references.html#id43" title="James B. McDonald and Yexiao Xu. A generalization of the beta distribution with applications. Journal of Econometrics, 66(1-2):133-152, March-April 1995.">McDonald and Xu, 1995</a>]</span>.</p>
+<figure class="align-default" id="figmle-gbtree">
+<a class="reference internal image-reference" href="../_images/GBtree.png"><img alt="../_images/GBtree.png" src="../_images/GBtree.png" style="height: 500px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 17.7 </span><span class="caption-text">Generalized beta family of distributions, taken from Fig. 2 of <span id="id6">[<a class="reference internal" href="../CompMethods_references.html#id43" title="James B. McDonald and Yexiao Xu. A generalization of the beta distribution with applications. Journal of Econometrics, 66(1-2):133-152, March-April 1995.">McDonald and Xu, 1995</a>]</span></span><a class="headerlink" href="#figmle-gbtree" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="lognormal-distribution-ln-2-parameters">
+<span id="secmle-gbfam-ln"></span><h3><span class="section-number">17.6.1. </span>Lognormal distribution (LN, 2 parameters)<a class="headerlink" href="#lognormal-distribution-ln-2-parameters" title="Permalink to this heading">#</a></h3>
+<p>The lognormal distribution (LN) is the distribution of the exponential of a normally distributed variable with mean <span class="math notranslate nohighlight">\(\mu\)</span> and standard deviation <span class="math notranslate nohighlight">\(\sigma\)</span>. If the variable <span class="math notranslate nohighlight">\(x_i\)</span> is lognormally distributed <span class="math notranslate nohighlight">\(x_i\sim LN(\mu,\sigma)\)</span>, then the log of <span class="math notranslate nohighlight">\(x_i\)</span> is normally distributed <span class="math notranslate nohighlight">\(\ln(x_i)\sim N(\mu,\sigma)\)</span>. The PDF of the lognormal distribution is the following.</p>
+<div class="math notranslate nohighlight" id="equation-eqmle-gbfam-ln">
+<span class="eqno">(17.16)<a class="headerlink" href="#equation-eqmle-gbfam-ln" title="Permalink to this equation">#</a></span>\[    \text{(LN):}\quad f(x;\mu,\sigma) = \frac{1}{x\sigma\sqrt{2\pi}}e^{-\frac{[\ln(x)-\mu]^2}{2\sigma^2}},\quad x\in(0,\infty), \:\mu\in(-\infty,\infty),\: \sigma&gt;0\]</div>
+<p>Note that the lognormal distribution has a support that is strictly positive. This is one reason why it is commonly used to approximate income distributions. A household’s total income is rarely negative. The lognormal distribution also has a lot of the nice properties of the normal distribution.</p>
+</section>
+<section id="gamma-distribution-ga-2-parameters">
+<span id="secmle-gbfam-ga"></span><h3><span class="section-number">17.6.2. </span>Gamma distribution (GA, 2 parameters)<a class="headerlink" href="#gamma-distribution-ga-2-parameters" title="Permalink to this heading">#</a></h3>
+<p>Another two-parameter distribution with strictly positive support is the gamma (GA) distribution. The pdf of the gamma distribution is the following.</p>
+<div class="math notranslate nohighlight" id="equation-eqmle-gbfam-ga">
+<span class="eqno">(17.17)<a class="headerlink" href="#equation-eqmle-gbfam-ga" title="Permalink to this equation">#</a></span>\[\begin{split}    \text{(GA):}\quad f(x;\alpha,\beta) = \frac{1}{\beta^\alpha \Gamma(\alpha)}x^{\alpha-1}e^{-\frac{x}{\beta}},\quad x\in[0,\infty), \:\alpha,\beta&gt;0 \\
+    \text{where}\quad \Gamma(z)\equiv\int_0^\infty t^{z-1}e^{-t}dt\end{split}\]</div>
+<p>The gamma function <span class="math notranslate nohighlight">\(\Gamma(\cdot)\)</span> within the gamma (GA) distribution is a common mathematical function that has a preprogrammed function in most programming languages.</p>
+</section>
+<section id="generalized-gamma-distribution-gg-3-parameters">
+<span id="secmle-gbfam-gg"></span><h3><span class="section-number">17.6.3. </span>Generalized Gamma distribution (GG, 3 parameters)<a class="headerlink" href="#generalized-gamma-distribution-gg-3-parameters" title="Permalink to this heading">#</a></h3>
+<p>The lognormal (LN) and gamma (GA) distributions are both two-parameter distributions and are both special cases of the three-parameter generalized gamma (GG) distribution. The pdf of the generalized gamma distribution is the following.</p>
+<div class="math notranslate nohighlight" id="equation-eqmle-gbfam-gg">
+<span class="eqno">(17.18)<a class="headerlink" href="#equation-eqmle-gbfam-gg" title="Permalink to this equation">#</a></span>\[\begin{split}    \text{(GG):}\quad f(x;\alpha,\beta,m) = \frac{m}{\beta^\alpha \Gamma\left(\frac{\alpha}{m}\right)}x^{\alpha-1}e^{-\left(\frac{x}{\beta}\right)^m},\quad x\in[0,\infty), \:\alpha,\beta,m&gt;0 \\
+    \text{where}\quad \Gamma(z)\equiv\int_0^\infty t^{z-1}e^{-t}dt\end{split}\]</div>
+<p>The relationship between the generalized gamma (GG) distribution and the gamma (GA) distribution is straightforward. The GA distribution equals the GG distribution at <span class="math notranslate nohighlight">\(m=1\)</span>.</p>
+<div class="math notranslate nohighlight" id="equation-eqmle-gbfam-gatogg">
+<span class="eqno">(17.19)<a class="headerlink" href="#equation-eqmle-gbfam-gatogg" title="Permalink to this equation">#</a></span>\[    GA(\alpha,\beta) = GG(\alpha,\beta,m=1)\]</div>
+<p>The relationship between the generalized gamma (GG) distribution and the lognormal (LN) distribution is less straightforward. The LN distribution equals the GG distribution as <span class="math notranslate nohighlight">\(\alpha\)</span> goes to zero, <span class="math notranslate nohighlight">\(\beta = (\alpha\sigma)^{\frac{2}{\alpha}}\)</span>, and <span class="math notranslate nohighlight">\(m = \frac{\alpha\mu+1}{\alpha^2\sigma^2}\)</span>. See <span id="id7">[<a class="reference internal" href="../CompMethods_references.html#id42" title="James B. McDonald, Jeff Sorensen, and Patrick A. Turley. Skewness and kurtosis properties of income distribution models. Review of Income and Wealth, 59(2):360-374, June 2013.">McDonald <em>et al.</em>, 2013</a>]</span> for derivation.</p>
+<div class="math notranslate nohighlight" id="equation-eqmle-gbfam-lntogg">
+<span class="eqno">(17.20)<a class="headerlink" href="#equation-eqmle-gbfam-lntogg" title="Permalink to this equation">#</a></span>\[    LN(\mu,\sigma) = \lim_{\alpha\rightarrow 0}GG\left(\alpha,\beta=(\alpha\sigma)^{\frac{2}{\alpha}},m=\frac{\alpha\mu+1}{\alpha^2\sigma^2}\right)\]</div>
+</section>
+<section id="generalized-beta-2-distribution-gb2-4-parameters">
+<span id="secmle-gbfam-gb2"></span><h3><span class="section-number">17.6.4. </span>Generalized beta 2 distribution (GB2, 4 parameters)<a class="headerlink" href="#generalized-beta-2-distribution-gb2-4-parameters" title="Permalink to this heading">#</a></h3>
+<p>The last distribution we describe is the generalized beta 2 (GB2) distribution. Like the GG, GA, and LN distributions, it also has a strictly positive support. The PDF of the generalized beta 2 distribution is the following.</p>
+<div class="math notranslate nohighlight" id="equation-eqmle-gbfam-gb2">
+<span class="eqno">(17.21)<a class="headerlink" href="#equation-eqmle-gbfam-gb2" title="Permalink to this equation">#</a></span>\[\begin{split}    \text{(GB2):}\quad f(x;a,b,p,q) = \frac{a x^{ap-1}}{b^{ap}B(p,q)\left(1 + \left(\frac{x}{b}\right)^a\right)^{p+q}},\quad x\in[0,\infty), \:a,b,p,q&gt;0 \\
+    \quad\text{where}\quad B(v,w)\equiv\int_0^1 t^{v-1}(1-t)^{w-1}dt\end{split}\]</div>
+<p>The beta function <span class="math notranslate nohighlight">\(B(\cdot,\cdot)\)</span> within the GB2 distribution is a common function that has a preprogrammed function in most programming languages. The three-parameter generalized gamma (GG) distribution is a nested case of the four-parameter generalized beta 2 (GB2) distribution as <span class="math notranslate nohighlight">\(q\)</span> goes to <span class="math notranslate nohighlight">\(\infty\)</span> and for <span class="math notranslate nohighlight">\(a=m\)</span>, <span class="math notranslate nohighlight">\(b=q^{1/m}\beta\)</span>, and <span class="math notranslate nohighlight">\(p=\frac{\alpha}{m}\)</span>. See <span id="id8">[<a class="reference internal" href="../CompMethods_references.html#id41" title="James B. McDonald. Some generalized functions for the size distribution of income. Econometrica, 52(3):647-663, May 1984.">McDonald, 1984</a>]</span>, p. 662 for a derivation.</p>
+<div class="math notranslate nohighlight" id="equation-eqmle-gbfam-ggtogb2">
+<span class="eqno">(17.22)<a class="headerlink" href="#equation-eqmle-gbfam-ggtogb2" title="Permalink to this equation">#</a></span>\[    GG(\alpha,\beta,m) = \lim_{q\rightarrow\infty}GB2\left(a=m,b=q^{1/m}\beta,p=\frac{\alpha}{m},q\right)\]</div>
+<p>The statistical family tree figure above shows the all the relationships between the various PDF’s in the generalized beta family of distributions.</p>
+</section>
 </section>
 <section id="exercises">
-<span id="secmle-exerc"></span><h2><span class="section-number">17.3. </span>Exercises<a class="headerlink" href="#exercises" title="Permalink to this heading">#</a></h2>
+<span id="secmle-exerc"></span><h2><span class="section-number">17.7. </span>Exercises<a class="headerlink" href="#exercises" title="Permalink to this heading">#</a></h2>
+<div class="exercise green admonition" id="ExercStructEst_MLE_claims">
+
+<p class="admonition-title"><span class="caption-number">Exercise 17.1 </span> (Health claim amounts and the GB family of distributions)</p>
+<section id="exercise-content">
+<p>For this problem, you will use 10,619 health claims amounts from a fictitious sample of households. These data are in a single column of the text file <a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/blob/main/data/mle/claims.txt"><code class="docutils literal notranslate"><span class="pre">claims.txt</span></code></a> in the online book repository data folder <code class="docutils literal notranslate"><span class="pre">data/mle/</span></code>. This file is a comma separated text file with no labels. Health claim amounts are reported in US dollars. For this exercise, you will need to use the generalized beta family of distributions shown in <a class="reference internal" href="#figmle-gbtree"><span class="std std-numref">Figure 17.7</span></a> of Section <a class="reference internal" href="#secmle-gbfam"><span class="std std-ref">Generalized beta family of distributions</span></a>.</p>
+<ol class="arabic simple">
+<li><p>Calculate and report the mean, median, maximum, minimum, and standard deviation of monthly health expenditures for these data. Plot two histograms of the data in which the <span class="math notranslate nohighlight">\(y\)</span>-axis gives the percent of observations in the particular bin of health expenditures and the <span class="math notranslate nohighlight">\(x\)</span>-axis gives the value of monthly health expenditures. Use percentage histograms in which the height of each bar is the percent of observations in that bin. In the first histogram, use 1,000 bins to plot the frequency of all the data. In the second histogram, use 100 bins to plot the frequency of only monthly health expenditures less-than-or-equal-to $800 (<span class="math notranslate nohighlight">\(x_i\leq 800\)</span>). Adjust the frequencies of this second histogram to account for the observations that you have not displayed (<span class="math notranslate nohighlight">\(x_i&gt;800\)</span>). That is, the heights of the histogram bars in the second histogram should not sum to 1 because you are only displaying a fraction of the data. Comparing the two histograms, why might you prefer the second one?</p></li>
+<li><p>Using MLE, fit the gamma <span class="math notranslate nohighlight">\(GA(x;\alpha,\beta)\)</span> distribution to the individual observation data. Use <span class="math notranslate nohighlight">\(\beta_0=Var(x)/E(x)\)</span> and <span class="math notranslate nohighlight">\(\alpha_0=E(x)/\beta_0\)</span> as your initial guess. These initial guesses come from the property of the gamma (GA) distribution that <span class="math notranslate nohighlight">\(E(x)=\alpha\beta\)</span> and <span class="math notranslate nohighlight">\(Var(x)=\alpha\beta^2\)</span>. Report your estimated values for <span class="math notranslate nohighlight">\(\hat{\alpha}\)</span> and <span class="math notranslate nohighlight">\(\hat{\beta}\)</span>, as well as the value of the maximized log likelihood function <span class="math notranslate nohighlight">\(\ln\mathcal{L}(\hat{\theta})\)</span>. Plot the second histogram from part (1) overlayed with a line representing the implied histogram from your estimated gamma (GA) distribution.</p></li>
+<li><p>Using MLE, fit the generalized gamma <span class="math notranslate nohighlight">\(GG(x;\alpha,\beta,m)\)</span> distribution to the individual observation data. Use your estimates for <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span> from part(2), as well as <span class="math notranslate nohighlight">\(m=1\)</span>, as your initial guess. Report your estimated values for <span class="math notranslate nohighlight">\(\hat{\alpha}\)</span>, <span class="math notranslate nohighlight">\(\hat{\beta}\)</span>, and <span class="math notranslate nohighlight">\(\hat{m}\)</span>, as well as the value of the maximized log likelihood function <span class="math notranslate nohighlight">\(\ln\mathcal{L}\)</span>. Plot the second histogram from part (1) overlayed with a line representing the implied histogram from your estimated generalized gamma (GG) distribution.</p></li>
+<li><p>Using MLE, fit the generalized beta 2 <span class="math notranslate nohighlight">\(GB2(x;a,b,p,q)\)</span> distribution to the individual observation data. Use your estimates for <span class="math notranslate nohighlight">\(\alpha\)</span>, <span class="math notranslate nohighlight">\(\beta\)</span>, and <span class="math notranslate nohighlight">\(m\)</span> from part (3), as well as <span class="math notranslate nohighlight">\(q=10,000\)</span>, as your initial guess. Report your estimated values for <span class="math notranslate nohighlight">\(\hat{a}\)</span>, <span class="math notranslate nohighlight">\(\hat{b}\)</span>, <span class="math notranslate nohighlight">\(\hat{p}\)</span>, and <span class="math notranslate nohighlight">\(\hat{q}\)</span>, as well as the value of the maximized log likelihood function <span class="math notranslate nohighlight">\(\ln\mathcal{L}\)</span>. Plot the second histogram from part(1) overlayed with a line representing the implied histogram from your estimated generalized beta 2 (GB2) distribution.</p></li>
+<li><p>Perform a likelihood ratio test for each of the estimated in parts (2) and (3), respectively, against the GB2 specification in part (4). This is feasible because each distribution is a nested version of the GB2. The degrees of freedom in the <span class="math notranslate nohighlight">\(\chi^2(p)\)</span> is 4, consistent with the GB2. Report the <span class="math notranslate nohighlight">\(\chi^2(4)\)</span> values from the likelihood ratio test for the estimated GA and the estimated GG distributions.</p></li>
+<li><p>Using the estimated GB2 distribution from part (4), how likely am I to have a monthly health care claim of more than $1,000? How does this amount change if I use the estimated GA distribution from part (2)?</p></li>
+</ol>
+</section>
+</div>
+<div class="exercise green admonition" id="ExercStructEst_MLE_BM72">
+
+<p class="admonition-title"><span class="caption-number">Exercise 17.2 </span> (MLE estimation of simple macroeconomic model)</p>
+<section id="exercise-content">
+<p>You can observe time series data in an economy for the following variables: <span class="math notranslate nohighlight">\((c_t, k_t, w_t, r_t)\)</span>. Data on <span class="math notranslate nohighlight">\((c_t, k_t, w_t, r_t)\)</span> can be loaded from the file <a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/blob/main/data/mle/MacroSeries.txt"><code class="docutils literal notranslate"><span class="pre">MacroSeries.txt</span></code></a> in the online book repository data folder <code class="docutils literal notranslate"><span class="pre">data/mle/</span></code>. This file is a comma separated text file with no labels. The variables are ordered as <span class="math notranslate nohighlight">\((c_t, k_t, w_t, r_t)\)</span>. These data have 100 periods, which are quarterly (25 years). Suppose you think that the data are generated by a process similar to the <span id="id9">[<a class="reference internal" href="../CompMethods_references.html#id8" title="William A. Brock and Leonard J. Mirman. Optimal economic growth and uncertainty: the discounted case. Journal of Economic Theory, 4(3):479-513, June 1972.">Brock and Mirman, 1972</a>]</span> paper. A simplified set of characterizing equations of the Brock and Mirman model are the following six equations.</p>
+<div class="math notranslate nohighlight" id="equation-eqmle-bm72-eul">
+<span class="eqno">(17.23)<a class="headerlink" href="#equation-eqmle-bm72-eul" title="Permalink to this equation">#</a></span>\[    (c_t)^{-1} - \beta E\left[r_{t+1}(c_{t+1})^{-1}\right] = 0\]</div>
+<div class="math notranslate nohighlight" id="equation-eqmle-bm72-bc">
+<span class="eqno">(17.24)<a class="headerlink" href="#equation-eqmle-bm72-bc" title="Permalink to this equation">#</a></span>\[    c_t + k_{t+1} - w_t - r_t k_t = 0\]</div>
+<div class="math notranslate nohighlight" id="equation-eqmle-bm72-focl">
+<span class="eqno">(17.25)<a class="headerlink" href="#equation-eqmle-bm72-focl" title="Permalink to this equation">#</a></span>\[    w_t - (1-\alpha)e^{z_t}(k_t)^\alpha = 0\]</div>
+<div class="math notranslate nohighlight" id="equation-eqmle-bm72-fock">
+<span class="eqno">(17.26)<a class="headerlink" href="#equation-eqmle-bm72-fock" title="Permalink to this equation">#</a></span>\[    r_t - \alpha e^{z_t}(k_t)^{\alpha-1} = 0\]</div>
+<div class="math notranslate nohighlight" id="equation-eqmle-bm72-zt">
+<span class="eqno">(17.27)<a class="headerlink" href="#equation-eqmle-bm72-zt" title="Permalink to this equation">#</a></span>\[    z_t = \rho z_{t-1} + (1-\rho)\mu + \varepsilon_t \quad\text{where}\quad \varepsilon_t\sim N(0,\sigma^2)\]</div>
+<div class="math notranslate nohighlight" id="equation-eqmle-bm72-prod">
+<span class="eqno">(17.28)<a class="headerlink" href="#equation-eqmle-bm72-prod" title="Permalink to this equation">#</a></span>\[    y_t = e^{z_t}(k_t)^\alpha\]</div>
+<p>The variable <span class="math notranslate nohighlight">\(c_t\)</span> is aggregate consumption in period <span class="math notranslate nohighlight">\(t\)</span>, <span class="math notranslate nohighlight">\(k_{t+1}\)</span> is total household savings and investment in period <span class="math notranslate nohighlight">\(t\)</span> for which they receive a return in the next period (this model assumes full depreciation of capital). The wage per unit of labor in period <span class="math notranslate nohighlight">\(t\)</span> is <span class="math notranslate nohighlight">\(w_t\)</span> and the interest rate or rate of return on investment is <span class="math notranslate nohighlight">\(r_t\)</span>. Total factor productivity is <span class="math notranslate nohighlight">\(z_t\)</span>, which follows an AR(1) process given in <a class="reference internal" href="#equation-eqmle-bm72-zt">(17.27)</a>. The rest of the symbols in the equations are parameters that must be estimated <span class="math notranslate nohighlight">\((\alpha,\beta,\rho,\mu,\sigma)\)</span>. The constraints on these parameters are the following.</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+  \alpha,\beta \in (0,1),\quad \mu,\sigma &gt; 0, \quad\rho\in(-1,1)
+\end{equation*}\]</div>
+<p>Assume that the first observation in the data file variables is <span class="math notranslate nohighlight">\(t=1\)</span>. Let <span class="math notranslate nohighlight">\(k_1\)</span> be the first observation in the data file for the variable <span class="math notranslate nohighlight">\(k_t\)</span>. Assume that <span class="math notranslate nohighlight">\(z_0 = \mu\)</span> so that <span class="math notranslate nohighlight">\(z_1= \mu\)</span>. Assume that the discount factor is known to be <span class="math notranslate nohighlight">\(\beta=0.99\)</span>.</p>
+<ol class="arabic simple">
+<li><p>Use the data <span class="math notranslate nohighlight">\((w_t, k_t)\)</span> and equations <a class="reference internal" href="#equation-eqmle-bm72-focl">(17.25)</a> and <a class="reference internal" href="#equation-eqmle-bm72-zt">(17.27)</a> to estimate the four parameters <span class="math notranslate nohighlight">\((\alpha,\rho,\mu,\sigma)\)</span> by maximum likelihood. Given a guess for the parameters <span class="math notranslate nohighlight">\((\alpha,\rho,\mu,\sigma)\)</span>, you can use the two variables from the data <span class="math notranslate nohighlight">\((w_t, k_t)\)</span> and <a class="reference internal" href="#equation-eqmle-bm72-focl">(17.25)</a> to back out a series for <span class="math notranslate nohighlight">\(z_t\)</span>. You can then use equation <a class="reference internal" href="#equation-eqmle-bm72-zt">(17.27)</a> to compute the probability of each <span class="math notranslate nohighlight">\(z_t\sim N\Bigl(\rho z_{t-1} + (1-\rho)\mu,\sigma^2\Bigr)\)</span>. The maximum likelihood estimate <span class="math notranslate nohighlight">\((\hat{\alpha},\hat{\rho},\hat{\mu},\hat{\sigma})\)</span> maximizes the likelihood function of that normal distribution of <span class="math notranslate nohighlight">\(z_t\)</span>’s. Report your estimates and the inverse hessian variance-covariance matrix of your estimates.</p></li>
+<li><p>Now we will estimate the parameters another way. Use the data <span class="math notranslate nohighlight">\((r_t, k_t)\)</span> and equations <a class="reference internal" href="#equation-eqmle-bm72-fock">(17.26)</a> and <a class="reference internal" href="#equation-eqmle-bm72-zt">(17.27)</a> to estimate the four parameters <span class="math notranslate nohighlight">\((\alpha,\rho,\mu,\sigma)\)</span> by maximum likelihood. Given a guess for the parameters <span class="math notranslate nohighlight">\((\alpha,\rho,\mu,\sigma)\)</span>, you can use the two variables from the data <span class="math notranslate nohighlight">\((r_t, k_t)\)</span> and <a class="reference internal" href="#equation-eqmle-bm72-fock">(17.26)</a> to back out a series for <span class="math notranslate nohighlight">\(z_t\)</span>. You can then use equation <a class="reference internal" href="#equation-eqmle-bm72-zt">(17.27)</a> to compute the probability of each <span class="math notranslate nohighlight">\(z_t\sim N\Bigl(\rho z_{t-1} + (1-\rho)\mu,\sigma^2\Bigr)\)</span>. The maximum likelihood estimate <span class="math notranslate nohighlight">\((\hat{\alpha},\hat{\rho},\hat{\mu},\hat{\sigma})\)</span> maximizes the likelihood function of that normal distribution of <span class="math notranslate nohighlight">\(z_t\)</span>’s. Report your estimates and the inverse hessian variance-covariance matrix of your estimates.</p></li>
+<li><p>According to your estimates from part (1), if investment/savings in the current period is <span class="math notranslate nohighlight">\(k_t=7,500,000\)</span> and the productivity shock in the previous period was <span class="math notranslate nohighlight">\(z_{t-1} = 10\)</span>, what is the probability that the interest rate this period will be greater than <span class="math notranslate nohighlight">\(r_t=1\)</span>. That is, solve for <span class="math notranslate nohighlight">\(Pr(r_t&gt;1|\hat{\theta},k_t,z_{t-1})\)</span>. [HINT: Use equation <a class="reference internal" href="#equation-eqmle-bm72-fock">(17.26)</a> to solve for the <span class="math notranslate nohighlight">\(z_t=z^*\)</span> such that <span class="math notranslate nohighlight">\(r_t = 1\)</span>. Then use <a class="reference internal" href="#equation-eqmle-bm72-zt">(17.27)</a> to solve for the probability that <span class="math notranslate nohighlight">\(z_t &gt; z^*\)</span>.]</p></li>
+</ol>
+</section>
+</div>
 </section>
 <section id="footnotes">
-<span id="secmlefootnotes"></span><h2><span class="section-number">17.4. </span>Footnotes<a class="headerlink" href="#footnotes" title="Permalink to this heading">#</a></h2>
+<span id="secmlefootnotes"></span><h2><span class="section-number">17.8. </span>Footnotes<a class="headerlink" href="#footnotes" title="Permalink to this heading">#</a></h2>
 <p>The footnotes from this chapter.</p>
+<hr class="footnotes docutils" />
+<aside class="footnote brackets" id="truncnorm" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">1</a><span class="fn-bracket">]</span></span>
+<p>See Section <a class="reference internal" href="../appendix/appendix.html#secappendixtruncnormal"><span class="std std-ref">Truncated normal distribution</span></a> of the Appendix for a description of the truncated normal distribution.</p>
+</aside>
 </section>
 </section>
 
@@ -689,9 +1409,31 @@ Intermediate macroeconomics midterm scores over two semesters
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#economic-example">17.1.2. Economic example</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparisons-of-distributions-and-data">17.2. Comparisons of distributions and data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">17.3. Exercises</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">17.4. Footnotes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#application-comparisons-of-distributions-and-data">17.2. Application: Comparisons of distributions and data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-set-up-mle-maximization-minimization-problem">17.2.1. How to set up MLE maximization (minimization) problem</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#the-criterion-function">17.2.1.1. The criterion function</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#the-minimize-function">17.2.1.2. The minimize() function</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#constrained-minimization">17.2.1.3. Constrained minimization</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-variance-covariance-matrix-of-mle">17.3. The variance-covariance matrix of MLE</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hypothesis-testing">17.4. Hypothesis testing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#back-of-the-envelope-two-standard-errors-assuming-normality">17.4.1. Back of the envelope, two standard errors (assuming normality)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#likelihood-ratio-test">17.4.2. Likelihood ratio test</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-regression-with-mle">17.5. Linear regression with MLE</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generalized-beta-family-of-distributions">17.6. Generalized beta family of distributions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lognormal-distribution-ln-2-parameters">17.6.1. Lognormal distribution (LN, 2 parameters)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gamma-distribution-ga-2-parameters">17.6.2. Gamma distribution (GA, 2 parameters)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generalized-gamma-distribution-gg-3-parameters">17.6.3. Generalized Gamma distribution (GG, 3 parameters)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generalized-beta-2-distribution-gb2-4-parameters">17.6.4. Generalized beta 2 distribution (GB2, 4 parameters)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">17.7. Exercises</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">17.8. Footnotes</a></li>
 </ul>
   </nav></div>
 
