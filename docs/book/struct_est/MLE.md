@@ -19,7 +19,7 @@ This chapter describes the maximum likelihood estimation (MLE) method. All data 
 (SecMLE_GenModel)=
 ## General characterization of a model and data generating process
 
-Each of the model estimation approaches that we will discuss in this section on Maximum Likelihood estimation (MLE) and in subsequent sections on generalized method of moments (GMM) and simulated method of moments (SMM) involves choosing values of the parameters of a model to make the model match some number of properties of the data. Define a model or a data generating process (DGP) as,
+Each of the model estimation approaches that we will discuss in this section on Maximum Likelihood estimation (MLE) and in subsequent sections on {ref}`Chap_GMM` (GMM) and {ref}`Chap_SMM` (SMM) involves choosing values of the parameters of a model to make the model match some number of properties of the data. Define a model or a data generating process (DGP) as,
 
 ```{math}
     :label: EqMLE_GenMod
@@ -107,7 +107,7 @@ The maximum likelihood estimate of $\rho$, $\mu$, and $\sigma$ is given by the f
 Import some data from the total points earned by all the students in two sections of an intermediate macroeconomics class for undergraduates at an unnamed University in a certain year (two semesters). Let's create a histogram of the data.
 
 ```{code-cell} ipython3
-:tags: []
+:tags: ["remove-output"]
 
 # Import the necessary libraries
 import numpy as np
@@ -117,13 +117,15 @@ import requests
 # Download and save the data file Econ381totpts.txt as NumPy array
 url = ('https://raw.githubusercontent.com/OpenSourceEcon/CompMethods/' +
        'main/data/mle/Econ381totpts.txt')
-data_file = requests.get(url)
+data_file = requests.get(url, allow_redirects=True)
+open('../../../data/mle/Econ381totpts.txt', 'wb').write(data_file.content)
 if data_file.status_code == 200:
     # Load the downloaded data into a NumPy array
-    data = np.loadtxt(data_file.content)
+    data = np.loadtxt('../../../data/mle/Econ381totpts.txt')
 else:
     print('Error downloading the file')
 
+# Create a histogram of the data
 num_bins = 30
 count, bins, ignored = plt.hist(data, num_bins, density=True,
                                 edgecolor='k')
@@ -134,13 +136,101 @@ plt.xlim([0, 550])  # This gives the xmin and xmax to be plotted"
 
 plt.show()
 ```
-<!-- ```{figure} ../../../images/mle/Econ381scores_hist.png
+
+```{figure} ../../../images/mle/Econ381scores_hist.png
 ---
 height: 500px
 name: FigMLE_EconScoreHist
 ---
 Intermediate macroeconomics midterm scores over two semesters
-``` -->
+```
+
+Now lets code up a parametric distribution that is flexible enough to fit lots of different distributions of test scores, has the properties we would expect from a distribution of test scores, and is characterized by a minimal number of parameters. In this case, we will use a truncated normal distribution.[^TruncNorm]
+
+```{code-cell} ipython3
+:tags: []
+
+import scipy.stats as sts
+
+
+def trunc_norm_pdf(xvals, mu, sigma, cut_lb=None, cut_ub=None):
+    '''
+    --------------------------------------------------------------------
+    Generate pdf values from the truncated normal pdf with mean mu and
+    standard deviation sigma. If the cutoff is given, then the PDF
+    values are inflated upward to reflect the zero probability on values
+    above the cutoff. If there is no cutoff given, this function does
+    the same thing as sp.stats.norm.pdf(x, loc=mu, scale=sigma).
+    --------------------------------------------------------------------
+    INPUTS:
+    xvals  = (N,) vector, values of the normally distributed random
+             variable
+    mu     = scalar, mean of the normally distributed random variable
+    sigma  = scalar > 0, standard deviation of the normally distributed
+             random variable
+    cut_lb = scalar or string, ='None' if no cutoff is given, otherwise
+             is scalar lower bound value of distribution. Values below
+             this value have zero probability
+    cut_ub = scalar or string, ='None' if no cutoff is given, otherwise
+             is scalar upper bound value of distribution. Values above
+             this value have zero probability
+
+    OTHER FUNCTIONS AND FILES CALLED BY THIS FUNCTION: None
+
+    OBJECTS CREATED WITHIN FUNCTION:
+    prob_notcut = scalar
+    pdf_vals = (N,) vector, normal PDF values for mu and sigma
+               corresponding to xvals data
+
+    FILES CREATED BY THIS FUNCTION: None
+
+    RETURNS: pdf_vals
+    --------------------------------------------------------------------
+    '''
+    if cut_ub == 'None' and cut_lb == 'None':
+        prob_notcut = 1.0
+    elif cut_ub == 'None' and cut_lb != 'None':
+        prob_notcut = 1.0 - sts.norm.cdf(cut_lb, loc=mu, scale=sigma)
+    elif cut_ub != 'None' and cut_lb == 'None':
+        prob_notcut = sts.norm.cdf(cut_ub, loc=mu, scale=sigma)
+    elif cut_ub != 'None' and cut_lb != 'None':
+        prob_notcut = (sts.norm.cdf(cut_ub, loc=mu, scale=sigma) -
+                       sts.norm.cdf(cut_lb, loc=mu, scale=sigma))
+
+    pdf_vals    = ((1/(sigma * np.sqrt(2 * np.pi)) *
+                    np.exp( - (xvals - mu)**2 / (2 * sigma**2))) /
+                    prob_notcut)
+
+    return pdf_vals
+```
+
+
+(SecMLE_LinReg)=
+## Linear regression with MLE
+
+Although linear regression is most often performed using the ordinary least squares (OLS) estimator, which is a particular type of generalized method of moments (GMM) estimator, this can also be done using MLE. A simple regression specification in which the dependent variable $y_i$ is a linear function of two independent variables $x_{1,i}$ and $x_{2,i}$ is the following:
+
+```{math}
+    :label: EqMLE_LinReg_eqn
+    y_i = \beta_0 + \beta_1 x_{1,i} + \beta_2 x_{2,i} + \varepsilon_i \quad\text{where}\quad \varepsilon_i\sim N\left(0,\sigma^2\right)
+```
+
+If we solve this regression equation for the error term $\varepsilon_i$, we can start to see how we might estimate the parameters of the model by maximum likelihood.
+
+```{math}
+    :label: EqMLE_LinReg_eps
+    \varepsilon_i = y_i - \beta_0 - \beta_1 x_{1,i} - \beta_2 x_{2,i} \sim N\left(0,\sigma^2\right)
+```
+
+The parameters of the regression model are $(\beta_0, \beta_1, \beta_2, \sigma)$. Given some data $(y_i, x_{1,i}, x_{2,i})$ and given some parameter values $(\beta_0, \beta_1, \beta_2, \sigma)$, we could plot a histogram of the distribution of those error terms. And we could compare that empirical histogram to the assumed histogram of the distribution of the errors $N(0,\sigma^2)$. ML estimation of this regression equation is to choose the paramters $(\beta_0, \beta_1, \beta_2, \sigma)$ to make that empirical distribution of errors $\varepsilon_i$ most closely match the assumed distribution of errors $N(0,\sigma^2)$.
+
+Note that estimating a linear regression model using MLE has the flexible property of being able to accomodate any distribution of the error terms, and not just normally distributed errors.
+
+
+(SecMLE_GBfam)=
+## Generalized beta family of distributions
+
+
 
 
 (SecMLE_Exerc)=
