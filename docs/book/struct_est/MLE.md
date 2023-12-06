@@ -204,6 +204,50 @@ def trunc_norm_pdf(xvals, mu, sigma, cut_lb=None, cut_ub=None):
     return pdf_vals
 ```
 
+Let's plot the histogram of the intermediate macroeconomics test scores overlayed by two different truncated nameal distributions, each of which with different arbitrary properties. We want to examine what types of properties make the distribution look more or less like the underlying data.
+
+```{code-cell} ipython3
+:tags: ["remove-output"]
+
+# Plot histogram
+num_bins = 30
+count, bins, ignored = plt.hist(data, num_bins, density=True,
+                                edgecolor='k')
+plt.title('Intermediate macro scores: 2011-2012', fontsize=15)
+plt.xlabel(r'Total points')
+plt.ylabel(r'Percent of scores')
+plt.xlim([0, 550])  # This gives the xmin and xmax to be plotted"
+
+# Plot smooth line with distribution 1
+dist_pts = np.linspace(0, 450, 500)
+mu_1 = 380
+sig_1 = 150
+plt.plot(dist_pts, trunc_norm_pdf(dist_pts, mu_1, sig_1, 0, 450),
+         linewidth=2, color='r', label='1: $\mu$=380,$\sigma$=150')
+plt.legend(loc='upper left')
+
+# Plot smooth line with distribution 2
+mu_2 = 360
+sig_2 = 60
+plt.plot(dist_pts, trunc_norm_pdf(dist_pts, mu_2, sig_2, 0, 450),
+         linewidth=2, color='g', label='2: $\mu$=360,$\sigma$=60')
+plt.legend(loc='upper left')
+
+plt.show()
+```
+
+```{figure} ../../../images/mle/Econ381scores_2truncs.png
+---
+height: 500px
+name: FigMLE_EconScores2truncs
+---
+Intermediate macroeconomics midterm scores over two semesters with two arbitrary truncated normal distributions
+```
+
+Which distribution will have the biggest log likelihood function? Why?
+
+Let's compute the log likelihood function for this data for both of these distributions.
+
 
 (SecMLE_LinReg)=
 ## Linear regression with MLE
