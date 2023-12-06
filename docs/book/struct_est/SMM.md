@@ -28,7 +28,7 @@ Let the data be represented, in general, by $x$. This could have many variables,
     \theta \equiv \left[\theta_1, \theta_2, ...\theta_K\right]^T
 ```
 
-In the {ref}`Chap_MaxLikeli` chapter, we used data $x$ and model parameters $\theta$ to maximize the likelihood of drawing that data $x$ from the model given parameters $\theta$,
+In the {ref}`Chap_MLE` chapter, we used data $x$ and model parameters $\theta$ to maximize the likelihood of drawing that data $x$ from the model given parameters $\theta$,
 
 ```{math}
     :label: EqSMM_MLestimator
@@ -271,7 +271,7 @@ Let the parameter vector $\theta$ have length $K$ such that $K$ parameters are b
 
 Recall that each element of $e(\tilde{x},x|\theta)$ is an average moment error across all simulations. $\hat{\Omega}$ from the previous section is the $R\times R$ variance-covariance matrix of the $R$ moment errors used to identify the $K$ parameters $\theta$ to be estimated. The estimated variance-covariance matrix $\hat{\Sigma}$ of the estimated parameter vector is a $K\times K$ matrix. We say the model is *exactly identified* if $K = R$ (number of parameters $K$ equals number of moments $R$). We say the model is *overidentified* if $K<R$. We say the model is *not identified* or *underidentified* if $K>R$.
 
-Similar to the inverse Hessian estimator of the variance-covariance matrix of the maximum likelihood estimator from the {ref}`Chap_MaxLikeli` chapter, the SMM variance-covariance matrix is related to the derivative of the criterion function with respect to each parameter. The intuition is that if the second derivative of the criterion function with respect to the parameters is large, there is a lot of curvature around the criterion minimizing estimate. In other words, the parameters of the model are precisely estimated. The inverse of the Hessian matrix will be small.
+Similar to the inverse Hessian estimator of the variance-covariance matrix of the maximum likelihood estimator from the {ref}`Chap_MLE` chapter, the SMM variance-covariance matrix is related to the derivative of the criterion function with respect to each parameter. The intuition is that if the second derivative of the criterion function with respect to the parameters is large, there is a lot of curvature around the criterion minimizing estimate. In other words, the parameters of the model are precisely estimated. The inverse of the Hessian matrix will be small.
 
 Define $R\times K$ matrix $d(\tilde{x},x|\theta)$ as the Jacobian matrix of derivatives of the $R\times 1$ error vector $e(\tilde{x},x|\theta)$ from {eq}`EqSMM_MomError_vec`.
 
@@ -324,12 +324,12 @@ The following is a centered second-order finite difference numerical approximati
 (SecSMM_CodeExmp)=
 ## Code Examples
 
-In this section, we will use SMM to estimate parameters of the models from the {ref}`Chap_MaxLikeli` chapter and from the {ref}`Chap_GMM` chapter.
+In this section, we will use SMM to estimate parameters of the models from the {ref}`Chap_MLE` chapter and from the {ref}`Chap_GMM` chapter.
 
 (SecSMM_CodeExmp_MacrTest)=
 ### Fitting a truncated normal to intermediate macroeconomics test scores
 
-Let's revisit the problem from the MLE and GMM notebooks of fitting a truncated normal distribution to intermediate macroeconomics test scores. The data are in the text file [`Econ381totpts.txt`](https://github.com/OpenSourceEcon/CompMethods/blob/main/data/smm/Econ381totpts.txt). Recall that these test scores are between 0 and 450. {numref}`Figure %s <FigSMM_EconScoreTruncNorm>` below shows a histogram of the data, as well as three truncated normal PDF's with different values for $\mu$ and $\sigma$. The black line is the maximum likelihood estimate of $\mu$ and $\sigma$ of the truncated normal pdf from the {ref}`Chap_MaxLikeli` chapter. The red, green, and black lines are just the PDF's of two "arbitrarily" chosen combinations of the truncated normal parameters $\mu$ and $\sigma$.[^TruncNorm]
+Let's revisit the problem from the MLE and GMM notebooks of fitting a truncated normal distribution to intermediate macroeconomics test scores. The data are in the text file [`Econ381totpts.txt`](https://github.com/OpenSourceEcon/CompMethods/blob/main/data/smm/Econ381totpts.txt). Recall that these test scores are between 0 and 450. {numref}`Figure %s <FigSMM_EconScoreTruncNorm>` below shows a histogram of the data, as well as three truncated normal PDF's with different values for $\mu$ and $\sigma$. The black line is the maximum likelihood estimate of $\mu$ and $\sigma$ of the truncated normal pdf from the {ref}`Chap_MLE` chapter. The red, green, and black lines are just the PDF's of two "arbitrarily" chosen combinations of the truncated normal parameters $\mu$ and $\sigma$.[^TruncNorm]
 
 ```{code-cell} ipython3
 :tags: ["hide-input", "remove-output"]
@@ -394,20 +394,16 @@ def trunc_norm_pdf(xvals, mu, sigma, cut_lb, cut_ub):
     return pdf_vals
 
 
-# Download and save the data file Econ381totpts.txt
+# Download and save the data file Econ381totpts.txt as NumPy array
 url = ('https://raw.githubusercontent.com/OpenSourceEcon/CompMethods/' +
        'main/data/smm/Econ381totpts.txt')
-data_file = requests.get(url, allow_redirects=True)
-open('../../../data/smm/Econ381totpts.txt', 'wb').write(data_file.content)
-
-# Load the data as a NumPy array
-data = np.loadtxt('../../../data/smm/Econ381totpts.txt')
+data = np.loadtxt(url)
 
 num_bins = 30
 count, bins, ignored = plt.hist(
     data, num_bins, density=True, edgecolor='k', label='data'
 )
-plt.title('Econ 381 scores: 2011-2012', fontsize=20)
+plt.title('Intermediate macro scores: 2011-2012', fontsize=20)
 plt.xlabel(r'Total points')
 plt.ylabel(r'Percent of scores')
 plt.xlim([0, 550])  # This gives the xmin and xmax to be plotted"
@@ -975,7 +971,7 @@ name: FigSMM_Econ381_SMM1
 SMM-estimated PDF function and data histogram, 2 moments, identity weighting matrix, Econ 381 scores (2011-2012)
 ```
 
-That looks just like the maximum likelihood estimate from the {ref}`Chap_MaxLikeli` chapter. {numref}`Figure %s <FigSMM_Econ381_crit1>` below shows what the minimizer is doing. The figure shows the criterion function surface for different of $\mu$ and $\sigma$ in the truncated normal distribution. The minimizer is searching for the parameter values that give the lowest criterion function value.
+That looks just like the maximum likelihood estimate from the {ref}`Chap_MLE` chapter. {numref}`Figure %s <FigSMM_Econ381_crit1>` below shows what the minimizer is doing. The figure shows the criterion function surface for different of $\mu$ and $\sigma$ in the truncated normal distribution. The minimizer is searching for the parameter values that give the lowest criterion function value.
 
 ```{code-cell} ipython3
 :tags: ["remove-output"]
@@ -1071,7 +1067,7 @@ In the next section, we see if we can get more accurate estimates (lower criteri
 
 (SecSMM_CodeExmp_MacrTest_2m2st)=
 #### Two moments, two-step optimal weighting matrix
-Similar to the maximum likelihood estimation problem in Chapter {ref}`Chap_MaxLikeli`, it looks like the minimum value of the criterion function shown in {numref}`Figure %s <FigSMM_Econ381_crit1>` is roughly equal for a specific portion increase of $\mu$ and $\sigma$ together. That is, the estimation problem with these two moments probably has a correspondence of values of $\mu$ and $\sigma$ that give roughly the same minimum criterion function value. This issue has two possible solutions.
+Similar to the maximum likelihood estimation problem in Chapter {ref}`Chap_MLE`, it looks like the minimum value of the criterion function shown in {numref}`Figure %s <FigSMM_Econ381_crit1>` is roughly equal for a specific portion increase of $\mu$ and $\sigma$ together. That is, the estimation problem with these two moments probably has a correspondence of values of $\mu$ and $\sigma$ that give roughly the same minimum criterion function value. This issue has two possible solutions.
 
 1. Maybe we need the two-step variance covariance estimator to calculate a "more" optimal weighting matrix $W$.
 2. Maybe our two moments aren't very good moments for fitting the data.

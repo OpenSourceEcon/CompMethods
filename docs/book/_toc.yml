@@ -38,7 +38,7 @@ parts:
     numbered: True
     chapters:
     - file: struct_est/intro
-    - file: struct_est/MaxLikelihood
+    - file: struct_est/MLE
     - file: struct_est/GMM
     - file: struct_est/SMM
   - caption: Appendix

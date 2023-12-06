@@ -442,4 +442,4 @@ The footnotes from this chapter.
 
 [^GMM]: See the {ref}`Chap_GMM` chapter of this book.
 
-[^MaxLikeli]: See the {ref}`Chap_MaxLikeli` chapter of this book.
+[^MaxLikeli]: See the {ref}`Chap_MLE` chapter of this book.

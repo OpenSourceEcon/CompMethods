@@ -386,7 +386,7 @@ results = reg1.fit()
 type(results)
 ```
 
-We now have the fitted regression model stored in `results` (see [statsmodels.regression.linear_model.RegressionResultsWrapper](http://www.statsmodels.org/dev/generated/statsmodels.regression.linear_model.RegressionResults.html)). The `results` from the `reg1.fit()` command is a regression results object with a lot of information, similar to the results object of the `scipy.optimize.minimize()` function we worked with in the {ref}`Chap_MaxLikeli` and {ref}`Chap_GMM` chapters.
+We now have the fitted regression model stored in `results` (see [statsmodels.regression.linear_model.RegressionResultsWrapper](http://www.statsmodels.org/dev/generated/statsmodels.regression.linear_model.RegressionResults.html)). The `results` from the `reg1.fit()` command is a regression results object with a lot of information, similar to the results object of the `scipy.optimize.minimize()` function we worked with in the {ref}`Chap_MLE` and {ref}`Chap_GMM` chapters.
 
 To view the OLS regression results, we can call the `.summary()` method.
 
