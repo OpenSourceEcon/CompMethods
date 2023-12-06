@@ -248,6 +248,63 @@ Which distribution will have the biggest log likelihood function? Why?
 
 Let's compute the log likelihood function for this data for both of these distributions.
 
+```{code-cell} ipython3
+:tags: []
+
+# Define log likelihood function for the truncated normal distribution
+def log_lik_truncnorm(xvals, mu, sigma, cut_lb, cut_ub):
+    '''
+    --------------------------------------------------------------------
+    Compute the log likelihood function for data xvals given truncated
+    normal distribution parameters mu, sigma, cut_lb, cut_ub.
+    --------------------------------------------------------------------
+    INPUTS:
+    xvals  = (N,) vector, values of the normally distributed random
+             variable
+    mu     = scalar, mean of the normally distributed random variable
+    sigma  = scalar > 0, standard deviation of the normally distributed
+             random variable
+    cut_lb = scalar or string, ='None' if no cutoff is given, otherwise
+             is scalar lower bound value of distribution. Values below
+             this value have zero probability
+    cut_ub = scalar or string, ='None' if no cutoff is given, otherwise
+             is scalar upper bound value of distribution. Values above
+             this value have zero probability
+
+    OTHER FUNCTIONS AND FILES CALLED BY THIS FUNCTION:
+        trunc_norm_pdf()
+
+    OBJECTS CREATED WITHIN FUNCTION:
+    pdf_vals    = (N,) vector, normal PDF values for mu and sigma
+                  corresponding to xvals data
+    ln_pdf_vals = (N,) vector, natural logarithm of normal PDF values
+                  for mu and sigma corresponding to xvals data
+    log_lik_val = scalar, value of the log likelihood function
+
+    FILES CREATED BY THIS FUNCTION: None
+
+    RETURNS: log_lik_val
+    --------------------------------------------------------------------
+    '''
+    pdf_vals = trunc_norm_pdf(xvals, mu, sigma, cut_lb, cut_ub)
+    ln_pdf_vals = np.log(pdf_vals)
+    log_lik_val = ln_pdf_vals.sum()
+
+    return log_lik_val
+
+print('Log-likelihood 1: ', log_lik_truncnorm(data, mu_1, sig_1, 0, 450))
+print('Log-likelihood 2: ', log_lik_truncnorm(data, mu_2, sig_2, 0, 450))
+```
+
+Why is the log likelihood value negative? Which distribution is a better fit according to the Log-likelihood value?
+
+How do we estimate $\mu$ and $\sigma$ by maximum likelihood? What values of $\mu$ and $\sigma$ will maximize the likelihood function?
+
+```{math}
+    :label: EqMLE_DistData_maxprob
+    (\hat{\mu},\hat{\sigma})_{MLE} = (\mu, \sigma):\quad \max_{\mu,\sigma}\:\ln\,\mathcal{L}=\sum_{i=1}^N\ln\Bigl(f(x_i|\mu,\sigma)\Bigr)
+```
+
 
 (SecMLE_LinReg)=
 ## Linear regression with MLE
