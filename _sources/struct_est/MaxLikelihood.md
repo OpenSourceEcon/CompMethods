@@ -117,8 +117,8 @@ import requests
 # Download and save the data file Econ381totpts.txt
 url = ('https://raw.githubusercontent.com/OpenSourceEcon/CompMethods/' +
        'main/data/maxlikeli/Econ381totpts.txt')
-data_file = requests.get(url, allow_redirects=True)
-open('../../../data/maxlikeli/Econ381totpts.txt', 'wb').write(data_file.content)
+# data_file = requests.get(url, allow_redirects=True)
+# open('../../../data/maxlikeli/Econ381totpts.txt', 'wb').write(data_file.content)
 
 # Load the data as a NumPy array
 data = np.loadtxt('../../../data/maxlikeli/Econ381totpts.txt')
@@ -132,9 +132,9 @@ Let's create a histogram of the data.
 import matplotlib.pyplot as plt
 
 num_bins = 30
-count, bins, ignored = plt.hist(pts, num_bins, density=True,
+count, bins, ignored = plt.hist(data, num_bins, density=True,
                                 edgecolor='k')
-plt.title('Econ 381 scores: 2011-2012', fontsize=20)
+plt.title('Intermediate macro scores: 2011-2012', fontsize=15)
 plt.xlabel(r'Total points')
 plt.ylabel(r'Percent of scores')
 plt.xlim([0, 550])  # This gives the xmin and xmax to be plotted"

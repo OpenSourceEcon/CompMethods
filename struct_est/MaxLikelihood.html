@@ -543,49 +543,11 @@ document.write(`
 <span class="c1"># Download and save the data file Econ381totpts.txt</span>
 <span class="n">url</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/OpenSourceEcon/CompMethods/&#39;</span> <span class="o">+</span>
        <span class="s1">&#39;main/data/maxlikeli/Econ381totpts.txt&#39;</span><span class="p">)</span>
-<span class="n">data_file</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">allow_redirects</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="nb">open</span><span class="p">(</span><span class="s1">&#39;../../../data/maxlikeli/Econ381totpts.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">data_file</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+<span class="c1"># data_file = requests.get(url, allow_redirects=True)</span>
+<span class="c1"># open(&#39;../../../data/maxlikeli/Econ381totpts.txt&#39;, &#39;wb&#39;).write(data_file.content)</span>
 
 <span class="c1"># Load the data as a NumPy array</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s1">&#39;../../../data/maxlikeli/Econ381totpts.txt&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">13</span>
-<span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;../../../data/maxlikeli/Econ381totpts.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">data_file</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">12</span> <span class="c1"># Load the data as a NumPy array</span>
-<span class="ne">---&gt; </span><span class="mi">13</span> <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s1">&#39;../../../data/maxlikeli/Econ381totpts.txt&#39;</span><span class="p">)</span>
-
-<span class="nn">File /usr/share/miniconda3/envs/compmethods-dev/lib/python3.10/site-packages/numpy/lib/npyio.py:1373,</span> in <span class="ni">loadtxt</span><span class="nt">(fname, dtype, comments, delimiter, converters, skiprows, usecols, unpack, ndmin, encoding, max_rows, quotechar, like)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1370</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">delimiter</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">):</span>
-<span class="g g-Whitespace">   </span><span class="mi">1371</span>     <span class="n">delimiter</span> <span class="o">=</span> <span class="n">delimiter</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;latin1&#39;</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">1373</span> <span class="n">arr</span> <span class="o">=</span> <span class="n">_read</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="n">comment</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="n">delimiter</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1374</span>             <span class="n">converters</span><span class="o">=</span><span class="n">converters</span><span class="p">,</span> <span class="n">skiplines</span><span class="o">=</span><span class="n">skiprows</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="n">usecols</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1375</span>             <span class="n">unpack</span><span class="o">=</span><span class="n">unpack</span><span class="p">,</span> <span class="n">ndmin</span><span class="o">=</span><span class="n">ndmin</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="n">encoding</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1376</span>             <span class="n">max_rows</span><span class="o">=</span><span class="n">max_rows</span><span class="p">,</span> <span class="n">quote</span><span class="o">=</span><span class="n">quotechar</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1378</span> <span class="k">return</span> <span class="n">arr</span>
-
-<span class="nn">File /usr/share/miniconda3/envs/compmethods-dev/lib/python3.10/site-packages/numpy/lib/npyio.py:1016,</span> in <span class="ni">_read</span><span class="nt">(fname, delimiter, comment, quote, imaginary_unit, usecols, skiplines, max_rows, converters, ndmin, unpack, dtype, encoding)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1013</span>     <span class="n">data</span> <span class="o">=</span> <span class="n">_preprocess_comments</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">comments</span><span class="p">,</span> <span class="n">encoding</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1015</span> <span class="k">if</span> <span class="n">read_dtype_via_object_chunks</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-<span class="ne">-&gt; </span><span class="mi">1016</span>     <span class="n">arr</span> <span class="o">=</span> <span class="n">_load_from_filelike</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">1017</span>         <span class="n">data</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="n">delimiter</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="n">comment</span><span class="p">,</span> <span class="n">quote</span><span class="o">=</span><span class="n">quote</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1018</span>         <span class="n">imaginary_unit</span><span class="o">=</span><span class="n">imaginary_unit</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1019</span>         <span class="n">usecols</span><span class="o">=</span><span class="n">usecols</span><span class="p">,</span> <span class="n">skiplines</span><span class="o">=</span><span class="n">skiplines</span><span class="p">,</span> <span class="n">max_rows</span><span class="o">=</span><span class="n">max_rows</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1020</span>         <span class="n">converters</span><span class="o">=</span><span class="n">converters</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1021</span>         <span class="n">encoding</span><span class="o">=</span><span class="n">encoding</span><span class="p">,</span> <span class="n">filelike</span><span class="o">=</span><span class="n">filelike</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1022</span>         <span class="n">byte_converters</span><span class="o">=</span><span class="n">byte_converters</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1024</span> <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1025</span>     <span class="c1"># This branch reads the file into chunks of object arrays and then</span>
-<span class="g g-Whitespace">   </span><span class="mi">1026</span>     <span class="c1"># casts them to the desired actual dtype.  This ensures correct</span>
-<span class="g g-Whitespace">   </span><span class="mi">1027</span>     <span class="c1"># string-length and datetime-unit discovery (like `arr.astype()`).</span>
-<span class="g g-Whitespace">   </span><span class="mi">1028</span>     <span class="c1"># Due to chunking, certain error reports are less clear, currently.</span>
-<span class="g g-Whitespace">   </span><span class="mi">1029</span>     <span class="k">if</span> <span class="n">filelike</span><span class="p">:</span>
-
-<span class="ne">ValueError</span>: could not convert string &#39;404:&#39; to float64 at row 0, column 1.
 </pre></div>
 </div>
 </div>
@@ -596,14 +558,20 @@ document.write(`
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
 <span class="n">num_bins</span> <span class="o">=</span> <span class="mi">30</span>
-<span class="n">count</span><span class="p">,</span> <span class="n">bins</span><span class="p">,</span> <span class="n">ignored</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">pts</span><span class="p">,</span> <span class="n">num_bins</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="n">count</span><span class="p">,</span> <span class="n">bins</span><span class="p">,</span> <span class="n">ignored</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">num_bins</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                                 <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Econ 381 scores: 2011-2012&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Intermediate macro scores: 2011-2012&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Total points&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Percent of scores&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">550</span><span class="p">])</span>  <span class="c1"># This gives the xmin and xmax to be plotted&quot;</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.0, 550.0)
+</pre></div>
+</div>
+<img alt="../_images/85d4316e8f6b74612adc8620a7712f3239ef0b56cb53e0d18404f30d43c906c7.png" src="../_images/85d4316e8f6b74612adc8620a7712f3239ef0b56cb53e0d18404f30d43c906c7.png" />
 </div>
 </div>
 </section>
