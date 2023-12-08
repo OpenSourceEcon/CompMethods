@@ -181,19 +181,19 @@ where $m_r(x)$ is the $r$th data moment which is constant across each row, and $
         \frac{m_R(\tilde{x}_1|\theta) - m_R(x)}{m_R(x)} & \frac{m_R(\tilde{x}_2|\theta) - m_R(x)}{m_R(x)} & ... & \frac{m_R(\tilde{x}_S|\theta) - m_R(x)}{m_R(x)} \\
       \end{bmatrix}
 ```
-where the denominator of the percentage deviation or baseline is the model moment that does not change. We use the $E(\tilde{x},x|\theta)$ data matrix and the Step 1 SMM estimate $e(x|\hat{\theta}_{1,SMM})$ to get a new estimate of the variance covariance matrix.
+where the denominator of the percentage deviation or baseline is the model moment that does not change. We use the $E(\tilde{x},x|\theta)$ data matrix and the Step 1 SMM estimate $e(x|\hat{\theta}_{1,SMM})$ to get a new $R\times R$ estimate of the variance covariance matrix.
 
 ```{math}
     :label: EqSMM_2stepVarCov
     \hat{\Omega}_2 = \frac{1}{S}E(\tilde{x},x|\hat{\theta}_{1,SMM})\,E(\tilde{x},x|\hat{\theta}_{1,SMM})^T
-``````
+```
 
-This is simply saying that the $(r,s)$-element of the estimator of the variance-covariance matrix of the moment vector is the following.
+This is simply saying that the $(r,s)$-element of the $R\times R$ estimator of the variance-covariance matrix of the moment vector is the following.
 
 ```{math}
     :label: EqSMM_2stepVarCov_rs
-    \hat{\Omega}_{r,s} = \frac{1}{S}\sum_{i=1}^S\Bigl[m_r(\tilde{x}_i|\theta) - m_{r}(x)\Bigr]\Bigl[ m_s(\tilde{x}_i|\theta) - m_s(x)\Bigr]
-``````
+    \hat{\Omega}_{2,r,s} = \frac{1}{S}\sum_{i=1}^S\Bigl[m_r(\tilde{x}_i|\hat{\theta}_{1,SMM}) - m_{r}(x)\Bigr]\Bigl[ m_s(\tilde{x}_i|\hat{\theta}_{1,SMM}) - m_s(x)\Bigr]
+```
 
 The optimal weighting matrix is the inverse of the two-step variance covariance matrix.
 
@@ -215,7 +215,7 @@ $\hat{\theta}_{2, SMM}$ is called the two-step SMM estimator.
 (SecSMM_W_iter)=
 ### Iterated variance-covariance estimator of W
 
-The truly optimal weighting matrix $W^{opt}$ is the iterated variance-covariance estimator of $W$. This procedure is to just repeat the process described in the two-step SMM estimator until the estimated weighting matrix no longer changes between iterations. Let $i$ index the $i$th iterated SMM estimator,
+The truly optimal weighting matrix $W^{opt}$ is the iterated variance-covariance estimator of $W$. This procedure is to just repeat the process described in the two-step SMM estimator until the estimated weighting matrix no longer significantly changes between iterations. Let $i$ index the $i$th iterated SMM estimator,
 
 ```{math}
     :label: EqSMM_theta_2step_i
@@ -229,7 +229,7 @@ and the $(i+1)$th estimate of the optimal weighting matrix is defined as the fol
     \hat{W}_{i+1} \equiv \hat{\Omega}_{i+1}^{-1}\quad\text{where}\quad \hat{\Omega}_{i+1} = \frac{1}{S}E(\tilde{x},x|\hat{\theta}_{i,SMM})\,E(\tilde{x},x|\hat{\theta}_{i,SMM})^T
 ```
 
-The iterated SMM estimator is the $\hat{\theta}_{i,SMM}$ such that $\hat{W}_{i+1}$ is very close to $\hat{W}_{i}$ for some distance metric (norm).
+The iterated SMM estimator $\hat{\theta}_{it,SMM}$ is the $\hat{\theta}_{i,SMM}$ such that $\hat{W}_{i+1}$ is very close to $\hat{W}_{i}$ for some distance metric (norm).
 
 ```{math}
     :label: EqSMM_theta_it
@@ -247,7 +247,7 @@ The Newey-West estimator of the optimal weighting matrix and variance covariance
     \hat{W}^{opt} = \lim_{S\rightarrow\infty}\frac{1}{S}\sum_{i=1}^S \sum_{l=-\infty}^\infty E(\tilde{x}_i,x|\theta)E(\tilde{x}_{i-l},x|\theta)^T
 ```
 
-The Newey-West consistend estimator of $\hat{W}^{opt}$ is:
+The Newey-West consistent estimator of $\hat{W}^{opt}$ is:
 
 ```{math}
     :label: EqSMM_estW_NW
