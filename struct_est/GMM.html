@@ -66,6 +66,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'struct_est/GMM';</script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -268,6 +270,37 @@ const thebe_selector_output = ".output, .cell_output"
 
 
 
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/OpenSourceEcon/CompMethods/blob/main/docs/book/struct_est/GMM.md" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onColab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="../_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
 <div class="dropdown dropdown-source-buttons">
   <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
     <i class="fab fa-github"></i>
@@ -320,6 +353,23 @@ const thebe_selector_output = ".output, .cell_output"
     <i class="fas fa-download"></i>
   </button>
   <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/struct_est/GMM.ipynb" target="_blank"
+   class="btn btn-sm btn-download-notebook-button dropdown-item"
+   title="Download notebook file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-code"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
       
       
       
@@ -417,7 +467,35 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">18.1. Footnotes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gmm-vs-mle-strengths-and-weaknesses">18.1. GMM vs. MLE: Strengths and weaknesses</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mle-strengths">18.1.1. MLE strengths</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mle-weaknesses">18.1.2. MLE weaknesses</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gmm-strengths">18.1.3. GMM strengths</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gmm-weaknesses">18.1.4. GMM weaknesses</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-questions-when-deciding-between-mle-and-gmm">18.1.5. Key questions when deciding between MLE and GMM</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-gmm-estimator">18.2. The GMM estimator</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-weighting-matrix-w">18.3. The weighting matrix (W)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-identity-matrix-w-i">18.3.1. The identity matrix (W=I)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#two-step-variance-covariance-estimator-of-w">18.3.2. Two-step variance-covariance estimator of W</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#iterated-variance-covariance-estimator-of-w">18.3.3. Iterated variance-covariance estimator of W</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#newey-west-consistent-estimator-of-omega-and-w">18.3.4. Newey-West consistent estimator of <span class="math notranslate nohighlight">\(\Omega\)</span> and W</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variance-covariance-estimator-of-hat-theta">18.4. Variance-Covariance Estimator of <span class="math notranslate nohighlight">\(\hat{\theta}\)</span></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#examples">18.5. Examples</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fitting-a-truncated-normal-to-intermediate-macroeconomics-test-scores">18.5.1. Fitting a truncated normal to intermediate macroeconomics test scores</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secgmm-ident">18.6. Identification</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-regression-by-gmm-and-relation-to-ols">18.7. Linear regression by GMM and relation to OLS</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ordinary-least-squares-overidentification">18.7.1. Ordinary least squares: overidentification</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-regression-by-moment-condition-exact-identification">18.7.2. Linear regression by moment condition: exact identification</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">18.8. Exercises</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">18.9. Footnotes</a></li>
 </ul>
             </nav>
         </div>
@@ -431,10 +509,240 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="generalized-method-of-moments-estimation">
 <span id="chap-gmm"></span><h1><span class="section-number">18. </span>Generalized Method of Moments Estimation<a class="headerlink" href="#generalized-method-of-moments-estimation" title="Permalink to this heading">#</a></h1>
-<p>The most recent version of the <a class="reference external" href="https://github.com/rickecon/StructEst_W20/blob/master/Notebooks/GMM/GMMest.ipynb"><code class="docutils literal notranslate"><span class="pre">GMMest.ipynb</span></code></a> notebook is currently in the <a class="reference external" href="https://github.com/rickecon/StructEst_W20">StructEst_W20</a> repository in the <a class="reference external" href="https://github.com/rickecon/StructEst_W20/tree/master/Notebooks/GMM"><code class="docutils literal notranslate"><span class="pre">/Notebooks/GMM</span></code></a> directory. All the accompanying data and images are also in that directory. I will be updating this chapter to include all the content from the <a class="reference external" href="https://github.com/rickecon/StructEst_W20/blob/master/Notebooks/GMM/GMMest.ipynb"><code class="docutils literal notranslate"><span class="pre">GMMest.ipynb</span></code></a> notebook along with exercises and lecture content from the GMM section of that course.</p>
+<p>This chapter describes the generalized method of moments (GMM) estimation method. All data and images from this chapter can be found in the data directory (<a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/data/gmm/">./data/gmm/</a>) and images directory (<a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/images/gmm/">./images/gmm/</a>) for the GitHub repository for this online book.</p>
+<section id="gmm-vs-mle-strengths-and-weaknesses">
+<span id="secgmm-gmmvmle"></span><h2><span class="section-number">18.1. </span>GMM vs. MLE: Strengths and weaknesses<a class="headerlink" href="#gmm-vs-mle-strengths-and-weaknesses" title="Permalink to this heading">#</a></h2>
+<p>A paper by <span id="id1">[<a class="reference internal" href="../CompMethods_references.html#id30" title="Jeffrey C. Fuhrer, George R. Moore, and Scott Schuh. Estimating the linear-quadratic inventory model: maximum likelihood versus generalized method of moments. Journal of Monetary Economics, 35(1):115-157, February 1995.">Fuhrer <em>et al.</em>, 1995</a>]</span> studies the accuracy and efficiency of the maximum likelihood (ML) estimator versus the generalized method of moments (GMM) estimator in the context of a simple linear-quadratic inventory model. They find that ML has some very nice properties over GMM in small samples when the model is simple. In the spirit of the <span id="id2">[<a class="reference internal" href="../CompMethods_references.html#id30" title="Jeffrey C. Fuhrer, George R. Moore, and Scott Schuh. Estimating the linear-quadratic inventory model: maximum likelihood versus generalized method of moments. Journal of Monetary Economics, 35(1):115-157, February 1995.">Fuhrer <em>et al.</em>, 1995</a>]</span> paper, we list the strengths and weaknesses of MLE vs. GMM more generally. I recommend you read the introduction to <span id="id3">[<a class="reference internal" href="../CompMethods_references.html#id30" title="Jeffrey C. Fuhrer, George R. Moore, and Scott Schuh. Estimating the linear-quadratic inventory model: maximum likelihood versus generalized method of moments. Journal of Monetary Economics, 35(1):115-157, February 1995.">Fuhrer <em>et al.</em>, 1995</a>]</span>. This paper provides big support for maximum likelihood estimation over generalized method of moments. However, GMM estimation allows for less strong assumptions.</p>
+<ul class="simple">
+<li><p>GMM almost always rejects the model (Hansen J-test)</p></li>
+<li><p>MLE supports the model, kind of by assumption</p></li>
+<li><p>“Monte Carlo experiments reveal that the GMM estimates are often biased (apparently due to poor instruments), statistically insignificant, economically implausible, and dynamically unstable.”</p></li>
+<li><p>“The ML estimates are generally unbiased (even in misspecifipd models), statistically significant, economically plausible, and dynamically stable.”</p></li>
+<li><p>“Asymptotic standard errors for ML are 3 to 15 times smaller than for GMM.”</p></li>
+</ul>
+<section id="mle-strengths">
+<span id="secgmm-mlestr"></span><h3><span class="section-number">18.1.1. </span>MLE strengths<a class="headerlink" href="#mle-strengths" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>More statistical significance. In general, MLE provides more statistical significance for parameter estimates than does GMM. This comes from the strong distributional assumptions that are necessary for the ML estimates.</p></li>
+<li><p>ML estimates are less sensitive to parameter or model normalizations than are GMM estimates.</p></li>
+<li><p>ML estimates have nice small sample properties. ML estimates have less bias and more efficiency with small data samples than GMM estimates in many cases.</p></li>
+</ul>
+</section>
+<section id="mle-weaknesses">
+<span id="secgmm-mlewk"></span><h3><span class="section-number">18.1.2. </span>MLE weaknesses<a class="headerlink" href="#mle-weaknesses" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>MLE requires strong distributional assumptions. For MLE, the data generating process (DGP) must be completely specified. This assumes a lot of knowledge about the DGP. This assumption is likely almost always wrong.</p></li>
+<li><p>MLE is very difficult in rational expectations models. This is because the consistency of beliefs induces a nonlinearity in the likelihood function that makes it difficult to find the global optimum.</p></li>
+<li><p>MLE is very difficult in nonlinear models. The likelihood function can become highly nonlinear in MLE even if the model is linear when the data are irregular. This difficulty is multiplied when the model itself is more complicated and nonlinear.</p></li>
+</ul>
+</section>
+<section id="gmm-strengths">
+<span id="secgmm-gmmstr"></span><h3><span class="section-number">18.1.3. </span>GMM strengths<a class="headerlink" href="#gmm-strengths" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>GMM allows for most flexible identification. GMM estimates can be identified by any set of moments from the data as long as you have at least as many moments as you have parameters to estimate and that those moments are independent enough to identify the parameters. (And the parameters are independent enough of each other to be separately identified.)</p></li>
+<li><p>Good large sample properties. The GMM estimator is strongly consistent and asymptotically normal. GMM will likely be the best estimator if you have a lot of data.</p></li>
+<li><p>GMM requires minimal assumptions about the DGP. In GMM, you need not specify the distributions of the error terms in your model of the DGP. This is often a strength, given that most error are not observed and most models are gross approximations of the true DGP.</p></li>
+</ul>
+</section>
+<section id="gmm-weaknesses">
+<span id="secgmm-gmmwk"></span><h3><span class="section-number">18.1.4. </span>GMM weaknesses<a class="headerlink" href="#gmm-weaknesses" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>GMM estimates are usually less statistically significant than ML estimates. This comes from the minimal distributional assumptions. GMM parameter estimates usually are measured with more error.</p></li>
+<li><p>GMM estimates can be sensitive to normalizations of the model or parameters.</p></li>
+<li><p>GMM estimates have bad small sample properties. GMM estimates can have large bias and inefficiency in small samples.</p></li>
+</ul>
+</section>
+<section id="key-questions-when-deciding-between-mle-and-gmm">
+<span id="secgmm-keyqst"></span><h3><span class="section-number">18.1.5. </span>Key questions when deciding between MLE and GMM<a class="headerlink" href="#key-questions-when-deciding-between-mle-and-gmm" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>How much data is available for the estimation? Large data samples will make GMM relatively more attractive than MLE because of the nice large sample properties of GMM and fewer required assumptions on the model.</p></li>
+<li><p>How complex is the model? Linear models or quadratic models are much easier to do using MLE than are more highly nonlinear models. Rational expectations models (macroeconomics) create an even more difficult level of nonlinearity that pushes you toward GMM estimation.</p></li>
+<li><p>How comfortable are you making strong distributional assumptions? MLE requires a complete specification of all distributional assumptions of the model DGP. If you think these assumptions are too strong, you should use GMM.</p></li>
+</ul>
+</section>
+</section>
+<section id="the-gmm-estimator">
+<span id="secgmm-gmmest"></span><h2><span class="section-number">18.2. </span>The GMM estimator<a class="headerlink" href="#the-gmm-estimator" title="Permalink to this heading">#</a></h2>
+<p>GMM was first formalized by <span id="id4">[<a class="reference internal" href="../CompMethods_references.html#id36" title="Lars Peter Hansen. Large sample properties of generalized method of moments estimators. Econometrica, 50(4):1029-1054, July 1982.">Hansen, 1982</a>]</span>. A strength of GMM estimation is that the econometrician can remain completely agnostic as to the distribution of the random variables in the DGP. For identification, the econometrician simply needs at least as many moment conditions from the data as he has parameters to estimate.</p>
+<p>A <em>moment</em> of the data is broadly defined as any statistic that summarizes the data to some degree. A data moment could be as narrow as an individual observation from the data or as broad as the sample average. GMM estimates the parameters of a model or data generating process to make the model moments as close as possible to the corresponding data moments. See <span id="id5">[<a class="reference internal" href="../CompMethods_references.html#id22" title="Russell Davidson and James G. MacKinnon. Econometric Theory and Methods. Oxford University Press, 2004.">Davidson and MacKinnon, 2004</a>]</span>, chapter 9 for a more detailed treatment of GMM. The estimation methods of linear least squares, nonlinear least squares, generalized least squares, and instrumental variables estimation are all specific cases of the more general GMM estimation method.</p>
+<p>Let <span class="math notranslate nohighlight">\(m(x)\)</span> be an <span class="math notranslate nohighlight">\(R\times 1\)</span> vector of moments from the real world data <span class="math notranslate nohighlight">\(x\)</span>, where <span class="math notranslate nohighlight">\(m_r(x)\)</span> is the <span class="math notranslate nohighlight">\(r\)</span>th data moment. And let <span class="math notranslate nohighlight">\(x\)</span> be an <span class="math notranslate nohighlight">\(N\times K\)</span> matrix of data with <span class="math notranslate nohighlight">\(K\)</span> columns representing <span class="math notranslate nohighlight">\(K\)</span> variables and <span class="math notranslate nohighlight">\(N\)</span> observations.</p>
+<div class="math notranslate nohighlight" id="equation-eqgmm-gmmest-datamomvec">
+<span class="eqno">(18.1)<a class="headerlink" href="#equation-eqgmm-gmmest-datamomvec" title="Permalink to this equation">#</a></span>\[    m(x) \equiv \left[m_1(x), m_2(x), ...m_R(x)\right]^T\]</div>
+<p>Let the model DGP be characterized as <span class="math notranslate nohighlight">\(F(x,\theta)=0\)</span>, where <span class="math notranslate nohighlight">\(F\)</span> is a vector of equations, each of which is a function of the data <span class="math notranslate nohighlight">\(x\)</span> and the <span class="math notranslate nohighlight">\(K\times 1\)</span> parameter vector <span class="math notranslate nohighlight">\(\theta\)</span>. Then define <span class="math notranslate nohighlight">\(m(x|\theta)\)</span> as a vector of <span class="math notranslate nohighlight">\(R\)</span> moments from the model that correspond to the real-world moment vector <span class="math notranslate nohighlight">\(m(x)\)</span>, where <span class="math notranslate nohighlight">\(m_r(x|\theta)\)</span> is the <span class="math notranslate nohighlight">\(r\)</span>th model moment.</p>
+<div class="math notranslate nohighlight" id="equation-eqgmm-gmmest-modmomvec">
+<span class="eqno">(18.2)<a class="headerlink" href="#equation-eqgmm-gmmest-modmomvec" title="Permalink to this equation">#</a></span>\[    m(x|\theta) \equiv \left[m_1(x|\theta), m_2(x|\theta), ...m_R(x|\theta)\right]^T\]</div>
+<p>Note that GMM requires both real world data <span class="math notranslate nohighlight">\(x\)</span> and moments that can be calculated from both the data <span class="math notranslate nohighlight">\(m(x)\)</span> and from the model <span class="math notranslate nohighlight">\(m(x|\theta)\)</span> in order to estimate the parameter vector <span class="math notranslate nohighlight">\(\hat{\theta}_{GMM}\)</span>. There is also a stochastic way to generate moments from the model, which we discuss later in our section on Simulated Method of Moments (SMM).</p>
+<p>The GMM approach of estimating the parameter vector <span class="math notranslate nohighlight">\(\hat{\theta}_{GMM}\)</span> is to choose <span class="math notranslate nohighlight">\(\theta\)</span> to minimize some distance measure of the model moments <span class="math notranslate nohighlight">\(m(x|\theta)\)</span> from the data moments <span class="math notranslate nohighlight">\(m(x)\)</span>.</p>
+<div class="math notranslate nohighlight" id="equation-eqgmm-gmmest-genprob">
+<span class="eqno">(18.3)<a class="headerlink" href="#equation-eqgmm-gmmest-genprob" title="Permalink to this equation">#</a></span>\[    \hat{\theta}_{GMM}=\theta:\quad \min_{\theta}\: ||m(x|\theta) - m(x)||\]</div>
+<p>The distance measure <span class="math notranslate nohighlight">\(||m(x|\theta) - m(x)||\)</span> can be any kind of norm. But it is important to recognize that your estimates <span class="math notranslate nohighlight">\(\hat{\theta}_{GMM}\)</span> will be dependent on what distance measure (norm) you choose. The most widely studied and used distance metric in GMM estimation is the <span class="math notranslate nohighlight">\(L^2\)</span> norm or the sum of squared errors in moments. Define the moment error function <span class="math notranslate nohighlight">\(e(x|\theta)\)</span> as the <span class="math notranslate nohighlight">\(R \times 1\)</span> vector of either the percent difference in the vector of model moments from the data moments or the simple difference.</p>
+<div class="math notranslate nohighlight" id="equation-eqgmm-gmmest-momerr">
+<span class="eqno">(18.4)<a class="headerlink" href="#equation-eqgmm-gmmest-momerr" title="Permalink to this equation">#</a></span>\[    e(x|\theta) \equiv \frac{m(x|\theta) - m(x)}{m(x)} \quad\text{or}\quad e(x|\theta) \equiv m(x|\theta) - m(x)\]</div>
+<p>It is important when possible that the error function <span class="math notranslate nohighlight">\(e(x|\theta)\)</span> be a percent deviation of the moments (given that none of the data moments are 0). This puts all the moments in the same units, which helps make sure that no moments receive unintended weighting simply due to their units. This ensures that the problem is scaled properly and does not suffer from ill conditioning. However, percent deviations become computationally problematic when the data moments are zero or close to zero. In that case, you would use a simple difference.</p>
+<p>The GMM estimator is the following,</p>
+<div class="math notranslate nohighlight" id="equation-eqgmm-gmmest-qdrprob">
+<span class="eqno">(18.5)<a class="headerlink" href="#equation-eqgmm-gmmest-qdrprob" title="Permalink to this equation">#</a></span>\[    \hat{\theta}_{GMM}=\theta:\quad \min_{\theta}\:e(x|\theta)^T \, W \, e(x|\theta)\]</div>
+<p>where <span class="math notranslate nohighlight">\(W\)</span> is an <span class="math notranslate nohighlight">\(R\times R\)</span> weighting matrix in the criterion function. For now, think of this weighting matrix as the identity matrix. But we will show in Section <a class="reference internal" href="#secgmm-wgt"><span class="std std-ref">The weighting matrix (W)</span></a> a more optimal weighting matrix. We call the quadratic form expression <span class="math notranslate nohighlight">\(e(x|\theta)^T \, W \, e(x|\theta)\)</span> the <em>criterion function</em> because it is a strictly positive scalar that is the object of the minimization in the GMM problem in the general statement of the problem <a class="reference internal" href="#equation-eqgmm-gmmest-genprob">(18.3)</a> and in the sum of squared errors version of the problem <a class="reference internal" href="#equation-eqgmm-gmmest-qdrprob">(18.5)</a>. The <span class="math notranslate nohighlight">\(R\times R\)</span> weighting matrix <span class="math notranslate nohighlight">\(W\)</span> in the criterion function allows the econometrician to control how each moment is weighted in the minimization problem. For example, an <span class="math notranslate nohighlight">\(R\times R\)</span> identity matrix for <span class="math notranslate nohighlight">\(W\)</span> would give each moment equal weighting of 1, and the criterion function would be a simply sum of squared percent deviations (errors). Other weighting strategies can be dictated by the nature of the problem or model.</p>
+</section>
+<section id="the-weighting-matrix-w">
+<span id="secgmm-wgt"></span><h2><span class="section-number">18.3. </span>The weighting matrix (W)<a class="headerlink" href="#the-weighting-matrix-w" title="Permalink to this heading">#</a></h2>
+<p>In the GMM criterion function in the problem statement <a class="reference internal" href="#equation-eqgmm-gmmest-qdrprob">(18.5)</a>, some moment weighting matrices <span class="math notranslate nohighlight">\(W\)</span> produce precise estimates while others produce poor estimates with large variances. We want to choose the optimal weighting matrix <span class="math notranslate nohighlight">\(W\)</span> with the smallest possible asymptotic variance. This is an efficient optimal GMM estimator. The optimal weighting matrix is the inverse variance covariance matrix of the moments at the optimal parameter values,</p>
+<div class="math notranslate nohighlight" id="equation-eqgmm-wgt-gen">
+<span class="eqno">(18.6)<a class="headerlink" href="#equation-eqgmm-wgt-gen" title="Permalink to this equation">#</a></span>\[    W^{opt} \equiv \Omega^{-1}(x|\hat{\theta}_{GMM})\]</div>
+<p>where <span class="math notranslate nohighlight">\(\Omega(x|\theta)\)</span> is the variance covariance matrix of the moment condition errors <span class="math notranslate nohighlight">\(E(x|\theta)\)</span> from each observation in the data (to be defined below). The intuition for using the inverse variance covariance matrix <span class="math notranslate nohighlight">\(\Omega^{-1}\)</span> as the optimal weighting matrix is the following. You want to downweight moments that have a high variance, and you want to weight more heavily the moments that are generated more precisely.</p>
+<p>Notice that this definition of the optimal weighting matrix is circular. <span class="math notranslate nohighlight">\(W^{opt}\)</span> is a function of the GMM estimates <span class="math notranslate nohighlight">\(\hat{\theta}_{GMM}\)</span>, but the optimal weighting matrix is used in the estimation of <span class="math notranslate nohighlight">\(\hat{\theta}_{GMM}\)</span>. This means that one has to use some kind of iterative fixed point method to find the true optimal weighting matrix <span class="math notranslate nohighlight">\(W^{opt}\)</span>. Below are some examples of weighting matrices to use.</p>
+<section id="the-identity-matrix-w-i">
+<span id="secgmm-wgt-i"></span><h3><span class="section-number">18.3.1. </span>The identity matrix (W=I)<a class="headerlink" href="#the-identity-matrix-w-i" title="Permalink to this heading">#</a></h3>
+<p>Many times, you can get away with just using the identity matrix as your weighting matrix <span class="math notranslate nohighlight">\(W = I\)</span>. This changes the criterion function to a simple sum of squared error functions such that each moment has the same weight.</p>
+<div class="math notranslate nohighlight" id="equation-eqgmm-gmmest-wi">
+<span class="eqno">(18.7)<a class="headerlink" href="#equation-eqgmm-gmmest-wi" title="Permalink to this equation">#</a></span>\[    \hat{\theta}_{GMM}=\theta:\quad \min_{\theta}\:e(x|\theta)^T \, e(x|\theta)\]</div>
+<p>If the problem is well conditioned and well identified, then your GMM estimates <span class="math notranslate nohighlight">\(\hat{\theta}_{GMM}\)</span> will not be greatly affected by this simplest of weighting matrices.</p>
+</section>
+<section id="two-step-variance-covariance-estimator-of-w">
+<span id="secgmm-wgt-2step"></span><h3><span class="section-number">18.3.2. </span>Two-step variance-covariance estimator of W<a class="headerlink" href="#two-step-variance-covariance-estimator-of-w" title="Permalink to this heading">#</a></h3>
+<p>The most common method of estimating the optimal weighting matrix for GMM estimates is the two-step variance covariance estimator. The name “two-step” refers to the two steps used to get the weighting matrix.</p>
+<p>The first step is to estimate the GMM parameter vector <span class="math notranslate nohighlight">\(\hat{\theta}_{1,GMM}\)</span> using the simple identity matrix as the weighting matrix <span class="math notranslate nohighlight">\(W = I\)</span> as in <a class="reference internal" href="#equation-eqgmm-gmmest-wi">(18.7)</a>.</p>
+<div class="math notranslate nohighlight" id="equation-eqgmm-gmmest-2stp-1">
+<span class="eqno">(18.8)<a class="headerlink" href="#equation-eqgmm-gmmest-2stp-1" title="Permalink to this equation">#</a></span>\[    \hat{\theta}_{1, GMM}=\theta:\quad \min_{\theta}\:e(x|\theta)^T \, I \, e(x|\theta)\]</div>
+<p>We use the <span class="math notranslate nohighlight">\(R\times 1\)</span> moment error vector and the Step 1 GMM estimate <span class="math notranslate nohighlight">\(e(x|\hat{\theta}_{1,GMM})\)</span> to get a new estimate of the variance-covariance matrix.</p>
+<div class="math notranslate nohighlight" id="equation-eqgmm-gmmest-2stp-2varcov">
+<span class="eqno">(18.9)<a class="headerlink" href="#equation-eqgmm-gmmest-2stp-2varcov" title="Permalink to this equation">#</a></span>\[    \hat{\Omega}_2 = e(x|\hat{\theta}_{1,GMM})\,e(x|\hat{\theta}_{1,GMM})^T\]</div>
+<p>This is simply saying that the <span class="math notranslate nohighlight">\((r,s)\)</span>-element of the <span class="math notranslate nohighlight">\(R\times R\)</span> estimator of the variance-covariance matrix of the moment vector is the following.</p>
+<div class="math notranslate nohighlight" id="equation-eqgmm-2stepvarcov-rs">
+<span class="eqno">(18.10)<a class="headerlink" href="#equation-eqgmm-2stepvarcov-rs" title="Permalink to this equation">#</a></span>\[    \hat{\Omega}_{2,r,s} = \Bigl[m_r(x|\hat{\theta}_{1,GMM}) - m_{r}(x)\Bigr]\Bigl[m_s(x|\theta) - m_s(x)\Bigr]\]</div>
+<p>The optimal weighting matrix is the inverse of the two-step variance covariance matrix.</p>
+<div class="math notranslate nohighlight" id="equation-eqgmm-estw-2step">
+<span class="eqno">(18.11)<a class="headerlink" href="#equation-eqgmm-estw-2step" title="Permalink to this equation">#</a></span>\[    \hat{W}^{two-step} \equiv \hat{\Omega}_2^{-1}\]</div>
+<p>Lastly, re-estimate the GMM estimator using the optimal two-step weighting matrix <span class="math notranslate nohighlight">\(\hat{W}^{2step}\)</span>.</p>
+<div class="math notranslate nohighlight" id="equation-eqgmm-theta-2step-2">
+<span class="eqno">(18.12)<a class="headerlink" href="#equation-eqgmm-theta-2step-2" title="Permalink to this equation">#</a></span>\[    \hat{\theta}_{2,GMM}=\theta:\quad \min_{\theta}\:e(x|\theta)^T \, \hat{W}^{two-step} \, e(x|\theta)\]</div>
+<p><span class="math notranslate nohighlight">\(\hat{\theta}_{2,GMM}\)</span> is called the two-step GMM estimator.</p>
+</section>
+<section id="iterated-variance-covariance-estimator-of-w">
+<span id="secgmm-w-iter"></span><h3><span class="section-number">18.3.3. </span>Iterated variance-covariance estimator of W<a class="headerlink" href="#iterated-variance-covariance-estimator-of-w" title="Permalink to this heading">#</a></h3>
+<p>The truly optimal weighting matrix <span class="math notranslate nohighlight">\(W^{opt}\)</span> is the iterated variance-covariance estimator of <span class="math notranslate nohighlight">\(W\)</span>. This procedure is to just repeat the process described in the two-step GMM estimator until the estimated weighting matrix no longer significantly changes between iterations. Let <span class="math notranslate nohighlight">\(i\)</span> index the <span class="math notranslate nohighlight">\(i\)</span>th iterated GMM estimator,</p>
+<div class="math notranslate nohighlight" id="equation-eqgmm-theta-2step-i">
+<span class="eqno">(18.13)<a class="headerlink" href="#equation-eqgmm-theta-2step-i" title="Permalink to this equation">#</a></span>\[    \hat{\theta}_{i, GMM}=\theta:\quad \min_{\theta}\:e(x|\theta)^T \, \hat{W}_{i} \, e(x|\theta)\]</div>
+<p>and the <span class="math notranslate nohighlight">\((i+1)\)</span>th estimate of the optimal weighting matrix is defined as the following.</p>
+<div class="math notranslate nohighlight" id="equation-eqgmm-estw-istep">
+<span class="eqno">(18.14)<a class="headerlink" href="#equation-eqgmm-estw-istep" title="Permalink to this equation">#</a></span>\[    \hat{W}_{i+1} \equiv \hat{\Omega}_{i+1}^{-1}\quad\text{where}\quad \hat{\Omega}_{i+1} = e(x|\hat{\theta}_{i,GMM})\,e(x|\hat{\theta}_{i,GMM})^T\]</div>
+<p>The iterated GMM estimator <span class="math notranslate nohighlight">\(\hat{\theta}_{it,GMM}\)</span> is the <span class="math notranslate nohighlight">\(\hat{\theta}_{i,GMM}\)</span> such that <span class="math notranslate nohighlight">\(\hat{W}_{i+1}\)</span> is very close to <span class="math notranslate nohighlight">\(\hat{W}_{i}\)</span> for some distance metric (norm).</p>
+<div class="math notranslate nohighlight" id="equation-eqgmm-theta-it">
+<span class="eqno">(18.15)<a class="headerlink" href="#equation-eqgmm-theta-it" title="Permalink to this equation">#</a></span>\[    \hat{\theta}_{it,GMM} = \hat{\theta}_{i,GMM}: \quad || \hat{W}_{i+1} - \hat{W}_{i} || &lt; \varepsilon\]</div>
+</section>
+<section id="newey-west-consistent-estimator-of-omega-and-w">
+<span id="secgmm-w-nw"></span><h3><span class="section-number">18.3.4. </span>Newey-West consistent estimator of <span class="math notranslate nohighlight">\(\Omega\)</span> and W<a class="headerlink" href="#newey-west-consistent-estimator-of-omega-and-w" title="Permalink to this heading">#</a></h3>
+<p>[TODO: Need to get this right for the GMM case.] The Newey-West estimator of the optimal weighting matrix and variance covariance matrix is consistent in the presence of heteroskedasticity and autocorrelation in the data (See <span id="id6">[<a class="reference internal" href="../CompMethods_references.html#id49" title="Whitney K. Newey and Kenneth D. West. A simple, positive, semi-definite, heteroskedasticy and autocorrelation consistent covariance matrix. Econometrica, 55(3):703-708, May 1987.">Newey and West, 1987</a>]</span>). <span id="id7">[<a class="reference internal" href="../CompMethods_references.html#id2" title="Jérôme Adda and Russell Cooper. Dynamic Economics: Quantitative Methods and Applications. MIT Press, 2003.">Adda and Cooper, 2003</a>]</span> (p. 82) have a nice exposition of how to compute the Newey-West weighting matrix <span class="math notranslate nohighlight">\(\hat{W}_{nw}\)</span>. The asymptotic representation of the optimal weighting matrix <span class="math notranslate nohighlight">\(\hat{W}^{opt}\)</span> is the following:</p>
+<div class="math notranslate nohighlight" id="equation-eqgmm-estw-whatopt">
+<span class="eqno">(18.16)<a class="headerlink" href="#equation-eqgmm-estw-whatopt" title="Permalink to this equation">#</a></span>\[    \hat{W}^{opt} = \lim_{N\rightarrow\infty}\frac{1}{N}\sum_{i=1}^N \sum_{l=-\infty}^\infty E(x_i|\theta)E(x_{i-l}|\theta)^T\]</div>
+<p>The Newey-West consistent estimator of <span class="math notranslate nohighlight">\(\hat{W}^{opt}\)</span> is:</p>
+<div class="math notranslate nohighlight" id="equation-eqgmm-estw-nw">
+<span class="eqno">(18.17)<a class="headerlink" href="#equation-eqgmm-estw-nw" title="Permalink to this equation">#</a></span>\[    \hat{W}_{nw} = \Gamma_{0,N} + \sum_{v=1}^q \left(1 - \left[\frac{v}{q+1}\right]\right)\left(\Gamma_{v,N} + \Gamma^T_{v,N}\right)\]</div>
+<p>where</p>
+<div class="math notranslate nohighlight" id="equation-eqgmm-estw-nwgamma">
+<span class="eqno">(18.18)<a class="headerlink" href="#equation-eqgmm-estw-nwgamma" title="Permalink to this equation">#</a></span>\[    \Gamma_{v,N} = \frac{1}{N}\sum_{i=v+1}^N E(x_i|\theta)E(x_{i-v}|\theta)^T\]</div>
+<p>Of course, for autocorrelation, the subscript <span class="math notranslate nohighlight">\(i\)</span> can be changed to <span class="math notranslate nohighlight">\(t\)</span>.</p>
+</section>
+</section>
+<section id="variance-covariance-estimator-of-hat-theta">
+<span id="secgmm-varcovtheta"></span><h2><span class="section-number">18.4. </span>Variance-Covariance Estimator of <span class="math notranslate nohighlight">\(\hat{\theta}\)</span><a class="headerlink" href="#variance-covariance-estimator-of-hat-theta" title="Permalink to this heading">#</a></h2>
+<p>The estimated variance-covariance matrix <span class="math notranslate nohighlight">\(\hat{\Sigma}\)</span> of the estimated parameter vector <span class="math notranslate nohighlight">\(\hat{\theta}_{GMM}\)</span> is different from the variance-covariance matrix <span class="math notranslate nohighlight">\(\hat{\Omega}\)</span> of the moment vector <span class="math notranslate nohighlight">\(e(x|\theta)\)</span> from the previous section. <span class="math notranslate nohighlight">\(\hat{\Omega}\)</span> from the previous section is the <span class="math notranslate nohighlight">\(R\times R\)</span> variance-covariance matrix of the <span class="math notranslate nohighlight">\(R\)</span> moment errors used to identify the <span class="math notranslate nohighlight">\(K\)</span> parameters <span class="math notranslate nohighlight">\(\theta\)</span> to be estimated. The estimated variance-covariance matrix of the estimated parameter vector <span class="math notranslate nohighlight">\(\hat{\Sigma}\)</span> is a <span class="math notranslate nohighlight">\(K\times K\)</span> matrix. We say the model is exactly identified if <span class="math notranslate nohighlight">\(K = R\)</span>. We say the model is overidentified if <span class="math notranslate nohighlight">\(K&lt;R\)</span>.</p>
+<p>Similar to the inverse Hessian estimator of the variance-covariance matrix of the maximum likelihood estimator from the <a class="reference internal" href="MLE.html#chap-mle"><span class="std std-ref">Maximum Likelihood Estimation</span></a>, the GMM variance-covariance matrix is related to the derivative of the criterion function with respect to each parameter. The intuition is that if the second derivative of the criterion function with respect to the parameters is large, there is a lot of curvature around the criterion minimizing estimate. In other words, the parameters of the model are precisely estimated. The inverse of the Hessian matrix will be small.</p>
+<p>Define <span class="math notranslate nohighlight">\(R\times K\)</span> matrix <span class="math notranslate nohighlight">\(d(x|\theta)\)</span> as the Jacobian matrix of derivatives of the <span class="math notranslate nohighlight">\(R\times 1\)</span> error vector <span class="math notranslate nohighlight">\(e(x|\theta)\)</span>.</p>
+<div class="math notranslate nohighlight" id="equation-eqgmm-errvec-deriv">
+<span class="eqno">(18.19)<a class="headerlink" href="#equation-eqgmm-errvec-deriv" title="Permalink to this equation">#</a></span>\[\begin{split}    \begin{equation}
+    d(x|\theta) \equiv
+        \begin{bmatrix}
+        \frac{\partial e_1(x|\theta)}{\partial \theta_1} &amp; \frac{\partial e_1(x|\theta)}{\partial \theta_2} &amp; ... &amp; \frac{\partial e_1(x|\theta)}{\partial \theta_K} \\
+        \frac{\partial e_2(x|\theta)}{\partial \theta_1} &amp; \frac{\partial e_2(x|\theta)}{\partial \theta_2} &amp; ... &amp; \frac{\partial e_2(x|\theta)}{\partial \theta_K} \\
+        \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+        \frac{\partial e_R(x|\theta)}{\partial \theta_1} &amp; \frac{\partial e_R(x|\theta)}{\partial \theta_2} &amp; ... &amp; \frac{\partial e_R(x|\theta)}{\partial \theta_K}
+        \end{bmatrix}
+    \end{equation}\end{split}\]</div>
+<p>The GMM estimates of the parameter vector <span class="math notranslate nohighlight">\(\hat{\theta}_{GMM}\)</span> are assymptotically normal. If <span class="math notranslate nohighlight">\(\theta_0\)</span> is the true value of the parameters, then the following holds,</p>
+<div class="math notranslate nohighlight" id="equation-eqgmm-theta-plim">
+<span class="eqno">(18.20)<a class="headerlink" href="#equation-eqgmm-theta-plim" title="Permalink to this equation">#</a></span>\[    \text{plim}_{N\rightarrow\infty}\sqrt{N}\left(\hat{\theta}_{GMM} - \theta_0\right) \sim \text{N}\left(0, \left[d(x|\theta)^T W d(x|\theta)\right]^{-1}\right)\]</div>
+<p>where <span class="math notranslate nohighlight">\(W\)</span> is the optimal weighting matrix from the GMM criterion function. The GMM estimator for the variance-covariance matrix <span class="math notranslate nohighlight">\(\hat{\Sigma}_{GMM}\)</span> of the parameter vector <span class="math notranslate nohighlight">\(\hat{\theta}_{GMM}\)</span> is the following.</p>
+<div class="math notranslate nohighlight" id="equation-eqgmm-sigmahat">
+<span class="eqno">(18.21)<a class="headerlink" href="#equation-eqgmm-sigmahat" title="Permalink to this equation">#</a></span>\[    \hat{\Sigma}_{GMM} = \frac{1}{N}\left[d(x|\theta)^T W d(x|\theta)\right]^{-1}\]</div>
+<p>In the examples below, we will use a finite difference method to compute numerical versions of the Jacobian matrix <span class="math notranslate nohighlight">\(d(\tilde{x},x|\theta)\)</span>. The following is a first-order forward finite difference numerical approximation of the first derivative of a function.</p>
+<div class="math notranslate nohighlight" id="equation-eqgmm-finitediff-1">
+<span class="eqno">(18.22)<a class="headerlink" href="#equation-eqgmm-finitediff-1" title="Permalink to this equation">#</a></span>\[    f'(x_0) = \lim_{h\rightarrow 0} \frac{f(x_0 + h) - f(x_0)}{h}\]</div>
+<p>The following is a centered second-order finite difference numerical approximation of the derivative of a function. (See <a class="reference external" href="https://github.com/UC-MACSS/persp-model-econ_W19/blob/master/Notes/ACME_NumDiff.pdf">BYU ACME numerical differentiation lab</a> for more details.)</p>
+<div class="math notranslate nohighlight" id="equation-eqgmm-finitediff-2">
+<span class="eqno">(18.23)<a class="headerlink" href="#equation-eqgmm-finitediff-2" title="Permalink to this equation">#</a></span>\[    f'(x_0) \approx \frac{f(x_0 + h) - f(x_0 - h)}{2h}\]</div>
+</section>
+<section id="examples">
+<span id="secgmm-ex"></span><h2><span class="section-number">18.5. </span>Examples<a class="headerlink" href="#examples" title="Permalink to this heading">#</a></h2>
+<p>In this section, we will use GMM to estimate parameters of the models from the <a class="reference internal" href="MLE.html#chap-mle"><span class="std std-ref">Maximum Likelihood Estimation</span></a> chapter. We will also go through the standard moment conditions in most econometrics textbooks in which the conditional and unconditional expectations provide moments for estimation.</p>
+<section id="fitting-a-truncated-normal-to-intermediate-macroeconomics-test-scores">
+<span id="secgmm-ex-trunc"></span><h3><span class="section-number">18.5.1. </span>Fitting a truncated normal to intermediate macroeconomics test scores<a class="headerlink" href="#fitting-a-truncated-normal-to-intermediate-macroeconomics-test-scores" title="Permalink to this heading">#</a></h3>
+<p>Let’s revisit the problem from the <a class="reference internal" href="MLE.html#chap-mle"><span class="std std-ref">Maximum Likelihood Estimation</span></a> chapter of fitting a truncated normal distribution to intermediate macroeconomics test scores. The data are in the text file <a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/blob/main/data/gmm/Econ381totpts.txt"><code class="docutils literal notranslate"><span class="pre">Econ381totpts.txt</span></code></a> in the GitHub repository <a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/data/smm"><code class="docutils literal notranslate"><span class="pre">../data/gmm/</span></code></a> folder for this executable book. Recall that these test scores are between 0 and 450. The figure below shows a histogram of the data, as well as three truncated normal PDF’s. The black line is the ML estimate of <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span> of the truncated normal pdf. The red and the green lines are just the PDF’s of two “arbitrarily” chosen combinations of the truncated normal parameters <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span>.</p>
+</section>
+</section>
+<section id="secgmm-ident">
+<span id="identification"></span><h2><span class="section-number">18.6. </span>Identification<a class="headerlink" href="#secgmm-ident" title="Permalink to this heading">#</a></h2>
+<p>An issue that we saw in the examples from Section <a class="reference internal" href="#secgmm-ex"><span class="std std-ref">Examples</span></a> is that there is some science as well as some art in choosing moments to identify the parameters in a GMM estimation.</p>
+<ul class="simple">
+<li><p>The <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span> parameters were identified more precisely when using the two-step estimator of the optimal weighting matrix instead of the identity matrix.</p></li>
+<li><p>The overidentified four-moment model of total scores produced much smaller standard errors for both <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span> than did the two-moment model.</p></li>
+</ul>
+<p>Suppose the parameter vector <span class="math notranslate nohighlight">\(\theta\)</span> has <span class="math notranslate nohighlight">\(K\)</span> elements, or rather, <span class="math notranslate nohighlight">\(K\)</span> parameters to be estimated. In order to estimate <span class="math notranslate nohighlight">\(\theta\)</span> by GMM, you must have at least as many moments as parameters to estimate <span class="math notranslate nohighlight">\(R\geq K\)</span>. If you have exactly as many moments as parameters to be estimated <span class="math notranslate nohighlight">\(R=K\)</span>, the model is said to be <em>exactly identified</em>. If you have more moments than parameters to be estimated <span class="math notranslate nohighlight">\(R&gt;K\)</span>, the model is said to be <em>overidentified</em>. If you have fewer moments than parameters to be estimated <span class="math notranslate nohighlight">\(R&lt;K\)</span>, the model is said to be <em>underidentified</em>. There are good reasons to overidentify <span class="math notranslate nohighlight">\(R&gt;K\)</span> the model in GMM estimation as we saw in the previous example. The main reason is that not all moments are orthogonal. That is, some moments convey roughly the same information about the data and, therefore, do not separately identify any extra parameters. So a good GMM model often is overidentified <span class="math notranslate nohighlight">\(R&gt;K\)</span>.</p>
+<p>One last point about GMM regards moment selection and verification of results. The real world has an infinite supply of potential moments that describe some part of the data. Choosing moments to estimate parameters by GMM requires understanding of the model, intuition about its connections to the real world, and artistry. A good GMM estimation will include moments that have some relation to or story about their connection to particular parameters of the model to be estimated. In addition, a good verification of a GMM estimation is to take some moment from the data that was not used in the estimation and see how well the corresponding moment from the estimated model matches that <em>outside moment</em>.</p>
+</section>
+<section id="linear-regression-by-gmm-and-relation-to-ols">
+<span id="secgmm-linreg"></span><h2><span class="section-number">18.7. </span>Linear regression by GMM and relation to OLS<a class="headerlink" href="#linear-regression-by-gmm-and-relation-to-ols" title="Permalink to this heading">#</a></h2>
+<section id="ordinary-least-squares-overidentification">
+<span id="secgmm-linreg-ols"></span><h3><span class="section-number">18.7.1. </span>Ordinary least squares: overidentification<a class="headerlink" href="#ordinary-least-squares-overidentification" title="Permalink to this heading">#</a></h3>
+<p>The most common method of estimating the parameters of a linear regression is using the ordinary least squares (OLS) estimator. This estimator is just special type of generalized method of moments (GMM) estimator. A simple regression specification in which the dependent variable <span class="math notranslate nohighlight">\(y_i\)</span> is a linear function of two independent variables <span class="math notranslate nohighlight">\(x_{1,i}\)</span> and <span class="math notranslate nohighlight">\(x_{2,i}\)</span> is the following:</p>
+<div class="math notranslate nohighlight" id="equation-eqgmm-linreg-linreg">
+<span class="eqno">(18.24)<a class="headerlink" href="#equation-eqgmm-linreg-linreg" title="Permalink to this equation">#</a></span>\[    y_i = \beta_0 + \beta_1 x_{1,i} + \beta_2 x_{2,i} + \varepsilon_i \quad\text{where}\quad \varepsilon_i\sim N\left(0,\sigma^2\right)\]</div>
+<p>Note that we can solve for the parameters <span class="math notranslate nohighlight">\((\beta_0,\beta_1,\beta_2)\)</span> in a number of ways. And we can do it without making any assumptions about the distribution of the error terms <span class="math notranslate nohighlight">\(\varepsilon_i\)</span>.</p>
+<p>One way we might choose the parameters is to choose <span class="math notranslate nohighlight">\((\beta_0,\beta_1,\beta_2)\)</span> to minimize the distance between the <span class="math notranslate nohighlight">\(N\)</span> observations of <span class="math notranslate nohighlight">\(y_i\)</span> and the <span class="math notranslate nohighlight">\(N\)</span> predicted values for <span class="math notranslate nohighlight">\(y_i\)</span> given by <span class="math notranslate nohighlight">\(\beta_0 + \beta_1 x_{1,i} + \beta_2 x_{2,i}\)</span>. You can think of the <span class="math notranslate nohighlight">\(N\)</span> observations of <span class="math notranslate nohighlight">\(y_i\)</span> as <span class="math notranslate nohighlight">\(N\)</span> data moments. And you can think of the <span class="math notranslate nohighlight">\(N\)</span> observations of <span class="math notranslate nohighlight">\(\beta_0 + \beta_1 x_{1,i} + \beta_2 x_{2,i}\)</span> as <span class="math notranslate nohighlight">\(N\)</span> model moments. The least squares estimator minimizes the sum of squared errors, which is the sum of squared deviations between the <span class="math notranslate nohighlight">\(N\)</span> values of <span class="math notranslate nohighlight">\(y_i\)</span> and  <span class="math notranslate nohighlight">\(\beta_0 + \beta_1 x_{1,i} + \beta_2 x_{2,i}\)</span>.</p>
+<div class="math notranslate nohighlight" id="equation-eqgmm-linreg-errs">
+<span class="eqno">(18.25)<a class="headerlink" href="#equation-eqgmm-linreg-errs" title="Permalink to this equation">#</a></span>\[    \varepsilon_i = y_i - \beta_0 - \beta_1 x_{1,i} - \beta_2 x_{2,i}\]</div>
+<div class="math notranslate nohighlight" id="equation-eqgmm-linreg-gmmprob">
+<span class="eqno">(18.26)<a class="headerlink" href="#equation-eqgmm-linreg-gmmprob" title="Permalink to this equation">#</a></span>\[    \hat{\theta}_{OLS} = \theta:\quad \min_{\theta} \varepsilon^T\, I \, \varepsilon\]</div>
+<p>The OLS GMM estimator of the linear regression model is an overidentified GMM estimator, in most cases, because the number of moments <span class="math notranslate nohighlight">\(R=N\)</span> is greater than the number of parameters to be estimated <span class="math notranslate nohighlight">\(K\)</span>.</p>
+<p>Let the <span class="math notranslate nohighlight">\(N\times 1\)</span> vector of <span class="math notranslate nohighlight">\(y_i\)</span>’s be <span class="math notranslate nohighlight">\(Y\)</span>. Let the <span class="math notranslate nohighlight">\(N\times 3\)</span> vector of data <span class="math notranslate nohighlight">\((1, x_{1,i}, x_{2,i})\)</span> be <span class="math notranslate nohighlight">\(X\)</span>. And let the vector of three parameters <span class="math notranslate nohighlight">\((\beta_0, \beta_1, \beta_2)\)</span> be <span class="math notranslate nohighlight">\(\beta\)</span>. It can be shown that the OLS estimator for the vector of parameters <span class="math notranslate nohighlight">\(\beta\)</span> is the following.</p>
+<div class="math notranslate nohighlight" id="equation-eqgmm-linreg-xxxy">
+<span class="eqno">(18.27)<a class="headerlink" href="#equation-eqgmm-linreg-xxxy" title="Permalink to this equation">#</a></span>\[    \hat{\beta}_{OLS} = (X^T X)^{-1}(X^T Y)\]</div>
+<p>But you could also just estimate the coefficients using the criterion function in the GMM statement of the problem above. This method is called nonlinear least squares or generalized least squares. Many applications of regression use a weighting matrix in the criterion function that adjusts for issues like heteroskedasticity and autocorrelation.</p>
+<p>Lastly, many applications use a different distance metric than the weighted sum of squared errors for the difference in moments. Sum of squared errors puts a large penalty on big differences. Sometimes you might want to maximize the sum of absolute errors, which is sometimes called median regression. You could also minimize the maximum absolute difference in the errors, which is even more extreme than the sum of squared errors on penalizing large differences.</p>
+</section>
+<section id="linear-regression-by-moment-condition-exact-identification">
+<span id="secgmm-linreg-mom"></span><h3><span class="section-number">18.7.2. </span>Linear regression by moment condition: exact identification<a class="headerlink" href="#linear-regression-by-moment-condition-exact-identification" title="Permalink to this heading">#</a></h3>
+<p>The exactly identified GMM approach to estimating the linear regression model comes from the underlying statistical assumptions of the model. We usually assume that the dependent variable <span class="math notranslate nohighlight">\(y_i\)</span> and the independent variables <span class="math notranslate nohighlight">\((x_{1,i}, x_{2,i})\)</span> are not correlated with the error term <span class="math notranslate nohighlight">\(\varepsilon_i\)</span>. This implies the following three conditions.</p>
+<div class="math notranslate nohighlight" id="equation-eqgmm-linreg-momcond-y">
+<span class="eqno">(18.28)<a class="headerlink" href="#equation-eqgmm-linreg-momcond-y" title="Permalink to this equation">#</a></span>\[    E\left[y^T \varepsilon\right] = 0\]</div>
+<div class="math notranslate nohighlight" id="equation-eqgmm-linreg-momcond-x1">
+<span class="eqno">(18.29)<a class="headerlink" href="#equation-eqgmm-linreg-momcond-x1" title="Permalink to this equation">#</a></span>\[    E\left[x_1^T \varepsilon\right] = 0\]</div>
+<div class="math notranslate nohighlight" id="equation-eqgmm-linreg-momcond-x2">
+<span class="eqno">(18.30)<a class="headerlink" href="#equation-eqgmm-linreg-momcond-x2" title="Permalink to this equation">#</a></span>\[    E\left[x_2^T \varepsilon\right] = 0\]</div>
+<p>The data analogues for these moment conditions are the following.</p>
+<div class="math notranslate nohighlight" id="equation-eqgmm-linreg-datacond-y">
+<span class="eqno">(18.31)<a class="headerlink" href="#equation-eqgmm-linreg-datacond-y" title="Permalink to this equation">#</a></span>\[    \frac{1}{N}\sum_{i=1}^N\left[y_i \varepsilon_i\right] = 0 \quad\Rightarrow\quad \sum_{i=1}^N\Bigl[y_i\left(y_i - \beta_0 - \beta_1 x_{1,i} - \beta_2 x_{2,i}\right)\Bigr] = 0\]</div>
+<div class="math notranslate nohighlight" id="equation-eqgmm-linreg-datacond-x1">
+<span class="eqno">(18.32)<a class="headerlink" href="#equation-eqgmm-linreg-datacond-x1" title="Permalink to this equation">#</a></span>\[    \frac{1}{N}\sum_{i=1}^N\left[x_{1,i} \varepsilon_i\right] = 0 \quad\Rightarrow\quad \sum_{i=1}^N\Bigl[x_{1,i}\left(y_i - \beta_0 - \beta_1 x_{1,i} - \beta_2 x_{2,i}\right)\Bigr] = 0\]</div>
+<div class="math notranslate nohighlight" id="equation-eqgmm-linreg-datacond-x2">
+<span class="eqno">(18.33)<a class="headerlink" href="#equation-eqgmm-linreg-datacond-x2" title="Permalink to this equation">#</a></span>\[    \frac{1}{N}\sum_{i=1}^N\left[x_{2,i} \varepsilon_i\right] = 0 \quad\Rightarrow\quad \sum_{i=1}^N\Bigl[x_{2,i}\left(y_i - \beta_0 - \beta_1 x_{1,i} - \beta_2 x_{2,i}\right)\Bigr] = 0\]</div>
+<p>Think of the assumed zero correlations in equations <a class="reference internal" href="#equation-eqgmm-linreg-momcond-y">(18.28)</a>, <a class="reference internal" href="#equation-eqgmm-linreg-momcond-x1">(18.29)</a>, and <a class="reference internal" href="#equation-eqgmm-linreg-momcond-x2">(18.30)</a> as data moments that are all equal to zero. And think of the empirical analogues of those moments as the left-hand-sides of equations <a class="reference internal" href="#equation-eqgmm-linreg-datacond-y">(18.31)</a>, <a class="reference internal" href="#equation-eqgmm-linreg-datacond-x1">(18.32)</a>, and <a class="reference internal" href="#equation-eqgmm-linreg-datacond-x2">(18.33)</a> as the corresponding model moments. The exactly identified GMM approach to estimating the linear regression model in <a class="reference internal" href="#equation-eqgmm-linreg-linreg">(18.24)</a> is to choose the parameter vector <span class="math notranslate nohighlight">\(\theta=[\beta_0,\beta_1,\beta_2]\)</span> to minimize the three moment error conditions,</p>
+<div class="math notranslate nohighlight" id="equation-eqgmm-linreg-exactprob">
+<span class="eqno">(18.34)<a class="headerlink" href="#equation-eqgmm-linreg-exactprob" title="Permalink to this equation">#</a></span>\[\begin{split}    \hat{\theta}_{lin,exact} = \theta:\quad \min_{\theta} e(x|\theta)^T\, W \, e(x|\theta) \\
+    \text{where}\quad e(x|\theta)\equiv \begin{bmatrix}
+      \sum_{i=1}^N\Bigl[y_i\left(y_i - \beta_0 - \beta_1 x_{1,i} - \beta_2 x_{2,i}\right)\Bigr] \\
+      \sum_{i=1}^N\Bigl[x_{1,i}\left(y_i - \beta_0 - \beta_1 x_{1,i} - \beta_2 x_{2,i}\right)\Bigr] \\
+      \sum_{i=1}^N\Bigl[x_{2,i}\left(y_i - \beta_0 - \beta_1 x_{1,i} - \beta_2 x_{2,i}\right)\Bigr]
+    \end{bmatrix}\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(W\)</span> is some <span class="math notranslate nohighlight">\(3\times 3\)</span> weighting matrix.</p>
+</section>
+</section>
+<section id="exercises">
+<span id="secgmm-exerc"></span><h2><span class="section-number">18.8. </span>Exercises<a class="headerlink" href="#exercises" title="Permalink to this heading">#</a></h2>
+</section>
 <section id="footnotes">
-<span id="secgmmfootnotes"></span><h2><span class="section-number">18.1. </span>Footnotes<a class="headerlink" href="#footnotes" title="Permalink to this heading">#</a></h2>
-<!-- [^citation_note]: See {cite}`AuerbachEtAl:1981,AuerbachEtAl:1983`, {cite}`AuerbachKotlikoff:1983a,AuerbachKotlikoff:1983b,AuerbachKotlikoff:1983c`, and {cite}`AuerbachKotlikoff:1985`. -->
+<span id="secgmmfootnotes"></span><h2><span class="section-number">18.9. </span>Footnotes<a class="headerlink" href="#footnotes" title="Permalink to this heading">#</a></h2>
+<p>The footnotes from this chapter.</p>
 </section>
 </section>
 
@@ -501,7 +809,35 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">18.1. Footnotes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gmm-vs-mle-strengths-and-weaknesses">18.1. GMM vs. MLE: Strengths and weaknesses</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mle-strengths">18.1.1. MLE strengths</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mle-weaknesses">18.1.2. MLE weaknesses</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gmm-strengths">18.1.3. GMM strengths</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gmm-weaknesses">18.1.4. GMM weaknesses</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-questions-when-deciding-between-mle-and-gmm">18.1.5. Key questions when deciding between MLE and GMM</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-gmm-estimator">18.2. The GMM estimator</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-weighting-matrix-w">18.3. The weighting matrix (W)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-identity-matrix-w-i">18.3.1. The identity matrix (W=I)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#two-step-variance-covariance-estimator-of-w">18.3.2. Two-step variance-covariance estimator of W</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#iterated-variance-covariance-estimator-of-w">18.3.3. Iterated variance-covariance estimator of W</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#newey-west-consistent-estimator-of-omega-and-w">18.3.4. Newey-West consistent estimator of <span class="math notranslate nohighlight">\(\Omega\)</span> and W</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variance-covariance-estimator-of-hat-theta">18.4. Variance-Covariance Estimator of <span class="math notranslate nohighlight">\(\hat{\theta}\)</span></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#examples">18.5. Examples</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fitting-a-truncated-normal-to-intermediate-macroeconomics-test-scores">18.5.1. Fitting a truncated normal to intermediate macroeconomics test scores</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secgmm-ident">18.6. Identification</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-regression-by-gmm-and-relation-to-ols">18.7. Linear regression by GMM and relation to OLS</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ordinary-least-squares-overidentification">18.7.1. Ordinary least squares: overidentification</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-regression-by-moment-condition-exact-identification">18.7.2. Linear regression by moment condition: exact identification</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">18.8. Exercises</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">18.9. Footnotes</a></li>
 </ul>
   </nav></div>
 
