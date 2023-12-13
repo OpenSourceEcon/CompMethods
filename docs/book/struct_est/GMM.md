@@ -918,7 +918,21 @@ where $W$ is some $3\times 3$ weighting matrix.
 (SecGMM_Exerc)=
 ## Exercises
 
+```{exercise-start} Matching the US income distribution by GMM
+:label: ExercStructEst_GMM_incdist
+:class: green
+```
+Put exercise here.
+```{exercise-end}
+```
 
+```{exercise-start} Estimating the Brock and Mirman (1972) model by GMM
+:label: ExercStructEst_GMM_BM72
+:class: green
+```
+Put exercise here.
+```{exercise-end}
+```
 
 
 (SecGMMfootnotes)=
