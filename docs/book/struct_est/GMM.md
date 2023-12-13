@@ -299,7 +299,513 @@ In this section, we will use GMM to estimate parameters of the models from the {
 (SecGMM_Ex_Trunc)=
 ### Fitting a truncated normal to intermediate macroeconomics test scores
 
-Let's revisit the problem from the {ref}`Chap_MLE` chapter of fitting a truncated normal distribution to intermediate macroeconomics test scores. The data are in the text file [`Econ381totpts.txt`](https://github.com/OpenSourceEcon/CompMethods/blob/main/data/gmm/Econ381totpts.txt) in the GitHub repository [`../data/gmm/`](https://github.com/OpenSourceEcon/CompMethods/tree/main/data/smm) folder for this executable book. Recall that these test scores are between 0 and 450. The figure below shows a histogram of the data, as well as three truncated normal PDF's. The black line is the ML estimate of $\mu$ and $\sigma$ of the truncated normal pdf. The red and the green lines are just the PDF's of two "arbitrarily" chosen combinations of the truncated normal parameters $\mu$ and $\sigma$.
+Let's revisit the problem from the {ref}`Chap_MLE` chapter of fitting a truncated normal distribution to intermediate macroeconomics test scores. The data are in the text file [`Econ381totpts.txt`](https://github.com/OpenSourceEcon/CompMethods/blob/main/data/gmm/Econ381totpts.txt) in the GitHub repository [`../data/gmm/`](https://github.com/OpenSourceEcon/CompMethods/tree/main/data/gmm) folder for this executable book. Recall that these test scores are between 0 and 450. {numref}`Figure %s <FigGMM_EconScores2MLEs>` below shows a histogram of the data, as well as the unconstrained and constrained maximum likelihood estimates of the truncated normal distribution from {numref}`Figure %s <FigMLE_EconScoresMLEconstr>` as well as an arbitrary distribution.
+
+The black line is the unconstrained MLE estimate of $\mu$ and $\sigma$ of the truncated normal pdf from Section {ref}`SecMLE_DistData_min`. The red line is the constrained MLE estimate of $\mu$ and $\sigma$ from Section {ref}`SecMLE_DistData_conmin`. And the green line is an arbitrary parameterization of the truncated normal PDF.
+
+```{code-cell} ipython3
+:tags: []
+
+import scipy.stats as sts
+
+
+def trunc_norm_pdf(xvals, mu, sigma, cut_lb=None, cut_ub=None):
+    '''
+    --------------------------------------------------------------------
+    Generate pdf values from the truncated normal pdf with mean mu and
+    standard deviation sigma. If the cutoff is given, then the PDF
+    values are inflated upward to reflect the zero probability on values
+    above the cutoff. If there is no cutoff given, this function does
+    the same thing as sp.stats.norm.pdf(x, loc=mu, scale=sigma).
+    --------------------------------------------------------------------
+    INPUTS:
+    xvals  = (N,) vector, values of the normally distributed random
+             variable
+    mu     = scalar, mean of the normally distributed random variable
+    sigma  = scalar > 0, standard deviation of the normally distributed
+             random variable
+    cut_lb = scalar or string, ='None' if no cutoff is given, otherwise
+             is scalar lower bound value of distribution. Values below
+             this value have zero probability
+    cut_ub = scalar or string, ='None' if no cutoff is given, otherwise
+             is scalar upper bound value of distribution. Values above
+             this value have zero probability
+
+    OTHER FUNCTIONS AND FILES CALLED BY THIS FUNCTION: None
+
+    OBJECTS CREATED WITHIN FUNCTION:
+    prob_notcut = scalar
+    pdf_vals = (N,) vector, normal PDF values for mu and sigma
+               corresponding to xvals data
+
+    FILES CREATED BY THIS FUNCTION: None
+
+    RETURNS: pdf_vals
+    --------------------------------------------------------------------
+    '''
+    if cut_ub == 'None' and cut_lb == 'None':
+        prob_notcut = 1.0
+    elif cut_ub == 'None' and cut_lb != 'None':
+        prob_notcut = 1.0 - sts.norm.cdf(cut_lb, loc=mu, scale=sigma)
+    elif cut_ub != 'None' and cut_lb == 'None':
+        prob_notcut = sts.norm.cdf(cut_ub, loc=mu, scale=sigma)
+    elif cut_ub != 'None' and cut_lb != 'None':
+        prob_notcut = (sts.norm.cdf(cut_ub, loc=mu, scale=sigma) -
+                       sts.norm.cdf(cut_lb, loc=mu, scale=sigma))
+
+    pdf_vals    = ((1/(sigma * np.sqrt(2 * np.pi)) *
+                    np.exp( - (xvals - mu)**2 / (2 * sigma**2))) /
+                    prob_notcut)
+
+    return pdf_vals
+```
+
+```{code-cell} ipython3
+:tags: ["hide-input", "remove-output"]
+
+# Import the necessary libraries
+import numpy as np
+import matplotlib.pyplot as plt
+import requests
+
+# Download and save the data file Econ381totpts.txt as NumPy array
+url = ('https://raw.githubusercontent.com/OpenSourceEcon/CompMethods/' +
+       'main/data/gmm/Econ381totpts.txt')
+data_file = requests.get(url, allow_redirects=True)
+open('../../../data/gmm/Econ381totpts.txt', 'wb').write(data_file.content)
+if data_file.status_code == 200:
+    # Load the downloaded data into a NumPy array
+    data = np.loadtxt('../../../data/gmm/Econ381totpts.txt')
+else:
+    print('Error downloading the file')
+
+# Plot the histogram of the data
+num_bins = 30
+count, bins, ignored = plt.hist(data, num_bins, density=True,
+                                edgecolor='k')
+plt.title('Intermediate macro scores: 2011-2012', fontsize=15)
+plt.xlabel(r'Total points')
+plt.ylabel(r'Percent of scores')
+plt.xlim([0, 550])  # This gives the xmin and xmax to be plotted"
+
+# Plot the unconstrained MLE estimated distribution
+dist_pts = np.linspace(0, 450, 500)
+mu_MLE = 622.16
+sig_MLE = 198.76
+plt.plot(
+    dist_pts,
+    trunc_norm_pdf(dist_pts, mu_MLE, sig_MLE, 0, 450),
+    linewidth=2, color='k',
+    label='Unconstr: $\hat{\mu}_{MLE}$=622,$\hat{\sigma}_{MLE}$=199'
+)
+
+# Plot the constrained MLE estimated distribution
+mu_MLE_constr = 420.0
+sig_MLE_constr = 129.04
+plt.plot(
+    dist_pts,
+    trunc_norm_pdf(dist_pts, mu_MLE_constr, sig_MLE_constr, 0, 450),
+    linewidth=2, color='r',
+    label='Constr: $\hat{\mu}_{MLE}$=420,$\hat{\sigma}_{MLE}$=129'
+)
+
+# Plot smooth line with distribution 1
+mu_1 = 380
+sig_1 = 150
+plt.plot(dist_pts, trunc_norm_pdf(dist_pts, mu_1, sig_1, 0, 450),
+         linewidth=2, color='g', label='arbitrary: $\mu$=380,$\sigma$=150')
+
+plt.legend(loc='upper left')
+
+plt.show()
+```
+
+```{figure} ../../../images/gmm/Econ381scores_2MLEs.png
+---
+height: 500px
+name: FigGMM_EconScores2MLEs
+---
+Constrained maximum likelihood estimate of truncated normal distribution to fit intermediate macroeconomics midterm scores over two semesters along with unconstrained MLE estimate and arbitrary parameterization.
+```
+
+
+(SecGMM_Ex_Trunc_2momI)=
+#### Two moments, identity weighting matrix
+
+Let's try estimating the parameters $\mu$ and $\sigma$ by GMM. What moments should we use? Let's try the mean and variance of the data. These two statistics of the data are defined by:
+
+```{math}
+    :label: EqGMM_Ex_Trunc_2momI_mean
+    mean(scores_i) = \frac{1}{N}\sum_{i=1}^N scores_i
+```
+
+```{math}
+    :label: EqGMM_Ex_Trunc_2momI_var
+    var(scores_i) = \frac{1}{N}\sum_{i=1}^{N} \left(scores_i - mean(scores_i)\right)^2
+```
+
+So the data moment vector $m(x)$ for GMM is the following.
+
+```{math}
+    :label: EqGMM_Ex_Trunc_2momI_datamoms
+    m(scores_i) \equiv \begin{bmatrix} mean(scores_i) \\ var(scores_i) \end{bmatrix}
+```
+
+And the model moment vector $m(x|\theta)$ for GMM is the following.
+
+```{math}
+    :label: EqGMM_Ex_Trunc_2momI_modmoms
+    m(scores_i|\mu,\sigma) \equiv \begin{bmatrix} mean(scores_i|\mu,\sigma) \\ var(scores_i|\mu,\sigma) \end{bmatrix}
+```
+
+Define the error vector as the vector of percent deviations of the model moments from the data moments.
+
+```{math}
+    :label: EqGMM_Ex_Trunc_2momI_errvec
+    e(scores_i|\mu,\sigma) \equiv \frac{m(scores_i|\mu,\sigma) - m(scores_i)}{m(scores_i)}
+```
+
+The mimization problem for the GMM estimator for this moment vector is the following.
+
+```{math}
+    :label: EqGMM_Ex_Trunc_2momI_minprob
+    (\hat{\mu}_{GMM},\hat{\sigma}_{GMM}) = (\mu,\sigma):\quad \min_{\mu,\sigma} e(scores_i|\mu,\sigma)^T \, W \, e(scores_i|\mu,\sigma)
+```
+
+Keep in mind that the $\mu$ and $\sigma$ we are estimating are the two truncated normal parameters in contrast to the empirical mean of the data $mean(scores_i)$ and the empirical variance of the data $var(scores_i)$.
+
+Something interesting to note here is the $1/N$ weighting on our variance estimator. There is less bias in the estimator of the variance by using the weighting $1/(N-1)$ because one degree of freedom is used in calculating the mean used in the variance calculation. However, in GMM when many moments are used that might have differing degrees of freedom restrictions, it is important to have the same weighting for each moment. So we use $1/N$ in all cases.
+
+Now let's define a criterion function that takes as inputs the parameters and the estimator for the weighting matrix $\hat{W}$.
+
+```{code-cell} ipython3
+:tags: []
+
+import scipy.integrate as intgr
+
+def data_moments(xvals):
+    '''
+    --------------------------------------------------------------------
+    This function computes the two data moments for GMM
+    (mean(data), variance(data)).
+    --------------------------------------------------------------------
+    INPUTS:
+    xvals = (N,) vector, test scores data
+
+    OTHER FUNCTIONS AND FILES CALLED BY THIS FUNCTION: None
+
+    OBJECTS CREATED WITHIN FUNCTION:
+    mean_data = scalar, mean value of test scores data
+    var_data  = scalar > 0, variance of test scores data
+
+    FILES CREATED BY THIS FUNCTION: None
+
+    RETURNS: mean_data, var_data
+    --------------------------------------------------------------------
+    '''
+    mean_data = xvals.mean()
+    var_data = xvals.var()
+
+    return mean_data, var_data
+
+
+def model_moments(mu, sigma, cut_lb, cut_ub):
+    '''
+    --------------------------------------------------------------------
+    This function computes the two model moments for GMM
+    (mean(model data), variance(model data)).
+    --------------------------------------------------------------------
+    INPUTS:
+    mu     = scalar, mean of the normally distributed random variable
+    sigma  = scalar > 0, standard deviation of the normally distributed
+             random variable
+    cut_lb = scalar or string, ='None' if no cutoff is given, otherwise
+             is scalar lower bound value of distribution. Values below
+             this value have zero probability
+    cut_ub = scalar or string, ='None' if no cutoff is given, otherwise
+             is scalar upper bound value of distribution. Values above
+             this value have zero probability
+
+    OTHER FUNCTIONS AND FILES CALLED BY THIS FUNCTION:
+        trunc_norm_pdf()
+        xfx()
+        x2fx()
+
+    OBJECTS CREATED WITHIN FUNCTION:
+    mean_model = scalar, mean value of test scores from model
+    m_m_err    = scalar > 0, estimated error in the computation of the
+                 integral for the mean of the distribution
+    var_model  = scalar > 0, variance of test scores from model
+    v_m_err    = scalar > 0, estimated error in the computation of the
+                 integral for the variance of the distribution
+
+    FILES CREATED BY THIS FUNCTION: None
+
+    RETURNS: mean_model, var_model
+    --------------------------------------------------------------------
+    '''
+    xfx = lambda x: x * trunc_norm_pdf(x, mu, sigma, cut_lb, cut_ub)
+    (mean_model, m_m_err) = intgr.quad(xfx, cut_lb, cut_ub)
+    x2fx = lambda x: ((x - mean_model) ** 2) * trunc_norm_pdf(x, mu, sigma, cut_lb, cut_ub)
+    (var_model, v_m_err) = intgr.quad(x2fx, cut_lb, cut_ub)
+
+    return mean_model, var_model
+
+
+def err_vec(xvals, mu, sigma, cut_lb, cut_ub, simple):
+    '''
+    --------------------------------------------------------------------
+    This function computes the vector of moment errors (in percent
+    deviation from the data moment vector) for GMM.
+    --------------------------------------------------------------------
+    INPUTS:
+    xvals  = (N,) vector, test scores data
+    mu     = scalar, mean of the normally distributed random variable
+    sigma  = scalar > 0, standard deviation of the normally distributed
+             random variable
+    cut_lb = scalar or string, ='None' if no cutoff is given, otherwise
+             is scalar lower bound value of distribution. Values below
+             this value have zero probability
+    cut_ub = scalar or string, ='None' if no cutoff is given, otherwise
+             is scalar upper bound value of distribution. Values above
+             this value have zero probability
+    simple = boolean, =True if errors are simple difference, =False if
+             errors are percent deviation from data moments
+
+    OTHER FUNCTIONS AND FILES CALLED BY THIS FUNCTION:
+        data_moments()
+        model_moments()
+
+    OBJECTS CREATED WITHIN FUNCTION:
+    mean_data  = scalar, mean value of data
+    var_data   = scalar > 0, variance of data
+    moms_data  = (2, 1) matrix, column vector of two data moments
+    mean_model = scalar, mean value from model
+    var_model  = scalar > 0, variance from model
+    moms_model = (2, 1) matrix, column vector of two model moments
+    err_vec    = (2, 1) matrix, column vector of two moment error
+                 functions
+
+    FILES CREATED BY THIS FUNCTION: None
+
+    RETURNS: err_vec
+    --------------------------------------------------------------------
+    '''
+    mean_data, var_data = data_moments(xvals)
+    moms_data = np.array([[mean_data], [var_data]])
+    mean_model, var_model = model_moments(mu, sigma, cut_lb, cut_ub)
+    moms_model = np.array([[mean_model], [var_model]])
+    if simple:
+        err_vec = moms_model - moms_data
+    else:
+        err_vec = (moms_model - moms_data) / moms_data
+
+    return err_vec
+
+
+def criterion(params, *args):
+    '''
+    --------------------------------------------------------------------
+    This function computes the GMM weighted sum of squared moment errors
+    criterion function value given parameter values and an estimate of
+    the weighting matrix.
+    --------------------------------------------------------------------
+    INPUTS:
+    params = (2,) vector, ([mu, sigma])
+    mu     = scalar, mean of the normally distributed random variable
+    sigma  = scalar > 0, standard deviation of the normally distributed
+             random variable
+    args   = length 3 tuple, (xvals, cutoff, W_hat)
+    xvals  = (N,) vector, values of the truncated normally distributed
+             random variable
+    cut_lb = scalar or string, ='None' if no cutoff is given, otherwise
+             is scalar lower bound value of distribution. Values below
+             this value have zero probability
+    cut_ub = scalar or string, ='None' if no cutoff is given, otherwise
+             is scalar upper bound value of distribution. Values above
+             this value have zero probability
+    W_hat  = (R, R) matrix, estimate of optimal weighting matrix
+
+    OTHER FUNCTIONS AND FILES CALLED BY THIS FUNCTION:
+        norm_pdf()
+
+    OBJECTS CREATED WITHIN FUNCTION:
+    err        = (2, 1) matrix, column vector of two moment error
+                 functions
+    crit_val   = scalar > 0, GMM criterion function value
+
+    FILES CREATED BY THIS FUNCTION: None
+
+    RETURNS: crit_val
+    --------------------------------------------------------------------
+    '''
+    mu, sigma = params
+    xvals, cut_lb, cut_ub, W = args
+    err = err_vec(xvals, mu, sigma, cut_lb, cut_ub, simple=False)
+    crit_val = err.T @ W @ err
+
+    return crit_val
+```
+
+Now we can perform the GMM estimation. Let's start with the identity matrix as our estimate for the optimal weighting matrix $W = I$.
+
+```{code-cell} ipython3
+:tags: []
+
+import scipy.optimize as opt
+
+# Note that this takes a little time because the intgr.quad() commands
+# are a little slow
+mu_init = 400
+sig_init = 60
+params_init = np.array([mu_init, sig_init])
+W_hat = np.eye(2)
+gmm_args = (data, 0.0, 450.0, W_hat)
+results = opt.minimize(criterion, params_init, args=(gmm_args))
+results = opt.minimize(criterion, params_init, args=(gmm_args),
+                       tol=1e-14, method='L-BFGS-B',
+                       bounds=((1e-10, None), (1e-10, None)))
+mu_GMM1, sig_GMM1 = results.x
+print('mu_GMM1=', mu_GMM1, ' sig_GMM1=', sig_GMM1)
+print("")
+print("SciPy.optimize.minimize results are the following:")
+print(results)
+```
+
+The data moments, model moments at the optimal parameters, and error vector values are the following.
+
+```{code-cell} ipython3
+:tags: []
+
+mean_data, var_data = data_moments(data)
+mean_model, var_model = model_moments(mu_GMM1, sig_GMM1, 0.0, 450.0)
+err1 = err_vec(data, mu_GMM1, sig_GMM1, 0.0, 450.0, False).reshape(2,)
+print('Mean of points =', mean_data, ', Variance of points =', var_data)
+print('Mean of model =', mean_model, ', Variance of model =', var_model)
+print('Error vector=', err1)
+```
+
+As we can see from the criterion function value at the optimum (2.69e-18) and from the difference between the model moments and data moments, this GMM estimation matches the moments very well. This GMM estimation is also very close to the unconstrained MLE estimates from Section {ref}`SecMLE_DistData_min`.
+
+{numref}`Figure %s <FigGMM_SurfCrit1>` shows the criterion function surface for different values of $\mu$ and $\sigma$ in the neighborhood of our GMM estimate.
+
+```{code-cell} ipython3
+:tags: ["remove-output"]
+
+from mpl_toolkits.mplot3d import Axes3D
+import matplotlib
+cmap1 = matplotlib.colormaps.get_cmap('summer')
+
+critfunc_GMM1 = criterion(np.array([mu_GMM1, sig_GMM1]),
+                          data, 0.0, 450.0, W_hat)
+
+mu_vals = np.linspace(590, 650, 90)
+sig_vals = np.linspace(180, 220, 100)
+critfunc_vals = np.zeros((90, 100))
+for mu_ind in range(90):
+    for sig_ind in range(100):
+        critfunc_vals[mu_ind, sig_ind] = \
+            criterion(np.array([mu_vals[mu_ind], sig_vals[sig_ind]]),
+                      data, 0.0, 450.0, W_hat)
+
+mu_mesh, sig_mesh = np.meshgrid(mu_vals, sig_vals)
+
+fig, ax = plt.subplots(subplot_kw={"projection": "3d"})
+ax.plot_surface(mu_mesh.T, sig_mesh.T, critfunc_vals, rstride=8,
+                cstride=1, cmap=cmap1, alpha=0.9)
+ax.scatter(mu_GMM1, sig_GMM1, critfunc_GMM1, color='red', marker='o',
+           s=18, label='GMM estimate')
+ax.view_init(elev=15, azim=-7, roll=0)
+ax.set_title('Criterion function surface for values of mu and sigma')
+ax.set_xlabel(r'$\mu$')
+ax.set_ylabel(r'$\sigma$')
+ax.set_zlabel(r'Criterion func.')
+plt.tight_layout()
+
+plt.show()
+```
+
+```{figure} ../../../images/gmm/Econ381scores_SurfaceCrit1.png
+---
+height: 500px
+name: FigGMM_SurfCrit1
+---
+Surface of the 2 moment, identity weighting matrix GMM criterion function for values of $\mu$ and $\sigma$ in the neighborhood of the GMM estimate. The scatter point represents the criterion function value for the GMM estimate.
+```
+
+Let's compute the GMM estimator for the variance-covariance matrix $\hat{\Sigma}_{GMM}$ of our GMM estimates $\hat{\theta}_{GMM}$ using the equation in Section 4 based on the Jacobian $d(x|\hat{\theta}_{GMM})$ of the moment error vector $e(x|\hat{\theta}_{GMM})$ from the criterion function at the estimated (optimal) parameter values $\hat{\theta}_{GMM}$. We first write a function that computes the Jacobian $d(x|\hat{\theta}_{GMM})$.
+
+```{code-cell} ipython3
+:tags: []
+
+import numpy.linalg as lin
+
+def Jac_err2(xvals, mu, sigma, cut_lb, cut_ub, simple=False):
+    '''
+    This function computes the Jacobian matrix of partial derivatives of the
+    R x 1 moment error vector e(x|theta) with respect to the K parameters
+    theta_i in the K x 1 parameter vector theta. The resulting matrix is the
+    R x K Jacobian.
+    '''
+    Jac_err = np.zeros((2, 2))
+    h_mu = 1e-8 * mu
+    h_sig = 1e-8 * sigma
+    Jac_err[:, 0] = (
+        (err_vec(xvals, mu + h_mu, sigma, cut_lb, cut_ub, simple) -
+         err_vec(xvals, mu - h_mu, sigma, cut_lb, cut_ub, simple)) /
+        (2 * h_mu)
+    ).flatten()
+    Jac_err[:, 1] = (
+        (err_vec(xvals, mu, sigma + h_sig, cut_lb, cut_ub, simple) -
+         err_vec(xvals, mu, sigma - h_sig, cut_lb, cut_ub, simple)) /
+        (2 * h_sig)
+    ).flatten()
+
+    return Jac_err
+
+N = data.shape[0]
+d_err2 = Jac_err2(data, mu_GMM1, sig_GMM1, 0.0, 450.0, False)
+print("Jacobian matrix of derivatives")
+print(d_err2)
+print("")
+print("Weighting matrix")
+print(W_hat)
+SigHat2 = (1 / N) * lin.inv(d_err2.T @ W_hat @ d_err2)
+print("")
+print("Sigma hat squared")
+print(SigHat2)
+print("")
+print("Standard errors")
+print('Std. err. mu_hat=', np.sqrt(SigHat2[0, 0]))
+print('Std. err. sig_hat=', np.sqrt(SigHat2[1, 1]))
+```
+
+Note how big the standard errors are on our GMM estimated parameters using the identity matrix as our optimal weighting matrix.
+
+
+(SecGMM_Ex_Trunc_2mom2st)=
+#### Two moments, two-step weighting matrix
+
+Similar to the MLE problem, the GMM criterion function surface in {numref}`Figure %s <FigGMM_SurfCrit1>` looks like it is roughly equal for a specific portion increase of $\mu$ and $\sigma$ together. That is, with these two moments probably have a correspondence of values of $\mu$ and $\sigma$ that give roughly the same criterion function value. This issue has two possible solutions.
+
+1. Maybe we need the two-step variance covariance estimator to calculate a "more" optimal weighting matrix $W$.
+2. Maybe our two moments aren't very good moments for fitting the data.
+
+Let's first try the two-step weighting matrix using the steps from Section {ref}`SecGMM_Wgt_2step` in equations {eq}`EqGMM_GMMest_2stp_2VarCov` and {eq}`EqGMM_estW_2step`.
+
+```{code-cell} ipython3
+:tags: []
+
+err_vec = err_vec(data, mu_GMM1, sig_GMM1, 0.0, 450.0, False)
+print("err_vec shape is:", err_vec.shape)
+VCV2 = (err_vec @ err_vec.T)
+print("VCV2=")
+print(VCV2)
+W_hat2 = lin.inv(VCV2)
+print("")
+print("W_hat2=")
+print(W_hat2)
+```
 
 
 (SecGMM_Ident)=

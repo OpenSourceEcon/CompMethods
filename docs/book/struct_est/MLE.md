@@ -608,7 +608,7 @@ plt.xlabel(r'Total points')
 plt.ylabel(r'Percent of scores')
 plt.xlim([0, 550])  # This gives the xmin and xmax to be plotted"
 
-# Plot the constrained MLD estimated distribution
+# Plot the constrained MLE estimated distribution
 plt.plot(
     dist_pts,
     trunc_norm_pdf(dist_pts, mu_MLE_constr, sig_MLE_constr, 0, 450),
