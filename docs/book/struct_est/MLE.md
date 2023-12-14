@@ -602,7 +602,7 @@ The constrained minimizer is trying to get up to the unconstrained solution but 
 
 # Plot the histogram of the data
 count, bins, ignored = plt.hist(data, num_bins, density=True,
-                                edgecolor='k')
+                                edgecolor='k', label='Data')
 plt.title('Intermediate macro scores: 2011-2012', fontsize=15)
 plt.xlabel(r'Total points')
 plt.ylabel(r'Percent of scores')

@@ -156,18 +156,46 @@ The first step is to estimate the GMM parameter vector $\hat{\theta}_{1,GMM}$ us
     \hat{\theta}_{1, GMM}=\theta:\quad \min_{\theta}\:e(x|\theta)^T \, I \, e(x|\theta)
 ```
 
-We use the $R\times 1$ moment error vector and the Step 1 GMM estimate $e(x|\hat{\theta}_{1,GMM})$ to get a new estimate of the variance-covariance matrix.
+As we will show in {eq}`EqGMM_estW_2step`, the optimal two-step weighting matrix is the inverse of the variance-covariance matrix of the moment error vector $e(x|\theta)$. To get an estimate of the variance-covariance matrix of the error moment vector, we need a matrix of errors that represents how the calculation of each moment varies across the $N$ observations in the data.
+
+Define $E(x|\theta)$ as the $R\times N$ moment error matrix such that the average across each row gives the moment error vector. When the errors are simple differences, the $E(x|\theta)$ matrix is the following,
+
+```{math}
+    :label: EqGMM_GMMest_2stp_ErrMatSimp
+    E(x|\theta) =
+    \begin{bmatrix}
+        m_1(x|\theta) - m_1(x_1) & m_1(x|\theta) - m_1(x_2) & ... & m_1(x|\theta) - m_1(x_N) \\
+        m_2(x|\theta) - m_2(x_1) & m_2(x|\theta) - m_2(x_2) & ... & m_2(x|\theta) - m_2(x_N) \\
+        \vdots & \vdots & \ddots & \vdots \\
+        m_R(x|\theta) - m_R(x_1) & m_R(x|\theta) - m_R(x_2) & ... & m_R(x|\theta) - m_R(x_N) \\
+    \end{bmatrix}
+```
+
+where $m_r(x_i)$ is a function associated with the $r$th moment and the $i$th data observation. When the errors are percent deviations, the $E(x|\theta)$ matrix is the following,
+
+```{math}
+    :label: EqGMM_GMMest_2stp_ErrMatPct
+    E(x|\theta) =
+    \begin{bmatrix}
+        \frac{m_1(x|\theta) - m_1(x_1)}{m_1(x_1)} & \frac{m_1(x|\theta) - m_1(x_2)}{m_1(x_2)} & ... & \frac{m_1(x|\theta) - m_1(x_N)}{m_1(x_N)} \\
+        \frac{m_2(x|\theta) - m_2(x_1)}{m_2(x_1)} & \frac{m_2(x|\theta) - m_2(x_2)}{m_2(x_2)} & ... & \frac{m_2(x|\theta) - m_2(x_N)}{m_2(x_N)} \\
+        \vdots & \vdots & \ddots & \vdots \\
+        \frac{m_R(x|\theta) - m_R(x_1)}{m_R(x_1)} & \frac{m_R(x|\theta) - m_R(x_2)}{m_R(x_2)} & ... & \frac{m_R(x|\theta) - m_R(x_N)}{m_R(x_N)} \\
+    \end{bmatrix}
+```
+
+where the denominator of the percentage deviation or baseline is the model moment that does not change. We use the $E(x|\theta)$ data matrix and the Step 1 GMM estimate $e(x|\hat{\theta}_{1,GMM})$ to get a new estimate of the variance covariance matrix.
 
 ```{math}
     :label: EqGMM_GMMest_2stp_2VarCov
-    \hat{\Omega}_2 = e(x|\hat{\theta}_{1,GMM})\,e(x|\hat{\theta}_{1,GMM})^T
+    \hat{\Omega}_2 = \frac{1}{N}E(x|\hat{\theta}_{1,GMM})\,E(x|\hat{\theta}_{1,GMM})^T
 ```
 
 This is simply saying that the $(r,s)$-element of the $R\times R$ estimator of the variance-covariance matrix of the moment vector is the following.
 
 ```{math}
     :label: EqGMM_2stepVarCov_rs
-    \hat{\Omega}_{2,r,s} = \Bigl[m_r(x|\hat{\theta}_{1,GMM}) - m_{r}(x)\Bigr]\Bigl[m_s(x|\theta) - m_s(x)\Bigr]
+    \hat{\Omega}_{2,r,s} = \frac{1}{N}\sum_{i=1}^N\Bigl[m_r(x|\theta) - m_{r}(x_i)\Bigr]\Bigl[m_s(x|\theta) - m_s(x_i)\Bigr]
 ```
 
 The optimal weighting matrix is the inverse of the two-step variance covariance matrix.
@@ -201,7 +229,7 @@ and the $(i+1)$th estimate of the optimal weighting matrix is defined as the fol
 
 ```{math}
     :label: EqGMM_estW_istep
-    \hat{W}_{i+1} \equiv \hat{\Omega}_{i+1}^{-1}\quad\text{where}\quad \hat{\Omega}_{i+1} = e(x|\hat{\theta}_{i,GMM})\,e(x|\hat{\theta}_{i,GMM})^T
+    \hat{W}_{i+1} \equiv \hat{\Omega}_{i+1}^{-1}\quad\text{where}\quad \hat{\Omega}_{i+1} = \frac{1}{N}E(x|\hat{\theta}_{i,GMM})\,E(x|\hat{\theta}_{i,GMM})^T
 ```
 
 The iterated GMM estimator $\hat{\theta}_{it,GMM}$ is the $\hat{\theta}_{i,GMM}$ such that $\hat{W}_{i+1}$ is very close to $\hat{W}_{i}$ for some distance metric (norm).
@@ -215,7 +243,7 @@ The iterated GMM estimator $\hat{\theta}_{it,GMM}$ is the $\hat{\theta}_{i,GMM}$
 (SecGMM_W_NW)=
 ### Newey-West consistent estimator of $\Omega$ and W
 
-[TODO: Need to get this right for the GMM case.] The Newey-West estimator of the optimal weighting matrix and variance covariance matrix is consistent in the presence of heteroskedasticity and autocorrelation in the data (See {cite}`NeweyWest:1987`). {cite}`AddaCooper:2003` (p. 82) have a nice exposition of how to compute the Newey-West weighting matrix $\hat{W}_{nw}$. The asymptotic representation of the optimal weighting matrix $\hat{W}^{opt}$ is the following:
+The Newey-West estimator of the optimal weighting matrix and variance covariance matrix is consistent in the presence of heteroskedasticity and autocorrelation in the data (See {cite}`NeweyWest:1987`). {cite}`AddaCooper:2003` (p. 82) have a nice exposition of how to compute the Newey-West weighting matrix $\hat{W}_{nw}$. The asymptotic representation of the optimal weighting matrix $\hat{W}^{opt}$ is the following:
 
 ```{math}
     :label: EqGMM_estW_WhatOpt
@@ -706,7 +734,7 @@ for mu_ind in range(90):
     for sig_ind in range(100):
         critfunc_vals[mu_ind, sig_ind] = \
             criterion(np.array([mu_vals[mu_ind], sig_vals[sig_ind]]),
-                      data, 0.0, 450.0, W_hat)
+                      data, 0.0, 450.0, W_hat)[0][0]
 
 mu_mesh, sig_mesh = np.meshgrid(mu_vals, sig_vals)
 
@@ -793,12 +821,67 @@ Similar to the MLE problem, the GMM criterion function surface in {numref}`Figur
 
 Let's first try the two-step weighting matrix using the steps from Section {ref}`SecGMM_Wgt_2step` in equations {eq}`EqGMM_GMMest_2stp_2VarCov` and {eq}`EqGMM_estW_2step`.
 
+The following function creates the moment error matrix for this problem defined in {eq}`EqGMM_GMMest_2stp_ErrMatPct`.
+
 ```{code-cell} ipython3
 :tags: []
 
-err_vec = err_vec(data, mu_GMM1, sig_GMM1, 0.0, 450.0, False)
-print("err_vec shape is:", err_vec.shape)
-VCV2 = (err_vec @ err_vec.T)
+def get_Err_mat2(xvals, mu, sigma, cut_lb, cut_ub, simple=False):
+    '''
+    --------------------------------------------------------------------
+    This function computes the R x N matrix of errors from each
+    observation for each moment. In this function, we have hard coded
+    R = 2.
+    --------------------------------------------------------------------
+    INPUTS:
+    xvals  = (N,) vector, test scores data
+    mu     = scalar, mean of the normally distributed random variable
+    sigma  = scalar > 0, standard deviation of the normally distributed
+             random variable
+    cut_lb = scalar or string, ='None' if no cutoff is given, otherwise
+             is scalar lower bound value of distribution. Values below
+             this value have zero probability
+    cut_ub = scalar or string, ='None' if no cutoff is given, otherwise
+             is scalar upper bound value of distribution. Values above
+             this value have zero probability
+    simple = boolean, =True if errors are simple difference, =False if
+             errors are percent deviation from data moments
+
+    OTHER FUNCTIONS AND FILES CALLED BY THIS FUNCTION:
+        model_moments()
+
+    OBJECTS CREATED WITHIN FUNCTION:
+    R          = integer = 2, hard coded number of moments
+    N          = integer >= R, number of data observations
+    Err_mat    = (R, N) matrix, error by moment and observation data
+    mean_model = scalar, mean value from model
+    var_model  = scalar > 0, variance from model
+
+    FILES CREATED BY THIS FUNCTION: None
+
+    RETURNS: Err_mat
+    --------------------------------------------------------------------
+    '''
+    R = 2
+    N = len(xvals)
+    Err_mat = np.zeros((R, N))
+    mean_data = xvals.mean()
+    mean_model, var_model = model_moments(mu, sigma, cut_lb, cut_ub)
+    if simple:
+        Err_mat[0, :] = xvals - mean_model
+        Err_mat[1, :] = ((mean_data - xvals) ** 2) - var_model
+    else:
+        Err_mat[0, :] = (xvals - mean_model) / mean_model
+        Err_mat[1, :] = (((mean_data - xvals) ** 2) - var_model) / var_model
+
+    return Err_mat
+```
+
+```{code-cell} ipython3
+:tags: []
+
+Err_mat = get_Err_mat2(data, mu_GMM1, sig_GMM1, 0.0, 450.0, False)
+VCV2 = (1 / len(data)) * (Err_mat @ Err_mat.T)
 print("VCV2=")
 print(VCV2)
 W_hat2 = lin.inv(VCV2)
@@ -806,6 +889,552 @@ print("")
 print("W_hat2=")
 print(W_hat2)
 ```
+
+Now we can perform the GMM estimation with the optimal two-step weighting matrix.
+
+```{code-cell} ipython3
+:tags: []
+
+# Note that this takes a little time because the intgr.quad() commands
+# are a little slow
+mu_init = 400  # alternative initial guess is mu_GMM1
+sig_init = 60   # alternative initial guess is sig_GMM1
+params_init = np.array([mu_init, sig_init])
+gmm_args = (data, 0.0, 450.0, W_hat2)
+results = opt.minimize(criterion, params_init, args=(gmm_args),
+                       method='L-BFGS-B', bounds=((1e-10, None), (1e-10, None)))
+mu_GMM2, sig_GMM2 = results.x
+print('mu_GMM2=', mu_GMM2, ' sig_GMM2=', sig_GMM2)
+print("")
+print("Scipy.optimize.minimize results:")
+print(results)
+```
+
+The GMM estimates here with the two-step weighting matrix are pretty similar to the estimates from the previous section that simply used the identity matrix as the weighting matrix. However, the estimated results here are sensitive to the initial guess.
+
+But the real benefit of the two-step weighting matrix shows up in the much smaller (more efficient) estimated standard errors for the GMM parameter estimates.
+
+```{code-cell} ipython3
+:tags: []
+
+N = data.shape[0]
+d_err2_2 = Jac_err2(data, mu_GMM2, sig_GMM2, 0.0, 450.0, False)
+print("Jacobian matrix of derivatives")
+print(d_err2_2)
+print("")
+print("Weighting matrix")
+print(W_hat2)
+SigHat2_2 = (1 / N) * lin.inv(d_err2_2.T @ W_hat2 @ d_err2_2)
+print("")
+print("Sigma hat squared")
+print(SigHat2_2)
+print("")
+print("Standard errors")
+print('Std. err. mu_hat=', np.sqrt(SigHat2_2[0, 0]))
+print('Std. err. sig_hat=', np.sqrt(SigHat2_2[1, 1]))
+```
+
+
+(SecGMM_Ex_Trunc_4momI)=
+#### Four moments, identity weighting matrix
+
+Using a better weighting matrix didn't improve our estimates or fit very much it did improve the standard errors of our estimates. To get the right fit, we might need to choose different moments. Let's try an overidentified model $R>K$, where we estimate $\mu$ and $\sigma$ of the truncated normal distribution $K=2$ using the following four moments $R=4$.
+
+1. The percent of observations greater than 430 (between 430 and 450)
+2. The percent of observations between 320 and 430
+3. The percent of observations between 220 and 320
+4. The percent of observations less than 220 (between 0 and 220)
+
+```{code-cell} ipython3
+:tags: []
+
+def data_moments4(xvals):
+    '''
+    --------------------------------------------------------------------
+    This function computes the four data moments for GMM
+    (binpct_1, binpct_2, binpct_3, binpct_4).
+    --------------------------------------------------------------------
+    INPUTS:
+    xvals = (N,) vector, test scores data
+
+    OTHER FUNCTIONS AND FILES CALLED BY THIS FUNCTION: None
+
+    OBJECTS CREATED WITHIN FUNCTION:
+    bpct_1_dat = scalar in [0, 1], percent of observations
+                 0 <= x < 220
+    bpct_2_dat = scalar in [0, 1], percent of observations
+                 220 <= x < 320
+    bpct_3_dat = scalar in [0, 1], percent of observations
+                 320 <= x < 430
+    bpct_4_dat = scalar in [0, 1], percent of observations
+                 430 <= x <= 450
+
+    FILES CREATED BY THIS FUNCTION: None
+
+    RETURNS: bpct_1, bpct_2, bpct_3, bpct_4
+    --------------------------------------------------------------------
+    '''
+    bpct_1_dat = xvals[xvals < 220].shape[0] / xvals.shape[0]
+    bpct_2_dat = (xvals[(xvals >=220) & (xvals < 320)].shape[0] /
+                  xvals.shape[0])
+    bpct_3_dat = (xvals[(xvals >=320) & (xvals < 430)].shape[0] /
+                  xvals.shape[0])
+    bpct_4_dat = xvals[xvals >= 430].shape[0] / xvals.shape[0]
+
+    return bpct_1_dat, bpct_2_dat, bpct_3_dat, bpct_4_dat
+
+
+def model_moments4(mu, sigma, cut_lb, cut_ub):
+    '''
+    --------------------------------------------------------------------
+    This function computes the four model moments for GMM
+    (binpct_1, binpct_2, binpct_3, binpct_4).
+    --------------------------------------------------------------------
+    INPUTS:
+    mu     = scalar, mean of the normally distributed random variable
+    sigma  = scalar > 0, standard deviation of the normally distributed
+             random variable
+    cut_lb = scalar or string, ='None' if no cutoff is given, otherwise
+             is scalar lower bound value of distribution. Values below
+             this value have zero probability
+    cut_ub = scalar or string, ='None' if no cutoff is given, otherwise
+             is scalar upper bound value of distribution. Values above
+             this value have zero probability
+
+    OTHER FUNCTIONS AND FILES CALLED BY THIS FUNCTION:
+        trunc_norm_pdf()
+        xfx()
+
+    OBJECTS CREATED WITHIN FUNCTION:
+    bpct_1_mod = scalar in [0, 1], percent of model observations in
+                 bin 1
+    bp_1_err   = scalar > 0, estimated error in the computation of the
+                 integral for bpct_1_mod
+    bpct_2_mod = scalar in [0, 1], percent of model observations in
+                 bin 2
+    bp_2_err   = scalar > 0, estimated error in the computation of the
+                 integral for bpct_2_mod
+    bpct_3_mod = scalar in [0, 1], percent of model observations in
+                 bin 3
+    bp_3_err   = scalar > 0, estimated error in the computation of the
+                 integral for bpct_3_mod
+    bpct_4_mod = scalar in [0, 1], percent of model observations in
+                 bin 4
+    bp_4_err   = scalar > 0, estimated error in the computation of the
+                 integral for bpct_4_mod
+
+    FILES CREATED BY THIS FUNCTION: None
+
+    RETURNS: bpct_1_mod, bpct_2_mod, bpct_3_mod, bpct_4_mod
+    --------------------------------------------------------------------
+    '''
+    xfx = lambda x: trunc_norm_pdf(x, mu, sigma, cut_lb, cut_ub)
+    (bpct_1_mod, bp_1_err) = intgr.quad(xfx, 0.0, 220)
+    (bpct_2_mod, bp_2_err) = intgr.quad(xfx, 220, 320)
+    (bpct_3_mod, bp_3_err) = intgr.quad(xfx, 320, 430)
+    (bpct_4_mod, bp_4_err) = intgr.quad(xfx, 430, 450)
+
+    return bpct_1_mod, bpct_2_mod, bpct_3_mod, bpct_4_mod
+
+
+def err_vec4(xvals, mu, sigma, cut_lb, cut_ub, simple):
+    '''
+    --------------------------------------------------------------------
+    This function computes the vector of moment errors (in percent
+    deviation from the data moment vector) for GMM.
+    --------------------------------------------------------------------
+    INPUTS:
+    xvals  = (N,) vector, test scores data
+    mu     = scalar, mean of the normally distributed random variable
+    sigma  = scalar > 0, standard deviation of the normally distributed
+             random variable
+    cut_lb = scalar or string, ='None' if no cutoff is given, otherwise
+             is scalar lower bound value of distribution. Values below
+             this value have zero probability
+    cut_ub = scalar or string, ='None' if no cutoff is given, otherwise
+             is scalar upper bound value of distribution. Values above
+             this value have zero probability
+    simple = boolean, =True if errors are simple difference, =False if
+             errors are percent deviation from data moments
+
+    OTHER FUNCTIONS AND FILES CALLED BY THIS FUNCTION:
+        data_moments4()
+        model_moments4()
+
+    OBJECTS CREATED WITHIN FUNCTION:
+    mean_data  = scalar, mean value of data
+    var_data   = scalar > 0, variance of data
+    moms_data  = (2, 1) matrix, column vector of two data moments
+    mean_model = scalar, mean value from model
+    var_model  = scalar > 0, variance from model
+    moms_model = (2, 1) matrix, column vector of two model moments
+    err_vec    = (2, 1) matrix, column vector of two moment error
+                 functions
+
+    FILES CREATED BY THIS FUNCTION: None
+
+    RETURNS: err_vec
+    --------------------------------------------------------------------
+    '''
+    bpct_1_dat, bpct_2_dat, bpct_3_dat, bpct_4_dat = \
+        data_moments4(xvals)
+    moms_data = np.array([[bpct_1_dat], [bpct_2_dat], [bpct_3_dat],
+                          [bpct_4_dat]])
+    bpct_1_mod, bpct_2_mod, bpct_3_mod, bpct_4_mod = \
+        model_moments4(mu, sigma, cut_lb, cut_ub)
+    moms_model = np.array([[bpct_1_mod], [bpct_2_mod], [bpct_3_mod],
+                          [bpct_4_mod]])
+    if simple:
+        err_vec = moms_model - moms_data
+    else:
+        err_vec = (moms_model - moms_data) / moms_data
+
+    return err_vec
+
+
+def criterion4(params, *args):
+    '''
+    --------------------------------------------------------------------
+    This function computes the GMM weighted sum of squared moment errors
+    criterion function value given parameter values and an estimate of
+    the weighting matrix.
+    --------------------------------------------------------------------
+    INPUTS:
+    params = (2,) vector, ([mu, sigma])
+    mu     = scalar, mean of the normally distributed random variable
+    sigma  = scalar > 0, standard deviation of the normally distributed
+             random variable
+    args   = length 3 tuple, (xvals, cutoff, W_hat)
+    xvals  = (N,) vector, values of the truncated normally distributed
+             random variable
+    cut_lb = scalar or string, ='None' if no cutoff is given, otherwise
+             is scalar lower bound value of distribution. Values below
+             this value have zero probability
+    cut_ub = scalar or string, ='None' if no cutoff is given, otherwise
+             is scalar upper bound value of distribution. Values above
+             this value have zero probability
+    W_hat  = (R, R) matrix, estimate of optimal weighting matrix
+
+    OTHER FUNCTIONS AND FILES CALLED BY THIS FUNCTION:
+        err_vec4()
+
+    OBJECTS CREATED WITHIN FUNCTION:
+    err        = (4, 1) matrix, column vector of four moment error
+                 functions
+    crit_val   = scalar > 0, GMM criterion function value
+
+    FILES CREATED BY THIS FUNCTION: None
+
+    RETURNS: crit_val
+    --------------------------------------------------------------------
+    '''
+    mu, sigma = params
+    xvals, cut_lb, cut_ub, W = args
+    err = err_vec4(xvals, mu, sigma, cut_lb, cut_ub, simple=False)
+    crit_val = err.T @ W @ err
+
+    return crit_val
+```
+
+Before performing the estimation, let's see what these four model moments would be relative to the data moments with the first GMM estimates from the two-moment GMM estimation with the identity weighting matrix from Section {ref}`SecGMM_Ex_Trunc_2momI` of $\mu\approx 622$ and $\sigma\approx 199$. Let's also look at the resulting criterion function at those values.
+
+```{code-cell} ipython3
+:tags: []
+
+params = np.array([mu_GMM1, sig_GMM1])
+print("2-moment mu_GMM1 is:", mu_GMM1, ", and 2-moment sig_GMM1 is:", sig_GMM1)
+print("")
+print("Data moments are the following:")
+print(data_moments4(data))
+print("")
+print("Model moments at the GMM1 estimates are the following:")
+print(model_moments4(mu_GMM1, sig_GMM1, 0.0, 450))
+print("")
+print("GMM criterion function value at GMM1 estimates with identity wgt mat:")
+print(criterion4(params, data, 0.0, 450.0, np.eye(4))[0][0])
+```
+
+Now let's perform the GMM estimation of the two parameters $\mu$ and $\sigma$ using the four moments described above and the identity weighting matrix.
+
+```{code-cell} ipython3
+:tags: []
+
+# Note that this takes a little time because the intgr.quad() commands
+# are a little slow
+mu_init = 400
+sig_init = 70
+params_init = np.array([mu_init, sig_init])
+W_hat1_4 = np.eye(4)
+gmm_args = (data, 0.0, 450.0, W_hat1_4)
+results_4 = opt.minimize(
+    criterion4, params_init, args=(gmm_args), method='L-BFGS-B',
+    bounds=((1e-10, None), (1e-10, None))
+)
+mu_GMM1_4, sig_GMM1_4 = results_4.x
+
+print('mu_GMM1_4=', mu_GMM1_4, ' sig_GMM1_4=', sig_GMM1_4)
+print("")
+print("Scipy.optimize.minimize results:")
+print(results_4)
+```
+
+Let's compare the model moments at these new GMM estimates to the data moments and the associated criterion function value.
+
+```{code-cell} ipython3
+:tags: []
+
+params = np.array([mu_GMM1_4, sig_GMM1_4])
+print("4-moment mu_GMM1 is:", mu_GMM1_4, ", and 4-moment sig_GMM1 is:", sig_GMM1_4)
+print("")
+print("Data moments are the following:")
+print(data_moments4(data))
+print("")
+print("Model moments at the GMM1_4 estimates are the following:")
+print(model_moments4(mu_GMM1_4, sig_GMM1_4, 0.0, 450))
+print("")
+print("GMM criterion function value at GMM1_4 estimates with identity wgt mat:")
+print(criterion4(params, data, 0.0, 450.0, W_hat1_4)[0][0])
+```
+
+The 4-moment GMM estimates with the identity weighting matrix of $\hat{mu}\approx 362$ and $\hat{\sigma}\approx 92$ have model moments that match the data moments much more closely that those associated with the 2-moment GMM estimates shown above. And the criterion function value of this new estimate is much lower ($\sim 0.96$) than that of the two-moment GMM estimates ($\sim 3.28$).
+
+{numref}`Figure %s <FigGMM_EconScores4mom2mom>` shows the histogram of the intermediate macroeconomics scores with the 4-moment estimated truncated normal distribution and the 2-moment estated distribution from Section {ref}`SecGMM_Ex_Trunc_2momI`.
+
+```{code-cell} ipython3
+:tags: ["remove-output"]
+
+# Plot the histogram of the data
+count, bins, ignored = plt.hist(data, num_bins, density=True,
+                                edgecolor='k', label='Data')
+plt.title('Intermediate macro scores: 2011-2012', fontsize=15)
+plt.xlabel(r'Total points')
+plt.ylabel(r'Percent of scores')
+plt.xlim([0, 550])  # This gives the xmin and xmax to be plotted"
+
+# Plot the 4-moment GMM estimated distribution
+plt.plot(
+    dist_pts,
+    trunc_norm_pdf(dist_pts, mu_GMM1_4, sig_GMM1_4, 0, 450),
+    linewidth=2, color='r',
+    label='4-moment: $\hat{\mu}_{GMM}$=362,$\hat{\sigma}_{GMM}$=92'
+)
+
+# Plot the 2-moment GMM estimated distribution
+plt.plot(
+    dist_pts,
+    trunc_norm_pdf(dist_pts, mu_GMM1, sig_GMM1, 0, 450),
+    linewidth=2, color='k',
+    label='2-moment: $\hat{\mu}_{GMM}$=622,$\hat{\sigma}_{GMM}$=199'
+)
+plt.legend(loc='upper left')
+
+plt.show()
+```
+
+```{figure} ../../../images/gmm/Econ381scores_4mom2mom.png
+---
+height: 500px
+name: FigGMM_EconScores4mom2mom
+---
+GMM estimated truncated normal distributions to fit intermediate macroeconomics test score data: 4-moment estimation versus 2-moment estimation.
+```
+
+We can compute the estimator of the variance-covariance matrix $\hat{\Sigma}$ of the GMM parameter estimator by computing the Jacobian of the error vector. In this case, the Jacobian $d(x|\theta)$ is $R\times K = 4\times 2$.
+
+```{code-cell} ipython3
+:tags: []
+
+def Jac_err4(xvals, mu, sigma, cut_lb, cut_ub, simple=False):
+    '''
+    This function computes the Jacobian matrix of partial derivatives of the
+    R x 1 moment error vector e(x|theta) with respect to the K parameters
+    theta_i in the K x 1 parameter vector theta. The resulting matrix is
+    R x K Jacobian.
+    '''
+    Jac_err = np.zeros((4, 2))
+    h_mu = 1e-8 * mu
+    h_sig = 1e-8 * sigma
+    Jac_err[:, 0] = (
+        (err_vec4(xvals, mu + h_mu, sigma, cut_lb, cut_ub, simple) -
+         err_vec4(xvals, mu - h_mu, sigma, cut_lb, cut_ub, simple)) /
+        (2 * h_mu)
+    ).flatten()
+    Jac_err[:, 1] = (
+        (err_vec4(xvals, mu, sigma + h_sig, cut_lb, cut_ub, simple) -
+         err_vec4(xvals, mu, sigma - h_sig, cut_lb, cut_ub, simple)) /
+        (2 * h_sig)
+    ).flatten()
+
+    return Jac_err
+
+d_err4 = Jac_err4(data, mu_GMM1_4, sig_GMM1_4, 0.0, 450.0, False)
+print("Jacobian matrix of derivatives")
+print(d_err4)
+print("")
+print("Weighting matrix")
+print(W_hat1_4)
+SigHat4 = (1 / N) * lin.inv(d_err4.T @ W_hat1_4 @ d_err4)
+print("")
+print("Sigma hat squared")
+print(SigHat4)
+print("")
+print("Standard errors")
+print('Std. err. mu_hat=', np.sqrt(SigHat4[0, 0]))
+print('Std. err. sig_hat=', np.sqrt(SigHat4[1, 1]))
+```
+
+Note how much tighter the standard errors are here with these four moments than they were in the econometric models of Sections {ref}`SecGMM_Ex_Trunc_2momI` and {ref}`SecGMM_Ex_Trunc_2mom2st`.
+
+{numref}`Figure %s <FigGMM_SurfCrit4>` shows the surface of the criterion function of this 4-moment problem in the neighborhood of the GMM estimate of $\hat{\mu}_{GMM}\approx 362$ and $\hat{\sigma}_{GMM}\approx 92$. This provides more evidence that the GMM estimates are a global minimum of the criterion function. There less of a flat ridge in $(\mu,\sigma)$-space as was the case in the 2-moment GMM problem and the MLE problems.
+
+```{code-cell} ipython3
+:tags: ["remove-output"]
+
+critfunc_GMM1_4 = criterion4(np.array([mu_GMM1_4, sig_GMM1_4]),
+                            data, 0.0, 450.0, W_hat1_4)
+
+mu_vals = np.linspace(330, 390, 90)
+sig_vals = np.linspace(60, 120, 100)
+critfunc_vals = np.zeros((90, 100))
+for mu_ind in range(90):
+    for sig_ind in range(100):
+        critfunc_vals[mu_ind, sig_ind] = \
+            criterion4(np.array([mu_vals[mu_ind], sig_vals[sig_ind]]),
+                       data, 0.0, 450.0, W_hat1_4)[0][0]
+
+mu_mesh, sig_mesh = np.meshgrid(mu_vals, sig_vals)
+
+fig, ax = plt.subplots(subplot_kw={"projection": "3d"})
+ax.plot_surface(mu_mesh.T, sig_mesh.T, critfunc_vals, rstride=8,
+                cstride=1, cmap=cmap1, alpha=0.9)
+ax.scatter(mu_GMM1_4, sig_GMM1_4, critfunc_GMM1_4, color='red', marker='o',
+           s=18, label='GMM estimate')
+ax.view_init(elev=15, azim=27, roll=0)
+ax.set_title('Criterion function surface for values of mu and sigma')
+ax.set_xlabel(r'$\mu$')
+ax.set_ylabel(r'$\sigma$')
+ax.set_zlabel(r'Criterion func.')
+plt.tight_layout()
+
+plt.show()
+```
+
+```{figure} ../../../images/gmm/Econ381scores_SurfaceCrit4.png
+---
+height: 500px
+name: FigGMM_SurfCrit4
+---
+Surface of the 4 moment, identity weighting matrix GMM criterion function for values of $\mu$ and $\sigma$ in the neighborhood of the GMM estimate. The scatter point represents the criterion function value for the GMM estimate.
+```
+
+
+(SecGMM_Ex_Trunc_4mom2st)=
+#### Four moments, two-step weighting matrix
+
+Let's see how much things change in this 4-moment case if we use the two-step estimator for the optimal weighting matrix $W$ instead of the identity matrix.
+
+```{code-cell} ipython3
+:tags: []
+
+def get_Err_mat4(xvals, mu, sigma, cut_lb, cut_ub, simple=False):
+    '''
+    --------------------------------------------------------------------
+    This function computes the R x N matrix of errors from each
+    observation for each moment. In this function, we have hard coded
+    R = 4.
+    --------------------------------------------------------------------
+    INPUTS:
+    xvals  = (N,) vector, test scores data
+    mu     = scalar, mean of the normally distributed random variable
+    sigma  = scalar > 0, standard deviation of the normally distributed
+             random variable
+    cut_lb = scalar or string, ='None' if no cutoff is given, otherwise
+             is scalar lower bound value of distribution. Values below
+             this value have zero probability
+    cut_ub = scalar or string, ='None' if no cutoff is given, otherwise
+             is scalar upper bound value of distribution. Values above
+             this value have zero probability
+    simple = boolean, =True if errors are simple difference, =False if
+             errors are percent deviation from data moments
+
+    OTHER FUNCTIONS AND FILES CALLED BY THIS FUNCTION:
+        model_moments()
+
+    OBJECTS CREATED WITHIN FUNCTION:
+    R          = 2, hard coded number of moments
+    N          = integer >= R, number of data observations
+    Err_mat    = (R, N) matrix, error by moment and observation data
+    mean_model = scalar, mean value from model
+    var_model  = scalar > 0, variance from model
+
+    FILES CREATED BY THIS FUNCTION: None
+
+    RETURNS: Err_mat
+    --------------------------------------------------------------------
+    '''
+    R = 4
+    N = len(xvals)
+    Err_mat = np.zeros((R, N))
+    pct_1_mod, pct_2_mod, pct_3_mod, pct_4_mod = \
+        model_moments4(mu, sigma, cut_lb, cut_ub)
+    if simple:
+        pts_in_grp1 = xvals < 220
+        Err_mat[0, :] = pts_in_grp1 - pct_1_mod
+        pts_in_grp2 = (xvals >= 220) & (xvals < 320)
+        Err_mat[1, :] = pts_in_grp2 - pct_2_mod
+        pts_in_grp3 = (xvals >= 320) & (xvals < 430)
+        Err_mat[2, :] = pts_in_grp3 - pct_3_mod
+        pts_in_grp4 = xvals >= 430
+        Err_mat[3, :] = pts_in_grp4 - pct_4_mod
+    else:
+        pts_in_grp1 = xvals < 220
+        Err_mat[0, :] = (pts_in_grp1 - pct_1_mod) / pct_1_mod
+        pts_in_grp2 = (xvals >= 220) & (xvals < 320)
+        Err_mat[1, :] = (pts_in_grp2 - pct_2_mod) / pct_2_mod
+        pts_in_grp3 = (xvals >= 320) & (xvals < 430)
+        Err_mat[2, :] = (pts_in_grp3 - pct_3_mod) / pct_3_mod
+        pts_in_grp4 = xvals >= 430
+        Err_mat[3, :] = (pts_in_grp4 - pct_4_mod) / pct_4_mod
+
+    return Err_mat
+```
+
+```{code-cell} ipython3
+:tags: []
+
+Err_mat4 = get_Err_mat4(data, mu_GMM1_4, sig_GMM1_4, 0.0, 450.0, False)
+VCV2_4 = (1 / len(data)) * (Err_mat4 @ Err_mat4.T)
+print("VCV2_4=")
+print(VCV2_4)
+# We use the pseudo-inverse command here because the VCV matrix is
+# poorly conditioned
+W_hat2_4 = lin.pinv(VCV2_4)
+print("")
+print("W_hat2_4=")
+print(W_hat2_4)
+```
+
+With the two-step optimal weighting matrix, we can estimate this 4-moment problem by GMM.
+
+```{code-cell} ipython3
+:tags: []
+
+# Note that this takes a little time because the intgr.quad() commands
+# are a little slow
+mu_init = 600  # alternative initial guess is mu_GMM1_4
+sig_init = 196  # alternative initial guess is is sig_GMM1_4
+params_init = np.array([mu_init, sig_init])
+gmm_args = (data, 0.0, 450.0, W_hat2_4)
+results2_4 = opt.minimize(criterion4, params_init, args=(gmm_args),
+                          method='L-BFGS-B', bounds=((1e-10, None), (1e-10, None)))
+mu_GMM2_4, sig_GMM2_4 = results2_4.x
+print('mu_GMM2_4=', mu_GMM2_4, ' sig_GMM2_4=', sig_GMM2_4)
+print("")
+print("Scipy.optimize.minimize results:")
+print(results2_4)
+```
+
+In this case, the two-step estimator of the optimal weighting matrix creates a small change in the estimated $\mu$ and $\sigma$ paramters to $(\mu=364,\sigma=111)$ from $(\mu=362,\sigma=92)$ in the identity matrix estimation. The criterion function for different values of $\mu$ and $\sigma$ here has a clear minimum in a certain area. But it also has some really interesting nonlinearities.
 
 
 (SecGMM_Ident)=
