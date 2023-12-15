@@ -215,6 +215,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="../struct_est/MLE.html">17. Maximum Likelihood Estimation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../struct_est/GMM.html">18. Generalized Method of Moments Estimation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../struct_est/SMM.html">19. Simulated Method of Moments Estimation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../struct_est/paper.html">20. Writing a Structural Estimation Paper</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Appendix</span></p>
 <ul class="nav bd-sidenav">
@@ -525,7 +526,7 @@ document.write(`
 </li>
 </ul>
 <p>In the next chapter <a class="reference internal" href="../basic_ml/ml_intro.html#chap-basicmlintro"><span class="std std-ref">Basic Machine Learning</span></a>, I give a more detailed treatment of logistic regression as a bridge to learning the basics of machine learning.</p>
-<p>Some other good resources on the topic of learning the basics of linear regression in Python include the <a class="reference external" href="https://quantecon.org/">QuantEcon.org</a> lectures “<a class="reference external" href="https://intro.quantecon.org/simple_linear_regression.html">Simple Linear Regression Model</a>” <span id="id1">[<a class="reference internal" href="../CompMethods_references.html#id54" title="Thomas J. Sargent and John Stachurski. Simple linear regression. In QuantEcon Python Lectures: A First Course in Quantitative Economics With Python, chapter 36. 2023. URL: https://intro.quantecon.org/simple_linear_regression.html.">Sargent and Stachurski, 2023</a>]</span>, and “<a class="reference external" href="https://python.quantecon.org/ols.html">Linear Regression in Python</a>” <span id="id2">[<a class="reference internal" href="../CompMethods_references.html#id55" title="Thomas J. Sargent and John Stachurski. Https://python.quantecon.org/ols.html. In QuantEcon Python Lectures: Intermediate Quantitative Economics with Python, chapter 79. 2023. URL: https://python.quantecon.org/ols.html.">Sargent and Stachurski, 2023</a>]</span>.</p>
+<p>Some other good resources on the topic of learning the basics of linear regression in Python include the <a class="reference external" href="https://quantecon.org/">QuantEcon.org</a> lectures “<a class="reference external" href="https://intro.quantecon.org/simple_linear_regression.html">Simple Linear Regression Model</a>” <span id="id1">[<a class="reference internal" href="../CompMethods_references.html#id55" title="Thomas J. Sargent and John Stachurski. Simple linear regression. In QuantEcon Python Lectures: A First Course in Quantitative Economics With Python, chapter 36. 2023. URL: https://intro.quantecon.org/simple_linear_regression.html.">Sargent and Stachurski, 2023</a>]</span>, and “<a class="reference external" href="https://python.quantecon.org/ols.html">Linear Regression in Python</a>” <span id="id2">[<a class="reference internal" href="../CompMethods_references.html#id56" title="Thomas J. Sargent and John Stachurski. Https://python.quantecon.org/ols.html. In QuantEcon Python Lectures: Intermediate Quantitative Economics with Python, chapter 79. 2023. URL: https://python.quantecon.org/ols.html.">Sargent and Stachurski, 2023</a>]</span>.</p>
 <section id="basic-empirical-methods-in-the-literature">
 <span id="secbasicemplit"></span><h2><span class="section-number">12.1. </span>Basic Empirical Methods in the Literature<a class="headerlink" href="#basic-empirical-methods-in-the-literature" title="Permalink to this heading">#</a></h2>
 <p>What are the standard empirical methods in the current version of the <em>American Economic Review</em> (<a class="reference external" href="https://www.aeaweb.org/issues/736">Vol. 113, No. 10, October 2023</a>)?</p>
@@ -556,7 +557,7 @@ document.write(`
 <figure class="align-default" id="figbasicempir-corrvscaus">
 <a class="reference internal image-reference" href="../_images/CorrVsCaus.png"><img alt="../_images/CorrVsCaus.png" src="../_images/CorrVsCaus.png" style="height: 500px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 12.1 </span><span class="caption-text">Correlation versus causation comic by <span id="id5">[<a class="reference internal" href="../CompMethods_references.html#id27" title="Timo Elliott. Every single person who confuses correlation and causation ends up dying. Cartoon, TimoElliott.com, October 2023. URL: https://i0.wp.com/timoelliott.com/blog/wp-content/uploads/2023/10/every-single-person-who-confuses-correlation-and-causation-ends-up-dying.jpg.">Elliott, 2023</a>]</span>.</span><a class="headerlink" href="#figbasicempir-corrvscaus" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 12.1 </span><span class="caption-text">Correlation versus causation comic by <span id="id5">[<a class="reference internal" href="../CompMethods_references.html#id28" title="Timo Elliott. Every single person who confuses correlation and causation ends up dying. Cartoon, TimoElliott.com, October 2023. URL: https://i0.wp.com/timoelliott.com/blog/wp-content/uploads/2023/10/every-single-person-who-confuses-correlation-and-causation-ends-up-dying.jpg.">Elliott, 2023</a>]</span>.</span><a class="headerlink" href="#figbasicempir-corrvscaus" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>What is the difference between correlation and causation?</p>
@@ -587,7 +588,7 @@ document.write(`
 <li><p>max</p></li>
 <li><p>min</p></li>
 </ul>
-<p>Let’s download some data, and read it in using the Pandas library for Python.<a class="footnote-reference brackets" href="#pandasref" id="id6" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> The following example is adapted from QuantEcon’s “<a class="reference external" href="https://python.quantecon.org/ols.html">Linear Regression in Python</a>” lecture <span id="id7">[<a class="reference internal" href="../CompMethods_references.html#id55" title="Thomas J. Sargent and John Stachurski. Https://python.quantecon.org/ols.html. In QuantEcon Python Lectures: Intermediate Quantitative Economics with Python, chapter 79. 2023. URL: https://python.quantecon.org/ols.html.">Sargent and Stachurski, 2023</a>]</span>.</p>
+<p>Let’s download some data, and read it in using the Pandas library for Python.<a class="footnote-reference brackets" href="#pandasref" id="id6" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> The following example is adapted from QuantEcon’s “<a class="reference external" href="https://python.quantecon.org/ols.html">Linear Regression in Python</a>” lecture <span id="id7">[<a class="reference internal" href="../CompMethods_references.html#id56" title="Thomas J. Sargent and John Stachurski. Https://python.quantecon.org/ols.html. In QuantEcon Python Lectures: Intermediate Quantitative Economics with Python, chapter 79. 2023. URL: https://python.quantecon.org/ols.html.">Sargent and Stachurski, 2023</a>]</span>.</p>
 <p>The research question of the paper “The Colonial Origins of Comparative Development: An Empirical Investigation” <span id="id8">[<a class="reference internal" href="../CompMethods_references.html#id3" title="Daron Acemoglu, Simon Johnson, and James A. Robinson. The colonial origins of comparative development: an empirical investigation. American Economic Review, 91(5):1369-1401, December 2001. URL: https://www.aeaweb.org/articles?id=10.1257/aer.91.5.1369.">Acemoglu <em>et al.</em>, 2001</a>]</span> is to determine whether or not differences in institutions can help to explain observed economic outcomes. How do we measure institutional differences and economic outcomes? In this paper:</p>
 <ul class="simple">
 <li><p>economic outcomes are proxied by log GDP per capita in 1995, adjusted for exchange rates,</p></li>
@@ -997,7 +998,7 @@ A list of all the 163 unique countries in the &quot;shortnam&quot; variable is:
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_2787/3993614049.py:4: SettingWithCopyWarning: 
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_2763/3993614049.py:4: SettingWithCopyWarning: 
 A value is trying to be set on a copy of a slice from a DataFrame
 
 See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
@@ -1656,8 +1657,8 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 Dep. Variable:               logpgp95   R-squared:                       0.611
 Model:                            OLS   Adj. R-squared:                  0.608
 Method:                 Least Squares   F-statistic:                     171.4
-Date:                Wed, 13 Dec 2023   Prob (F-statistic):           4.16e-24
-Time:                        00:01:46   Log-Likelihood:                -119.71
+Date:                Fri, 15 Dec 2023   Prob (F-statistic):           4.16e-24
+Time:                        23:35:33   Log-Likelihood:                -119.71
 No. Observations:                 111   AIC:                             243.4
 Df Residuals:                     109   BIC:                             248.8
 Df Model:                           1                                         
@@ -1939,7 +1940,7 @@ dtype: float64
 </aside>
 <aside class="footnote brackets" id="auto" role="note">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id11">2</a><span class="fn-bracket">]</span></span>
-<p>The <a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/data/basic_empirics/Auto.csv"><code class="docutils literal notranslate"><span class="pre">Auto.csv</span></code></a> dataset comes from <span id="id12">[<a class="reference internal" href="../CompMethods_references.html#id39" title="Gareth James, Daniela Witten, Trevor Hastie, and Robert Tibshirani. An Introduction to Statistical Learning with Applications in R. Springer Texts in Statistics. Springer, 2017.">James <em>et al.</em>, 2017</a>]</span> (ch. 3) and is also available at <a class="reference external" href="http://www-bcf.usc.edu/~gareth/ISL/data.html">http://www-bcf.usc.edu/~gareth/ISL/data.html</a>.</p>
+<p>The <a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/data/basic_empirics/Auto.csv"><code class="docutils literal notranslate"><span class="pre">Auto.csv</span></code></a> dataset comes from <span id="id12">[<a class="reference internal" href="../CompMethods_references.html#id40" title="Gareth James, Daniela Witten, Trevor Hastie, and Robert Tibshirani. An Introduction to Statistical Learning with Applications in R. Springer Texts in Statistics. Springer, 2017.">James <em>et al.</em>, 2017</a>]</span> (ch. 3) and is also available at <a class="reference external" href="http://www-bcf.usc.edu/~gareth/ISL/data.html">http://www-bcf.usc.edu/~gareth/ISL/data.html</a>.</p>
 </aside>
 </section>
 </section>

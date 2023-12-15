@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>14. Basic Machine Learning &#8212; Computational Methods for Economists using Python</title>
+    <title>20. Writing a Structural Estimation Paper &#8212; Computational Methods for Economists using Python</title>
   
   
   
@@ -68,12 +68,12 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'basic_ml/ml_intro';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'struct_est/paper';</script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="15. Neural Nets and Deep Learning" href="../deep_learn/intro.html" />
-    <link rel="prev" title="13. Logistic Regression Model" href="../basic_empirics/LogisticReg.html" />
+    <link rel="next" title="Glossary" href="../appendix/glossary.html" />
+    <link rel="prev" title="19. Simulated Method of Moments Estimation" href="SMM.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -202,20 +202,20 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="../basic_empirics/LogisticReg.html">13. Logistic Regression Model</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Basic Machine Learning</span></p>
-<ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">14. Basic Machine Learning</a></li>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../basic_ml/ml_intro.html">14. Basic Machine Learning</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Neural Nets and Deep Learning</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../deep_learn/intro.html">15. Neural Nets and Deep Learning</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Structural Estimation</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../struct_est/intro.html">16. Introduction to Structural Estimation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../struct_est/MLE.html">17. Maximum Likelihood Estimation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../struct_est/GMM.html">18. Generalized Method of Moments Estimation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../struct_est/SMM.html">19. Simulated Method of Moments Estimation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../struct_est/paper.html">20. Writing a Structural Estimation Paper</a></li>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">16. Introduction to Structural Estimation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MLE.html">17. Maximum Likelihood Estimation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GMM.html">18. Generalized Method of Moments Estimation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SMM.html">19. Simulated Method of Moments Estimation</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">20. Writing a Structural Estimation Paper</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Appendix</span></p>
 <ul class="nav bd-sidenav">
@@ -296,7 +296,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/OpenSourceEcon/CompMethods/issues/new?title=Issue%20on%20page%20%2Fbasic_ml/ml_intro.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/OpenSourceEcon/CompMethods/issues/new?title=Issue%20on%20page%20%2Fstruct_est/paper.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -326,7 +326,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="../_sources/basic_ml/ml_intro.md" target="_blank"
+      <li><a href="../_sources/struct_est/paper.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -410,7 +410,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Basic Machine Learning</h1>
+    <h1>Writing a Structural Estimation Paper</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -420,7 +420,16 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">14.1. Footnotes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sections-of-a-structural-estimation-project">20.1. Sections of a structural estimation project</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-description">20.1.1. Data description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#model-description">20.1.2. Model description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#estimation">20.1.3. Estimation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion-intro-abstract">20.1.4. Conclusion, intro, abstract</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#where-how-do-i-find-a-project">20.2. Where/how do I find a project?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">20.3. Exercises</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">20.4. Footnotes</a></li>
 </ul>
             </nav>
         </div>
@@ -432,23 +441,125 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="basic-machine-learning">
-<span id="chap-basicmlintro"></span><h1><span class="section-number">14. </span>Basic Machine Learning<a class="headerlink" href="#basic-machine-learning" title="Permalink to this heading">#</a></h1>
-<p>Put basic machine learning intro here.</p>
-<p>Define regression model versus classification model. Define parametric model versus nonparametric model. Define supervised learning versus unsupervised learning.</p>
-<p>Introduce the paradigm of cross-validation.</p>
-<p>The definitions of machine learning, statistical learning, and artificial intelligence overlap in most cases. And in some contexts they are indistinguishable.</p>
-<p>Machine learning, statistical learning, and artificial intelligence is mostly focused on predictive models <span class="math notranslate nohighlight">\(\hat{y}=f(x|\theta)\)</span> and tuning or estimating the parameters <span class="math notranslate nohighlight">\(\theta\)</span> to minimize some definition of total error in the predictions for <span class="math notranslate nohighlight">\(\hat{y}\)</span>.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="writing-a-structural-estimation-paper">
+<span id="chap-structestpaper"></span><h1><span class="section-number">20. </span>Writing a Structural Estimation Paper<a class="headerlink" href="#writing-a-structural-estimation-paper" title="Permalink to this heading">#</a></h1>
+<p>TODO: Finish this section. The content for this section will be taken from my course slides on <a class="reference external" href="https://github.com/rickecon/StructEst_W20/blob/master/Projects/ProposalPresent.pdf">creating a structural estimation paper proposal</a>, and my slides on how to write the following sections of the paper: <a class="reference external" href="https://github.com/rickecon/StructEst_W20/blob/master/Projects/DataSection_slides.pdf">data description</a>, <a class="reference external" href="https://github.com/rickecon/StructEst_W20/blob/master/Projects/ModelDescr_slides.pdf">model description</a>, <a class="reference external" href="https://github.com/rickecon/StructEst_W20/blob/master/Projects/EstimResults_slides.pdf">estimation section</a>, and <a class="reference external" href="https://github.com/rickecon/StructEst_W20/blob/master/Projects/IntroAbsConcl_slides.pdf">conclusion/intro/abstract</a>.</p>
+<section id="sections-of-a-structural-estimation-project">
+<span id="secstructestpapersections"></span><h2><span class="section-number">20.1. </span>Sections of a structural estimation project<a class="headerlink" href="#sections-of-a-structural-estimation-project" title="Permalink to this heading">#</a></h2>
+<p>TODO: Include discussion from project sections and order of project slide in <a class="reference external" href="https://github.com/rickecon/StructEst_W20/blob/master/Projects/ProposalPresent.pdf">creating a structural estimation paper proposal</a> slides.</p>
+<section id="data-description">
+<span id="secstructestpapersect-data"></span><h3><span class="section-number">20.1.1. </span>Data description<a class="headerlink" href="#data-description" title="Permalink to this heading">#</a></h3>
+<p>See <a class="reference external" href="https://github.com/rickecon/StructEst_W20/blob/master/Projects/DataSection_slides.pdf">data description</a> slides,</p>
+</section>
+<section id="model-description">
+<span id="secstructestpapersect-model"></span><h3><span class="section-number">20.1.2. </span>Model description<a class="headerlink" href="#model-description" title="Permalink to this heading">#</a></h3>
+<p>See <a class="reference external" href="https://github.com/rickecon/StructEst_W20/blob/master/Projects/ModelDescr_slides.pdf">model description</a> slides.</p>
+</section>
+<section id="estimation">
+<span id="secstructestpapersect-est"></span><h3><span class="section-number">20.1.3. </span>Estimation<a class="headerlink" href="#estimation" title="Permalink to this heading">#</a></h3>
+<p>See <a class="reference external" href="https://github.com/rickecon/StructEst_W20/blob/master/Projects/EstimResults_slides.pdf">estimation section</a> slides.</p>
+</section>
+<section id="conclusion-intro-abstract">
+<span id="secstructestpapersect-concl"></span><h3><span class="section-number">20.1.4. </span>Conclusion, intro, abstract<a class="headerlink" href="#conclusion-intro-abstract" title="Permalink to this heading">#</a></h3>
+<p>See <a class="reference external" href="https://github.com/rickecon/StructEst_W20/blob/master/Projects/IntroAbsConcl_slides.pdf">conclusion/intro/abstract</a> slides.</p>
+</section>
+</section>
+<section id="where-how-do-i-find-a-project">
+<span id="secstructestpaperfind"></span><h2><span class="section-number">20.2. </span>Where/how do I find a project?<a class="headerlink" href="#where-how-do-i-find-a-project" title="Permalink to this heading">#</a></h2>
+<p>TODO: Include discussion from ending slides in <a class="reference external" href="https://github.com/rickecon/StructEst_W20/blob/master/Projects/ProposalPresent.pdf">creating a structural estimation paper proposal</a> slides. Make sure to include discussion of replication versus original research.</p>
+</section>
+<section id="exercises">
+<span id="secstructestpaperexerc"></span><h2><span class="section-number">20.3. </span>Exercises<a class="headerlink" href="#exercises" title="Permalink to this heading">#</a></h2>
+<div class="exercise green admonition" id="ExercStructEst_PaperProposal">
+
+<p class="admonition-title"><span class="caption-number">Exercise 20.1 </span> (Create a structural estimation project proposal)</p>
+<section id="exercise-content">
+<p>Create a 5-minute slide presentation of a structural estimation project proposal. You can work alone. However, I recommend you work in a group of (at most) two. The focus of your proposal presentation must be a research question. A good project will have a strong economic theory component. Structural estimation is taking economic theory directly to data. To estimate your model, your project must use GMM, MLE, SMM, or SMLE that you code yourself. I have included a LaTeX beamer style slides template in the <a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/code/StrEstPaper/LaTeXtemplates"><code class="docutils literal notranslate"><span class="pre">./code/StrEstPaper/LaTeXtemplates/</span></code></a> folder of the GitHub repository for this online book if you want to do your slides in LaTeX. Your proposal should include the following requirements.</p>
+<ol class="arabic simple">
+<li><p>Restrictions</p>
 <ul class="simple">
-<li><p>Highly nonlinear models</p></li>
-<li><p>Cross-validation</p></li>
-<li><p>Exotic loss functions</p></li>
-<li><p>Super robust minimizers (variants of stochastic gradient descent)</p></li>
+<li><p>The focus of your proposal presentation must be a research question. No “methods for the sake of methods” projects.</p></li>
+<li><p>You are not allowed to use linear regressions <em>unless</em>:</p>
+<ul>
+<li><p>it is involved in an indirect inference estimation</p></li>
+<li><p>it is a small subroutine of a bigger model</p></li>
 </ul>
-<p>Machine learning could have an equally appropriate and nondescriptive name of nonlinear regression modeling. On predictive accuracy, machine learning models outperform structural models and top regression models. However, this accuracy often comes at the cost of interpretability. The estimated parameters in structural models and regression models often have clear interpretations. On the other hand, it is nearly impossible to make a robust claim about the effect of an explanatory variable on a dependent variable in a neural net model.</p>
-<p>Recent advances by Athey and others have re-established the elements of interpretation, marginal effects, and causal inference to machine learning models. [include citations here.]</p>
+</li>
+</ul>
+</li>
+<li><p>State the research question.</p>
+<ul class="simple">
+<li><p>What are you trying to learn by using this model?</p></li>
+<li><p>Question should be focused. A narrow question is usually better than a broad question.</p></li>
+</ul>
+</li>
+<li><p>Describe the model (the data generating process, DGP) <span class="math notranslate nohighlight">\(F(x_t,z_t|\theta)=0\)</span></p>
+<ul class="simple">
+<li><p>What are the endogenous variables <span class="math notranslate nohighlight">\(x_t\)</span>?</p></li>
+<li><p>What are the exogenous variables <span class="math notranslate nohighlight">\(z_t\)</span>?</p></li>
+<li><p>What are the parameters <span class="math notranslate nohighlight">\(\theta\)</span>?</p></li>
+<li><p>Which parameters are estimated <span class="math notranslate nohighlight">\(\hat{\theta}_e\)</span>?</p></li>
+<li><p>Which parameters are calibrated $\bar{\theta}_c?</p></li>
+<li><p>How does one solve the model given <span class="math notranslate nohighlight">\(\theta\)</span>?</p>
+<ul>
+<li><p>Equations are sufficient (e.g., econometric models)</p></li>
+<li><p>Analytical solution (e.g., behavioral models)</p></li>
+<li><p>Computational solution (e.g., macroeconomic models)</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Describe the proposed data source <span class="math notranslate nohighlight">\(X\)</span></p>
+<ul class="simple">
+<li><p>How available are the data?</p></li>
+<li><p>Can you show some initial descriptive statistics or visualizations?</p></li>
+</ul>
+</li>
+<li><p>Describe your proposed estimation strategy <span class="math notranslate nohighlight">\(\hat{\theta}\)</span></p>
+<ul class="simple">
+<li><p>Why did you choose this estimation strategy over alternatives?</p></li>
+<li><p>How will you identify your parameters?</p>
+<ul>
+<li><p>MLE: Likelihood function</p></li>
+<li><p>GMM: What moments will you use?</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Proposal conclusion</p>
+<ul class="simple">
+<li><p>Restate your research question</p></li>
+<li><p>Outline your hopes and dreams for the project</p></li>
+<li><p>Identify potential shortcomings/alternatives</p></li>
+</ul>
+</li>
+</ol>
+</section>
+</div>
+<div class="exercise green admonition" id="ExercStructEst_Paper">
+
+<p class="admonition-title"><span class="caption-number">Exercise 20.2 </span> (Structural estimation project paper)</p>
+<section id="exercise-content">
+<p>Write a structural estimation paper based on your project proposal from <a class="reference internal" href="#ExercStructEst_PaperProposal"><span class="std std-numref">Exercise 20.1</span></a> using the examples and suggestions from this chapter. I have posted a LaTeX template for a paper in the <a class="reference external" href="https://github.com/OpenSourceEcon/CompMethods/tree/main/code/StrEstPaper/LaTeXtemplates"><code class="docutils literal notranslate"><span class="pre">./code/StrEstPaper/LaTeXtemplates/</span></code></a> folder of the GitHub repository for this online book if you want to do your paper in LaTeX.</p>
+<ol class="arabic simple">
+<li><p>There is no minimum page requirement, but your paper should be no more than 20 pages long. You can put any extra information in a technical appendix that is not subject to the maximum page requirement.</p></li>
+<li><p>Your paper should be focused on a research question, have a title, clear indication of authors, date, and abstract.</p></li>
+<li><p>You must perform a structural estimation in your paper using one of the following methods: GMM, MLE, SMM, or SMLE that you code yourself.</p></li>
+<li><p>The body of your paper should have the following sections, and you should follow the examples and recommendations for those sections from the corresponding discussions in this chapter.</p>
+<ul class="simple">
+<li><p>Introduction</p></li>
+<li><p>Data description</p></li>
+<li><p>Model description</p></li>
+<li><p>Estimation</p></li>
+<li><p>Conclusion</p></li>
+</ul>
+</li>
+</ol>
+</section>
+</div>
+</section>
 <section id="footnotes">
-<span id="secbasicmlintrofootnotes"></span><h2><span class="section-number">14.1. </span>Footnotes<a class="headerlink" href="#footnotes" title="Permalink to this heading">#</a></h2>
+<span id="secstructestpaperfootnotes"></span><h2><span class="section-number">20.4. </span>Footnotes<a class="headerlink" href="#footnotes" title="Permalink to this heading">#</a></h2>
 <p>The footnotes from this chapter.</p>
 </section>
 </section>
@@ -466,7 +577,7 @@ document.write(`
         },
         kernelOptions: {
             name: "python3",
-            path: "./basic_ml"
+            path: "./struct_est"
         },
         predefinedOutput: true
     }
@@ -484,20 +595,20 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../basic_empirics/LogisticReg.html"
+       href="SMM.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title"><span class="section-number">13. </span>Logistic Regression Model</p>
+        <p class="prev-next-title"><span class="section-number">19. </span>Simulated Method of Moments Estimation</p>
       </div>
     </a>
     <a class="right-next"
-       href="../deep_learn/intro.html"
+       href="../appendix/glossary.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">15. </span>Neural Nets and Deep Learning</p>
+        <p class="prev-next-title">Glossary</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -516,7 +627,16 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">14.1. Footnotes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sections-of-a-structural-estimation-project">20.1. Sections of a structural estimation project</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-description">20.1.1. Data description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#model-description">20.1.2. Model description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#estimation">20.1.3. Estimation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion-intro-abstract">20.1.4. Conclusion, intro, abstract</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#where-how-do-i-find-a-project">20.2. Where/how do I find a project?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">20.3. Exercises</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">20.4. Footnotes</a></li>
 </ul>
   </nav></div>
 

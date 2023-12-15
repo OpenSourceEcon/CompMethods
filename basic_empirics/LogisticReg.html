@@ -215,6 +215,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="../struct_est/MLE.html">17. Maximum Likelihood Estimation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../struct_est/GMM.html">18. Generalized Method of Moments Estimation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../struct_est/SMM.html">19. Simulated Method of Moments Estimation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../struct_est/paper.html">20. Writing a Structural Estimation Paper</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Appendix</span></p>
 <ul class="nav bd-sidenav">
@@ -1192,29 +1193,29 @@ dtype: int64
 <section id="interpreting-coefficients-log-odds-ratio">
 <span id="sec-loglogitinterpret"></span><h4><span class="section-number">13.2.2.4. </span>Interpreting coefficients (log odds ratio)<a class="headerlink" href="#interpreting-coefficients-log-odds-ratio" title="Permalink to this heading">#</a></h4>
 <p>The odds ratio in the logistic model is provides a nice way to interpret logit model coefficients. Let <span class="math notranslate nohighlight">\(z\equiv X^T\beta = \beta_0 + \beta_1 x_{1,i} + ...\beta_K x_{K,i}\)</span>. The logistic model is stated by the probability that the binary categorical dependent variable equals one <span class="math notranslate nohighlight">\(y_i=1\)</span>.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-c1e243bf-a91f-4b34-b95a-30b7d7dbe627">
-<span class="eqno">(13.11)<a class="headerlink" href="#equation-c1e243bf-a91f-4b34-b95a-30b7d7dbe627" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-13ec33bf-9255-4f8a-beef-3233cdcfa217">
+<span class="eqno">(13.11)<a class="headerlink" href="#equation-13ec33bf-9255-4f8a-beef-3233cdcfa217" title="Permalink to this equation">#</a></span>\[\begin{equation}
   P(y_i=1|X,\theta) = \frac{e^z}{1 + e^z}
 \end{equation}\]</div>
 <p>Given this equation, we know that the probability of the dependent variable being zero <span class="math notranslate nohighlight">\(y_i=0\)</span> is just one minus the probability above.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-d8184dac-f0f1-4459-801e-06afd07a0758">
-<span class="eqno">(13.12)<a class="headerlink" href="#equation-d8184dac-f0f1-4459-801e-06afd07a0758" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-89dce4f9-7d7a-4ff8-97ab-3b79b804f1af">
+<span class="eqno">(13.12)<a class="headerlink" href="#equation-89dce4f9-7d7a-4ff8-97ab-3b79b804f1af" title="Permalink to this equation">#</a></span>\[\begin{equation}
   P(y_i=0|X,\theta) = 1 - P(y_i=1|X,\theta) = 1 - \frac{e^z}{1 + e^z} = \frac{1}{1 + e^z}
 \end{equation}\]</div>
 <p>The odds ratio is a common way of expressing the probability of an event versus all other events. For example, if the probability of your favorite team winning a game is <span class="math notranslate nohighlight">\(P(win)=0.8\)</span>, then we know that the probability of your favorite team losing that game is <span class="math notranslate nohighlight">\(P(lose)=1-P(win)=0.2\)</span>. The odds ratio is the ratio of these two probabilities.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-4fc94c21-885c-4d8d-b22a-278c4dd6ef07">
-<span class="eqno">(13.13)<a class="headerlink" href="#equation-4fc94c21-885c-4d8d-b22a-278c4dd6ef07" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-38089dfd-7833-42e5-a63b-44435bbd4aad">
+<span class="eqno">(13.13)<a class="headerlink" href="#equation-38089dfd-7833-42e5-a63b-44435bbd4aad" title="Permalink to this equation">#</a></span>\[\begin{equation}
   \frac{P(win)}{P(lose)} = \frac{P(win)}{1 - P(win)} = \frac{0.8}{0.2} = \frac{4}{1} \quad\text{or}\quad 4
 \end{equation}\]</div>
 <p>The odds ratio tells you that the probability of your team winning is four times as likely as your team losing. A gambler would say that your odds are 4-to-1. Another way of saying it is that your team will win four out of five times and will lose 1 out of five times.</p>
 <p>In the logistic model, the odds ratio reduces the problem nicely.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-64411609-a49f-49d6-bbae-6a02ad1885d3">
-<span class="eqno">(13.14)<a class="headerlink" href="#equation-64411609-a49f-49d6-bbae-6a02ad1885d3" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-964dd828-4407-4ae5-9258-06460f601b18">
+<span class="eqno">(13.14)<a class="headerlink" href="#equation-964dd828-4407-4ae5-9258-06460f601b18" title="Permalink to this equation">#</a></span>\[\begin{equation}
   \frac{P(y_i=1|X,\theta)}{1 - P(y_i=1|X,\theta)} = \frac{\frac{e^z}{1 + e^z}}{\frac{1}{1 + e^z}} = e^z
 \end{equation}\]</div>
 <p>If we take the log of both sides, we see that the log odds ratio is equal to the linear predictor <span class="math notranslate nohighlight">\(z\equiv X^T\beta = \beta_0 + \beta_1 x_{1,i} + ...\beta_K x_{K,i}\)</span>.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-6a6f2b83-e40e-4b65-a87e-fb61b18328c5">
-<span class="eqno">(13.15)<a class="headerlink" href="#equation-6a6f2b83-e40e-4b65-a87e-fb61b18328c5" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-7fde01ef-f76a-4ce0-90bd-a76cd1dd1e83">
+<span class="eqno">(13.15)<a class="headerlink" href="#equation-7fde01ef-f76a-4ce0-90bd-a76cd1dd1e83" title="Permalink to this equation">#</a></span>\[\begin{equation}
   \ln\left(\frac{P(y_i=1|X,\theta)}{1 - P(y_i=1|X,\theta)}\right) = z = \beta_0 + \beta_1 x_{1,i} + ...\beta_K x_{K,i}
 \end{equation}\]</div>
 <p>So the interpretation of the coeficients <span class="math notranslate nohighlight">\(\beta_k\)</span> is that a one-unit increase of the variable <span class="math notranslate nohighlight">\(x_{k,i}\)</span> increases the odds ratio or the odds of <span class="math notranslate nohighlight">\(y_i=1\)</span> by <span class="math notranslate nohighlight">\(\beta_{k,i}\)</span> percent.</p>
@@ -1226,18 +1227,18 @@ dtype: int64
 <p>The multinomial logit model is a natural extension of the logit model. In contrast to the logit model in which the dependent variable has only two categories, the multinomial logit model accomodates <span class="math notranslate nohighlight">\(J\geq2\)</span> categories in the dependent variable. Let <span class="math notranslate nohighlight">\(\eta_j\)</span> be the linear predictor for the <span class="math notranslate nohighlight">\(j\)</span>th category.
 $<span class="math notranslate nohighlight">\( \eta_j\equiv \beta_{j,0} + \beta_{j,1}x_{1,i} + ...\beta_{j,K}x_{K,i} \quad\forall y_i = j \)</span>$</p>
 <p>The multinomial logit model gives the probability of <span class="math notranslate nohighlight">\(y_i=j\)</span> relative to some reference category <span class="math notranslate nohighlight">\(J\)</span> that is left out.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-24ac4b1a-dc7e-4806-ba69-18887d145b58">
-<span class="eqno">(13.16)<a class="headerlink" href="#equation-24ac4b1a-dc7e-4806-ba69-18887d145b58" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-7bca4970-225f-4534-bbfc-b46bd08917fb">
+<span class="eqno">(13.16)<a class="headerlink" href="#equation-7bca4970-225f-4534-bbfc-b46bd08917fb" title="Permalink to this equation">#</a></span>\[\begin{equation}
   Pr(y_i=j|X,\theta) = \frac{e^{\eta_j}}{1 + \sum_v^{J-1}e^{\eta_v}} \quad\text{for}\quad 1\leq j\leq J-1
 \end{equation}\]</div>
 <p>Once the <span class="math notranslate nohighlight">\(J-1\)</span> sets of coefficients are estimated, the final <span class="math notranslate nohighlight">\(J\)</span>th set of coefficients are a residual based on the following expression.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-92474613-180e-4b56-8e56-b99bfcf32248">
-<span class="eqno">(13.17)<a class="headerlink" href="#equation-92474613-180e-4b56-8e56-b99bfcf32248" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-12bdad40-d91c-4336-bff3-176347d13f49">
+<span class="eqno">(13.17)<a class="headerlink" href="#equation-12bdad40-d91c-4336-bff3-176347d13f49" title="Permalink to this equation">#</a></span>\[\begin{equation}
   Pr(y_i=J|X,\theta) = \frac{1}{1 + \sum_v^{J-1}e^{\eta_v}}
 \end{equation}\]</div>
 <p>The analogous log odds ratio interpretation applies to the multinomial logit model.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-b45376e7-304a-485f-8ee2-de9b4fcac2e6">
-<span class="eqno">(13.18)<a class="headerlink" href="#equation-b45376e7-304a-485f-8ee2-de9b4fcac2e6" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-6a5ea324-7bc3-4355-a6a1-db2d88a05b0d">
+<span class="eqno">(13.18)<a class="headerlink" href="#equation-6a5ea324-7bc3-4355-a6a1-db2d88a05b0d" title="Permalink to this equation">#</a></span>\[\begin{equation}
   \ln\left(\frac{Pr(y_i=j|X,\theta)}{Pr(y_i=J|X,\theta)}\right) = \eta_j = \beta_{j,0} + \beta_{j,1}x_{1,i} + ...\beta_{j,K}x_{K,i} \quad\text{for}\quad 1\leq j \leq J-1
 \end{equation}\]</div>
 <p>This is the odds ratio of <span class="math notranslate nohighlight">\(y_i=j\)</span> relative to <span class="math notranslate nohighlight">\(y_i=J\)</span>. The interpretation of the <span class="math notranslate nohighlight">\(\beta_{j,k}\)</span> coefficient is the predicted percentage change in the log odds ratio of <span class="math notranslate nohighlight">\(y_i=j\)</span> to <span class="math notranslate nohighlight">\(y_i=J\)</span> from a one-unit increase in variable <span class="math notranslate nohighlight">\(x_{k,i}\)</span>.</p>

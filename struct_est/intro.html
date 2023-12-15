@@ -215,6 +215,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="MLE.html">17. Maximum Likelihood Estimation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="GMM.html">18. Generalized Method of Moments Estimation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="SMM.html">19. Simulated Method of Moments Estimation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="paper.html">20. Writing a Structural Estimation Paper</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Appendix</span></p>
 <ul class="nav bd-sidenav">
@@ -435,6 +436,10 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="introduction-to-structural-estimation">
 <span id="chap-structestintro"></span><h1><span class="section-number">16. </span>Introduction to Structural Estimation<a class="headerlink" href="#introduction-to-structural-estimation" title="Permalink to this heading">#</a></h1>
+<blockquote>
+<div><p>``You keep using that word. I do not think it means what you think it means.” Inigo Montoya, <em>The Princess Bride</em></p>
+</div></blockquote>
+<p>The term ``structural estimation” has been the source of debate in the economics profession. [TODO: Insert some of the debate here.]</p>
 <p>The material for the chapters in this Structural Estimation section was initially developed in the Structural Estimation course I taught in the Masters in Computational Social Science program at the University of Chicago from 2017 to 2020.<a class="footnote-reference brackets" href="#macsscourses" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a></p>
 <p>A good place to start in describing structural estimation is the definition of a <a class="reference internal" href="../appendix/glossary.html#term-model"><span class="xref std std-term">model</span></a>.</p>
 <div class="proof definition admonition" id="DefStructEst_Model">
@@ -494,7 +499,7 @@ document.write(`
 <p>A good introduction to structural estimation is to compare it to other types of research designs. <a class="reference internal" href="#ExercStructEst_CompPaper"><span class="std std-numref">Exercise 16.1</span></a> asks you to compare the structural approach to the reduced form approach. The following are some prominent research designs in economics, only some of which are structural estimations.</p>
 <p><strong>Structural estimation papers</strong></p>
 <ul class="simple">
-<li><p>(Classic structural estimation) <span id="id2">[<a class="reference internal" href="../CompMethods_references.html#id52" title="John Rust. Optimal replacement of gmc bus engines: an empirical model of harold zurcher. Econometrica, 55(5):999-1033, September 1987. URL: https://www.jstor.org/stable/1911259.">Rust, 1987</a>]</span></p></li>
+<li><p>(Classic structural estimation) <span id="id2">[<a class="reference internal" href="../CompMethods_references.html#id53" title="John Rust. Optimal replacement of gmc bus engines: an empirical model of harold zurcher. Econometrica, 55(5):999-1033, September 1987. URL: https://www.jstor.org/stable/1911259.">Rust, 1987</a>]</span></p></li>
 <li><p><span id="id3">[<a class="reference internal" href="../CompMethods_references.html#id7" title="Barsky and Sims. Information, animal spirits, and the meaning of innovations in consumer confidence. American Economic Review, 102(4):1343-1377, June 2012. URL: https://pubs.aeaweb.org/doi/pdfplus/10.1257/aer.102.4.1343.">Barsky and Sims, 2012</a>]</span></p></li>
 </ul>
 <p><strong>Reduced form estimation papers</strong></p>
@@ -504,7 +509,7 @@ document.write(`
 </ul>
 <p><strong>Theory</strong></p>
 <ul class="simple">
-<li><p><span id="id6">[<a class="reference internal" href="../CompMethods_references.html#id58" title="Ludwig Straub and Iván Werning. Positive long-run capital taxation: chamley-judd revisited. American Economic Review, 110(1):86-119, January 2020. URL: https://pubs.aeaweb.org/doi/pdfplus/10.1257/aer.20150210.">Straub and Werning, 2020</a>]</span></p></li>
+<li><p><span id="id6">[<a class="reference internal" href="../CompMethods_references.html#id59" title="Ludwig Straub and Iván Werning. Positive long-run capital taxation: chamley-judd revisited. American Economic Review, 110(1):86-119, January 2020. URL: https://pubs.aeaweb.org/doi/pdfplus/10.1257/aer.20150210.">Straub and Werning, 2020</a>]</span></p></li>
 </ul>
 </section>
 <section id="exercises">
@@ -515,7 +520,7 @@ document.write(`
 <section id="exercise-content">
 <p><strong>Persuasive short paper supporting either structural estimation or reduced form estimation or both.</strong></p>
 <ul class="simple">
-<li><p>Read <span id="id7">[<a class="reference internal" href="../CompMethods_references.html#id41" title="Michael P. Keane. Structural vs. atheoretic approaches to econometrics. Journal of Econometrics, 156(1):3-20, May 2010.">Keane, 2010</a>]</span> and <span id="id8">[<a class="reference internal" href="../CompMethods_references.html#id53" title="John Rust. Comments on: `structural vs. atheoretic approaches to econometrics'. Journal of Econometrics, 156(1):21-24, May 2010.">Rust, 2010</a>]</span>.</p></li>
+<li><p>Read <span id="id7">[<a class="reference internal" href="../CompMethods_references.html#id42" title="Michael P. Keane. Structural vs. atheoretic approaches to econometrics. Journal of Econometrics, 156(1):3-20, May 2010.">Keane, 2010</a>]</span> and <span id="id8">[<a class="reference internal" href="../CompMethods_references.html#id54" title="John Rust. Comments on: `structural vs. atheoretic approaches to econometrics'. Journal of Econometrics, 156(1):21-24, May 2010.">Rust, 2010</a>]</span>.</p></li>
 <li><p>Write a short persuasive paper of about one page (maximum of 1.5 pages) in which you make your case for either structural estimation or reduced form estimation or both. Note that both Keane and Rust are biased toward structural estimation.</p></li>
 <li><p>Make sure that you cite arguments that they use as evidence for or against your thesis.</p></li>
 <li><p>Refute (or temper) at least one of their arguments.</p></li>
