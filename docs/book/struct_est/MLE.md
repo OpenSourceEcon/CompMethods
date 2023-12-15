@@ -142,7 +142,7 @@ plt.show()
 height: 500px
 name: FigMLE_EconScoreHist
 ---
-Intermediate macroeconomics midterm scores over two semesters
+Histogram of intermediate macroeconomics midterm scores over two semesters: $N=161$
 ```
 
 Now lets code up a parametric distribution that is flexible enough to fit lots of different distributions of test scores, has the properties we would expect from a distribution of test scores, and is characterized by a minimal number of parameters. In this case, we will use a truncated normal distribution.[^TruncNorm]
@@ -212,7 +212,7 @@ Let's plot the histogram of the intermediate macroeconomics test scores overlaye
 # Plot histogram
 num_bins = 30
 count, bins, ignored = plt.hist(data, num_bins, density=True,
-                                edgecolor='k')
+                                edgecolor='k', label='Data')
 plt.title('Intermediate macro scores: 2011-2012', fontsize=15)
 plt.xlabel(r'Total points')
 plt.ylabel(r'Percent of scores')
@@ -402,7 +402,7 @@ Note that we used initial guesses for $\mu$ and $\sigma$ of 385 and 120 and the 
 
 # Plot the histogram of the data
 count, bins, ignored = plt.hist(data, num_bins, density=True,
-                                edgecolor='k')
+                                edgecolor='k', label='Data')
 plt.title('Intermediate macro scores: 2011-2012', fontsize=15)
 plt.xlabel(r'Total points')
 plt.ylabel(r'Percent of scores')
@@ -480,7 +480,6 @@ ax.set_title('Log-likelihood function for values of mu and sigma')
 ax.set_xlabel(r'$\mu$')
 ax.set_ylabel(r'$\sigma$')
 ax.set_zlabel(r'Log-likelihood func.')
-plt.tight_layout()
 
 plt.show()
 ```
@@ -527,7 +526,6 @@ ax.set_title('Log-likelihood function for values of mu and sigma')
 ax.set_xlabel(r'$\mu$')
 ax.set_ylabel(r'$\sigma$')
 ax.set_zlabel(r'Log-likelihood func.')
-plt.tight_layout()
 
 plt.show()
 ```
@@ -843,14 +841,14 @@ The statistical family tree figure above shows the all the relationships between
 :label: ExercStructEst_MLE_claims
 :class: green
 ```
-For this problem, you will use 10,619 health claims amounts from a fictitious sample of households. These data are in a single column of the text file [`claims.txt`](https://github.com/OpenSourceEcon/CompMethods/blob/main/data/mle/claims.txt) in the online book repository data folder `data/mle/`. This file is a comma separated text file with no labels. Health claim amounts are reported in US dollars. For this exercise, you will need to use the generalized beta family of distributions shown in {numref}`Figure %s <FigMLE_GBtree>` of Section {ref}`SecMLE_GBfam`.
+For this problem, you will use 10,619 health claims amounts from a fictitious sample of households. These data are in a single column of the text file [`claims.txt`](https://github.com/OpenSourceEcon/CompMethods/blob/main/data/mle/claims.txt) in the online book repository data folder `data/mle/`. This file is a comma separated text file with no labels. Health claim amounts are reported in US dollars. For this exercise, you will need to use the generalized beta family of distributions shown in {numref}`Figure %s <FigMLE_GBtree>` of Section {ref}`SecMLE_GBfam`. You may want to use the [`distributions.py`](https://github.com/OpenSourceEcon/CompMethods/blob/main/code/mle/distributions.py) module in the [`./code/mle/`](https://github.com/OpenSourceEcon/CompMethods/blob/main/code/mle/) folder of the GitHub repository for this online book.
 
 1. Calculate and report the mean, median, maximum, minimum, and standard deviation of monthly health expenditures for these data. Plot two histograms of the data in which the $y$-axis gives the percent of observations in the particular bin of health expenditures and the $x$-axis gives the value of monthly health expenditures. Use percentage histograms in which the height of each bar is the percent of observations in that bin. In the first histogram, use 1,000 bins to plot the frequency of all the data. In the second histogram, use 100 bins to plot the frequency of only monthly health expenditures less-than-or-equal-to \$800 ($x_i\leq 800$). Adjust the frequencies of this second histogram to account for the observations that you have not displayed ($x_i>800$). That is, the heights of the histogram bars in the second histogram should not sum to 1 because you are only displaying a fraction of the data. Comparing the two histograms, why might you prefer the second one?
-2. Using MLE, fit the gamma $GA(x;\alpha,\beta)$ distribution to the individual observation data. Use $\beta_0=Var(x)/E(x)$ and $\alpha_0=E(x)/\beta_0$ as your initial guess. These initial guesses come from the property of the gamma (GA) distribution that $E(x)=\alpha\beta$ and $Var(x)=\alpha\beta^2$. Report your estimated values for $\hat{\alpha}$ and $\hat{\beta}$, as well as the value of the maximized log likelihood function $\ln\mathcal{L}(\hat{\theta})$. Plot the second histogram from part (1) overlayed with a line representing the implied histogram from your estimated gamma (GA) distribution.
-3. Using MLE, fit the generalized gamma $GG(x;\alpha,\beta,m)$ distribution to the individual observation data. Use your estimates for $\alpha$ and $\beta$ from part(2), as well as $m=1$, as your initial guess. Report your estimated values for $\hat{\alpha}$, $\hat{\beta}$, and $\hat{m}$, as well as the value of the maximized log likelihood function $\ln\mathcal{L}$. Plot the second histogram from part (1) overlayed with a line representing the implied histogram from your estimated generalized gamma (GG) distribution.
-4. Using MLE, fit the generalized beta 2 $GB2(x;a,b,p,q)$ distribution to the individual observation data. Use your estimates for $\alpha$, $\beta$, and $m$ from part (3), as well as $q=10,000$, as your initial guess. Report your estimated values for $\hat{a}$, $\hat{b}$, $\hat{p}$, and $\hat{q}$, as well as the value of the maximized log likelihood function $\ln\mathcal{L}$. Plot the second histogram from part(1) overlayed with a line representing the implied histogram from your estimated generalized beta 2 (GB2) distribution.
-5. Perform a likelihood ratio test for each of the estimated in parts (2) and (3), respectively, against the GB2 specification in part (4). This is feasible because each distribution is a nested version of the GB2. The degrees of freedom in the $\chi^2(p)$ is 4, consistent with the GB2. Report the $\chi^2(4)$ values from the likelihood ratio test for the estimated GA and the estimated GG distributions.
-6. Using the estimated GB2 distribution from part (4), how likely am I to have a monthly health care claim of more than \$1,000? How does this amount change if I use the estimated GA distribution from part (2)?
+2. Using MLE, fit the gamma $GA(x|\alpha,\beta)$ distribution to the individual observation data. Use $\beta_0=Var(x)/E(x)$ and $\alpha_0=E(x)/\beta_0$ as your initial guess. These initial guesses come from the property of the gamma (GA) distribution that $E(x)=\alpha\beta$ and $Var(x)=\alpha\beta^2$. Report your estimated values for $\hat{\alpha}$ and $\hat{\beta}$, as well as the value of the maximized log likelihood function $\ln\mathcal{L}(\hat{\theta})$. Plot the second histogram from part (1) overlayed with a line representing the implied histogram from your estimated gamma (GA) distribution.
+3. Using MLE, fit the generalized gamma $GG(x|\alpha,\beta,m)$ distribution to the individual observation data. Use your estimates for $\alpha$ and $\beta$ from part(2), as well as $m=1$, as your initial guess. Report your estimated values for $\hat{\alpha}$, $\hat{\beta}$, and $\hat{m}$, as well as the value of the maximized log likelihood function $\ln\mathcal{L}$. Plot the second histogram from part (1) overlayed with a line representing the implied histogram from your estimated generalized gamma (GG) distribution.
+4. Using MLE, fit the generalized beta 2 $GB2(x|a,b,p,q)$ distribution to the individual observation data. Use your estimates for $\alpha$, $\beta$, and $m$ from part (3), as well as $q=10,000$, as your initial guess. Report your estimated values for $\hat{a}$, $\hat{b}$, $\hat{p}$, and $\hat{q}$, as well as the value of the maximized log likelihood function $\ln\mathcal{L}$. Plot the second histogram from part(1) overlayed with a line representing the implied histogram from your estimated generalized beta 2 (GB2) distribution.
+5. Perform a likelihood ratio test for each of the estimated distributions in parts (2) and (3), respectively, against the GB2 specification in part (4). This is feasible because each distribution is a nested version of the GB2. The degrees of freedom in the $\chi^2(p)$ is 4, consistent with the GB2. Report the $\chi^2(4)$ values from the likelihood ratio test for the estimated GA and the estimated GG distributions.
+6. Using the estimated GB2 distribution from part (4), how likely am I to have a monthly health care claim of more than \$1,000 in a given month? How does this amount change if I use the estimated GA distribution from part (2)?
 ```{exercise-end}
 ```
 
