@@ -1925,7 +1925,7 @@ Assume that the first observation in the data file variables is $t=1$. Let $k_1$
     E\left[\left(\beta\alpha e^{z_{t+1}}k_{t+1}^{\alpha-1}\frac{c_t}{c_{t+1}} - 1\right)w_t\right] = 0
 ```
 
-2. Compute the two-step GMM estimator of $(\alpha,\rho,\mu)$ and use the finite difference Jacobian method for the estimator of the variance-covariance of the two-step GMM point estimates $(\hat{\alpha}_{GMM}, \hat{\rho}_{GMM}, \hat{\mu}_{GMM})$. Report the GMM two-step estimates for the parameters and their standard errors.
+2. Compute the two-step GMM estimator of $(\alpha,\rho,\mu)$ and use the finite difference Jacobian method for the estimator of the variance-covariance of the two-step GMM point estimates $(\hat{\alpha}, \hat{\rho}, \hat{\mu})$. Report the GMM two-step estimates for the parameters and their standard errors.
 ```{exercise-end}
 ```
 
