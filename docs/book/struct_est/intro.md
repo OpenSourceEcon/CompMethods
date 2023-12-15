@@ -2,6 +2,10 @@
 (Chap_StructEstIntro)=
 # Introduction to Structural Estimation
 
+> ``You keep using that word. I do not think it means what you think it means." Inigo Montoya, *The Princess Bride*
+
+The term ``structural estimation" has been the source of debate in the economics profession. [TODO: Insert some of the debate here.]
+
 The material for the chapters in this Structural Estimation section was initially developed in the Structural Estimation course I taught in the Masters in Computational Social Science program at the University of Chicago from 2017 to 2020.[^MACSScourses]
 
 A good place to start in describing structural estimation is the definition of a {term}`model`.

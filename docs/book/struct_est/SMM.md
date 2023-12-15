@@ -1418,9 +1418,9 @@ print(results4_1)
 :tags: ["hide-input", "remove-output"]
 
 # Plot the histogram of the data
-count, bins, ignored = plt.hist(data, 30, density=True,
-                                edgecolor='black', linewidth=1.2)
-
+count, bins, ignored = plt.hist(
+    data, 30, density=True, edgecolor='black', linewidth=1.2, label='Data'
+)
 plt.xlabel('Total points')
 plt.ylabel('Percent of scores')
 plt.xlim([0, 550])  # This gives the xmin and xmax to be plotted"
@@ -1673,7 +1673,6 @@ ax.set_title('Criterion function for values of mu and sigma')
 ax.set_xlabel(r'$\mu$')
 ax.set_ylabel(r'$\sigma$')
 ax.set_zlabel(r'Crit. func.')
-plt.tight_layout()
 
 plt.show()
 ```
