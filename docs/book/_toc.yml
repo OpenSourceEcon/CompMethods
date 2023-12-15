@@ -41,6 +41,7 @@ parts:
     - file: struct_est/MLE
     - file: struct_est/GMM
     - file: struct_est/SMM
+    - file: struct_est/paper
   - caption: Appendix
     chapters:
     - file: appendix/glossary
