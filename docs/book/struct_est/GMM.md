@@ -319,7 +319,7 @@ The following is a centered second-order finite difference numerical approximati
 
 
 (SecGMM_Ex)=
-## Examples
+## Code Examples
 
 In this section, we will use GMM to estimate parameters of the models from the {ref}`Chap_MLE` chapter. We will also go through the standard moment conditions in most econometrics textbooks in which the conditional and unconditional expectations provide moments for estimation.
 
@@ -410,7 +410,7 @@ else:
 # Plot the histogram of the data
 num_bins = 30
 count, bins, ignored = plt.hist(data, num_bins, density=True,
-                                edgecolor='k')
+                                edgecolor='k', label='Data')
 plt.title('Intermediate macro scores: 2011-2012', fontsize=15)
 plt.xlabel(r'Total points')
 plt.ylabel(r'Percent of scores')
@@ -441,7 +441,7 @@ plt.plot(
 mu_1 = 380
 sig_1 = 150
 plt.plot(dist_pts, trunc_norm_pdf(dist_pts, mu_1, sig_1, 0, 450),
-         linewidth=2, color='g', label='arbitrary: $\mu$=380,$\sigma$=150')
+         linewidth=2, color='g', label='Arbitrary: $\mu$=380,$\sigma$=150')
 
 plt.legend(loc='upper left')
 
@@ -748,7 +748,6 @@ ax.set_title('Criterion function surface for values of mu and sigma')
 ax.set_xlabel(r'$\mu$')
 ax.set_ylabel(r'$\sigma$')
 ax.set_zlabel(r'Criterion func.')
-plt.tight_layout()
 
 plt.show()
 ```
@@ -1314,7 +1313,6 @@ ax.set_title('Criterion function surface for values of mu and sigma')
 ax.set_xlabel(r'$\mu$')
 ax.set_ylabel(r'$\sigma$')
 ax.set_zlabel(r'Criterion func.')
-plt.tight_layout()
 
 plt.show()
 ```
@@ -1421,8 +1419,8 @@ With the two-step optimal weighting matrix, we can estimate this 4-moment proble
 
 # Note that this takes a little time because the intgr.quad() commands
 # are a little slow
-mu_init = 600  # alternative initial guess is mu_GMM1_4
-sig_init = 196  # alternative initial guess is is sig_GMM1_4
+mu_init = mu_GMM1_4
+sig_init = sig_GMM1_4
 params_init = np.array([mu_init, sig_init])
 gmm_args = (data, 0.0, 450.0, W_hat2_4)
 results2_4 = opt.minimize(criterion4, params_init, args=(gmm_args),
@@ -1434,7 +1432,245 @@ print("Scipy.optimize.minimize results:")
 print(results2_4)
 ```
 
-In this case, the two-step estimator of the optimal weighting matrix creates a small change in the estimated $\mu$ and $\sigma$ paramters to $(\mu=364,\sigma=111)$ from $(\mu=362,\sigma=92)$ in the identity matrix estimation. The criterion function for different values of $\mu$ and $\sigma$ here has a clear minimum in a certain area. But it also has some really interesting nonlinearities.
+In this case, the two-step estimator creates a fairly significant change in the estimates from that of the previous section with the identity weighting matrix. The estimate of $\mu$ stays roughly the same, but the estimate of $\sigma$ is one-half the size--from $(\mu=362,\sigma=92)$ with the idenity weighting matrix to this estimate of $(\mu=365,\sigma=49)$ with the two-step weighting matrix.
+
+The criterion function surface in {numref}`Figure %s <FigGMM_SurfCrit4_2>` shows the criterion function for different values of $\mu$ and $\sigma$. It has a clear minimum in a certain area. But it also has some really interesting nonlinearities.
+
+```{code-cell} ipython3
+:tags: ["remove-output"]
+
+critfunc_GMM2_4 = criterion4(np.array([mu_GMM2_4, sig_GMM2_4]),
+                             data, 0.0, 450.0, W_hat2_4)
+
+mu_vals = np.linspace(330, 390, 90)
+sig_vals = np.linspace(20, 80, 100)
+critfunc_vals = np.zeros((90, 100))
+for mu_ind in range(90):
+    for sig_ind in range(100):
+        critfunc_vals[mu_ind, sig_ind] = \
+            criterion4(np.array([mu_vals[mu_ind], sig_vals[sig_ind]]),
+                       data, 0.0, 450.0, W_hat2_4)[0][0]
+
+mu_mesh, sig_mesh = np.meshgrid(mu_vals, sig_vals)
+
+fig, ax = plt.subplots(subplot_kw={"projection": "3d"})
+ax.plot_surface(mu_mesh.T, sig_mesh.T, critfunc_vals, rstride=8,
+                cstride=1, cmap=cmap1, alpha=0.9)
+ax.scatter(mu_GMM2_4, sig_GMM2_4, critfunc_GMM2_4, color='red', marker='o',
+           s=18, label='GMM estimate')
+ax.view_init(elev=15, azim=27, roll=0)
+ax.set_title('Criterion function surface for values of mu and sigma')
+ax.set_xlabel(r'$\mu$')
+ax.set_ylabel(r'$\sigma$')
+ax.set_zlabel(r'Criterion func.')
+
+plt.show()
+```
+
+```{figure} ../../../images/gmm/Econ381scores_SurfaceCrit4_2.png
+---
+height: 500px
+name: FigGMM_SurfCrit4_2
+---
+Surface of the 4 moment, two-step weighting matrix GMM criterion function for values of $\mu$ and $\sigma$ in the neighborhood of the GMM estimate. The scatter point represents the criterion function value for the GMM estimate.
+```
+
+We can compute the estimator of the variance-covariance matrix $\hat{\Sigma}$ of the GMM parameter estimate by computing the Jacobian of the error vector.
+
+```{code-cell} ipython3
+:tags: []
+
+d_err4_2 = Jac_err4(data, mu_GMM2_4, sig_GMM2_4, 0.0, 450.0, False)
+print("Jacobian matrix of derivatives")
+print(d_err4_2)
+print("")
+print("Weighting matrix")
+print(W_hat2_4)
+SigHat4_2 = (1 / N) * lin.inv(d_err4_2.T @ W_hat2_4 @ d_err4_2)
+print("")
+print("Sigma hat squared")
+print(SigHat4_2)
+print("")
+print("Standard errors")
+print('Std. err. mu_hat=', np.sqrt(SigHat4_2[0, 0]))
+print('Std. err. sig_hat=', np.sqrt(SigHat4_2[1, 1]))
+```
+
+In this case, the standard errors on the two GMM parameter estimates are a little larger than those from the previous section with the identity weighting matrix. But the standard errors here are still small.
+
+
+(SecGMM_Ex_CondExp)=
+### Unconditional and conditional expectations, instruments, and moments
+
+Most standard treatments of the generalized method of moments estimator in econometrics textbooks start with this principle and this selection of moments. However, this notebook follows the progression of starting with the most general treatment of GMM and then covering these special cases.
+
+In stochastic models, the assumed data generating process might have one or more characterizing equations that involve an unconditional expectation. The unconditional expectation is a strong assumption with many implications on conditional expectations that can create moments for identifying parameters using GMM. In econometric models, these unconditional expectations often show up as an assumption on the error term of one or more of the equations. Note that this is a minimal assumption and does not require knowledge of the distribution of the error term.
+
+```{math}
+    :label: EqGMM_Ex_CondExp_LinReg
+    y_i = \beta_0 + \beta_1 x_{1,i} + \beta_2 x_{2,i} + \varepsilon_i \quad\text{where}\quad E\left[\varepsilon_i\right] = 0
+```
+
+In a macroeconomic model like the {cite}`BrockMirman:1972` model (characterized by the following five equations), unconditional expectations show up in two places. The first is in the Euler equation for consumption {eq}`EqGMM_Ex_CondExp_EulC`, and the second is on the error term in the law of motion for the productivity shock {eq}`EqGMM_Ex_CondExp_z`.
+
+```{math}
+    :label: EqGMM_Ex_CondExp_EulC
+    \left(c_t\right)^{-1} = \beta E\left[r_{t+1}\left(c_{t+1}\right)^{-1}\right]
+```
+```{math}
+    :label: EqGMM_Ex_CondExp_bc
+    c_t + k_{t+1} = r_{t+1}k_t + w_t
+```
+```{math}
+    :label: EqGMM_Ex_CondExp_focl
+    w_t = (1 - \alpha)e^{z_t}k_{t}^\alpha
+```
+```{math}
+    :label: EqGMM_Ex_CondExp_fock
+    r_t = \alpha e^{z_t}k_{t}^{\alpha-1}
+```
+```{math}
+    :label: EqGMM_Ex_CondExp_z
+    z_{t} = \rho z_{t-1} + (1 - \rho)\mu + \varepsilon_t \quad\text{where}\quad E[\varepsilon_t]=0
+```
+
+It is valuable to note first that these unconditional expectations imply minimal restrictions on the stochastic distributions in the model. They only imply a restriction on the first moments of those particular parts of the distributions. Furthermore, because they are unconditional distributions (which is a strong assumption), they also imply restrictions on conditional distributions. Each of these restrictions---both from the unconditional expectations and conditional expectations implications---can be used as moments to identify parameters.
+
+Let $\mathcal{I}$ be the set of variables that are in the information set of the model at the time the expectations operator in the model is formed. Let $w\in\mathcal{I}$ be the typical element (variable) in the information set. In a cross sectional econometric model, the variables in the information set are $w\in\mathcal{I}$ that could possibly be related to the dependent variable $y$ and were determined at the time the expectation was formed. In dynamic models or time series models, variables in the information set include any variables that were determined on or before the period in which the expectation was formed.
+
+The following sequence shows how an unconditional expectation can lead to moments that can identify parameters.
+
+```{math}
+    :label: EqGMM_Ex_CondExp_ExExw
+    E[x] = 0 \Rightarrow E[x|\mathcal{I}] = 0 \Rightarrow Cov[x,w] = 0 \Rightarrow E[xw] = 0
+```
+
+The first equation states that the unconditional expectation of $x$ is zero. This implies that the conditional expectation of $x$ given anything else in the information set is also zero. This, in turn, implies that the covariance of $x$ and any element $w$ of the information set is zero so that the expectation of $x$ times $w$ is zero. It is this last equation that generates many of the moments used to identify parameters in GMM. Any variable in the instrument set $w\in\mathcal{I}$ can generate a moment condition.
+
+
+(SecGMM_Ex_CondExp_OLS)=
+#### Ordinary least squares (OLS): overidentification
+
+The most common method of estimating the parameters of a linear regression is using the ordinary least squares (OLS) estimator. This estimator is just special type of generalized method of moments (GMM) estimator. A simple regression specification in which the dependent variable $y_i$ is a linear function of two independent variables $x_{1,i}$ and $x_{2,i}$ is the following:
+
+```{math}
+    :label: EqGMM_Ex_CondExp_LinReg2
+    y_i = \beta_0 + \beta_1 x_{1,i} + \beta_2 x_{2,i} + \varepsilon_i \quad\text{where}\quad E\left[\varepsilon_i\right]=0
+```
+
+Note that we can solve for the parameters $(\beta_0,\beta_1,\beta_2)$ in a number of ways. And we can do it with only minimal assumptions about the distribution of the error terms $\varepsilon_i$.
+
+One way we might choose the parameters is to choose $(\beta_0,\beta_1,\beta_2)$ to minimize the distance between the $N$ observations of $y_i$ and the $N$ predicted values for $y_i$ given by $\beta_0 + \beta_1 x_{1,i} + \beta_2 x_{2,i}$. You can think of the $N$ observations of $y_i$ as $N$ data moments. And you can think of the $N$ observations of $\beta_0 + \beta_1 x_{1,i} + \beta_2 x_{2,i}$ (the predicted values of $y_i$) as $N$ model moments. The least squares estimator minimizes the sum of squared errors, which is the sum of squared deviations between the $N$ values of $y_i$ and  $\beta_0 + \beta_1 x_{1,i} + \beta_2 x_{2,i}$.
+
+```{math}
+    :label: EqGMM_Ex_CondExp_OLS_Errs
+    \varepsilon_i = y_i - \beta_0 - \beta_1 x_{1,i} - \beta_2 x_{2,i}
+```
+
+```{math}
+    :label: EqGMM_Ex_CondExp_OLS_gmmprob
+    \hat{\theta}_{OLS} = \theta:\quad \min_{\theta} \varepsilon^T\, I \, \varepsilon
+```
+
+The OLS GMM estimator of the linear regression model is an overidentified GMM estimator, in most cases, because the number of moments $R=N$ is greater than the number of parameters to be estimated $K$.
+
+Let the $N\times 1$ vector of $y_i$'s be $Y$. Let the $N\times 3$ vector of data $(1, x_{1,i}, x_{2,i})$ be $X$. And let the vector of three parameters $(\beta_0, \beta_1, \beta_2)$ be $\beta$. It can be shown that the OLS estimator for the vector of parameters $\beta$ is the following.
+
+```{math}
+    :label: EqGMM_Ex_CondExp_OLS_xxxy
+    \hat{\beta}_{OLS} = (X^T X)^{-1}(X^T Y)
+```
+
+But you could also just estimate the coefficients using the criterion function in the GMM statement of the problem above. This method is called nonlinear least squares or generalized least squares. Many applications of regression use a weighting matrix in the criterion function that adjusts for issues like heteroskedasticity and autocorrelation.
+
+Many applications use a different distance metric other than the weighted sum of squared errors for the difference in moments. Sum of squared errors puts a large penalty on big differences. Sometimes you might want to maximize the sum of absolute errors, which is sometimes called median regression. You could also minimize the maximum absolute difference in the errors, which is even more extreme than the sum of squared errors on penalizing large differences.
+
+
+(SecGMM_Ex_CondExp_mom)=
+#### Linear regression by moment condition: exact identification
+
+In the linear regression example in the two previous sections, there are three parameters to be estimated $(\beta_0, \beta_1, \beta_2)$. The OLS approach identifies these three parameters with more than three moments $R>K$. The exactly identified GMM approach to estimating the linear regression model comes from the underlying statistical assumptions of the model. We usually assume that the expectation of the error terms is zero. And we assume that the independent variables $(x_{1,i}, x_{2,i})$ are not correlated with the error term $\varepsilon_i$. This implies the following three conditions.
+
+```{math}
+    :label: EqGMM_LinReg_momcond_eps
+    E\left[\varepsilon\right] = 0
+```
+
+```{math}
+    :label: EqGMM_LinReg_momcond_x1
+    E\left[x_1^T \varepsilon\right] = 0
+```
+
+```{math}
+    :label: EqGMM_LinReg_momcond_x2
+    E\left[x_2^T \varepsilon\right] = 0
+```
+
+The data or empirical analogues for these moment conditions are the following.
+
+```{math}
+    :label: EqGMM_LinReg_datacond_eps
+    \frac{1}{N}\sum_{i=1}^N\left[\varepsilon_i\right] = 0 \quad\Rightarrow\quad \sum_{i=1}^N\bigl(y_i - \beta_0 - \beta_1 x_{1,i} - \beta_2 x_{2,i}\bigr) = 0
+```
+
+```{math}
+    :label: EqGMM_LinReg_datacond_x1
+    \frac{1}{N}\sum_{i=1}^N\left[x_{1,i} \varepsilon_i\right] = 0 \quad\Rightarrow\quad \sum_{i=1}^N\Bigl[x_{1,i}\left(y_i - \beta_0 - \beta_1 x_{1,i} - \beta_2 x_{2,i}\right)\Bigr] = 0
+```
+
+```{math}
+    :label: EqGMM_LinReg_datacond_x2
+    \frac{1}{N}\sum_{i=1}^N\left[x_{2,i} \varepsilon_i\right] = 0 \quad\Rightarrow\quad \sum_{i=1}^N\Bigl[x_{2,i}\left(y_i - \beta_0 - \beta_1 x_{1,i} - \beta_2 x_{2,i}\right)\Bigr] = 0
+```
+
+Think of the assumed zero correlations in equations {eq}`EqGMM_LinReg_momcond_eps`, {eq}`EqGMM_LinReg_momcond_x1`, and {eq}`EqGMM_LinReg_momcond_x2` as data moments that are all equal to zero. And think of the empirical analogues of those moments as the left-hand-sides of equations {eq}`EqGMM_LinReg_datacond_eps`, {eq}`EqGMM_LinReg_datacond_x1`, and {eq}`EqGMM_LinReg_datacond_x2` as the corresponding model moments. The exactly identified GMM approach to estimating the linear regression model in {eq}`EqGMM_Ex_CondExp_LinReg2` is to choose the parameter vector $\theta=[\beta_0,\beta_1,\beta_2]$ to minimize the three moment error conditions,
+
+```{math}
+    :label: EqGMM_LinReg_exactprob
+    \hat{\theta}_{lin,exact} = \theta:\quad \min_{\theta} e(x|\theta)^T\, W \, e(x|\theta) \\
+    \text{where}\quad e(x|\theta)\equiv \begin{bmatrix}
+      \sum_{i=1}^N\bigl(y_i - \beta_0 - \beta_1 x_{1,i} - \beta_2 x_{2,i}\bigr) \\
+      \sum_{i=1}^N\Bigl[x_{1,i}\left(y_i - \beta_0 - \beta_1 x_{1,i} - \beta_2 x_{2,i}\right)\Bigr] \\
+      \sum_{i=1}^N\Bigl[x_{2,i}\left(y_i - \beta_0 - \beta_1 x_{1,i} - \beta_2 x_{2,i}\right)\Bigr]
+    \end{bmatrix}
+```
+
+where $W$ is some $3\times 3$ weighting matrix.
+
+
+(SecGMM_Ex_BM72)=
+### Brock and Mirman (1972) dynamic macroeconomic model
+
+The {cite}`BrockMirman:1972` dynamic macroeconomic model was initially used to answer questions about optimal economic growth in a dynamic stochastic environment. However, the model has turned out to be one of the simplest versions of an internally consistent dynamic stochastic general equilibrium model. This model is described and characterized by the following five equations. You will use this model as an example for GMM estimation in {numref}`ExercStructEst_GMM_BM72`.
+
+```{math}
+    :label: EqGMM_Ex_BM72_EulC
+    \left(c_t\right)^{-1} = \beta E\left[r_{t+1}\left(c_{t+1}\right)^{-1}\right]
+```
+```{math}
+    :label: EqGMM_Ex_BM72_bc
+    c_t + k_{t+1} = r_{t+1}k_t + w_t
+```
+```{math}
+    :label: EqGMM_Ex_BM72_focl
+    w_t = (1 - \alpha)e^{z_t}k_{t}^\alpha
+```
+```{math}
+    :label: EqGMM_Ex_BM72_fock
+    r_t = \alpha e^{z_t}k_{t}^{\alpha-1}
+```
+```{math}
+    :label: EqGMM_Ex_BM72_z
+    z_{t} = \rho z_{t-1} + (1 - \rho)\mu + \varepsilon_t \quad\text{where}\quad E[\varepsilon_t]=0
+```
+
+
+(SecGMM_Ex_HS82)=
+### Hansen and Singleton (1982)
+
+{cite}`Hansen:1982` was the first paper to formalize the generalized method of moments (GMM) estimation method. And {cite}`HansenSingleton:1982` was the first finacial macroeconomic application of the method. In the previous section, we used the {cite}`BrockMirman:1972` model because it is such a simple dynamic stochastic macroeconomic model. {cite}`HansenSingleton:1982` use a slightly more complex dynamic stochastic macroeconomic model with a structure that applied more closely to data on asset prices.
+
+{cite}`HansenSingleton:1982` provide of comparison of their GMM estimates to the corresponding estimates implied by maximum likelihood estimation. They highlight the advantage of GMM that it requires fewer distributional assumptions and only requires the orthogonality conditions (unconditional and conditional expectations) of the model rather than the full solution of the model in rational expectations models.
 
 
 (SecGMM_Ident)=
@@ -1450,100 +1686,6 @@ Suppose the parameter vector $\theta$ has $K$ elements, or rather, $K$ parameter
 One last point about GMM regards moment selection and verification of results. The real world has an infinite supply of potential moments that describe some part of the data. Choosing moments to estimate parameters by GMM requires understanding of the model, intuition about its connections to the real world, and artistry. A good GMM estimation will include moments that have some relation to or story about their connection to particular parameters of the model to be estimated. In addition, a good verification of a GMM estimation is to take some moment from the data that was not used in the estimation and see how well the corresponding moment from the estimated model matches that *outside moment*.
 
 
-(SecGMM_LinReg)=
-## Linear regression by GMM and relation to OLS
-
-
-(SecGMM_LinReg_OLS)=
-### Ordinary least squares: overidentification
-
-The most common method of estimating the parameters of a linear regression is using the ordinary least squares (OLS) estimator. This estimator is just special type of generalized method of moments (GMM) estimator. A simple regression specification in which the dependent variable $y_i$ is a linear function of two independent variables $x_{1,i}$ and $x_{2,i}$ is the following:
-
-```{math}
-    :label: EqGMM_LinReg_LinReg
-    y_i = \beta_0 + \beta_1 x_{1,i} + \beta_2 x_{2,i} + \varepsilon_i \quad\text{where}\quad \varepsilon_i\sim N\left(0,\sigma^2\right)
-```
-
-Note that we can solve for the parameters $(\beta_0,\beta_1,\beta_2)$ in a number of ways. And we can do it without making any assumptions about the distribution of the error terms $\varepsilon_i$.
-
-One way we might choose the parameters is to choose $(\beta_0,\beta_1,\beta_2)$ to minimize the distance between the $N$ observations of $y_i$ and the $N$ predicted values for $y_i$ given by $\beta_0 + \beta_1 x_{1,i} + \beta_2 x_{2,i}$. You can think of the $N$ observations of $y_i$ as $N$ data moments. And you can think of the $N$ observations of $\beta_0 + \beta_1 x_{1,i} + \beta_2 x_{2,i}$ as $N$ model moments. The least squares estimator minimizes the sum of squared errors, which is the sum of squared deviations between the $N$ values of $y_i$ and  $\beta_0 + \beta_1 x_{1,i} + \beta_2 x_{2,i}$.
-
-```{math}
-    :label: EqGMM_LinReg_Errs
-    \varepsilon_i = y_i - \beta_0 - \beta_1 x_{1,i} - \beta_2 x_{2,i}
-```
-
-```{math}
-    :label: EqGMM_LinReg_gmmprob
-    \hat{\theta}_{OLS} = \theta:\quad \min_{\theta} \varepsilon^T\, I \, \varepsilon
-```
-
-The OLS GMM estimator of the linear regression model is an overidentified GMM estimator, in most cases, because the number of moments $R=N$ is greater than the number of parameters to be estimated $K$.
-
-Let the $N\times 1$ vector of $y_i$'s be $Y$. Let the $N\times 3$ vector of data $(1, x_{1,i}, x_{2,i})$ be $X$. And let the vector of three parameters $(\beta_0, \beta_1, \beta_2)$ be $\beta$. It can be shown that the OLS estimator for the vector of parameters $\beta$ is the following.
-
-```{math}
-    :label: EqGMM_LinReg_xxxy
-    \hat{\beta}_{OLS} = (X^T X)^{-1}(X^T Y)
-```
-
-But you could also just estimate the coefficients using the criterion function in the GMM statement of the problem above. This method is called nonlinear least squares or generalized least squares. Many applications of regression use a weighting matrix in the criterion function that adjusts for issues like heteroskedasticity and autocorrelation.
-
-Lastly, many applications use a different distance metric than the weighted sum of squared errors for the difference in moments. Sum of squared errors puts a large penalty on big differences. Sometimes you might want to maximize the sum of absolute errors, which is sometimes called median regression. You could also minimize the maximum absolute difference in the errors, which is even more extreme than the sum of squared errors on penalizing large differences.
-
-
-(SecGMM_LinReg_mom)=
-### Linear regression by moment condition: exact identification
-
-The exactly identified GMM approach to estimating the linear regression model comes from the underlying statistical assumptions of the model. We usually assume that the dependent variable $y_i$ and the independent variables $(x_{1,i}, x_{2,i})$ are not correlated with the error term $\varepsilon_i$. This implies the following three conditions.
-
-```{math}
-    :label: EqGMM_LinReg_momcond_y
-    E\left[y^T \varepsilon\right] = 0
-```
-
-```{math}
-    :label: EqGMM_LinReg_momcond_x1
-    E\left[x_1^T \varepsilon\right] = 0
-```
-
-```{math}
-    :label: EqGMM_LinReg_momcond_x2
-    E\left[x_2^T \varepsilon\right] = 0
-```
-
-The data analogues for these moment conditions are the following.
-
-```{math}
-    :label: EqGMM_LinReg_datacond_y
-    \frac{1}{N}\sum_{i=1}^N\left[y_i \varepsilon_i\right] = 0 \quad\Rightarrow\quad \sum_{i=1}^N\Bigl[y_i\left(y_i - \beta_0 - \beta_1 x_{1,i} - \beta_2 x_{2,i}\right)\Bigr] = 0
-```
-
-```{math}
-    :label: EqGMM_LinReg_datacond_x1
-    \frac{1}{N}\sum_{i=1}^N\left[x_{1,i} \varepsilon_i\right] = 0 \quad\Rightarrow\quad \sum_{i=1}^N\Bigl[x_{1,i}\left(y_i - \beta_0 - \beta_1 x_{1,i} - \beta_2 x_{2,i}\right)\Bigr] = 0
-```
-
-```{math}
-    :label: EqGMM_LinReg_datacond_x2
-    \frac{1}{N}\sum_{i=1}^N\left[x_{2,i} \varepsilon_i\right] = 0 \quad\Rightarrow\quad \sum_{i=1}^N\Bigl[x_{2,i}\left(y_i - \beta_0 - \beta_1 x_{1,i} - \beta_2 x_{2,i}\right)\Bigr] = 0
-```
-
-Think of the assumed zero correlations in equations {eq}`EqGMM_LinReg_momcond_y`, {eq}`EqGMM_LinReg_momcond_x1`, and {eq}`EqGMM_LinReg_momcond_x2` as data moments that are all equal to zero. And think of the empirical analogues of those moments as the left-hand-sides of equations {eq}`EqGMM_LinReg_datacond_y`, {eq}`EqGMM_LinReg_datacond_x1`, and {eq}`EqGMM_LinReg_datacond_x2` as the corresponding model moments. The exactly identified GMM approach to estimating the linear regression model in {eq}`EqGMM_LinReg_LinReg` is to choose the parameter vector $\theta=[\beta_0,\beta_1,\beta_2]$ to minimize the three moment error conditions,
-
-```{math}
-    :label: EqGMM_LinReg_exactprob
-    \hat{\theta}_{lin,exact} = \theta:\quad \min_{\theta} e(x|\theta)^T\, W \, e(x|\theta) \\
-    \text{where}\quad e(x|\theta)\equiv \begin{bmatrix}
-      \sum_{i=1}^N\Bigl[y_i\left(y_i - \beta_0 - \beta_1 x_{1,i} - \beta_2 x_{2,i}\right)\Bigr] \\
-      \sum_{i=1}^N\Bigl[x_{1,i}\left(y_i - \beta_0 - \beta_1 x_{1,i} - \beta_2 x_{2,i}\right)\Bigr] \\
-      \sum_{i=1}^N\Bigl[x_{2,i}\left(y_i - \beta_0 - \beta_1 x_{1,i} - \beta_2 x_{2,i}\right)\Bigr]
-    \end{bmatrix}
-```
-
-where $W$ is some $3\times 3$ weighting matrix.
-
-
 (SecGMM_Exerc)=
 ## Exercises
 
@@ -1551,15 +1693,239 @@ where $W$ is some $3\times 3$ weighting matrix.
 :label: ExercStructEst_GMM_incdist
 :class: green
 ```
-Put exercise here.
+In this exercise, you will use the comma-delimited data file [`hh_inc_synth.txt`](https://github.com/OpenSourceEcon/CompMethods/blob/main/data/gmm/hh_inc_synth.txt) in the [`./data/gmm/`](https://github.com/OpenSourceEcon/CompMethods/tree/main/data/gmm) folder of the GitHub repository for this book, which contains the 121,085 observations (synthetic) on household US income. {numref}`TabGMMIncMoms` displays histogram counts and population percentages (moments) for each income range. The first column in the data file gives the percent of the population in each income bin (the third column of {numref}`TabGMMIncMoms`). The second column in the data file has the midpoint of each income bin. So the midpoint of the first income bin of all household incomes less than \$5,000 is \$2,500.
+
+1. Use the [`numpy.histogram()`](https://numpy.org/doc/stable/reference/generated/numpy.histogram.html) function to create the population count and population percentage moments in {numref}`TabGMMIncMoms` from the synthetic household income data in comma-delimited text file [`hh_inc_synth.txt`](https://github.com/OpenSourceEcon/CompMethods/blob/main/data/gmm/hh_inc_synth.txt) by inputing the appropriate list of bin edges for the `bins` argument of the `numpy.histogram()` function.
+
+2. Plot the histogram of the data [`hh_inc_synth.txt`](https://github.com/OpenSourceEcon/CompMethods/blob/main/data/gmm/hh_inc_synth.txt) using the bins described in the first column of {numref}`TabGMMIncMoms`, which you used as an input to parts (1) and (2), and the height being the density (not the count) such that the area of the histogram bars sums to one (use the `weights` option rather than the `density` option in [`matplotlib.pyplot.hist`](https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.hist.html) because your bin widths are not equal). List the dollar amounts on the $x$-axis as thousands of dollars. That is, divide them by 1,000 to put them in units of thousands of dollars (\$000s). Even though the top bin is listed as \$250,000 and above in {numref}`TabGMMIncMoms`, the synthetic data are top-coded at \$350,000, so set to last bin edge to \$350,000. (It doesn't look very good graphing it between 0 and $\infty$.) The equation for the weight of each observation $i$ that normalizes a variable bin-width histogram to be a density is {eq}`EqGMM_Exc_IncMoms_wgt`, where $N$ is the number of observations in the data and $bin\_width_j$ is the width of the histogram bin that observation $i$ is part of. In summary, your histogram should have 42 bars. The first 40 bars for the lowest income bins should be the same width. However, the last two bars should be different widths from each other and from the rest of the bars. It should look like {numref}`Figure %s <FigGMM_hist_inc>`. [Hint: look at the [`matplotlib.pyplot.hist`](https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.hist.html) command option of `bins` and submit a list of bin edges for the `bins` option.]
+```{math}
+    :label: EqGMM_Exc_IncMoms_wgt
+    weight_i = \frac{1}{N \times bin\_width_j} \:\:\text{for all}\:\: i \:\:\text{in histogram bin}\:\: j
+```
+
+3. Using GMM, fit the two-parameter lognormal $LN(x|\mu,\sigma)$ distribution defined in section {ref}`SecMLE_GBfam_LN` of the {ref}`Chap_MLE` chapter to the distribution of household income data using the moments from the data file. Make sure to try various initial guesses. (HINT: $\mu_0=\ln(avg.\:inc.)$ might be good.) For your weighting matrix $W$, use a $42\times 42$ diagonal matrix in which the diagonal non-zero elements are the population percentage moments from the data file. This will put the most weight on the moments with the largest percent of the population. Report your estimated values for $\hat{\mu}$ and $\hat{\sigma}$, as well as the value of the minimized criterion function $e(x|\hat{\theta})^T \, W \, e(x|\hat{\theta})$. Plot the histogram from part (2) overlayed with a line representing the implied histogram from your estimated lognormal (LN) distribution. Each point on the line is the midpoint of the bin and the implied height of the bin. Do not forget to divide the values for your last two moments by 10 and 20, respectively, so that they match up with the histogram.
+
+4. Using GMM, fit the gamma $GA(x|\alpha,\beta)$ distribution defined in section {ref}`SecMLE_GBfam_GA` of the {ref}`Chap_MLE` chapter to the distribution of household income data using the moments from the data file. Use $\alpha_0=3$ and $\beta_0=20,000$ as your initial guess. These initial guesses come from the property of the gamma (GA) distribution that $E(x)=\alpha\beta$ and $Var(x)=\alpha\beta^2$. Report your estimated values for $\hat{\alpha}$ and $\hat{\beta}$, as well as the value of the minimized criterion function $e(x|\hat{\theta})^T \, W \, e(x|\hat{\theta})$. Use the same weighting matrix as in part (3). Plot the histogram from part (2) overlayed with a line representing the implied histogram from your estimated gamma (GA) distribution. Do not forget to divide the values for your last two moments by 10 and 20, respectively, so that they match up with the histogram.
+
+5. Plot the histogram from part (2) overlayed with the line representing the implied histogram from your estimated lognormal (LN) distribution from part (3) and the line representing the implied histogram from your estimated gamma (GA) distribution from part (4). What is the most precise way to tell which distribution fits the data the best? Which estimated distribution---$LN$ or $GA$---fits the data best?
+
+6. Repeat your estimation of the $GA$ distribution from part (4), but use the two-step estimator for the optimal weighting matrix $\hat{W}_{twostep}$. Do your estimates for $\alpha$ and $\beta$ change much? How can you compare the goodness of fit of this estimated distribution versus the goodness of fit of the estimated distribution in part (4)?
+
+```{list-table} Distribution of Household Money Income by Selected Income Range, 2011. Source: 2011 CPS household income count data Current Population Survey (2012, Table HINC-01).
+:header-rows: 2
+:name: TabGMMIncMoms
+
+* - Income
+  - \# housholds
+  - \% of
+* - range
+  - (000s)
+  - population
+* - All households
+  - 121,084
+  - 100.0
+* - Less than \$5,000
+  - 4,261
+  - 3.5
+* - \$5,000 to \$9,999
+  - 4,972
+  - 4.1
+* - \$10,000 to \$14,999
+  - 7,127
+  - 5.9
+* - \$15,000 to \$19,999
+  - 6,882
+  - 5.7
+* - \$20,000 to \$24,999
+  - 7,095
+  - 5.9
+* - \$25,000 to \$29,999
+  - 6,591
+  - 5.4
+* - \$30,000 to \$34,999
+  - 6,667
+  - 5.5
+* - \$35,000 to \$39,999
+  - 6,136
+  - 5.1
+* - \$40,000 to \$44,999
+  - 5,795
+  - 4.8
+* - \$45,000 to \$49,999
+  - 4,945
+  - 4.1
+* - \$50,000 to \$54,999
+  - 5,170
+  - 4.3
+* - \$55,000 to \$59,999
+  - 4,250
+  - 3.5
+* - \$60,000 to \$64,999
+  - 4,432
+  - 3.7
+* - \$65,000 to \$69,999
+  - 3,836
+  - 3.2
+* - \$70,000 to \$74,999
+  - 3,606
+  - 3.0
+* - \$75,000 to \$79,999
+  - 3,452
+  - 2.9
+* - \$80,000 to \$84,999
+  - 3,036
+  - 2.5
+* - \$85,000 to \$89,999
+  - 2,566
+  - 2.1
+* - \$90,000 to \$94,999
+  - 2,594
+  - 2.1
+* - \$95,000 to \$99,999
+  - 2,251
+  - 1.9
+* - \$100,000 to \$104,999
+  - 2,527
+  - 2.1
+* - \$105,000 to \$109,999
+  - 1,771
+  - 1.5
+* - \$110,000 to \$114,999
+  - 1,723
+  - 1.4
+* - \$115,000 to \$119,999
+  - 1,569
+  - 1.3
+* - \$120,000 to \$124,999
+  - 1,540
+  - 1.3
+* - \$125,000 to \$129,999
+  - 1,258
+  - 1.0
+* - \$130,000 to \$134,999
+  - 1,211
+  - 1.0
+* - \$135,000 to \$139,999
+  -   918
+  - 0.8
+* - \$140,000 to \$144,999
+  - 1,031
+  - 0.9
+* - \$145,000 to \$149,999
+  -   893
+  - 0.7
+* - \$150,000 to \$154,999
+  - 1,166
+  - 1.0
+* - \$155,000 to \$159,999
+  -   740
+  - 0.6
+* - \$160,000 to \$164,999
+  -   697
+  - 0.6
+* - \$165,000 to \$169,999
+  -   610
+  - 0.5
+* - \$170,000 to \$174,999
+  -   617
+  - 0.5
+* - \$175,000 to \$179,999
+  -   530
+  - 0.4
+* - \$180,000 to \$184,999
+  -   460
+  - 0.4
+* - \$185,000 to \$189,999
+  -   363
+  - 0.3
+* - \$190,000 to \$194,999
+  -   380
+  - 0.3
+* - \$195,000 to \$199,999
+  -   312
+  - 0.3
+* - \$200,000 to \$249,999
+  - 2,297
+  - 1.9
+* - \$250,000 and over
+  - 2,808
+  - 2.3
+* - Mean income
+  - \$69,677
+  -
+* - Median income
+  - \$50,054
+  -
+```
+
+```{figure} ../../../images/gmm/hist_inc.png
+---
+height: 500px
+name: FigGMM_hist_inc
+---
+Histogram of US household income: $N=121,085$. Source: 2011 CPS household income count data {cite}`CPS:2012`.
+```
 ```{exercise-end}
 ```
 
-```{exercise-start} Estimating the Brock and Mirman (1972) model by GMM
+```{exercise-start} Estimating the Brock and Mirman, 1972 model by GMM
 :label: ExercStructEst_GMM_BM72
 :class: green
 ```
-Put exercise here.
+You can observe time series data in an economy for the following variables: $(c_t, k_t, w_t, r_t)$. Data on $(c_t, k_t, w_t, r_t)$ can be loaded from the file [`MacroSeries.txt`](https://github.com/OpenSourceEcon/CompMethods/blob/main/data/gmm/MacroSeries.txt) in the [`./data/gmm/`](https://github.com/OpenSourceEcon/CompMethods/tree/main/data/gmm) folder of the GitHub repository for this book. This file is a comma separated text file with no labels. The variables are ordered as $(c_t, k_t, w_t, r_t)$. These data have 100 periods, which are quarterly (25 years). Suppose you think that the data are generated by a process similar to the {cite}`BrockMirman:1972` model. A simplified set of characterizing equations of the Brock and Mirman (1972) model are the following.
+
+```{math}
+    :label: EqGMM_Exc_BM72_EulC
+    \left(c_t\right)^{-1} = \beta E\left[r_{t+1}\left(c_{t+1}\right)^{-1}\right]
+```
+```{math}
+    :label: EqGMM_Exc_BM72_bc
+    c_t + k_{t+1} = r_{t+1}k_t + w_t
+```
+```{math}
+    :label: EqGMM_Exc_BM72_focl
+    w_t = (1 - \alpha)e^{z_t}k_{t}^\alpha
+```
+```{math}
+    :label: EqGMM_Exc_BM72_fock
+    r_t = \alpha e^{z_t}k_{t}^{\alpha-1}
+```
+```{math}
+    :label: EqGMM_Exc_BM72_z
+    z_{t} = \rho z_{t-1} + (1 - \rho)\mu + \varepsilon_t \quad\text{where}\quad E[\varepsilon_t]=0
+```
+The variable $c_t$ is aggregate consumption in period $t$, $k_{t+1}$ is total household savings and investment in period $t$ for which they receive a return in the next period (this model assumes full depreciation of capital). The wage per unit of labor in period $t$ is $w_t$ and the interest rate or rate of return on investment is $r_t$. Total factor productivity is $z_t$, which follows an AR(1) process given in {eq}`EqGMM_Exc_BM72_z`. The rest of the symbols in the equations are parameters that must be estimated or must be otherwise given $(\alpha,\beta,\rho,\mu,\sigma)$. The constraints on these parameters are the following.
+
+```{math}
+    :label: EqGMM_Exc_BM72_cstr
+    \alpha,\beta\in(0,1),\quad \mu,\sigma > 0,\quad \rho\in(-1,1)
+```
+
+Assume that the first observation in the data file variables is $t=1$. Let $k_1$ be the first observation in the data file for the variable $k_t$.
+
+1. Estimate $\alpha$, $\rho$, and $\mu$ by GMM using the unconditional moment conditions that $E[\ve_t]=0$ and $E[\beta r_{t+1}c_t/c_{t+1} - 1]=0$. Assume $\beta=0.99$. Use the $4\times 4$ identity matrix $I(4)$ as your estimator of the optimal weighting matrix. Use the following four moment conditions {eq}`EqGMM_Exc_BM72_Zmom1`, {eq}`EqGMM_Exc_BM72_Zmom2`, {eq}`EqGMM_Exc_BM72_MainMom1`, and {eq}`EqGMM_Exc_BM72_MainMom2` to estimate the four parameters. Report your estimated parameter values $(\hat{\alpha},\hat{\rho},\hat{\mu})$ and the value of your minimized criterion function. The estimation inside each iteration of the minimizer of the GMM objective function is the following.
+    * Given a guess for $(\alpha,\rho,\mu)$ and data $(c_t, k_t, w_t, r_t)$, use {eq}`EqGMM_Exc_BM72_fock` to back out an implied series for $z_t$.
+    * Given $z_t$, parameters $(\alpha,\rho,\mu)$ and data $(c_t, k_t, w_t, r_t)$, calculate four empirical analogues of the moment conditions {eq}`EqGMM_Exc_BM72_Zmom1`, {eq}`EqGMM_Exc_BM72_Zmom2`, {eq}`EqGMM_Exc_BM72_MainMom1`, and {eq}`EqGMM_Exc_BM72_MainMom2`.
+    * Update guesses for parameters $(\alpha,\rho,\mu)$ until minimum criterion value is found.
+
+```{math}
+    :label: EqGMM_Exc_BM72_Zmom1
+    E\Bigl[z_{t+1} - \rho z_t - (1-\rho)\mu\Bigr] = 0
+```
+```{math}
+    :label: EqGMM_Exc_BM72_Zmom2
+    E\biggl[\Bigl(z_{t+1} - \rho z_t - (1-\rho)\mu\Bigr)z_t\biggr] = 0
+```
+```{math}
+    :label: EqGMM_Exc_BM72_MainMom1
+    E\left[\beta\alpha e^{z_{t+1}}k_{t+1}^{\alpha-1}\frac{c_t}{c_{t+1}} - 1\right] = 0
+```
+```{math}
+    :label: EqGMM_Exc_BM72_MainMom2
+    E\left[\left(\beta\alpha e^{z_{t+1}}k_{t+1}^{\alpha-1}\frac{c_t}{c_{t+1}} - 1\right)w_t\right] = 0
+```
+
+2. Compute the two-step GMM estimator of $(\alpha,\rho,\mu)$ and use the finite difference Jacobian method for the estimator of the variance-covariance of the two-step GMM point estimates $(\hat{\alpha}_{GMM}, \hat{\rho}_{GMM}, \hat{\mu}_{GMM})$. Report the GMM two-step estimates for the parameters and their standard errors.
 ```{exercise-end}
 ```
 
